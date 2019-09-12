@@ -1,0 +1,115 @@
+server:
+  port: 9527
+
+spring:
+  application:
+    name: pret-user
+  datasource:
+    dynamic:
+      # 是否开启 SQL日志输出，生产环境建议关闭，有性能损耗
+      p6spy: true
+      hikari:
+        connection-timeout: 30000
+        max-lifetime: 1800000
+        max-pool-size: 15
+        min-idle: 5
+        connection-test-query: select 1
+        pool-name: FebsHikariCP
+      # 配置默认数据源
+      primary: primary
+      datasource:
+        # 数据源-1，名称为 primary
+        primary:
+          username: root
+          password: jikechengbao@1
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://121.40.72.147:3306/coeus?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+        # 数据源-2，名称为 test
+#        test:
+#          username: root
+#          password: 123456
+#          driver-class-name: com.mysql.cj.jdbc.Driver
+#          url: jdbc:mysql://127.0.0.1:3306/febs_test?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+  cloud:
+    consul:
+      host: 127.0.0.1
+      port: 8500
+      discovery:
+        tags: version=1.0,author=wujinsong
+        healthCheckUrl: http://${spring.cloud.consul.host}:${server.port}/actuator/health
+        healthCheckInterval: 10s
+        instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+        health-check-critical-timeout: 600s
+  aop:
+    proxy-target-class: true
+
+  messages:
+    encoding: utf-8
+
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+  redis:
+    host: 118.31.61.162
+    port: 6379
+    password: xpx2017
+    jedis:
+      pool:
+        min-idle: 8
+        max-idle: 500
+        max-active: 2000
+        max-wait: 10000
+    timeout: 0
+
+ribbon:
+  eureka:
+    enabled: true
+  ReadTimeout: 600000
+  ConnectTimeout: 600000
+  MaxAutoRetries: 0
+  MaxAutoRetriesNextServer: 1
+  OkToRetryOnAllOperations: false
+
+hystrix:
+  threadpool:
+    default:
+      coreSize: 500
+      maxQueueSize: 500
+      queueSizeRejectionThreshold: 500
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: false
+
+#mybatis plus 设置
+mybatis-plus:
+  type-aliases-package: com.pret.user.system.domain,com.pret.user.job.domain
+  mapper-locations: classpath:mapper/*/*.xml
+  configuration:
+    jdbc-type-for-null: null
+  global-config:
+    # 关闭 mybatis-plus的 banner
+    banner: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: ['httptrace', 'metrics','info','health']
+
+
+febs:
+  # 是否异步记录用户操作日志
+  openAopLog: true
+  # 单次最大批量入库数量
+  max:
+    batch:
+      insert:
+        num: 1000
+  shiro:
+    # 后端免认证接口 url
+    anonUrl: /login,/logout/**,/regist,/user/check/**,/actuator/health/**,/actuator/health
+    # token有效期，单位秒
+    jwtTimeOut: 3600

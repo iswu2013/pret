@@ -1,0 +1,11 @@
+#请求和响应GZIP压缩支持
+feign:
+  compression:
+    request:
+      enabled: true
+      mime-types: text/xml,application/xml,application/json,application/x-www-form-urlencoded
+      min-request-size: 20480
+    response:
+      enabled: true
+  hystrix:
+    enabled: true

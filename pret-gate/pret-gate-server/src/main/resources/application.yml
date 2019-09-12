@@ -1,0 +1,92 @@
+spring:
+  application:
+    name: pert-gate-server
+  thymeleaf:
+    mode: LEGACYHTML5
+    cache: false
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    default-property-inclusion: non_null
+  redis:
+    database: 12
+    host: 118.31.61.162
+    pool:
+      max-active: 20
+    port: 6379
+    password: xpx2017
+    timeout: 20000
+  cloud:
+    consul:
+      host: 127.0.0.1
+      port: 8500
+      discovery:
+        tags: version=1.0,author=wujinsong
+        healthCheckUrl: http://${spring.cloud.consul.host}:${server.port}/actuator/health
+        healthCheckInterval: 5s
+        instanceId: ${spring.application.name}:${vcap.application.instance_id:${spring.application.instance_id:${random.value}}}
+        health-check-critical-timeout: 600s
+
+server:
+  port: 8765
+logging:
+  path: ./logs/
+  level:
+    root: error
+    org:
+      springframework:
+        boot:
+          autoconfigure: ERROR
+
+zuul:
+  host:
+    socket-timeout-millis: 600000
+    connect-timeout-millis: 600000
+  ignored-services: "*"
+  sensitive-headers:
+  prefix: /api #为zuul设置一个公共的前缀
+  ratelimit: # 网关限流
+    key-prefix: gate_rate
+    enabled: true
+    repository: REDIS #REDIS, JPA, IN_MEMORY
+    behind-proxy: true
+    default-policy: #optional - will apply unless specific policy exists
+      limit: 100000
+      refresh-interval: 600 #default value (in seconds)
+      type: #optional
+        - user
+        - origin
+        - url
+  routes:
+    atta:
+      path: /open/**
+      serviceId: pret-open
+    user:
+      path: /user/**
+      serviceId: pret-user
+ribbon:
+  eureka:
+    enabled: true
+  ReadTimeout: 6000000
+  ConnectTimeout: 6000000
+  MaxAutoRetries: 5
+  MaxAutoRetriesNextServer: 5
+  OkToRetryOnAllOperations: false
+
+hystrix:
+  threadpool:
+    default:
+      coreSize: 500
+      maxQueueSize: 500
+      queueSizeRejectionThreshold: 5000
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: false
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
+gate:
+  ignore:
+    startWith: /static,/open,/user
