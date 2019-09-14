@@ -1,10 +1,10 @@
 package com.pret.user.system.controller;
 
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
-import com.pret.user.common.annotation.Log;
+import com.pret.common.annotation.Log;
 import com.pret.user.common.controller.BaseController;
-import com.pret.user.common.domain.router.VueRouter;
-import com.pret.user.common.exception.FebsException;
+import com.pret.common.domain.router.VueRouter;
+import com.pret.common.exception.FebsException;
 import com.pret.user.system.domain.Menu;
 import com.pret.user.system.manager.UserManager;
 import com.pret.user.system.service.MenuService;

@@ -1,9 +1,10 @@
 package com.pret.user.common.utils;
 
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
+import com.pret.common.domain.FebsConstant;
+import com.pret.common.function.CacheSelector;
+import com.pret.common.utils.EncryptUtil;
 import com.pret.user.common.authentication.JWTUtil;
-import com.pret.user.common.domain.FebsConstant;
-import com.pret.user.common.function.CacheSelector;
 import com.pret.user.common.service.CacheService;
 import com.pret.user.system.domain.User;
 import com.pret.user.system.service.UserService;

@@ -1,8 +1,8 @@
 package com.pret.user.common.task;
 
-import com.pret.user.common.domain.FebsConstant;
+import com.pret.common.domain.FebsConstant;
+import com.pret.common.utils.DateUtil;
 import com.pret.user.common.service.RedisService;
-import com.pret.user.common.utils.DateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;

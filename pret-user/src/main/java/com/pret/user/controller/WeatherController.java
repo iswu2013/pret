@@ -1,9 +1,9 @@
 package com.pret.user.controller;
 
-import com.pret.user.common.domain.FebsConstant;
-import com.pret.user.common.domain.FebsResponse;
-import com.pret.user.common.exception.FebsException;
-import com.pret.user.common.utils.HttpUtil;
+import com.pret.common.domain.FebsConstant;
+import com.pret.common.domain.FebsResponse;
+import com.pret.common.exception.FebsException;
+import com.pret.common.utils.HttpUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.validation.annotation.Validated;

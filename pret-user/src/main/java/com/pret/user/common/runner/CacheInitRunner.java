@@ -1,6 +1,6 @@
 package com.pret.user.common.runner;
 
-import com.pret.user.common.exception.RedisConnectException;
+import com.pret.common.exception.RedisConnectException;
 import com.pret.user.common.service.CacheService;
 import com.pret.user.system.domain.User;
 import com.pret.user.system.manager.UserManager;

@@ -1,8 +1,8 @@
 package com.pret.user.common.service.impl;
 
-import com.pret.user.common.domain.RedisInfo;
-import com.pret.user.common.exception.RedisConnectException;
-import com.pret.user.common.function.JedisExecutor;
+import com.pret.common.domain.RedisInfo;
+import com.pret.common.exception.RedisConnectException;
+import com.pret.common.function.JedisExecutor;
 import com.pret.user.common.service.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

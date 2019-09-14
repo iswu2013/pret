@@ -1,9 +1,9 @@
 package com.pret.user.system.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.pret.common.utils.HttpContextUtil;
+import com.pret.common.utils.IPUtil;
 import com.pret.user.common.utils.AddressUtil;
-import com.pret.user.common.utils.HttpContextUtil;
-import com.pret.user.common.utils.IPUtil;
 import com.pret.user.system.dao.LoginLogMapper;
 import com.pret.user.system.domain.LoginLog;
 import com.pret.user.system.service.LoginLogService;

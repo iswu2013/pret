@@ -1,6 +1,6 @@
-package com.pret.user.common.validator;
+package com.pret.common.validator;
 
-import com.pret.user.common.annotation.IsCron;
+import com.pret.common.annotation.IsCron;
 import org.quartz.CronExpression;
 
 import javax.validation.ConstraintValidator;

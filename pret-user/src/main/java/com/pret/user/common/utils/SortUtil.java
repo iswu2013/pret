@@ -2,8 +2,8 @@ package com.pret.user.common.utils;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.pret.user.common.domain.FebsConstant;
-import com.pret.user.common.domain.QueryRequest;
+import com.pret.common.domain.FebsConstant;
+import com.pret.common.domain.QueryRequest;
 import org.apache.commons.lang3.StringUtils;
 
 /**

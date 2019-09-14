@@ -2,9 +2,9 @@ package com.pret.user.system.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.pret.user.common.domain.FebsConstant;
-import com.pret.user.common.domain.Tree;
-import com.pret.user.common.utils.TreeUtil;
+import com.pret.common.domain.FebsConstant;
+import com.pret.common.domain.Tree;
+import com.pret.common.utils.TreeUtil;
 import com.pret.user.system.dao.MenuMapper;
 import com.pret.user.system.domain.Menu;
 import com.pret.user.system.manager.UserManager;

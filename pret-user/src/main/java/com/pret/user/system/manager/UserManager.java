@@ -1,10 +1,10 @@
 package com.pret.user.system.manager;
 
-import com.pret.user.common.domain.router.RouterMeta;
-import com.pret.user.common.domain.router.VueRouter;
+import com.pret.common.domain.router.RouterMeta;
+import com.pret.common.domain.router.VueRouter;
 import com.pret.user.common.service.CacheService;
+import com.pret.common.utils.TreeUtil;
 import com.pret.user.common.utils.FebsUtil;
-import com.pret.user.common.utils.TreeUtil;
 import com.pret.user.system.domain.Menu;
 import com.pret.user.system.domain.Role;
 import com.pret.user.system.domain.User;

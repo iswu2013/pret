@@ -1,7 +1,7 @@
 package com.pret.user.common.config;
 
-import com.pret.user.common.utils.DateUtil;
 import com.p6spy.engine.spy.appender.MessageFormattingStrategy;
+import com.pret.common.utils.DateUtil;
 import org.apache.commons.lang3.StringUtils;
 
 import java.time.LocalDateTime;

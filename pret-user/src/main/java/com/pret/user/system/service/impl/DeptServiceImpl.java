@@ -2,11 +2,11 @@ package com.pret.user.system.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.pret.user.common.domain.FebsConstant;
-import com.pret.user.common.domain.QueryRequest;
-import com.pret.user.common.domain.Tree;
+import com.pret.common.domain.FebsConstant;
+import com.pret.common.domain.QueryRequest;
+import com.pret.common.domain.Tree;
+import com.pret.common.utils.TreeUtil;
 import com.pret.user.common.utils.SortUtil;
-import com.pret.user.common.utils.TreeUtil;
 import com.pret.user.system.dao.DeptMapper;
 import com.pret.user.system.domain.Dept;
 import com.pret.user.system.service.DeptService;

@@ -1,10 +1,10 @@
 package com.pret.user.common.authentication;
 
-import com.pret.user.common.domain.FebsConstant;
+import com.pret.common.domain.FebsConstant;
+import com.pret.common.utils.HttpContextUtil;
+import com.pret.common.utils.IPUtil;
 import com.pret.user.common.service.RedisService;
 import com.pret.user.common.utils.FebsUtil;
-import com.pret.user.common.utils.HttpContextUtil;
-import com.pret.user.common.utils.IPUtil;
 import com.pret.user.system.domain.User;
 import com.pret.user.system.manager.UserManager;
 import org.apache.commons.lang3.StringUtils;

@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.pret.user.common.domain.QueryRequest;
+import com.pret.common.domain.QueryRequest;
 import com.pret.user.common.utils.SortUtil;
 import com.pret.user.system.dao.DictMapper;
 import com.pret.user.system.domain.Dict;

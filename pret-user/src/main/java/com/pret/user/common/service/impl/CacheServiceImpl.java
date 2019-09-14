@@ -2,7 +2,7 @@ package com.pret.user.common.service.impl;
 
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.pret.user.common.domain.FebsConstant;
+import com.pret.common.domain.FebsConstant;
 import com.pret.user.common.service.CacheService;
 import com.pret.user.common.service.RedisService;
 import com.pret.user.system.dao.UserMapper;

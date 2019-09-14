@@ -2,8 +2,8 @@ package com.pret.user.job.controller;
 
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.pret.user.common.controller.BaseController;
-import com.pret.user.common.domain.QueryRequest;
-import com.pret.user.common.exception.FebsException;
+import com.pret.common.domain.QueryRequest;
+import com.pret.common.exception.FebsException;
 import com.pret.user.job.domain.JobLog;
 import com.pret.user.job.service.JobLogService;
 import com.wuwenze.poi.ExcelKit;

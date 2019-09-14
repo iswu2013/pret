@@ -1,4 +1,4 @@
-package com.pret.user.common.utils;
+package com.pret.common.utils;
 
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;

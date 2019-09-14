@@ -2,10 +2,10 @@ package com.pret.user.common.aspect;
 
 import com.pret.user.common.authentication.JWTUtil;
 import com.pret.user.common.properties.FebsProperties;
-import com.pret.user.common.utils.HttpContextUtil;
-import com.pret.user.common.utils.IPUtil;
 import com.pret.user.system.domain.SysLog;
 import com.pret.user.system.service.LogService;
+import com.pret.common.utils.HttpContextUtil;
+import com.pret.common.utils.IPUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
@@ -35,7 +35,7 @@ public class LogAspect {
     @Autowired
     private LogService logService;
 
-    @Pointcut("@annotation(com.pret.user.common.annotation.Log)")
+    @Pointcut("@annotation(com.pret.common.annotation.Log)")
     public void pointcut() {
         // do nothing
     }

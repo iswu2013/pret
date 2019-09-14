@@ -1,7 +1,7 @@
 package com.pret.user.system.controller;
 
-import com.pret.user.common.domain.FebsResponse;
-import com.pret.user.common.domain.RedisInfo;
+import com.pret.common.domain.FebsResponse;
+import com.pret.common.domain.RedisInfo;
 import com.pret.user.common.service.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

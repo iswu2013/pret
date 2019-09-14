@@ -1,7 +1,7 @@
 package com.pret.user.common.service;
 
-import com.pret.user.common.domain.RedisInfo;
-import com.pret.user.common.exception.RedisConnectException;
+import com.pret.common.domain.RedisInfo;
+import com.pret.common.exception.RedisConnectException;
 
 import java.util.List;
 import java.util.Map;
