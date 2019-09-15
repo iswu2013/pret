@@ -1,7 +1,7 @@
 package com.pret.api.vo;
 
-import com.pret.api.handler.JopHandler;
 import com.pret.api.info.UserInfo;
+import com.pret.api.handler.JopHandler;
 import com.pret.common.constant.ConstantEnum;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;

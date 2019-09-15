@@ -2,9 +2,10 @@ package com.pret.user.system.manager;
 
 import com.pret.common.domain.router.RouterMeta;
 import com.pret.common.domain.router.VueRouter;
-import com.pret.user.common.service.CacheService;
 import com.pret.common.utils.TreeUtil;
+import com.pret.user.common.service.CacheService;
 import com.pret.user.common.utils.FebsUtil;
+import com.pret.user.system.service.UserService;
 import com.pret.user.system.domain.Menu;
 import com.pret.user.system.domain.Role;
 import com.pret.user.system.domain.User;
@@ -12,7 +13,6 @@ import com.pret.user.system.domain.UserConfig;
 import com.pret.user.system.service.MenuService;
 import com.pret.user.system.service.RoleService;
 import com.pret.user.system.service.UserConfigService;
-import com.pret.user.system.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

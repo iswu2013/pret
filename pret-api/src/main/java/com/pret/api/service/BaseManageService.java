@@ -34,6 +34,12 @@ public interface BaseManageService<T, D> {
     void delete(String id);
 
     /**
+     * 根据ids删除
+     * @param ids
+     */
+    void deleteByIds(String ids);
+
+    /**
      * 逻辑删除
      *
      * @param id

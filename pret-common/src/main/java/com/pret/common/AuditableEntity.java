@@ -40,6 +40,10 @@ public class AuditableEntity implements Serializable {
     @LastModifiedDate
     private Date lastModifiedDate;// 最后修改时间
 
+    /**
+     * 状态
+     */
+    private int s =1;
 
     @Column(nullable = true, columnDefinition = "bigint(20) DEFAULT 0")
     public long getCreateTimeLong() {
@@ -152,6 +156,14 @@ public class AuditableEntity implements Serializable {
         hashCode += null == id ? 0 : id.hashCode() * 31;
 
         return hashCode;
+    }
+
+    public int getS() {
+        return s;
+    }
+
+    public void setS(int s) {
+        this.s = s;
     }
 
     @Version

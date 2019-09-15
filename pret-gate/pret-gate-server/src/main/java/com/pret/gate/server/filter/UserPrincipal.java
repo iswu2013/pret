@@ -1,6 +1,6 @@
 package com.pret.gate.server.filter;
 
-import com.pret.gate.ratelimit.config.IUserPrincipal;
+import com.pret.open.gate.ratelimit.config.IUserPrincipal;
 
 import javax.servlet.http.HttpServletRequest;
 

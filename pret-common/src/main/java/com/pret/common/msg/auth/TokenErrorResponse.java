@@ -1,8 +1,8 @@
 package com.pret.common.msg.auth;
 
 
-import com.pret.common.msg.BaseResponse;
 import com.pret.common.constant.RestCodeConstants;
+import com.pret.common.msg.BaseResponse;
 
 /**
  *

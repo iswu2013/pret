@@ -1,8 +1,8 @@
 package com.pret.gate.server;
 
-import com.pret.gate.ratelimit.EnablePertGateRateLimit;
-import com.pret.gate.ratelimit.config.IUserPrincipal;
 import com.pret.gate.server.filter.UserPrincipal;
+import com.pret.open.gate.ratelimit.EnablePertGateRateLimit;
+import com.pret.open.gate.ratelimit.config.IUserPrincipal;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;

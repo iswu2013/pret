@@ -2,16 +2,16 @@ package com.pret.api.rest;
 
 import com.pret.api.service.BaseManageService;
 import com.pret.common.VersionedAuditableIdEntity;
-import com.pret.common.constant.ConstantEnum;
-import com.pret.common.context.BaseContextHandler;
-import com.pret.common.msg.ObjectRestResponse;
-import com.pret.common.msg.TableResultResponse;
+import com.pret.common.annotation.Log;
+import com.pret.common.exception.FebsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.Optional;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 基础Controller
@@ -20,104 +20,63 @@ import java.util.Optional;
  * @param <T>
  */
 public class BaseManageController<Service extends BaseManageService, T extends VersionedAuditableIdEntity, D> {
-    @Autowired
-    private HttpServletRequest request;
+    private String message;
+
     @Autowired
     protected Service service;
 
-    /**
-     * 增加或保存
-     *
-     * @param t
-     * @return
-     */
-    @RequestMapping(value = "", method = RequestMethod.POST)
-    @ResponseBody
-    public ObjectRestResponse<T> add(@RequestBody T t) {
-        service.save(t);
+    @GetMapping
+    public Map<String, Object> list(D request, T t) {
+        Page<T> page = this.service.page(request);
+        Map<String, Object> rspData = new HashMap<>();
+        rspData.put("rows", page.getContent());
+        rspData.put("total", page.getTotalElements());
 
-        return new ObjectRestResponse<T>();
+        return rspData;
     }
 
-    /**
-     * 根据Id查找
-     *
-     * @param id
-     * @return
-     */
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    @ResponseBody
-    public ObjectRestResponse<T> get(@PathVariable String id) {
-        ObjectRestResponse<T> res = new ObjectRestResponse<>();
-
-        Optional<T> t = service.findById(id);
-        res.data(t.get());
-
-        return res;
+    @Log("新增")
+    @PostMapping
+    public void add(@Valid T t) throws FebsException {
+        try {
+            this.service.save(t);
+        } catch (Exception e) {
+            message = "新增失败";
+            throw new FebsException(message);
+        }
     }
 
-    /**
-     * 保存
-     *
-     * @param entity
-     * @return
-     */
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    @ResponseBody
-    public ObjectRestResponse<T> update(@RequestBody T entity) {
-//        Optional<T> t = this.service.findById(entity.getId());
-//        BeanUtilsExtended.copyProperties(t.get(), entity);
-//        service.save(t.get());
-//        return new ObjectRestResponse<T>();
-
-        return null;
+    @Log("删除")
+    @DeleteMapping("/{ids}")
+    public void deleteByIds(@NotBlank(message = "{required}") @PathVariable String ids) throws FebsException {
+        try {
+            this.service.deleteByIds(ids);
+        } catch (Exception e) {
+            message = "删除失败";
+            throw new FebsException(message);
+        }
     }
 
-    /**
-     * 删除
-     *
-     * @param id
-     * @return
-     */
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    @ResponseBody
-    public ObjectRestResponse<T> delete(@PathVariable String id) {
-        service.lDelete(id);
-
-        return new ObjectRestResponse<T>();
+    @Log("修改")
+    @PutMapping
+    public void updateDept(@Valid T t) throws FebsException {
+        try {
+            this.service.save(t);
+        } catch (Exception e) {
+            message = "修改失败";
+            throw new FebsException(message);
+        }
     }
 
-    /**
-     * 查找全部
-     *
-     * @return
-     */
-    @RequestMapping(value = "/all", method = RequestMethod.GET)
-    @ResponseBody
-    public Iterable<T> all() {
-        return service.findByS(ConstantEnum.S.N.name());
-    }
-
-    /**
-     * 分页查询
-     *
-     * @param vo
-     * @return
-     */
-    @RequestMapping(value = "/page", method = RequestMethod.GET)
-    @ResponseBody
-    public TableResultResponse<T> page(D vo) {
-        Page<T> page = service.page(vo);
-
-        return new TableResultResponse<>(page.getTotalElements(), page.getContent());
-    }
-
-    /**
-     * 获取当前登录用户
-     *
-     * @return
-     */
-    public String getCurrentUserName() {
-        return BaseContextHandler.getUsername();
-    }
+//    @PostMapping("excel")
+//    public void export(T dept, QueryRequest request, HttpServletResponse response) throws FebsException {
+//        try {
+//            List<T> depts = this.service.page(dept, request);
+//            ExcelKit.$Export(T.class, response).downXlsx(depts, false);
+//        } catch (Exception e) {
+//            message = "导出Excel失败";
+//            log.error(message, e);
+//            throw new FebsException(message);
+//        }
+//    }
 }

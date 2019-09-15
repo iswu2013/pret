@@ -1,8 +1,8 @@
 package com.pret.api.service.impl;
 
+import com.pret.api.vo.PageFormVo;
 import com.pret.api.filter.BaseContext;
 import com.pret.api.service.BaseManageService;
-import com.pret.api.vo.PageFormVo;
 import com.pret.common.VersionedAuditableIdEntity;
 import com.pret.common.constant.CommonConstants;
 import com.pret.common.constant.ConstantEnum;
@@ -51,6 +51,16 @@ public abstract class BaseServiceImpl<M extends BaseRepository<T>, T extends Ver
     public void delete(String id) {
         Optional<T> t = this.findById(id);
         repository.delete(t.get());
+    }
+
+    @Override
+    public void deleteByIds(String ids) {
+        String[] idArr = ids.split(",");
+        for(String id:idArr) {
+            Optional<T> t = this.findById(id);
+            t.get().setS(0);
+            repository.save(t.get());
+        }
     }
 
     @Override

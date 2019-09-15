@@ -14,7 +14,7 @@ public class BaseContext {
     @Autowired
     private DiscoveryClient discoveryClient;
     // 不需要登录的接口
-    protected IUserService userService;
+    protected IUserService iUserService;
 
     @Autowired
     private LoadBalancerClient loadBalancer;
@@ -27,11 +27,11 @@ public class BaseContext {
             * @Author: jswul
             * @Date: 2019/6/20  23:49
      */
-    public IUserService getUserService() {
-        this.userService = Feign.builder().encoder(new JacksonEncoder())
+    public IUserService getiUserService() {
+        this.iUserService = Feign.builder().encoder(new JacksonEncoder())
                 .decoder(new JacksonDecoder())
-                .target(IUserService.class, loadBalancer.choose("pret-open").getUri().toString());
+                .target(IUserService.class, loadBalancer.choose("pret-user").getUri().toString());
 
-        return this.userService;
+        return this.iUserService;
     }
 }

@@ -1,8 +1,8 @@
 package com.pret.common.exception.auth;
 
 
-import com.pret.common.exception.BaseException;
 import com.pret.common.constant.CommonConstants;
+import com.pret.common.exception.BaseException;
 
 /**
  *
