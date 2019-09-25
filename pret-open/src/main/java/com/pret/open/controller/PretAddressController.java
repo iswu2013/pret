@@ -10,6 +10,9 @@ import com.pret.open.entity.PretAddress;
 import com.pret.open.entity.vo.PretAddressVo;
 import com.pret.open.service.PretAddressService;
 
+/**
+ * 地址管理
+ */
 @Slf4j
 @Validated
 @RestController

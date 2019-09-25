@@ -190,7 +190,7 @@
 	</repositories>
 
 	<build>
-		<finalName>pret-open</finalName>
+		<finalName>pret-user</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
