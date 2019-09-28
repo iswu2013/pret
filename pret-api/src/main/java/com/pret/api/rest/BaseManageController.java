@@ -26,7 +26,7 @@ public class BaseManageController<Service extends BaseManageService, T extends V
     protected Service service;
 
     @GetMapping
-    public Map<String, Object> list(@RequestBody D request, T t) {
+    public Map<String, Object> list(D request, T t) {
         Page<T> page = this.service.page(request);
         Map<String, Object> rspData = new HashMap<>();
         rspData.put("rows", page.getContent());
