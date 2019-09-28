@@ -65,9 +65,6 @@ public enum BEEnum {
     private String emsg;
 
     public String getMsg(String lang) {
-        if (lang.equals(ConstantEnum.ELangType.cn.name())) {
-            return msg;
-        }
-        return emsg;
+        return msg;
     }
 }

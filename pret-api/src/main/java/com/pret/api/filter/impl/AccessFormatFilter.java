@@ -7,10 +7,7 @@ import com.pret.api.feign.IUserService;
 import com.pret.api.filter.BaseContext;
 import com.pret.api.filter.JopFilter;
 import com.pret.api.filter.JopFilterChain;
-import com.pret.api.info.EnvInfo;
 import com.pret.api.session.UserContext;
-import com.pret.common.constant.BEEnum;
-import com.pret.common.constant.ConstantEnum;
 import com.pret.common.constant.Constants;
 import com.pret.common.exception.BusinessException;
 import com.pret.common.util.BeanUtilsExtended;
@@ -110,17 +107,8 @@ public class AccessFormatFilter extends BaseContext implements JopFilter {
                 UserInfo userInfo = new UserInfo();
                 userInfo.setUtoken(token);
                 user = userService.findByToken(userInfo);
-                if(user != null && user.getStatus() != ConstantEnum.EUserStatus.正常.getValue()) {
-                    throw new BusinessException(BEEnum.E90000011.name(), BEEnum.E90000011.getMsg(newBody.getLang()));
-                }
             }
 
-            // 加入线程属性
-            EnvInfo envInfo = new EnvInfo();
-            //envInfo.setUserInfo(user);
-            envInfo.setLang(newBody.getLang());
-            newBody.setUserInfo(user);
-            UserContext.set(envInfo);
             if (!requestBody.isIgnoreToken()) {
                 if (StringUtils.isEmpty(token)) {
                     throw new BusinessException(Constants.BUSI_ERROR_000011, Constants.S_BUSI_ERROR_000011);

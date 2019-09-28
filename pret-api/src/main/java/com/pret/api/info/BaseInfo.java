@@ -9,8 +9,6 @@ public class BaseInfo {
 
     private boolean judge;
 
-    private String lang = ConstantEnum.ELangType.en.name();
-
     private Object ret;
 
     public String getCode() {
@@ -35,14 +33,6 @@ public class BaseInfo {
 
     public void setJudge(boolean judge) {
         this.judge = judge;
-    }
-
-    public String getLang() {
-        return lang;
-    }
-
-    public void setLang(String lang) {
-        this.lang = lang;
     }
 
     public Object getRet() {

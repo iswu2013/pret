@@ -62,10 +62,7 @@ public enum UserBEEnum {
 
     private String emsg;
 
-    public String getMsg(String lang) {
-        if (lang.equals(ConstantEnum.ELangType.cn.name())) {
+    public String getMsg() {
             return msg;
-        }
-        return emsg;
     }
 }

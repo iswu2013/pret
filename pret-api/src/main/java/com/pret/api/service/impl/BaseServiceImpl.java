@@ -116,7 +116,7 @@ public abstract class BaseServiceImpl<M extends BaseRepository<T>, T extends Ver
             @Override
             public Predicate toPredicate(Root<T> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder cb) {
                 List<Predicate> list = new ArrayList<>();
-           /*     list.add(cb.equal(root.<String>get("s"), ConstantEnum.S.N.name()));*/
+                list.add(cb.equal(root.<Integer>get("s"), 1));
                 Field[] fields = vo.getClass().getDeclaredFields();
                 for (Field field : fields) {
                     if (field.getName().contains(CommonConstants.QUERY_MARKER)) {

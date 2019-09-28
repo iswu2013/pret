@@ -21,14 +21,12 @@ public class SignFilter implements JopFilter {
     @Override
     public synchronized void doFilter(ReqBody requestBody, HttpServletRequest httpServletRequest, JopFilterChain appFilterChain) {
         try {
-            if(requestBody.getClientType() != ConstantEnum.EClientType.Web.getValue()) {
-                if (StringUtils.isEmpty(requestBody.getEnv()) || !requestBody.getEnv().equals("test")) {
-                    Map<String, Object> paramters = MapUtil.changeGetParameterMap(httpServletRequest);
-                    String sign = CommonUtil.getSequenceString(paramters, Constants.APP_KEY, Constants.APP_SECRET);
-                    if (!requestBody.getSign().equals(sign)) {
-                        String key = Constants.BUSI_ERROR_000010;
-                        throw new BusinessException(key, Constants.S_BUSI_ERROR_000010);
-                    }
+            if (StringUtils.isEmpty(requestBody.getEnv()) || !requestBody.getEnv().equals("test")) {
+                Map<String, Object> paramters = MapUtil.changeGetParameterMap(httpServletRequest);
+                String sign = CommonUtil.getSequenceString(paramters, Constants.APP_KEY, Constants.APP_SECRET);
+                if (!requestBody.getSign().equals(sign)) {
+                    String key = Constants.BUSI_ERROR_000010;
+                    throw new BusinessException(key, Constants.S_BUSI_ERROR_000010);
                 }
             }
         } catch (Exception e) {

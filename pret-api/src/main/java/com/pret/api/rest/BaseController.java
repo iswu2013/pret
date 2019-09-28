@@ -80,7 +80,6 @@ public class BaseController {
         LOGGER.error("调用接口失败", e);
         ErrorResponseBody responseBody = ErrorResponseBody.createErrorResponseBody(Constants.SYSTEM_ERROR,
                 Constants.S_SYSTEM_ERROR);
-        UserContext.remove();
         return responseBody;
     }
 }

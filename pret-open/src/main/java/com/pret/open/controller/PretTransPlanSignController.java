@@ -2,6 +2,7 @@ package com.pret.open.controller;
 
 import com.pret.api.rest.BaseManageController;
 import com.pret.common.annotation.Log;
+import com.pret.common.constant.ConstantEnum;
 import com.pret.common.exception.FebsException;
 import com.pret.open.entity.PretTransPlan;
 import com.pret.open.entity.vo.PretTransPlanVo;
@@ -24,8 +25,8 @@ public class PretTransPlanSignController extends BaseManageController<PretTransP
     @PostMapping
     public void add(@Valid PretTransPlan entity) throws FebsException {
         try {
-            entity.setStatus();
-            this.service.save(t);
+            entity.setStatus(ConstantEnum.ETransPlanStatus.已签收.getValue());
+            this.service.save(entity);
         } catch (Exception e) {
             message = "新增失败";
             throw new FebsException(message);

@@ -63,8 +63,6 @@ public class ReqBody<H extends JopHandler> implements Serializable {
 
     private String viewId;
 
-    private int clientType = ConstantEnum.EClientType.App.getValue();
-
     /**
      * 语言
      */
@@ -216,14 +214,6 @@ public class ReqBody<H extends JopHandler> implements Serializable {
 
     public void setViewId(String viewId) {
         this.viewId = viewId;
-    }
-
-    public int getClientType() {
-        return clientType;
-    }
-
-    public void setClientType(int clientType) {
-        this.clientType = clientType;
     }
 
     public String getLang() {

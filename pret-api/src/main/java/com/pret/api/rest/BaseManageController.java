@@ -20,13 +20,13 @@ import java.util.Map;
  * @param <T>
  */
 public class BaseManageController<Service extends BaseManageService, T extends VersionedAuditableIdEntity, D> {
-    private String message;
+    public String message;
 
     @Autowired
     protected Service service;
 
     @GetMapping
-    public Map<String, Object> list(D request, T t) {
+    public Map<String, Object> list(@RequestBody D request, T t) {
         Page<T> page = this.service.page(request);
         Map<String, Object> rspData = new HashMap<>();
         rspData.put("rows", page.getContent());
@@ -37,7 +37,7 @@ public class BaseManageController<Service extends BaseManageService, T extends V
 
     @Log("新增")
     @PostMapping
-    public void add(@Valid T t) throws FebsException {
+    public void add(@Valid @RequestBody T t) throws FebsException {
         try {
             this.service.save(t);
         } catch (Exception e) {
@@ -48,7 +48,7 @@ public class BaseManageController<Service extends BaseManageService, T extends V
 
     @Log("删除")
     @DeleteMapping("/{ids}")
-    public void deleteByIds(@NotBlank(message = "{required}") @PathVariable String ids) throws FebsException {
+    public void deleteByIds(@PathVariable String ids) throws FebsException {
         try {
             this.service.deleteByIds(ids);
         } catch (Exception e) {
@@ -59,7 +59,7 @@ public class BaseManageController<Service extends BaseManageService, T extends V
 
     @Log("修改")
     @PutMapping
-    public void updateDept(@Valid T t) throws FebsException {
+    public void updateDept(@Valid @RequestBody T t) throws FebsException {
         try {
             this.service.save(t);
         } catch (Exception e) {
