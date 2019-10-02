@@ -11,4 +11,13 @@ import com.pret.open.entity.PretPickUpPlan;
  * Copyright (c) 2019年 极客城堡
  */
 public interface PretPickUpPlanRepository extends BaseRepository<PretPickUpPlan>{
+    /* *
+     * 功能描述: 查找最近的计划
+     * 〈〉
+     * @Param: [time, time1]
+            * @Return: com.pret.open.entity.PretPickUpPlan
+            * @Author: wujingsong
+            * @Date: 2019/10/2  8:46 下午
+     */
+    PretPickUpPlan findTop1ByCreateTimeLongBetweenOrderByCreateTimeLongDesc(long time, long time1);
 }

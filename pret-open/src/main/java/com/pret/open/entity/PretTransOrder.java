@@ -84,6 +84,36 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
      */
     private String customerLinkPhone;
 
+    /**
+     * 商品id
+     */
+    private String goodsId;
+    /**
+     * 提货计划id
+     */
+    private String pickUpPlanId;
+    /**
+     * 运输计划id
+     */
+    private String transPlanId;
+    /**
+     * 商品数量
+     */
+    private Integer count;
+    /**
+     * 商品重量/体积
+     */
+    private String cb;
+
+    @Transient()
+    private PretVender pretVender;
+
+    @Transient()
+    private PretGoods pretGoods;
+
+    @Transient()
+    private PretCustomer pretCustomer;
+
     // setter and getter
 
     /**
@@ -336,5 +366,69 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
      */
     public void setCustomerLinkPhone(String customerLinkPhone) {
         this.customerLinkPhone = customerLinkPhone;
+    }
+
+    public String getGoodsId() {
+        return goodsId;
+    }
+
+    public void setGoodsId(String goodsId) {
+        this.goodsId = goodsId;
+    }
+
+    public String getPickUpPlanId() {
+        return pickUpPlanId;
+    }
+
+    public void setPickUpPlanId(String pickUpPlanId) {
+        this.pickUpPlanId = pickUpPlanId;
+    }
+
+    public String getTransPlanId() {
+        return transPlanId;
+    }
+
+    public void setTransPlanId(String transPlanId) {
+        this.transPlanId = transPlanId;
+    }
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
+    }
+
+    public String getCb() {
+        return cb;
+    }
+
+    public void setCb(String cb) {
+        this.cb = cb;
+    }
+
+    public PretVender getPretVender() {
+        return pretVender;
+    }
+
+    public void setPretVender(PretVender pretVender) {
+        this.pretVender = pretVender;
+    }
+
+    public PretGoods getPretGoods() {
+        return pretGoods;
+    }
+
+    public void setPretGoods(PretGoods pretGoods) {
+        this.pretGoods = pretGoods;
+    }
+
+    public PretCustomer getPretCustomer() {
+        return pretCustomer;
+    }
+
+    public void setPretCustomer(PretCustomer pretCustomer) {
+        this.pretCustomer = pretCustomer;
     }
 }

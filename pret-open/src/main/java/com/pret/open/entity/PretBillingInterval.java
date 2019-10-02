@@ -48,6 +48,12 @@ public class PretBillingInterval extends VersionedAuditableIdEntity implements S
      */
     private String serviceRouteId;
 
+    @Transient()
+    private PretVender pretVender;
+
+    @Transient()
+    private PretServiceRoute pretServiceRoute;
+
     // setter and getter
 
     /**
@@ -111,5 +117,21 @@ public class PretBillingInterval extends VersionedAuditableIdEntity implements S
      */
     public void setServiceRouteId(String serviceRouteId) {
         this.serviceRouteId = serviceRouteId;
+    }
+
+    public PretVender getPretVender() {
+        return pretVender;
+    }
+
+    public void setPretVender(PretVender pretVender) {
+        this.pretVender = pretVender;
+    }
+
+    public PretServiceRoute getPretServiceRoute() {
+        return pretServiceRoute;
+    }
+
+    public void setPretServiceRoute(PretServiceRoute pretServiceRoute) {
+        this.pretServiceRoute = pretServiceRoute;
     }
 }

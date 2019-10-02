@@ -377,4 +377,26 @@ public class ConstantEnum {
             this.value = value;
         }
     }
+
+    public enum NoTypeEnum {
+        /**
+         * 提货计划
+         */
+        TH(0);
+        private int label;
+
+        private NoTypeEnum(int label) {
+            this.setLabel(label);
+        }
+
+        //省略getter、setter方法
+
+        public int getLabel() {
+            return label;
+        }
+
+        public void setLabel(int label) {
+            this.label = label;
+        }
+    }
 }

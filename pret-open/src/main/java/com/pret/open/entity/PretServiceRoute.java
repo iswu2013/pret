@@ -36,6 +36,11 @@ public class PretServiceRoute extends VersionedAuditableIdEntity implements Seri
     }
 
     /**
+     * 线路名称
+     */
+    private String name;
+
+    /**
      * 供应商id
      */
     private String venderId;
@@ -48,7 +53,25 @@ public class PretServiceRoute extends VersionedAuditableIdEntity implements Seri
      */
     private String billingIntervalId;
 
+    @Transient()
+    private PretVender pretVender;
+
+    @Transient
+    private PretServiceRouteOrgin pretServiceRouteOrgin;
+
+    @Transient
+    private PretBillingInterval pretBillingInterval;
+
     // setter and getter
+
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     /**
      * <p>Discription:[供应商id]</p>
@@ -111,5 +134,29 @@ public class PretServiceRoute extends VersionedAuditableIdEntity implements Seri
      */
     public void setBillingIntervalId(String billingIntervalId) {
         this.billingIntervalId = billingIntervalId;
+    }
+
+    public PretVender getPretVender() {
+        return pretVender;
+    }
+
+    public void setPretVender(PretVender pretVender) {
+        this.pretVender = pretVender;
+    }
+
+    public PretServiceRouteOrgin getPretServiceRouteOrgin() {
+        return pretServiceRouteOrgin;
+    }
+
+    public void setPretServiceRouteOrgin(PretServiceRouteOrgin pretServiceRouteOrgin) {
+        this.pretServiceRouteOrgin = pretServiceRouteOrgin;
+    }
+
+    public PretBillingInterval getPretBillingInterval() {
+        return pretBillingInterval;
+    }
+
+    public void setPretBillingInterval(PretBillingInterval pretBillingInterval) {
+        this.pretBillingInterval = pretBillingInterval;
     }
 }
