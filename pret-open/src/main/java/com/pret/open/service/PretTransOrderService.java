@@ -104,4 +104,17 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
       Page<PretTransOrder> page = this.page(vo);
       return new ResBody().setData(page.getContent());
      }
+
+    public void genPickUpPlan(PretPickUpPlanBo bo) {
+        String[] idArr = bo.getIds().split(",");
+        PretPickUpPlan pretPickUpPlan = pretPickUpPlanService.genDefaultPretPickUpPlan(null,null);
+        BeanUtilsExtended.copyProperties(pretPickUpPlan,bo);
+        pretPickUpPlanRepository.save(pretPickUpPlan);
+
+        for(String id:idArr) {
+            PretTransOrder pretTransOrder = this.repository.findById(id).get();
+            pretTransOrder.setPickUpPlanId(pretPickUpPlan.getId());
+            this.repository.save(pretTransOrder);
+        }
+    }
 }
