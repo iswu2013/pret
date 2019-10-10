@@ -25,6 +25,7 @@ HELP.md
 /.nb-gradle/
 /build/
 /logs/
+/log/
 
 ### VS Code ###
 .vscode/
