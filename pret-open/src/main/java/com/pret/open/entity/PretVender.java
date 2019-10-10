@@ -52,6 +52,11 @@ public class PretVender extends VersionedAuditableIdEntity implements Serializab
      */
     private String linkPhone;
 
+    /**
+     * 所属用户id
+     */
+    private Long userId;
+
     // setter and getter
 
     /**
@@ -136,5 +141,13 @@ public class PretVender extends VersionedAuditableIdEntity implements Serializab
      */
     public void setLinkPhone(String linkPhone) {
         this.linkPhone = linkPhone;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }

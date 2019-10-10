@@ -3,6 +3,8 @@ package com.pret.open.repository;
 import com.pret.common.repository.BaseRepository;
 import com.pret.open.entity.PretTransOrder;
 
+import java.util.List;
+
 /** 
  * <p>Description: [pretRepository]</p>
  * Created on 2019年09月15日
@@ -11,4 +13,23 @@ import com.pret.open.entity.PretTransOrder;
  * Copyright (c) 2019年 极客城堡
  */
 public interface PretTransOrderRepository extends BaseRepository<PretTransOrder>{
+    /* *
+     * 功能描述: 根据运输计划查找
+     * 〈〉
+     * @Param: [transPlanId]
+            * @Return: java.util.List<com.pret.open.entity.PretTransOrder>
+            * @Author: wujingsong
+            * @Date: 2019/10/4  7:09 上午
+     */
+    List<PretTransOrder> findByTransPlanId(String transPlanId);
+
+    /* *
+     * 功能描述: 根据提货计划查找
+     * 〈〉
+     * @Param: [pickUpPlanId]
+            * @Return: java.util.List<com.pret.open.entity.PretTransOrder>
+            * @Author: wujingsong
+            * @Date: 2019/10/4  7:10 上午
+     */
+    List<PretTransOrder> findByPickUpPlanId(String pickUpPlanId);
 }

@@ -11,4 +11,14 @@ import com.pret.open.entity.PretTransException;
  * Copyright (c) 2019年 极客城堡
  */
 public interface PretTransExceptionRepository extends BaseRepository<PretTransException>{
+    
+    /* *
+     * 功能描述: 查找最近的
+     * 〈〉
+     * @Param: [time, time1]
+            * @Return: com.pret.open.entity.PretTransException
+            * @Author: wujingsong
+            * @Date: 2019/10/4  10:34 下午
+     */
+    PretTransException findTop1ByCreateTimeLongBetweenOrderByCreateTimeLongDesc(long time, long time1);
 }

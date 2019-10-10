@@ -36,6 +36,11 @@ public class PretTransStatement extends VersionedAuditableIdEntity implements Se
     }
 
     /**
+     * 单号
+     */
+    private String no;
+
+    /**
      * 收款人
      */
     private String billToId;
@@ -77,6 +82,15 @@ public class PretTransStatement extends VersionedAuditableIdEntity implements Se
     private Integer status;
 
     // setter and getter
+
+
+    public String getNo() {
+        return no;
+    }
+
+    public void setNo(String no) {
+        this.no = no;
+    }
 
     /**
      * <p>Discription:[收款人]</p>

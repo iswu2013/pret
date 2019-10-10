@@ -3,6 +3,7 @@ package com.pret.open.entity;
 import com.pret.common.VersionedAuditableIdEntity;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -75,6 +76,13 @@ public class PretPickUpPlan extends VersionedAuditableIdEntity implements Serial
      * 结束提货时间
      */
     private java.util.Date endTime;
+
+    /**
+     * 运输任务单
+     */
+    private List<PretTransOrder> transOrderList;
+
+    private PretVender pretVender;
 
     // setter and getter
 
@@ -286,5 +294,23 @@ public class PretPickUpPlan extends VersionedAuditableIdEntity implements Serial
      */
     public void setEndTime(java.util.Date endTime) {
         this.endTime = endTime;
+    }
+
+    @Transient()
+    public List<PretTransOrder> getTransOrderList() {
+        return transOrderList;
+    }
+
+    public void setTransOrderList(List<PretTransOrder> transOrderList) {
+        this.transOrderList = transOrderList;
+    }
+
+    @Transient()
+    public PretVender getPretVender() {
+        return pretVender;
+    }
+
+    public void setPretVender(PretVender pretVender) {
+        this.pretVender = pretVender;
     }
 }

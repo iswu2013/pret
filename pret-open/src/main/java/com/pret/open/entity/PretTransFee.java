@@ -36,6 +36,11 @@ public class PretTransFee extends VersionedAuditableIdEntity implements Serializ
     }
 
     /**
+     * 单号
+     */
+    private String no;
+
+    /**
      * 供应商id
      */
     private String venderId;
@@ -72,7 +77,29 @@ public class PretTransFee extends VersionedAuditableIdEntity implements Serializ
      */
     private Integer status;
 
+    private PretVender pretVender;
+
+    private PretCustomer pretCustomer;
+
     // setter and getter
+
+
+    public String getNo() {
+        return no;
+    }
+
+    public void setNo(String no) {
+        this.no = no;
+    }
+
+    @Column(name = "t_order_count")
+    public Integer gettOrderCount() {
+        return tOrderCount;
+    }
+
+    public void settOrderCount(Integer tOrderCount) {
+        this.tOrderCount = tOrderCount;
+    }
 
     /**
      * <p>Discription:[供应商id]</p>
@@ -261,5 +288,23 @@ public class PretTransFee extends VersionedAuditableIdEntity implements Serializ
      */
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    @Transient()
+    public PretVender getPretVender() {
+        return pretVender;
+    }
+
+    public void setPretVender(PretVender pretVender) {
+        this.pretVender = pretVender;
+    }
+
+    @Transient()
+    public PretCustomer getPretCustomer() {
+        return pretCustomer;
+    }
+
+    public void setPretCustomer(PretCustomer pretCustomer) {
+        this.pretCustomer = pretCustomer;
     }
 }

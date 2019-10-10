@@ -11,4 +11,5 @@ import com.pret.open.entity.PretVender;
  * Copyright (c) 2019年 极客城堡
  */
 public interface PretVenderRepository extends BaseRepository<PretVender>{
+    PretVender findTop1ByOrderByCreateTimeLongDesc();
 }

@@ -377,4 +377,105 @@ public class ConstantEnum {
             this.value = value;
         }
     }
+
+    public enum NoTypeEnum {
+        /**
+         * 提货计划
+         */
+        TH(0),
+        /**
+         * 运输计划
+         */
+        YS(1),
+        /**
+         * 运输费用
+         */
+        TF(2),
+        /**
+         * 异常单
+         */
+        YC(3);
+        private int label;
+
+        private NoTypeEnum(int label) {
+            this.setLabel(label);
+        }
+
+        //省略getter、setter方法
+
+        public int getLabel() {
+            return label;
+        }
+
+        public void setLabel(int label) {
+            this.label = label;
+        }
+    }
+
+    /* *
+     * 功能描述: 费用状态
+     * 〈〉
+     * @Param:
+            * @Return:
+            * @Author: wujingsong
+            * @Date: 2019/10/4  3:22 下午
+     */
+    public enum EPretTransFeeStatus {
+        /**
+         * 提货计划
+         */
+        待申报(0),
+        已申报(1),
+        通过(2),
+        不通过(3);
+        private int label;
+
+        private EPretTransFeeStatus(int label) {
+            this.setLabel(label);
+        }
+
+        //省略getter、setter方法
+
+        public int getLabel() {
+            return label;
+        }
+
+        public void setLabel(int label) {
+            this.label = label;
+        }
+    }
+
+    /* *
+     * 功能描述: 0待确认1已转u9
+     * 〈〉
+     * @Param:
+            * @Return:
+            * @Author: wujingsong
+            * @Date: 2019/10/4  5:50 下午
+     */
+    public enum ETransStatementStatus {
+        /**
+         * 待确认
+         */
+        待确认(0),
+        /**
+         * 已转U9
+         */
+        已转U9(1);
+        private int label;
+
+        private ETransStatementStatus(int label) {
+            this.setLabel(label);
+        }
+
+        //省略getter、setter方法
+
+        public int getLabel() {
+            return label;
+        }
+
+        public void setLabel(int label) {
+            this.label = label;
+        }
+    }
 }

@@ -10,4 +10,31 @@ import java.io.Serializable;
  * Copyright (c) 2019年 极客城堡
  */
 public class PretTransFeeVo extends PageFormVo implements Serializable{
+    private String eq$venderId;
+    private long bw$createTimeLong;
+    private long createTimeLongEnd;
+
+    public String getEq$venderId() {
+        return eq$venderId;
+    }
+
+    public void setEq$venderId(String eq$venderId) {
+        this.eq$venderId = eq$venderId;
+    }
+
+    public long getBw$createTimeLong() {
+        return bw$createTimeLong;
+    }
+
+    public void setBw$createTimeLong(long bw$createTimeLong) {
+        this.bw$createTimeLong = bw$createTimeLong;
+    }
+
+    public long getCreateTimeLongEnd() {
+        return createTimeLongEnd;
+    }
+
+    public void setCreateTimeLongEnd(long createTimeLongEnd) {
+        this.createTimeLongEnd = createTimeLongEnd;
+    }
 }

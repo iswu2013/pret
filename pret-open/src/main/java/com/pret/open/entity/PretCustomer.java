@@ -40,6 +40,15 @@ public class PretCustomer extends VersionedAuditableIdEntity implements Serializ
      */
     private String name;
 
+    /**
+     * 客户联系人
+     */
+    private String linkName;
+    /**
+     * 客户联系人电话
+     */
+    private String linkPhone;
+
     // setter and getter
 
     /**
@@ -61,5 +70,21 @@ public class PretCustomer extends VersionedAuditableIdEntity implements Serializ
      */
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getLinkName() {
+        return linkName;
+    }
+
+    public void setLinkName(String linkName) {
+        this.linkName = linkName;
+    }
+
+    public String getLinkPhone() {
+        return linkPhone;
+    }
+
+    public void setLinkPhone(String linkPhone) {
+        this.linkPhone = linkPhone;
     }
 }

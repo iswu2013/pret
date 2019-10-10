@@ -1,0 +1,103 @@
+spring:
+  application:
+    name: pret-open
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    default-property-inclusion: non_null
+  datasource:
+    name: test
+    url: jdbc:mysql://121.40.72.147:3306/db_pret?useUnicode=true&characterEncoding=UTF8&serverTimezone=GMT%2B8
+    username: root
+    password: jikechengbao@1
+    driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+    database: mysql
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+  redis:
+    pool:
+      max-active: 3000
+      max-idle: 1000
+      max-wait: 10000
+    host: 118.31.61.162
+    port: 6379
+    password: xpx2017
+    timeout: 20000
+    database: 10
+  cloud:
+    consul:
+      host: 127.0.0.1
+      port: 8500
+      discovery:
+        tags: version=1.0,author=wujinsong
+        healthCheckUrl: http://${spring.cloud.consul.host}:${server.port}/actuator/health
+        healthCheckInterval: 10s
+        instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+        health-check-critical-timeout: 600s
+server:
+  port: 8904
+logging:
+  path: ./logs/
+  level:
+    root: error
+    org:
+      springframework:
+        boot:
+          autoconfigure: ERROR
+
+ribbon:
+  eureka:
+    enabled: true
+  ReadTimeout: 600000
+  ConnectTimeout: 600000
+  MaxAutoRetries: 0
+  MaxAutoRetriesNextServer: 1
+  OkToRetryOnAllOperations: false
+
+hystrix:
+  threadpool:
+    default:
+      coreSize: 500
+      maxQueueSize: 500
+      queueSizeRejectionThreshold: 500
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: false
+
+#redis-cache
+redis:
+    pool:
+         maxActive: 300
+         maxIdle: 100
+         maxWait: 1000
+    host: 118.31.61.162
+    port: 6379
+    password: xpx2017
+    timeout: 20000
+    #
+    sysName: pret-open
+    enable: true
+    database: 10
+
+qiniu:
+  baseurl: http://oi42x1205.bkt.clouddn.com/
+
+rong:
+  cloud:
+    key: p5tvi9dspex64
+    secret: MtLrzuh321
+
+wx:
+  mp:
+    configs:
+      - appId: wx94af4a987003e14a
+        secret: 41c30ad3020cd82a6ea67353f144abf6
+        token: xpx
+        aesKey: x5BIUL0nSaR77Wv3YYfR8Bvh5tqjiAuoI3PTKAIqoZE

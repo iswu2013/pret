@@ -47,6 +47,12 @@ public class PretAddress extends VersionedAuditableIdEntity implements Serializa
      * 父id
      */
     private String parentId;
+
+    /**
+     * 父名称
+     */
+    private String parentName;
+
     /**
      * 0省1市2区县
      */
@@ -115,6 +121,14 @@ public class PretAddress extends VersionedAuditableIdEntity implements Serializa
      */
     public void setParentId(String parentId) {
         this.parentId = parentId;
+    }
+
+    public String getParentName() {
+        return parentName;
+    }
+
+    public void setParentName(String parentName) {
+        this.parentName = parentName;
     }
 
     /**

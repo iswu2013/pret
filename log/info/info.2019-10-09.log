@@ -1,0 +1,2084 @@
+2019-10-09 00:04:25.462 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$899f6c94] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:25.584 febs [main] INFO  com.pret.user.PretUserApplication - The following profiles are active: dev
+2019-10-09 00:04:26.324 febs [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-10-09 00:04:26.324 febs [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-10-09 00:04:26.351 febs [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 21ms. Found 0 repository interfaces.
+2019-10-09 00:04:26.360 febs [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-10-09 00:04:26.361 febs [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-10-09 00:04:26.374 febs [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 6ms. Found 0 repository interfaces.
+2019-10-09 00:04:26.678 febs [main] INFO  o.s.cloud.context.scope.GenericScope - BeanFactory id=20eb13f4-f5b4-3249-85c2-046ba58292b9
+2019-10-09 00:04:26.821 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'spring.datasource.dynamic-com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties' of type [com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:26.958 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration' of type [com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration$$EnhancerBySpringCGLIB$$d713da68] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:26.967 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'dsProcessor' of type [com.baomidou.dynamic.datasource.processor.DsHeaderProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:26.973 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'dynamicDatasourceAnnotationAdvisor' of type [com.baomidou.dynamic.datasource.aop.DynamicDataSourceAnnotationAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:26.983 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$6d856997] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:26.998 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'shiroConfig' of type [com.pret.user.common.authentication.ShiroConfig$$EnhancerBySpringCGLIB$$28fd9d89] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:27.160 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redisConfig' of type [com.pret.user.common.config.RedisConfig$$EnhancerBySpringCGLIB$$50f9addd] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:27.179 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redisPoolFactory' of type [redis.clients.jedis.JedisPool] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:27.182 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redisService' of type [com.pret.user.common.service.impl.RedisServiceImpl] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:27.238 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'mybatis-plus-com.baomidou.mybatisplus.autoconfigure.MybatisPlusProperties' of type [com.baomidou.mybatisplus.autoconfigure.MybatisPlusProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:27.246 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'mybatisPlusConfig' of type [com.pret.user.common.config.MybatisPlusConfig$$EnhancerBySpringCGLIB$$f6cef62f] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:27.250 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'paginationInterceptor' of type [com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:27.259 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'com.baomidou.mybatisplus.autoconfigure.MybatisPlusAutoConfiguration' of type [com.baomidou.mybatisplus.autoconfigure.MybatisPlusAutoConfiguration$$EnhancerBySpringCGLIB$$ab4dd631] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:27.272 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'dynamicDataSourceCreator' of type [com.baomidou.dynamic.datasource.DynamicDataSourceCreator] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:27.275 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'dynamicDataSourceProvider' of type [com.baomidou.dynamic.datasource.provider.YmlDynamicDataSourceProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:27.279 febs [main] INFO  c.b.d.d.DynamicRoutingDataSource - 动态数据源-检测到并开启了p6spy
+2019-10-09 00:04:27.288 febs [main] INFO  com.zaxxer.hikari.HikariDataSource - primary - Starting...
+2019-10-09 00:04:27.549 febs [main] INFO  com.zaxxer.hikari.HikariDataSource - primary - Start completed.
+2019-10-09 00:04:27.549 febs [main] INFO  c.b.d.d.DynamicRoutingDataSource - 初始共加载 1 个数据源
+2019-10-09 00:04:27.550 febs [main] INFO  c.b.d.d.DynamicRoutingDataSource - 动态数据源-加载 primary 成功
+2019-10-09 00:04:27.550 febs [main] INFO  c.b.d.d.DynamicRoutingDataSource - 当前的默认数据源是单数据源，数据源名为 primary
+2019-10-09 00:04:27.550 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'dataSource' of type [com.baomidou.dynamic.datasource.DynamicRoutingDataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:27.565 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'spring.datasource-org.springframework.boot.autoconfigure.jdbc.DataSourceProperties' of type [org.springframework.boot.autoconfigure.jdbc.DataSourceProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:27.573 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.boot.autoconfigure.jdbc.DataSourceInitializerInvoker' of type [org.springframework.boot.autoconfigure.jdbc.DataSourceInitializerInvoker] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:28.092 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'sqlSessionFactory' of type [org.apache.ibatis.session.defaults.DefaultSqlSessionFactory] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:28.098 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'sqlSessionTemplate' of type [org.mybatis.spring.SqlSessionTemplate] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:28.101 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'roleMapper' of type [org.mybatis.spring.mapper.MapperFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:28.103 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'roleMapper' of type [com.sun.proxy.$Proxy116] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:28.129 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'roleMenuMapper' of type [org.mybatis.spring.mapper.MapperFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:28.130 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'roleMenuMapper' of type [com.sun.proxy.$Proxy118] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:28.138 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'userRoleMapper' of type [org.mybatis.spring.mapper.MapperFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:28.139 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'userRoleMapper' of type [com.sun.proxy.$Proxy119] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:28.140 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'userRoleService' of type [com.pret.user.system.service.impl.UserRoleServiceImpl] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:28.174 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'roleMenuService' of type [com.pret.user.system.service.impl.RoleMenuServiceImpl] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:28.190 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'roleService' of type [com.pret.user.system.service.impl.RoleServiceImpl] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:28.208 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'menuMapper' of type [org.mybatis.spring.mapper.MapperFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:28.209 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'menuMapper' of type [com.sun.proxy.$Proxy123] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:28.211 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'menuService' of type [com.pret.user.system.service.impl.MenuServiceImpl] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:28.229 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'userMapper' of type [org.mybatis.spring.mapper.MapperFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:28.231 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'userMapper' of type [com.sun.proxy.$Proxy125] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:28.260 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'userConfigMapper' of type [org.mybatis.spring.mapper.MapperFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:28.261 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'userConfigMapper' of type [com.sun.proxy.$Proxy126] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:28.264 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'userConfigService' of type [com.pret.user.system.service.impl.UserConfigServiceImpl] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:28.279 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'userService' of type [com.pret.user.system.service.impl.UserServiceImpl] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:28.293 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration$JacksonObjectMapperConfiguration' of type [org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration$JacksonObjectMapperConfiguration$$EnhancerBySpringCGLIB$$c918e928] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:28.297 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration$JacksonObjectMapperBuilderConfiguration' of type [org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration$JacksonObjectMapperBuilderConfiguration$$EnhancerBySpringCGLIB$$7b65ab41] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:28.299 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration$Jackson2ObjectMapperBuilderCustomizerConfiguration' of type [org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration$Jackson2ObjectMapperBuilderCustomizerConfiguration$$EnhancerBySpringCGLIB$$367c9130] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:28.305 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'spring.jackson-org.springframework.boot.autoconfigure.jackson.JacksonProperties' of type [org.springframework.boot.autoconfigure.jackson.JacksonProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:28.308 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'standardJacksonObjectMapperBuilderCustomizer' of type [org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration$Jackson2ObjectMapperBuilderCustomizerConfiguration$StandardJackson2ObjectMapperBuilderCustomizer] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:28.313 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration$ParameterNamesModuleConfiguration' of type [org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration$ParameterNamesModuleConfiguration$$EnhancerBySpringCGLIB$$5d48085e] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:28.317 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'parameterNamesModule' of type [com.fasterxml.jackson.module.paramnames.ParameterNamesModule] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:28.319 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration' of type [org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration$$EnhancerBySpringCGLIB$$ab2486b7] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:28.335 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'jsonComponentModule' of type [org.springframework.boot.jackson.JsonComponentModule] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:28.337 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.data.web.config.SpringDataJacksonConfiguration' of type [org.springframework.data.web.config.SpringDataJacksonConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:28.340 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'jacksonGeoModule' of type [org.springframework.data.geo.GeoModule] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:28.342 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'jacksonObjectMapperBuilder' of type [org.springframework.http.converter.json.Jackson2ObjectMapperBuilder] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:28.358 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'jacksonObjectMapper' of type [com.fasterxml.jackson.databind.ObjectMapper] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:28.367 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'cacheService' of type [com.pret.user.common.service.impl.CacheServiceImpl] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:28.372 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'userManager' of type [com.pret.user.system.manager.UserManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:28.372 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'shiroRealm' of type [com.pret.user.common.authentication.ShiroRealm] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:28.379 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'securityManager' of type [org.apache.shiro.web.mgt.DefaultWebSecurityManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:28.393 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'authorizationAttributeSourceAdvisor' of type [org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:28.413 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$899f6c94] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:28.698 febs [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9527 (http)
+2019-10-09 00:04:28.710 febs [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-9527"]
+2019-10-09 00:04:28.717 febs [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2019-10-09 00:04:28.718 febs [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.14]
+2019-10-09 00:04:28.723 febs [main] INFO  o.a.c.core.AprLifecycleListener - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [/Users/wujingsong/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.]
+2019-10-09 00:04:28.838 febs [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2019-10-09 00:04:28.839 febs [main] INFO  o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 3239 ms
+2019-10-09 00:04:28.968 febs [main] INFO  c.n.c.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2019-10-09 00:04:28.976 febs [main] INFO  c.n.config.DynamicPropertyFactory - DynamicPropertyFactory is initialized with configuration sources: com.netflix.config.ConcurrentCompositeConfiguration@1eddca25
+2019-10-09 00:04:29.949 febs [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-10-09 00:04:30.014 febs [main] INFO  org.hibernate.Version - HHH000412: Hibernate Core {5.3.7.Final}
+2019-10-09 00:04:30.015 febs [main] INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+2019-10-09 00:04:30.314 febs [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
+2019-10-09 00:04:30.449 febs [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2019-10-09 00:04:30.615 febs [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-10-09 00:04:30.775 febs [main] INFO  org.quartz.impl.StdSchedulerFactory - Using default implementation for ThreadExecutor
+2019-10-09 00:04:30.784 febs [main] INFO  o.quartz.core.SchedulerSignalerImpl - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2019-10-09 00:04:30.784 febs [main] INFO  org.quartz.core.QuartzScheduler - Quartz Scheduler v.2.3.0 created.
+2019-10-09 00:04:30.785 febs [main] INFO  org.quartz.simpl.RAMJobStore - RAMJobStore initialized.
+2019-10-09 00:04:30.785 febs [main] INFO  org.quartz.core.QuartzScheduler - Scheduler meta-data: Quartz Scheduler (v2.3.0) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2019-10-09 00:04:30.785 febs [main] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+2019-10-09 00:04:30.785 febs [main] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler version: 2.3.0
+2019-10-09 00:04:30.786 febs [main] INFO  org.quartz.core.QuartzScheduler - JobFactory set to: org.springframework.scheduling.quartz.SpringBeanJobFactory@74120029
+2019-10-09 00:04:30.837 febs [main] INFO  p6spy - 2019-10-09 00:04:30 | 耗时 9 ms | SQL 语句：
+select job_id jobId, bean_name beanName, method_name methodName, params, cron_expression cronExpression, status, remark, create_time createTime from t_job order by job_id;
+2019-10-09 00:04:31.112 febs [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'taskExecutor'
+2019-10-09 00:04:31.188 febs [main] INFO  c.n.c.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2019-10-09 00:04:32.321 febs [main] INFO  o.s.s.c.ThreadPoolTaskScheduler - Initializing ExecutorService 'taskScheduler'
+2019-10-09 00:04:32.362 febs [main] INFO  o.s.s.c.ThreadPoolTaskScheduler - Initializing ExecutorService 'catalogWatchTaskScheduler'
+2019-10-09 00:04:32.539 febs [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 4 endpoint(s) beneath base path '/actuator'
+2019-10-09 00:04:32.661 febs [main] INFO  o.s.s.quartz.SchedulerFactoryBean - Starting Quartz Scheduler now
+2019-10-09 00:04:32.661 febs [main] INFO  org.quartz.core.QuartzScheduler - Scheduler quartzScheduler_$_NON_CLUSTERED started.
+2019-10-09 00:04:32.678 febs [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-9527"]
+2019-10-09 00:04:32.715 febs [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 9527 (http) with context path ''
+2019-10-09 00:04:32.724 febs [main] INFO  o.s.c.c.s.ConsulServiceRegistry - Registering service with consul: NewService{id='pret-user-192-168-1-109-9527', name='pret-user', tags=[version=1.0, author=wujinsong, secure=false], address='192.168.1.109', meta=null, port=9527, enableTagOverride=null, check=Check{script='null', interval='10s', ttl='null', http='http://127.0.0.1:9527/actuator/health', method='null', header={}, tcp='null', timeout='null', deregisterCriticalServiceAfter='600s', tlsSkipVerify=null, status='null'}, checks=null}
+2019-10-09 00:04:32.729 febs [scheduling-1] INFO  com.pret.user.common.task.CacheTask - delete expired user
+2019-10-09 00:04:32.737 febs [main] INFO  o.a.coyote.http11.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-9527"]
+2019-10-09 00:04:32.744 febs [main] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+2019-10-09 00:04:32.748 febs [main] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-9527"]
+2019-10-09 00:04:32.754 febs [main] INFO  o.a.coyote.http11.Http11NioProtocol - Destroying ProtocolHandler ["http-nio-9527"]
+2019-10-09 00:04:32.757 febs [main] INFO  o.s.b.a.l.ConditionEvaluationReportLoggingListener - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2019-10-09 00:04:32.760 febs [main] INFO  org.quartz.core.QuartzScheduler - Scheduler quartzScheduler_$_NON_CLUSTERED paused.
+2019-10-09 00:04:32.761 febs [main] INFO  o.s.s.c.ThreadPoolTaskScheduler - Shutting down ExecutorService 'catalogWatchTaskScheduler'
+2019-10-09 00:04:32.761 febs [main] INFO  o.s.s.c.ThreadPoolTaskScheduler - Shutting down ExecutorService 'taskScheduler'
+2019-10-09 00:04:32.779 febs [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Shutting down ExecutorService 'taskExecutor'
+2019-10-09 00:04:32.779 febs [main] INFO  o.s.s.quartz.SchedulerFactoryBean - Shutting down Quartz Scheduler
+2019-10-09 00:04:32.779 febs [main] INFO  org.quartz.core.QuartzScheduler - Scheduler quartzScheduler_$_NON_CLUSTERED shutting down.
+2019-10-09 00:04:32.779 febs [main] INFO  org.quartz.core.QuartzScheduler - Scheduler quartzScheduler_$_NON_CLUSTERED paused.
+2019-10-09 00:04:32.780 febs [main] INFO  org.quartz.core.QuartzScheduler - Scheduler quartzScheduler_$_NON_CLUSTERED shutdown complete.
+2019-10-09 00:04:32.780 febs [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2019-10-09 00:04:32.786 febs [main] INFO  c.b.d.d.DynamicRoutingDataSource - closing dynamicDatasource  ing....
+2019-10-09 00:04:32.786 febs [main] INFO  com.zaxxer.hikari.HikariDataSource - primary - Shutdown initiated...
+2019-10-09 00:04:32.788 febs [main] INFO  com.zaxxer.hikari.HikariDataSource - primary - Shutdown completed.
+2019-10-09 00:04:52.583 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$179ee094] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:52.693 febs [main] INFO  com.pret.user.PretUserApplication - The following profiles are active: dev
+2019-10-09 00:04:53.477 febs [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-10-09 00:04:53.477 febs [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-10-09 00:04:53.505 febs [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 22ms. Found 0 repository interfaces.
+2019-10-09 00:04:53.514 febs [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-10-09 00:04:53.515 febs [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-10-09 00:04:53.528 febs [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 6ms. Found 0 repository interfaces.
+2019-10-09 00:04:53.829 febs [main] INFO  o.s.cloud.context.scope.GenericScope - BeanFactory id=20eb13f4-f5b4-3249-85c2-046ba58292b9
+2019-10-09 00:04:53.968 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'spring.datasource.dynamic-com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties' of type [com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:54.116 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration' of type [com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration$$EnhancerBySpringCGLIB$$65134e68] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:54.125 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'dsProcessor' of type [com.baomidou.dynamic.datasource.processor.DsHeaderProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:54.131 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'dynamicDatasourceAnnotationAdvisor' of type [com.baomidou.dynamic.datasource.aop.DynamicDataSourceAnnotationAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:54.142 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$fb84dd97] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:54.160 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'shiroConfig' of type [com.pret.user.common.authentication.ShiroConfig$$EnhancerBySpringCGLIB$$b6fd1189] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:54.367 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redisConfig' of type [com.pret.user.common.config.RedisConfig$$EnhancerBySpringCGLIB$$def921dd] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:54.390 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redisPoolFactory' of type [redis.clients.jedis.JedisPool] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:54.401 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redisService' of type [com.pret.user.common.service.impl.RedisServiceImpl] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:54.497 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'mybatis-plus-com.baomidou.mybatisplus.autoconfigure.MybatisPlusProperties' of type [com.baomidou.mybatisplus.autoconfigure.MybatisPlusProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:54.513 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'mybatisPlusConfig' of type [com.pret.user.common.config.MybatisPlusConfig$$EnhancerBySpringCGLIB$$84ce6a2f] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:54.518 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'paginationInterceptor' of type [com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:54.528 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'com.baomidou.mybatisplus.autoconfigure.MybatisPlusAutoConfiguration' of type [com.baomidou.mybatisplus.autoconfigure.MybatisPlusAutoConfiguration$$EnhancerBySpringCGLIB$$394d4a31] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:54.542 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'dynamicDataSourceCreator' of type [com.baomidou.dynamic.datasource.DynamicDataSourceCreator] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:54.546 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'dynamicDataSourceProvider' of type [com.baomidou.dynamic.datasource.provider.YmlDynamicDataSourceProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:54.550 febs [main] INFO  c.b.d.d.DynamicRoutingDataSource - 动态数据源-检测到并开启了p6spy
+2019-10-09 00:04:54.559 febs [main] INFO  com.zaxxer.hikari.HikariDataSource - primary - Starting...
+2019-10-09 00:04:54.804 febs [main] INFO  com.zaxxer.hikari.HikariDataSource - primary - Start completed.
+2019-10-09 00:04:54.804 febs [main] INFO  c.b.d.d.DynamicRoutingDataSource - 初始共加载 1 个数据源
+2019-10-09 00:04:54.804 febs [main] INFO  c.b.d.d.DynamicRoutingDataSource - 动态数据源-加载 primary 成功
+2019-10-09 00:04:54.804 febs [main] INFO  c.b.d.d.DynamicRoutingDataSource - 当前的默认数据源是单数据源，数据源名为 primary
+2019-10-09 00:04:54.804 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'dataSource' of type [com.baomidou.dynamic.datasource.DynamicRoutingDataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:54.823 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'spring.datasource-org.springframework.boot.autoconfigure.jdbc.DataSourceProperties' of type [org.springframework.boot.autoconfigure.jdbc.DataSourceProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:54.832 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.boot.autoconfigure.jdbc.DataSourceInitializerInvoker' of type [org.springframework.boot.autoconfigure.jdbc.DataSourceInitializerInvoker] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:55.399 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'sqlSessionFactory' of type [org.apache.ibatis.session.defaults.DefaultSqlSessionFactory] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:55.406 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'sqlSessionTemplate' of type [org.mybatis.spring.SqlSessionTemplate] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:55.409 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'roleMapper' of type [org.mybatis.spring.mapper.MapperFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:55.411 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'roleMapper' of type [com.sun.proxy.$Proxy116] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:55.446 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'roleMenuMapper' of type [org.mybatis.spring.mapper.MapperFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:55.447 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'roleMenuMapper' of type [com.sun.proxy.$Proxy118] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:55.455 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'userRoleMapper' of type [org.mybatis.spring.mapper.MapperFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:55.456 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'userRoleMapper' of type [com.sun.proxy.$Proxy119] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:55.457 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'userRoleService' of type [com.pret.user.system.service.impl.UserRoleServiceImpl] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:55.495 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'roleMenuService' of type [com.pret.user.system.service.impl.RoleMenuServiceImpl] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:55.514 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'roleService' of type [com.pret.user.system.service.impl.RoleServiceImpl] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:55.535 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'menuMapper' of type [org.mybatis.spring.mapper.MapperFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:55.536 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'menuMapper' of type [com.sun.proxy.$Proxy123] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:55.539 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'menuService' of type [com.pret.user.system.service.impl.MenuServiceImpl] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:55.560 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'userMapper' of type [org.mybatis.spring.mapper.MapperFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:55.562 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'userMapper' of type [com.sun.proxy.$Proxy125] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:55.599 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'userConfigMapper' of type [org.mybatis.spring.mapper.MapperFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:55.600 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'userConfigMapper' of type [com.sun.proxy.$Proxy126] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:55.604 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'userConfigService' of type [com.pret.user.system.service.impl.UserConfigServiceImpl] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:55.621 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'userService' of type [com.pret.user.system.service.impl.UserServiceImpl] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:55.639 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration$JacksonObjectMapperConfiguration' of type [org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration$JacksonObjectMapperConfiguration$$EnhancerBySpringCGLIB$$57185d28] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:55.644 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration$JacksonObjectMapperBuilderConfiguration' of type [org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration$JacksonObjectMapperBuilderConfiguration$$EnhancerBySpringCGLIB$$9651f41] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:55.646 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration$Jackson2ObjectMapperBuilderCustomizerConfiguration' of type [org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration$Jackson2ObjectMapperBuilderCustomizerConfiguration$$EnhancerBySpringCGLIB$$c47c0530] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:55.653 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'spring.jackson-org.springframework.boot.autoconfigure.jackson.JacksonProperties' of type [org.springframework.boot.autoconfigure.jackson.JacksonProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:55.656 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'standardJacksonObjectMapperBuilderCustomizer' of type [org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration$Jackson2ObjectMapperBuilderCustomizerConfiguration$StandardJackson2ObjectMapperBuilderCustomizer] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:55.663 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration$ParameterNamesModuleConfiguration' of type [org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration$ParameterNamesModuleConfiguration$$EnhancerBySpringCGLIB$$eb477c5e] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:55.668 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'parameterNamesModule' of type [com.fasterxml.jackson.module.paramnames.ParameterNamesModule] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:55.670 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration' of type [org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration$$EnhancerBySpringCGLIB$$3923fab7] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:55.686 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'jsonComponentModule' of type [org.springframework.boot.jackson.JsonComponentModule] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:55.688 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.data.web.config.SpringDataJacksonConfiguration' of type [org.springframework.data.web.config.SpringDataJacksonConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:55.692 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'jacksonGeoModule' of type [org.springframework.data.geo.GeoModule] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:55.695 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'jacksonObjectMapperBuilder' of type [org.springframework.http.converter.json.Jackson2ObjectMapperBuilder] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:55.714 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'jacksonObjectMapper' of type [com.fasterxml.jackson.databind.ObjectMapper] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:55.727 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'cacheService' of type [com.pret.user.common.service.impl.CacheServiceImpl] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:55.732 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'userManager' of type [com.pret.user.system.manager.UserManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:55.732 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'shiroRealm' of type [com.pret.user.common.authentication.ShiroRealm] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:55.740 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'securityManager' of type [org.apache.shiro.web.mgt.DefaultWebSecurityManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:55.758 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'authorizationAttributeSourceAdvisor' of type [org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:55.781 febs [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$179ee094] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-10-09 00:04:56.096 febs [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port(s): 9527 (http)
+2019-10-09 00:04:56.108 febs [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-9527"]
+2019-10-09 00:04:56.115 febs [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2019-10-09 00:04:56.116 febs [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.14]
+2019-10-09 00:04:56.121 febs [main] INFO  o.a.c.core.AprLifecycleListener - The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [/Users/wujingsong/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.]
+2019-10-09 00:04:56.216 febs [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2019-10-09 00:04:56.216 febs [main] INFO  o.s.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 3509 ms
+2019-10-09 00:04:56.349 febs [main] INFO  c.n.c.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2019-10-09 00:04:56.355 febs [main] INFO  c.n.config.DynamicPropertyFactory - DynamicPropertyFactory is initialized with configuration sources: com.netflix.config.ConcurrentCompositeConfiguration@cbdc0f4
+2019-10-09 00:04:57.263 febs [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-10-09 00:04:57.318 febs [main] INFO  org.hibernate.Version - HHH000412: Hibernate Core {5.3.7.Final}
+2019-10-09 00:04:57.319 febs [main] INFO  org.hibernate.cfg.Environment - HHH000206: hibernate.properties not found
+2019-10-09 00:04:57.578 febs [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
+2019-10-09 00:04:57.714 febs [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2019-10-09 00:04:57.877 febs [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-10-09 00:04:58.030 febs [main] INFO  org.quartz.impl.StdSchedulerFactory - Using default implementation for ThreadExecutor
+2019-10-09 00:04:58.039 febs [main] INFO  o.quartz.core.SchedulerSignalerImpl - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2019-10-09 00:04:58.039 febs [main] INFO  org.quartz.core.QuartzScheduler - Quartz Scheduler v.2.3.0 created.
+2019-10-09 00:04:58.039 febs [main] INFO  org.quartz.simpl.RAMJobStore - RAMJobStore initialized.
+2019-10-09 00:04:58.040 febs [main] INFO  org.quartz.core.QuartzScheduler - Scheduler meta-data: Quartz Scheduler (v2.3.0) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2019-10-09 00:04:58.040 febs [main] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+2019-10-09 00:04:58.040 febs [main] INFO  org.quartz.impl.StdSchedulerFactory - Quartz scheduler version: 2.3.0
+2019-10-09 00:04:58.040 febs [main] INFO  org.quartz.core.QuartzScheduler - JobFactory set to: org.springframework.scheduling.quartz.SpringBeanJobFactory@5603632c
+2019-10-09 00:04:58.082 febs [main] INFO  p6spy - 2019-10-09 00:04:58 | 耗时 0 ms | SQL 语句：
+select job_id jobId, bean_name beanName, method_name methodName, params, cron_expression cronExpression, status, remark, create_time createTime from t_job order by job_id;
+2019-10-09 00:04:58.343 febs [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'taskExecutor'
+2019-10-09 00:04:58.411 febs [main] INFO  c.n.c.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2019-10-09 00:04:59.478 febs [main] INFO  o.s.s.c.ThreadPoolTaskScheduler - Initializing ExecutorService 'taskScheduler'
+2019-10-09 00:04:59.521 febs [main] INFO  o.s.s.c.ThreadPoolTaskScheduler - Initializing ExecutorService 'catalogWatchTaskScheduler'
+2019-10-09 00:04:59.703 febs [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 4 endpoint(s) beneath base path '/actuator'
+2019-10-09 00:04:59.847 febs [main] INFO  o.s.s.quartz.SchedulerFactoryBean - Starting Quartz Scheduler now
+2019-10-09 00:04:59.848 febs [main] INFO  org.quartz.core.QuartzScheduler - Scheduler quartzScheduler_$_NON_CLUSTERED started.
+2019-10-09 00:04:59.864 febs [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-9527"]
+2019-10-09 00:04:59.898 febs [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port(s): 9527 (http) with context path ''
+2019-10-09 00:04:59.904 febs [scheduling-1] INFO  com.pret.user.common.task.CacheTask - delete expired user
+2019-10-09 00:04:59.907 febs [main] INFO  o.s.c.c.s.ConsulServiceRegistry - Registering service with consul: NewService{id='pret-user-192-168-1-109-9527', name='pret-user', tags=[version=1.0, author=wujinsong, secure=false], address='192.168.1.109', meta=null, port=9527, enableTagOverride=null, check=Check{script='null', interval='10s', ttl='null', http='http://127.0.0.1:9527/actuator/health', method='null', header={}, tcp='null', timeout='null', deregisterCriticalServiceAfter='600s', tlsSkipVerify=null, status='null'}, checks=null}
+2019-10-09 00:04:59.918 febs [main] INFO  com.pret.user.PretUserApplication - Started PretUserApplication in 8.079 seconds (JVM running for 8.612)
+2019-10-09 00:04:59.926 febs [main] INFO  c.p.u.common.runner.CacheInitRunner - Redis连接中 ······
+2019-10-09 00:04:59.936 febs [main] INFO  c.p.u.common.runner.CacheInitRunner - 缓存初始化 ······
+2019-10-09 00:04:59.936 febs [main] INFO  c.p.u.common.runner.CacheInitRunner - 缓存用户数据 ······
+2019-10-09 00:04:59.967 febs [main] INFO  p6spy - 2019-10-09 00:04:59 | 耗时 3 ms | SQL 语句：
+SELECT USER_ID,username,password,dept_id,email,mobile,status,create_time,modify_time,last_login_time,ssex,description,avatar FROM t_user;
+2019-10-09 00:04:59.980 febs [main] INFO  p6spy - 2019-10-09 00:04:59 | 耗时 7 ms | SQL 语句：
+SELECT u.user_id userId, u.username, u.password, u.email, u.mobile, u. STATUS, u.create_time createTime, u.ssex, d.dept_id deptId, d.dept_name deptName, u.AVATAR, u.DESCRIPTION, u.LAST_LOGIN_TIME lastLoginTime, GROUP_CONCAT(r.role_id) roleId, GROUP_CONCAT(r.ROLE_NAME) roleName FROM t_user u LEFT JOIN t_dept d ON (u.dept_id = d.dept_id) LEFT JOIN t_user_role ur ON (u.user_id = ur.user_id) LEFT JOIN t_role r ON r.role_id = ur.role_id WHERE u.username = 'admin' group by u.username;
+2019-10-09 00:05:00.058 febs [main] INFO  p6spy - 2019-10-09 00:05:00 | 耗时 0 ms | SQL 语句：
+select r.* from t_role r left join t_user_role ur on (r.role_id = ur.role_id) left join t_user u on (u.user_id = ur.user_id) where u.username = 'admin';
+2019-10-09 00:05:00.094 febs [main] INFO  p6spy - 2019-10-09 00:05:00 | 耗时 7 ms | SQL 语句：
+select distinct m.perms from t_role r left join t_user_role ur on (r.role_id = ur.role_id) left join t_user u on (u.user_id = ur.user_id) left join t_role_menu rm on (rm.role_id = r.role_id) left join t_menu m on (m.menu_id = rm.menu_id) where u.username = 'admin' and m.perms is not null and m.perms <> '';
+2019-10-09 00:05:00.157 febs [main] INFO  p6spy - 2019-10-09 00:05:00 | 耗时 3 ms | SQL 语句：
+SELECT USER_ID,theme,layout,multi_page,fix_siderbar,fix_header,color FROM t_user_config WHERE USER_ID='13' ;
+2019-10-09 00:05:00.186 febs [main] INFO  p6spy - 2019-10-09 00:05:00 | 耗时 0 ms | SQL 语句：
+SELECT u.user_id userId, u.username, u.password, u.email, u.mobile, u. STATUS, u.create_time createTime, u.ssex, d.dept_id deptId, d.dept_name deptName, u.AVATAR, u.DESCRIPTION, u.LAST_LOGIN_TIME lastLoginTime, GROUP_CONCAT(r.role_id) roleId, GROUP_CONCAT(r.ROLE_NAME) roleName FROM t_user u LEFT JOIN t_dept d ON (u.dept_id = d.dept_id) LEFT JOIN t_user_role ur ON (u.user_id = ur.user_id) LEFT JOIN t_role r ON r.role_id = ur.role_id WHERE u.username = 'user' group by u.username;
+2019-10-09 00:05:00.207 febs [main] INFO  p6spy - 2019-10-09 00:05:00 | 耗时 0 ms | SQL 语句：
+select r.* from t_role r left join t_user_role ur on (r.role_id = ur.role_id) left join t_user u on (u.user_id = ur.user_id) where u.username = 'user';
+2019-10-09 00:05:00.230 febs [main] INFO  p6spy - 2019-10-09 00:05:00 | 耗时 0 ms | SQL 语句：
+select distinct m.perms from t_role r left join t_user_role ur on (r.role_id = ur.role_id) left join t_user u on (u.user_id = ur.user_id) left join t_role_menu rm on (rm.role_id = r.role_id) left join t_menu m on (m.menu_id = rm.menu_id) where u.username = 'user' and m.perms is not null and m.perms <> '';
+2019-10-09 00:05:00.254 febs [main] INFO  p6spy - 2019-10-09 00:05:00 | 耗时 0 ms | SQL 语句：
+SELECT USER_ID,theme,layout,multi_page,fix_siderbar,fix_header,color FROM t_user_config WHERE USER_ID='14' ;
+2019-10-09 00:05:00.279 febs [main] INFO  c.p.u.common.runner.StartedUpRunner -  __    ___   _      ___   _     ____ _____  ____ 
+2019-10-09 00:05:00.279 febs [main] INFO  c.p.u.common.runner.StartedUpRunner - / /`  / / \ | |\/| | |_) | |   | |_   | |  | |_  
+2019-10-09 00:05:00.280 febs [main] INFO  c.p.u.common.runner.StartedUpRunner - \_\_, \_\_/ |_|  | |_|   |_|__ |_|__  |_|  |_|__ 
+2019-10-09 00:05:00.280 febs [main] INFO  c.p.u.common.runner.StartedUpRunner -                                                       
+2019-10-09 00:05:00.280 febs [main] INFO  c.p.u.common.runner.StartedUpRunner - FEBS 启动完毕，时间：2019-10-09T00:05:00.280
+2019-10-09 00:05:00.632 febs [RMI TCP Connection(4)-192.168.1.109] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-10-09 00:05:00.632 febs [RMI TCP Connection(4)-192.168.1.109] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2019-10-09 00:05:00.643 febs [RMI TCP Connection(4)-192.168.1.109] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 11 ms
+2019-10-09 00:05:00.666 febs [RMI TCP Connection(3)-192.168.1.109] INFO  p6spy - 2019-10-09 00:05:00 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:05:07.929 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 00:05:07 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:05:17.973 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 00:05:17 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:05:27.995 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 00:05:27 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:05:38.022 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 00:05:38 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:05:48.048 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 00:05:48 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:05:58.071 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 00:05:58 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:06:08.122 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 00:06:08 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:06:18.150 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 00:06:18 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:06:28.175 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 00:06:28 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:06:38.204 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 00:06:38 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:06:48.230 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 00:06:48 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:06:58.256 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 00:06:58 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:07:08.280 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 00:07:08 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:07:18.311 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 00:07:18 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:07:28.339 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 00:07:28 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:07:38.362 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 00:07:38 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:07:48.392 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 00:07:48 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:07:58.413 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 00:07:58 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:08:08.436 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 00:08:08 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:08:18.457 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 00:08:18 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:08:28.481 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 00:08:28 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:08:38.511 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 00:08:38 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:08:48.533 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 00:08:48 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:08:58.555 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 00:08:58 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:09:08.583 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 00:09:08 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:09:18.608 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 00:09:18 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:09:28.630 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 00:09:28 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:09:38.652 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 00:09:38 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:09:48.679 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 00:09:48 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:09:58.695 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 00:09:58 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:10:00.169 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 00:10:00 | 耗时 3 ms | SQL 语句：
+UPDATE t_user SET last_login_time='2019-10-09T00:10:00.138+0800' WHERE username = 'admin';
+2019-10-09 00:10:00.172 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 00:10:00 | 耗时 0 ms | SQL 语句：
+SELECT u.user_id userId, u.username, u.password, u.email, u.mobile, u. STATUS, u.create_time createTime, u.ssex, d.dept_id deptId, d.dept_name deptName, u.AVATAR, u.DESCRIPTION, u.LAST_LOGIN_TIME lastLoginTime, GROUP_CONCAT(r.role_id) roleId, GROUP_CONCAT(r.ROLE_NAME) roleName FROM t_user u LEFT JOIN t_dept d ON (u.dept_id = d.dept_id) LEFT JOIN t_user_role ur ON (u.user_id = ur.user_id) LEFT JOIN t_role r ON r.role_id = ur.role_id WHERE u.username = 'admin' group by u.username;
+2019-10-09 00:10:00.212 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 00:10:00 | 耗时 4 ms | SQL 语句：
+INSERT INTO t_login_log ( username, login_time, location, ip ) VALUES ( 'admin', '2019-10-09T00:10:00.202+0800', '内网IP|0|0|内网IP|内网IP', '127.0.0.1' );
+2019-10-09 00:10:00.468 febs [http-nio-9527-exec-6] INFO  c.p.u.common.authentication.JWTUtil - token is valid
+2019-10-09 00:10:00.491 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 00:10:00 | 耗时 1 ms | SQL 语句：
+select m.* from t_menu m where m.type <> 1 and m.MENU_ID in (select distinct rm.menu_id from t_role_menu rm left join t_role r on (rm.role_id = r.role_id) left join t_user_role ur on (ur.role_id = r.role_id) left join t_user u on (u.user_id = ur.user_id) where u.username = 'admin') order by m.order_num;
+2019-10-09 00:10:01.012 febs [http-nio-9527-exec-8] INFO  c.p.u.common.authentication.JWTUtil - token is valid
+2019-10-09 00:10:01.019 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 00:10:01 | 耗时 2 ms | SQL 语句：
+select count(1) from t_login_log;
+2019-10-09 00:10:01.021 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 00:10:01 | 耗时 0 ms | SQL 语句：
+select count(1) from t_login_log where datediff(login_time,now())=0;
+2019-10-09 00:10:01.023 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 00:10:01 | 耗时 0 ms | SQL 语句：
+select count(distinct(ip)) from t_login_log where datediff(login_time,now())=0;
+2019-10-09 00:10:01.026 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 00:10:01 | 耗时 1 ms | SQL 语句：
+select date_format(l.login_time, '%m-%d') days, count(1) count from ( select * from t_login_log where date_sub(curdate(), interval 7 day) <= date(login_time) ) as l where 1 = 1 group by days;
+2019-10-09 00:10:01.028 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 00:10:01 | 耗时 0 ms | SQL 语句：
+select date_format(l.login_time, '%m-%d') days, count(1) count from ( select * from t_login_log where date_sub(curdate(), interval 7 day) <= date(login_time) ) as l where 1 = 1 and l.username = 'admin' group by days;
+2019-10-09 00:10:08.719 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 00:10:08 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:10:18.752 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 00:10:18 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:10:28.771 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 00:10:28 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:10:38.795 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 00:10:38 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:10:48.824 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 00:10:48 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:10:58.849 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 00:10:58 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:11:08.872 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 00:11:08 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:11:18.894 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 00:11:18 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:11:28.918 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 00:11:28 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:11:38.943 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 00:11:38 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:11:48.977 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 00:11:48 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:11:59.004 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 00:11:59 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:12:09.028 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 00:12:09 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:12:19.055 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 00:12:19 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:12:29.075 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 00:12:29 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:12:39.098 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 00:12:39 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:12:49.119 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 00:12:49 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:12:59.139 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 00:12:59 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:13:09.158 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 00:13:09 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:13:19.183 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 00:13:19 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:13:29.211 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 00:13:29 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:13:39.236 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 00:13:39 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:13:49.256 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 00:13:49 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:13:59.277 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 00:13:59 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:14:09.298 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 00:14:09 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:14:19.317 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 00:14:19 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:14:29.335 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 00:14:29 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:14:39.363 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 00:14:39 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:14:49.389 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 00:14:49 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:14:59.409 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 00:14:59 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:15:09.433 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 00:15:09 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:15:19.454 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 00:15:19 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:15:29.474 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 00:15:29 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:15:39.496 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 00:15:39 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:15:49.519 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 00:15:49 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:15:59.544 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 00:15:59 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:16:09.571 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 00:16:09 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:16:19.594 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 00:16:19 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:16:29.614 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 00:16:29 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:16:39.639 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 00:16:39 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:16:49.671 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 00:16:49 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:16:59.698 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 00:16:59 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:17:09.723 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 00:17:09 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:17:19.743 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 00:17:19 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:17:29.769 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 00:17:29 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:17:39.801 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 00:17:39 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:17:49.830 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 00:17:49 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:17:59.857 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 00:17:59 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:18:09.881 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 00:18:09 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:18:19.906 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 00:18:19 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:18:29.929 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 00:18:29 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:18:39.960 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 00:18:39 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:18:49.987 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 00:18:49 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:19:00.021 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 00:19:00 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:19:10.051 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 00:19:10 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:19:20.074 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 00:19:20 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:19:30.099 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 00:19:30 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:19:40.132 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 00:19:40 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:19:50.151 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 00:19:50 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:20:00.281 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 00:20:00 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:20:10.316 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 00:20:10 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:20:20.343 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 00:20:20 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:20:30.373 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 00:20:30 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:20:40.403 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 00:20:40 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:20:50.429 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 00:20:50 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:21:00.462 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 00:21:00 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:21:10.488 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 00:21:10 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:21:20.520 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 00:21:20 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:21:30.558 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 00:21:30 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:21:40.593 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 00:21:40 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:21:50.631 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 00:21:50 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:22:00.658 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 00:22:00 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:22:10.706 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 00:22:10 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:22:20.743 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 00:22:20 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:23:01.832 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 00:23:01 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:23:11.868 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 00:23:11 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:23:21.896 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 00:23:21 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:23:31.927 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 00:23:31 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:23:41.955 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 00:23:41 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:23:52.024 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 00:23:52 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:24:02.051 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 00:24:02 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:24:12.075 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 00:24:12 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:24:22.093 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 00:24:22 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:24:32.117 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 00:24:32 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:24:42.146 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 00:24:42 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:24:52.177 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 00:24:52 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:25:02.201 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 00:25:02 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:25:12.225 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 00:25:12 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:25:22.257 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 00:25:22 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:25:32.279 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 00:25:32 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:25:42.310 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 00:25:42 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:25:52.339 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 00:25:52 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:26:02.364 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 00:26:02 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:26:12.388 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 00:26:12 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:26:22.415 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 00:26:22 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:26:32.440 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 00:26:32 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:26:42.467 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 00:26:42 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:26:52.496 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 00:26:52 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:27:02.527 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 00:27:02 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:27:12.565 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 00:27:12 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:27:22.592 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 00:27:22 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:27:32.621 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 00:27:32 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:27:42.647 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 00:27:42 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:27:52.667 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 00:27:52 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:28:02.802 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 00:28:02 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:28:12.835 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 00:28:12 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:28:22.858 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 00:28:22 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:28:32.887 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 00:28:32 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:28:42.907 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 00:28:42 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:28:52.925 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 00:28:52 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:29:02.953 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 00:29:02 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:29:12.983 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 00:29:12 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:29:23.009 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 00:29:23 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:29:33.038 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 00:29:33 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:29:43.063 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 00:29:43 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:29:53.091 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 00:29:53 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:30:03.112 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 00:30:03 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:30:13.137 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 00:30:13 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:30:23.163 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 00:30:23 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:30:33.185 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 00:30:33 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:30:43.211 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 00:30:43 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:30:53.236 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 00:30:53 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:31:03.255 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 00:31:03 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:31:13.276 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 00:31:13 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:31:23.302 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 00:31:23 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:31:33.322 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 00:31:33 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:31:43.343 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 00:31:43 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:31:53.358 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 00:31:53 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:32:03.375 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 00:32:03 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:32:13.402 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 00:32:13 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:32:23.428 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 00:32:23 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:32:33.454 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 00:32:33 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:32:43.482 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 00:32:43 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:32:53.512 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 00:32:53 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:33:03.537 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 00:33:03 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:33:13.558 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 00:33:13 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:33:23.577 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 00:33:23 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:33:33.601 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 00:33:33 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:33:43.624 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 00:33:43 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:33:53.652 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 00:33:53 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:34:03.680 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 00:34:03 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:34:13.699 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 00:34:13 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:34:23.719 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 00:34:23 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:34:33.748 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 00:34:33 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:34:43.775 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 00:34:43 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:34:53.810 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 00:34:53 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:35:03.835 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 00:35:03 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:35:13.863 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 00:35:13 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:35:23.891 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 00:35:23 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:35:33.918 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 00:35:33 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:35:43.941 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 00:35:43 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:35:53.970 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 00:35:53 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:36:03.991 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 00:36:03 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:36:14.026 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 00:36:14 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:36:24.058 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 00:36:24 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:36:34.087 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 00:36:34 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:36:44.120 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 00:36:44 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:36:54.141 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 00:36:54 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:37:04.177 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 00:37:04 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:37:14.206 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 00:37:14 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:37:24.242 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 00:37:24 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:37:34.271 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 00:37:34 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:37:44.305 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 00:37:44 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:37:54.335 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 00:37:54 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:38:04.356 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 00:38:04 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:38:14.388 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 00:38:14 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:38:24.420 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 00:38:24 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:38:34.447 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 00:38:34 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:38:44.481 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 00:38:44 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:38:54.512 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 00:38:54 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:39:04.561 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 00:39:04 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:39:14.588 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 00:39:14 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:39:24.625 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 00:39:24 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:39:34.659 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 00:39:34 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:39:44.695 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 00:39:44 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:39:54.724 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 00:39:54 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:44:50.121 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 00:44:50 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:45:00.151 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 00:45:00 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:45:10.295 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 00:45:10 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:45:20.315 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 00:45:20 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:45:30.333 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 00:45:30 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:45:40.350 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 00:45:40 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:45:50.369 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 00:45:50 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:46:00.387 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 00:46:00 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:46:10.405 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 00:46:10 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:46:20.433 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 00:46:20 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:46:30.493 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 00:46:30 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:46:40.518 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 00:46:40 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:46:50.539 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 00:46:50 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:47:00.557 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 00:47:00 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:47:10.573 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 00:47:10 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:47:20.606 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 00:47:20 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:47:30.624 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 00:47:30 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:47:40.651 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 00:47:40 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:47:50.672 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 00:47:50 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:48:00.692 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 00:48:00 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:48:10.713 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 00:48:10 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:48:20.735 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 00:48:20 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:48:30.757 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 00:48:30 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:48:40.783 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 00:48:40 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:48:50.812 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 00:48:50 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:49:00.842 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 00:49:00 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:49:10.880 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 00:49:10 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:49:20.907 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 00:49:20 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:49:30.933 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 00:49:30 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:49:40.951 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 00:49:40 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:49:50.980 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 00:49:50 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:50:01.000 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 00:50:01 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:50:11.157 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 00:50:11 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:50:21.192 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 00:50:21 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:50:31.242 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 00:50:31 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:50:41.267 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 00:50:41 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:50:51.295 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 00:50:51 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:51:01.313 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 00:51:01 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:51:11.340 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 00:51:11 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:51:21.361 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 00:51:21 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:51:31.387 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 00:51:31 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:51:41.403 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 00:51:41 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:51:51.431 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 00:51:51 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:52:01.455 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 00:52:01 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:52:11.478 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 00:52:11 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:52:21.505 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 00:52:21 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:52:31.531 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 00:52:31 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:52:41.553 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 00:52:41 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:52:51.587 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 00:52:51 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:53:01.614 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 00:53:01 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:53:11.644 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 00:53:11 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:53:21.670 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 00:53:21 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:53:31.726 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 00:53:31 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:53:41.750 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 00:53:41 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:53:51.775 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 00:53:51 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:54:01.806 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 00:54:01 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:54:11.831 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 00:54:11 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:54:21.856 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 00:54:21 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:54:31.876 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 00:54:31 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:54:41.905 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 00:54:41 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:54:51.925 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 00:54:51 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:55:01.949 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 00:55:01 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:55:11.970 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 00:55:11 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:55:22.000 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 00:55:22 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:55:32.025 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 00:55:32 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:55:42.051 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 00:55:42 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:55:52.082 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 00:55:52 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:56:02.109 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 00:56:02 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:56:12.133 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 00:56:12 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:56:22.268 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 00:56:22 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:56:32.293 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 00:56:32 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:56:42.312 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 00:56:42 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:56:52.338 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 00:56:52 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:57:02.359 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 00:57:02 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:57:12.380 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 00:57:12 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:57:22.404 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 00:57:22 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:57:32.427 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 00:57:32 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:57:42.457 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 00:57:42 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:57:52.487 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 00:57:52 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:58:02.514 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 00:58:02 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:58:12.537 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 00:58:12 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:58:22.564 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 00:58:22 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:58:32.589 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 00:58:32 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:58:42.612 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 00:58:42 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:58:52.642 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 00:58:52 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:59:02.665 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 00:59:02 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:59:12.688 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 00:59:12 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:59:22.707 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 00:59:22 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:59:32.841 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 00:59:32 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:59:42.874 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 00:59:42 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 00:59:52.901 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 00:59:52 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:00:02.929 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 01:00:02 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:00:12.960 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 01:00:12 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:00:22.982 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 01:00:22 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:00:33.007 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 01:00:33 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:00:43.030 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 01:00:43 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:00:53.054 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 01:00:53 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:01:03.081 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 01:01:03 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:01:13.109 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 01:01:13 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:01:23.133 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 01:01:23 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:01:33.162 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 01:01:33 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:01:43.177 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 01:01:43 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:01:53.194 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 01:01:53 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:02:03.214 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 01:02:03 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:02:13.232 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 01:02:13 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:02:23.258 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 01:02:23 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:02:33.281 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 01:02:33 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:02:43.312 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 01:02:43 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:02:53.340 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 01:02:53 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:03:03.366 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 01:03:03 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:03:13.387 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 01:03:13 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:35:31.378 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 01:35:31 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:35:41.437 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 01:35:41 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:35:51.480 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 01:35:51 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:36:01.517 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 01:36:01 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:36:11.553 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 01:36:11 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:36:21.583 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 01:36:21 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:36:31.623 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 01:36:31 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:36:41.664 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 01:36:41 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:36:51.697 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 01:36:51 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:37:01.731 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 01:37:01 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:37:11.761 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 01:37:11 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:37:21.800 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 01:37:21 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:37:31.835 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 01:37:31 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:37:41.874 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 01:37:41 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:37:51.900 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 01:37:51 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:38:01.927 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 01:38:01 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:38:11.950 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 01:38:11 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:38:21.981 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 01:38:21 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:38:32.028 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 01:38:32 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:38:42.063 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 01:38:42 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:38:52.096 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 01:38:52 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:39:02.135 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 01:39:02 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:39:12.166 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 01:39:12 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:39:22.202 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 01:39:22 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:39:32.231 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 01:39:32 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:39:42.262 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 01:39:42 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:39:52.296 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 01:39:52 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:40:02.327 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 01:40:02 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:40:12.348 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 01:40:12 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:40:22.376 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 01:40:22 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:40:32.412 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 01:40:32 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:40:42.445 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 01:40:42 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:40:52.470 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 01:40:52 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:41:02.500 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 01:41:02 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:41:12.555 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 01:41:12 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:41:22.587 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 01:41:22 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:41:32.623 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 01:41:32 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:41:42.659 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 01:41:42 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:41:52.693 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 01:41:52 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:42:02.729 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 01:42:02 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:42:12.764 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 01:42:12 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:42:20.414 febs [scheduling-1] INFO  com.pret.user.common.task.CacheTask - delete expired user
+2019-10-09 01:42:22.801 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 01:42:22 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:42:32.840 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 01:42:32 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:42:42.867 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 01:42:42 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:42:52.895 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 01:42:52 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:43:02.954 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 01:43:02 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:43:12.982 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 01:43:12 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:43:23.009 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 01:43:23 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:43:33.032 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 01:43:33 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:43:43.066 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 01:43:43 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:43:53.098 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 01:43:53 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:44:03.126 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 01:44:03 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:44:13.158 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 01:44:13 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:44:23.193 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 01:44:23 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:44:33.228 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 01:44:33 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:44:43.262 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 01:44:43 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:44:53.289 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 01:44:53 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:45:03.317 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 01:45:03 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:45:13.347 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 01:45:13 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:45:23.381 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 01:45:23 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:45:33.416 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 01:45:33 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:45:43.450 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 01:45:43 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:45:53.485 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 01:45:53 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:46:03.521 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 01:46:03 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:46:13.558 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 01:46:13 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:46:23.586 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 01:46:23 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:46:33.617 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 01:46:33 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:46:43.650 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 01:46:43 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:46:53.691 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 01:46:53 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:47:03.751 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 01:47:03 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:47:13.789 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 01:47:13 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:47:23.825 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 01:47:23 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:47:33.861 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 01:47:33 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:47:43.891 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 01:47:43 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:47:53.922 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 01:47:53 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:48:03.958 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 01:48:03 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:48:13.997 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 01:48:13 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:48:24.026 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 01:48:24 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:48:34.055 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 01:48:34 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:48:44.092 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 01:48:44 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:48:54.126 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 01:48:54 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:49:04.183 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 01:49:04 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:49:14.210 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 01:49:14 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:49:24.239 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 01:49:24 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:49:34.261 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 01:49:34 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:49:44.285 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 01:49:44 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:49:54.309 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 01:49:54 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:50:04.336 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 01:50:04 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:50:14.367 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 01:50:14 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:50:24.444 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 01:50:24 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:50:34.480 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 01:50:34 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:50:44.527 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 01:50:44 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:50:54.568 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 01:50:54 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:51:04.592 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 01:51:04 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:51:14.619 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 01:51:14 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:51:24.648 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 01:51:24 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:51:34.676 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 01:51:34 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:51:44.701 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 01:51:44 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:51:54.730 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 01:51:54 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:52:04.758 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 01:52:04 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:52:14.787 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 01:52:14 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:52:24.816 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 01:52:24 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:52:34.850 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 01:52:34 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:52:44.883 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 01:52:44 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:52:54.909 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 01:52:54 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:53:04.938 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 01:53:04 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:53:14.968 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 01:53:14 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:53:25.000 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 01:53:25 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:53:35.027 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 01:53:35 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:53:45.056 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 01:53:45 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:53:55.089 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 01:53:55 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:54:05.125 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 01:54:05 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:54:15.152 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 01:54:15 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:54:25.183 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 01:54:25 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:54:35.222 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 01:54:35 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:54:45.250 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 01:54:45 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:54:55.275 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 01:54:55 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:55:05.309 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 01:55:05 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:55:15.339 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 01:55:15 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:55:25.519 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 01:55:25 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:55:35.553 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 01:55:35 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:55:45.573 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 01:55:45 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:55:55.603 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 01:55:55 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:56:05.632 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 01:56:05 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:56:15.663 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 01:56:15 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:56:25.691 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 01:56:25 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:56:35.727 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 01:56:35 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:56:45.761 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 01:56:45 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:56:55.793 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 01:56:55 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:57:05.836 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 01:57:05 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:57:15.864 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 01:57:15 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:57:25.894 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 01:57:25 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:57:35.930 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 01:57:35 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:57:45.957 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 01:57:45 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:57:55.984 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 01:57:55 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:58:06.129 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 01:58:06 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:58:16.155 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 01:58:16 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:58:26.182 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 01:58:26 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:58:36.215 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 01:58:36 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:58:46.234 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 01:58:46 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:58:56.261 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 01:58:56 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:59:06.290 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 01:59:06 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:59:16.326 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 01:59:16 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:59:26.351 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 01:59:26 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:59:36.387 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 01:59:36 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:59:46.414 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 01:59:46 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 01:59:56.448 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 01:59:56 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 02:00:06.480 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 02:00:06 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 02:00:16.528 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 02:00:16 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 02:00:26.557 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 02:00:26 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 02:00:36.581 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 02:00:36 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 02:00:46.614 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 02:00:46 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 02:00:56.646 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 02:00:56 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 02:01:06.671 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 02:01:06 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 02:01:16.698 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 02:01:16 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 02:01:26.727 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 02:01:26 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 02:01:36.756 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 02:01:36 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 02:01:46.782 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 02:01:46 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 02:01:56.805 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 02:01:56 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 02:02:06.838 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 02:02:06 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 02:02:16.932 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 02:02:16 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 02:02:26.964 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 02:02:26 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 02:02:36.988 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 02:02:36 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 02:02:47.016 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 02:02:47 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 02:02:57.040 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 02:02:57 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 02:03:07.065 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 02:03:07 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 02:03:17.084 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 02:03:17 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 02:03:27.104 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 02:03:27 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 02:03:37.134 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 02:03:37 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 02:03:47.168 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 02:03:47 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 02:03:57.197 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 02:03:57 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 02:04:07.224 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 02:04:07 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 02:04:17.260 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 02:04:17 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 02:04:27.286 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 02:04:27 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 02:04:37.322 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 02:04:37 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 02:04:47.354 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 02:04:47 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 02:04:57.384 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 02:04:57 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 02:05:07.418 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 02:05:07 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 02:05:17.447 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 02:05:17 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 02:05:27.483 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 02:05:27 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:44:22.675 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 03:44:22 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:44:32.742 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 03:44:32 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:44:42.777 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 03:44:42 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:44:52.815 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 03:44:52 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:45:02.851 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 03:45:02 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:45:12.878 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 03:45:12 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:45:22.917 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 03:45:22 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:45:32.950 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 03:45:32 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:45:42.984 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 03:45:42 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:45:53.018 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 03:45:53 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:46:03.058 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 03:46:03 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:46:13.094 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 03:46:13 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:46:23.125 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 03:46:23 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:46:33.152 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 03:46:33 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:46:43.182 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 03:46:43 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:46:53.218 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 03:46:53 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:47:03.246 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 03:47:03 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:47:13.279 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 03:47:13 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:47:23.318 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 03:47:23 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:47:33.344 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 03:47:33 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:47:43.377 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 03:47:43 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:47:53.409 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 03:47:53 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:48:03.446 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 03:48:03 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:48:13.472 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 03:48:13 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:48:23.506 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 03:48:23 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:48:33.540 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 03:48:33 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:48:43.574 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 03:48:43 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:48:53.610 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 03:48:53 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:49:03.635 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 03:49:03 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:49:13.665 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 03:49:13 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:49:23.702 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 03:49:23 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:49:33.731 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 03:49:33 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:49:43.761 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 03:49:43 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:49:53.792 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 03:49:53 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:50:03.819 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 03:50:03 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:50:13.838 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 03:50:13 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:50:23.869 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 03:50:23 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:50:33.892 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 03:50:33 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:50:43.913 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 03:50:43 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:50:53.937 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 03:50:53 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:51:04.174 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 03:51:04 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:51:14.202 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 03:51:14 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:51:24.232 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 03:51:24 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:51:34.267 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 03:51:34 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:51:44.305 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 03:51:44 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:51:54.337 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 03:51:54 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:52:04.374 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 03:52:04 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:52:14.402 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 03:52:14 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:52:24.435 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 03:52:24 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:52:34.455 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 03:52:34 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:52:44.486 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 03:52:44 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:52:54.518 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 03:52:54 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:53:04.546 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 03:53:04 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:53:14.575 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 03:53:14 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:53:24.607 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 03:53:24 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:53:34.637 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 03:53:34 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:53:44.676 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 03:53:44 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:53:54.702 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 03:53:54 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:54:04.730 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 03:54:04 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:54:15.086 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 03:54:15 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:54:25.118 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 03:54:25 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:54:35.148 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 03:54:35 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:54:45.184 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 03:54:45 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:54:55.218 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 03:54:55 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:55:05.254 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 03:55:05 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:55:15.288 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 03:55:15 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:55:25.320 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 03:55:25 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:55:35.358 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 03:55:35 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:55:45.385 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 03:55:45 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:55:55.426 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 03:55:55 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:56:05.455 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 03:56:05 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:56:15.484 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 03:56:15 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:56:25.515 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 03:56:25 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:56:35.546 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 03:56:35 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:56:45.586 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 03:56:45 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:56:55.615 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 03:56:55 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:57:05.645 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 03:57:05 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:57:15.681 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 03:57:15 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:57:25.724 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 03:57:25 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:57:35.753 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 03:57:35 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:57:45.779 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 03:57:45 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:57:55.815 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 03:57:55 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:58:05.843 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 03:58:05 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:58:15.872 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 03:58:15 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:58:25.903 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 03:58:25 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:58:35.936 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 03:58:35 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:58:45.963 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 03:58:45 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:58:55.988 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 03:58:55 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:59:06.018 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 03:59:06 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:59:16.052 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 03:59:16 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:59:26.087 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 03:59:26 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:59:36.122 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 03:59:36 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:59:46.151 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 03:59:46 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 03:59:56.184 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 03:59:56 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:00:06.220 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 04:00:06 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:00:16.258 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 04:00:16 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:00:26.285 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 04:00:26 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:00:36.316 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 04:00:36 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:00:46.347 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 04:00:46 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:00:56.385 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 04:00:56 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:01:06.419 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 04:01:06 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:01:16.456 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 04:01:16 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:01:26.480 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 04:01:26 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:01:36.548 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 04:01:36 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:01:46.584 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 04:01:46 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:01:56.620 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 04:01:56 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:02:06.653 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 04:02:06 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:02:16.699 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 04:02:16 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:02:26.732 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 04:02:26 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:02:36.761 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 04:02:36 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:02:46.794 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 04:02:46 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:02:56.829 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 04:02:56 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:03:06.862 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 04:03:06 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:03:16.890 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 04:03:16 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:03:26.917 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 04:03:26 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:03:36.947 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 04:03:36 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:03:46.991 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 04:03:46 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:03:57.031 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 04:03:57 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:04:07.070 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 04:04:07 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:04:17.108 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 04:04:17 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:04:27.139 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 04:04:27 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:04:37.179 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 04:04:37 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:04:47.211 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 04:04:47 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:04:57.231 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 04:04:57 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:05:07.263 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 04:05:07 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:05:17.285 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 04:05:17 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:05:27.312 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 04:05:27 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:05:37.351 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 04:05:37 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:05:47.374 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 04:05:47 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:05:57.396 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 04:05:57 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:06:07.423 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 04:06:07 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:06:17.452 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 04:06:17 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:06:27.474 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 04:06:27 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:06:37.502 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 04:06:37 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:06:47.531 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 04:06:47 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:06:57.570 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 04:06:57 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:07:07.597 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 04:07:07 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:07:17.628 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 04:07:17 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:07:27.659 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 04:07:27 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:07:37.688 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 04:07:37 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:07:47.719 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 04:07:47 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:07:57.748 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 04:07:57 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:08:07.775 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 04:08:07 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:08:17.798 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 04:08:17 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:08:27.823 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 04:08:27 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:08:37.851 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 04:08:37 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:08:47.883 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 04:08:47 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:08:57.919 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 04:08:57 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:09:07.970 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 04:09:07 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:09:18.045 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 04:09:18 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:09:28.091 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 04:09:28 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:09:38.117 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 04:09:38 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:09:48.151 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 04:09:48 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:09:58.186 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 04:09:58 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:10:08.222 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 04:10:08 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:10:18.250 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 04:10:18 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:10:28.283 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 04:10:28 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:10:38.317 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 04:10:38 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:10:48.354 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 04:10:48 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:10:58.392 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 04:10:58 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:11:08.422 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 04:11:08 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:11:18.455 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 04:11:18 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:11:28.493 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 04:11:28 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:11:38.521 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 04:11:38 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:11:48.547 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 04:11:48 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:11:58.588 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 04:11:58 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:12:08.624 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 04:12:08 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:12:18.659 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 04:12:18 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:12:28.696 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 04:12:28 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:12:38.732 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 04:12:38 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:12:48.769 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 04:12:48 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:12:58.797 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 04:12:58 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:13:08.828 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 04:13:08 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:13:18.867 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 04:13:18 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:13:28.899 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 04:13:28 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:13:38.933 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 04:13:38 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:13:48.966 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 04:13:48 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:13:58.999 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 04:13:58 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:14:09.031 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 04:14:09 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 04:14:19.054 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 04:14:19 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:35:28.927 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 05:35:28 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:35:39.057 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 05:35:39 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:35:49.110 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 05:35:49 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:35:59.143 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 05:35:59 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:36:09.179 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 05:36:09 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:36:19.204 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 05:36:19 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:36:29.243 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 05:36:29 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:36:39.277 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 05:36:39 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:36:49.314 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 05:36:49 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:36:59.344 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 05:36:59 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:37:09.375 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 05:37:09 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:37:19.399 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 05:37:19 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:37:29.428 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 05:37:29 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:37:39.456 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 05:37:39 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:37:49.487 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 05:37:49 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:37:59.525 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 05:37:59 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:38:09.553 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 05:38:09 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:38:19.584 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 05:38:19 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:38:29.611 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 05:38:29 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:38:39.644 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 05:38:39 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:38:49.673 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 05:38:49 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:38:59.705 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 05:38:59 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:39:09.730 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 05:39:09 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:39:19.759 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 05:39:19 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:39:29.793 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 05:39:29 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:39:39.835 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 05:39:39 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:39:49.856 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 05:39:49 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:39:59.893 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 05:39:59 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:40:09.919 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 05:40:09 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:40:19.940 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 05:40:19 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:40:29.963 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 05:40:29 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:40:39.990 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 05:40:39 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:40:50.025 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 05:40:50 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:41:00.059 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 05:41:00 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:41:10.087 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 05:41:10 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:41:20.119 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 05:41:20 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:41:30.162 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 05:41:30 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:41:40.187 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 05:41:40 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:41:50.212 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 05:41:50 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:41:57.498 febs [scheduling-1] INFO  com.pret.user.common.task.CacheTask - delete expired user
+2019-10-09 05:42:00.236 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 05:42:00 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:42:10.269 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 05:42:10 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:42:20.305 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 05:42:20 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:42:30.339 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 05:42:30 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:42:40.458 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 05:42:40 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:42:50.489 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 05:42:50 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:43:00.525 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 05:43:00 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:43:10.548 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 05:43:10 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:43:20.584 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 05:43:20 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:43:30.604 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 05:43:30 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:43:40.644 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 05:43:40 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:43:50.672 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 05:43:50 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:44:00.701 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 05:44:00 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:44:10.736 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 05:44:10 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:44:20.764 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 05:44:20 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:44:30.792 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 05:44:30 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:44:40.825 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 05:44:40 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:44:50.856 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 05:44:50 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:45:00.884 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 05:45:00 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:45:10.919 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 05:45:10 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:45:20.956 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 05:45:20 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:45:30.983 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 05:45:30 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:45:41.012 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 05:45:41 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:45:51.048 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 05:45:51 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:46:01.075 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 05:46:01 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:46:11.100 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 05:46:11 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:46:21.125 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 05:46:21 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:46:31.148 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 05:46:31 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:46:41.180 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 05:46:41 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:46:51.215 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 05:46:51 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:47:01.251 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 05:47:01 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:47:11.285 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 05:47:11 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:47:21.313 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 05:47:21 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:47:31.347 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 05:47:31 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:47:41.382 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 05:47:41 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:47:51.419 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 05:47:51 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:48:01.448 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 05:48:01 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:48:11.482 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 05:48:11 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:48:21.508 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 05:48:21 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:48:31.538 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 05:48:31 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:48:41.569 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 05:48:41 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:48:51.595 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 05:48:51 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:49:01.615 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 05:49:01 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:49:11.647 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 05:49:11 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:49:21.674 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 05:49:21 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:49:31.704 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 05:49:31 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:49:41.733 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 05:49:41 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:49:51.763 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 05:49:51 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:50:01.803 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 05:50:01 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:50:11.829 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 05:50:11 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:50:21.865 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 05:50:21 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:50:31.899 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 05:50:31 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:50:42.047 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 05:50:42 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:50:52.085 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 05:50:52 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:51:02.117 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 05:51:02 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:51:12.137 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 05:51:12 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:51:22.168 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 05:51:22 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:51:32.199 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 05:51:32 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:51:42.230 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 05:51:42 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:51:52.259 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 05:51:52 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:52:02.285 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 05:52:02 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:52:12.315 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 05:52:12 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:52:22.345 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 05:52:22 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:52:32.381 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 05:52:32 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:52:42.416 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 05:52:42 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:52:52.436 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 05:52:52 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:53:02.464 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 05:53:02 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:53:12.499 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 05:53:12 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:53:22.529 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 05:53:22 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:53:32.558 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 05:53:32 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:53:42.590 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 05:53:42 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:53:52.626 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 05:53:52 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:54:02.660 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 05:54:02 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:54:12.691 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 05:54:12 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:54:22.718 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 05:54:22 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:54:32.750 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 05:54:32 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:54:42.786 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 05:54:42 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:54:52.812 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 05:54:52 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:55:02.837 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 05:55:02 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:55:12.867 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 05:55:12 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:55:22.895 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 05:55:22 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:55:32.931 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 05:55:32 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:55:42.963 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 05:55:42 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:55:53.002 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 05:55:53 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:56:03.037 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 05:56:03 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:56:13.080 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 05:56:13 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:56:23.109 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 05:56:23 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:56:33.135 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 05:56:33 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:56:43.173 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 05:56:43 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:56:53.206 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 05:56:53 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:57:03.244 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 05:57:03 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:57:13.276 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 05:57:13 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:57:23.311 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 05:57:23 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:57:33.342 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 05:57:33 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:57:43.376 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 05:57:43 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:57:53.409 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 05:57:53 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:58:03.442 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 05:58:03 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:58:13.477 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 05:58:13 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:58:23.513 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 05:58:23 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:58:33.548 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 05:58:33 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:58:43.584 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 05:58:43 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:58:53.613 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 05:58:53 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:59:03.644 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 05:59:03 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:59:13.678 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 05:59:13 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:59:23.708 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 05:59:23 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:59:33.728 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 05:59:33 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:59:43.760 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 05:59:43 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 05:59:53.795 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 05:59:53 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 06:00:03.840 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 06:00:03 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 06:00:13.869 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 06:00:13 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 06:00:23.903 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 06:00:23 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 06:00:33.938 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 06:00:33 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 06:00:43.972 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 06:00:43 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 06:00:53.999 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 06:00:53 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 06:01:04.024 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 06:01:04 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 06:01:14.046 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 06:01:14 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 06:01:24.071 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 06:01:24 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 06:01:34.099 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 06:01:34 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 06:01:44.126 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 06:01:44 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 06:01:54.150 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 06:01:54 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 06:02:04.186 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 06:02:04 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 06:02:14.214 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 06:02:14 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 06:02:24.250 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 06:02:24 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 06:02:34.275 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 06:02:34 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 06:02:44.307 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 06:02:44 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 06:02:54.341 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 06:02:54 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 06:03:04.374 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 06:03:04 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 06:03:14.403 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 06:03:14 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 06:03:24.430 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 06:03:24 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 06:03:34.467 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 06:03:34 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 06:03:44.495 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 06:03:44 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 06:03:54.533 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 06:03:54 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 06:04:04.563 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 06:04:04 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 06:04:14.591 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 06:04:14 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 06:04:24.624 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 06:04:24 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 06:04:34.653 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 06:04:34 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 06:04:44.689 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 06:04:44 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 06:04:54.725 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 06:04:54 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 06:05:04.754 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 06:05:04 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 06:05:14.787 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 06:05:14 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 07:20:54.410 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 07:20:54 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 07:30:15.411 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 07:30:15 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 07:30:35.291 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 07:30:35 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 07:30:55.312 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 07:30:55 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 07:31:15.305 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 07:31:15 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 07:31:35.297 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 07:31:35 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 07:31:55.312 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 07:31:55 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 07:32:15.286 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 07:32:15 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 07:32:35.266 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 07:32:35 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 07:32:55.256 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 07:32:55 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 07:33:15.269 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 07:33:15 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 07:33:35.308 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 07:33:35 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 07:33:55.337 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 07:33:55 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 07:34:15.354 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 07:34:15 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 07:34:35.343 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 07:34:35 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 07:34:55.352 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 07:34:55 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 07:35:15.448 febs [http-nio-9527-exec-2] INFO  p6spy - 2019-10-09 07:35:15 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 07:35:35.472 febs [http-nio-9527-exec-3] INFO  p6spy - 2019-10-09 07:35:35 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 07:35:55.518 febs [http-nio-9527-exec-4] INFO  p6spy - 2019-10-09 07:35:55 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 07:36:15.569 febs [http-nio-9527-exec-5] INFO  p6spy - 2019-10-09 07:36:15 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 07:36:35.600 febs [http-nio-9527-exec-6] INFO  p6spy - 2019-10-09 07:36:35 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 07:36:55.628 febs [http-nio-9527-exec-7] INFO  p6spy - 2019-10-09 07:36:55 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 07:36:59.980 febs [http-nio-9527-exec-1] INFO  p6spy - 2019-10-09 07:36:59 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 07:37:15.595 febs [http-nio-9527-exec-8] INFO  p6spy - 2019-10-09 07:37:15 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 07:37:35.636 febs [http-nio-9527-exec-9] INFO  p6spy - 2019-10-09 07:37:35 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 07:37:55.560 febs [http-nio-9527-exec-10] INFO  p6spy - 2019-10-09 07:37:55 | 耗时 0 ms | SQL 语句：
+select 1;
+2019-10-09 07:37:59.160 febs [Thread-24] INFO  org.quartz.core.QuartzScheduler - Scheduler quartzScheduler_$_NON_CLUSTERED paused.
+2019-10-09 07:37:59.161 febs [Thread-24] INFO  o.s.c.c.s.ConsulServiceRegistry - Deregistering service with consul: pret-user-192-168-1-109-9527
+2019-10-09 07:37:59.165 febs [Thread-24] INFO  o.s.s.c.ThreadPoolTaskScheduler - Shutting down ExecutorService 'catalogWatchTaskScheduler'
+2019-10-09 07:37:59.165 febs [Thread-24] INFO  o.s.s.c.ThreadPoolTaskScheduler - Shutting down ExecutorService 'taskScheduler'
+2019-10-09 07:37:59.182 febs [Thread-24] INFO  o.s.s.c.ThreadPoolTaskExecutor - Shutting down ExecutorService 'taskExecutor'
+2019-10-09 07:37:59.182 febs [Thread-24] INFO  o.s.s.quartz.SchedulerFactoryBean - Shutting down Quartz Scheduler
+2019-10-09 07:37:59.182 febs [Thread-24] INFO  org.quartz.core.QuartzScheduler - Scheduler quartzScheduler_$_NON_CLUSTERED shutting down.
+2019-10-09 07:37:59.182 febs [Thread-24] INFO  org.quartz.core.QuartzScheduler - Scheduler quartzScheduler_$_NON_CLUSTERED paused.
+2019-10-09 07:37:59.183 febs [Thread-24] INFO  org.quartz.core.QuartzScheduler - Scheduler quartzScheduler_$_NON_CLUSTERED shutdown complete.
+2019-10-09 07:37:59.183 febs [Thread-24] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2019-10-09 07:37:59.187 febs [Thread-24] INFO  c.b.d.d.DynamicRoutingDataSource - closing dynamicDatasource  ing....
+2019-10-09 07:37:59.187 febs [Thread-24] INFO  com.zaxxer.hikari.HikariDataSource - primary - Shutdown initiated...
+2019-10-09 07:37:59.190 febs [Thread-24] INFO  com.zaxxer.hikari.HikariDataSource - primary - Shutdown completed.

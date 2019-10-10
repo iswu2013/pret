@@ -48,6 +48,14 @@ public class PretServiceRouteOrgin extends VersionedAuditableIdEntity implements
      */
     private String pickUpAddressId;
 
+    /**
+     * 起运地名称
+     */
+    private String name;
+
+    @Transient()
+    private PretVender pretVender;
+
     // setter and getter
 
     /**
@@ -111,5 +119,21 @@ public class PretServiceRouteOrgin extends VersionedAuditableIdEntity implements
      */
     public void setPickUpAddressId(String pickUpAddressId) {
         this.pickUpAddressId = pickUpAddressId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public PretVender getPretVender() {
+        return pretVender;
+    }
+
+    public void setPretVender(PretVender pretVender) {
+        this.pretVender = pretVender;
     }
 }

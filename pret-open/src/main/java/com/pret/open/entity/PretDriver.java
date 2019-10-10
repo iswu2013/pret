@@ -48,6 +48,16 @@ public class PretDriver extends VersionedAuditableIdEntity implements Serializab
      */
     private String carNumber;
 
+    /**
+     * 车型
+     */
+    private String vehicleType;
+
+    /**
+     * 车长
+     */
+    private String vehicleLength;
+
     // setter and getter
 
     /**
@@ -111,5 +121,21 @@ public class PretDriver extends VersionedAuditableIdEntity implements Serializab
      */
     public void setCarNumber(String carNumber) {
         this.carNumber = carNumber;
+    }
+
+    public String getVehicleType() {
+        return vehicleType;
+    }
+
+    public void setVehicleType(String vehicleType) {
+        this.vehicleType = vehicleType;
+    }
+
+    public String getVehicleLength() {
+        return vehicleLength;
+    }
+
+    public void setVehicleLength(String vehicleLength) {
+        this.vehicleLength = vehicleLength;
     }
 }

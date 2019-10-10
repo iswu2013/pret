@@ -39,6 +39,10 @@ public class PretTransOrderItem extends VersionedAuditableIdEntity implements Se
      * 运输任务单id
      */
     private String transOrderId;
+
+    @Transient()
+    private PretTransOrder pretTransOrder;
+
     /**
      * 商品id
      */
@@ -81,6 +85,15 @@ public class PretTransOrderItem extends VersionedAuditableIdEntity implements Se
      */
     public void setTransOrderId(String transOrderId) {
         this.transOrderId = transOrderId;
+    }
+
+
+    public PretTransOrder getPretTransOrder() {
+        return pretTransOrder;
+    }
+
+    public void setPretTransOrder(PretTransOrder pretTransOrder) {
+        this.pretTransOrder = pretTransOrder;
     }
 
     /**

@@ -1,6 +1,7 @@
 package com.pret.open.repository;
 
 import com.pret.common.repository.BaseRepository;
+import com.pret.open.entity.PretPickUpPlan;
 import com.pret.open.entity.PretTransPlan;
 
 /** 
@@ -11,4 +12,5 @@ import com.pret.open.entity.PretTransPlan;
  * Copyright (c) 2019年 极客城堡
  */
 public interface PretTransPlanRepository extends BaseRepository<PretTransPlan>{
+    PretTransPlan findTop1ByCreateTimeLongBetweenOrderByCreateTimeLongDesc(long time, long time1);
 }

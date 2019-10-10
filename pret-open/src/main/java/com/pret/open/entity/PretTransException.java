@@ -36,13 +36,18 @@ public class PretTransException extends VersionedAuditableIdEntity implements Se
     }
 
     /**
+     * 单号
+     */
+    private String no;
+
+    /**
      * 运输计划id
      */
     private String transPlanId;
     /**
      * 运输任务单明细id
      */
-    private String transOrderItemId;
+    private String transOrderId;
     /**
      * 异常类别0
      */
@@ -82,6 +87,15 @@ public class PretTransException extends VersionedAuditableIdEntity implements Se
 
     // setter and getter
 
+
+    public String getNo() {
+        return no;
+    }
+
+    public void setNo(String no) {
+        this.no = no;
+    }
+
     /**
      * <p>Discription:[运输计划id]</p>
      * Created on 2019年09月15日
@@ -103,25 +117,12 @@ public class PretTransException extends VersionedAuditableIdEntity implements Se
         this.transPlanId = transPlanId;
     }
 
-    /**
-     * <p>Discription:[运输任务单明细id]</p>
-     * Created on 2019年09月15日
-     *
-     * @return String
-     * @author:wujinsong
-     */
-    public String getTransOrderItemId() {
-        return transOrderItemId;
+    public String getTransOrderId() {
+        return transOrderId;
     }
 
-    /**
-     * <p>Discription:[运输任务单明细id]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setTransOrderItemId(String transOrderItemId) {
-        this.transOrderItemId = transOrderItemId;
+    public void setTransOrderId(String transOrderId) {
+        this.transOrderId = transOrderId;
     }
 
     /**

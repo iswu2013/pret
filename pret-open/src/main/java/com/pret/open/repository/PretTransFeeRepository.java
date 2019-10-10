@@ -11,4 +11,13 @@ import com.pret.open.entity.PretTransFee;
  * Copyright (c) 2019年 极客城堡
  */
 public interface PretTransFeeRepository extends BaseRepository<PretTransFee>{
+    /* *
+     * 功能描述: 查找最新的费用单
+     * 〈〉
+     * @Param: [time, time1]
+            * @Return: com.pret.open.entity.PretTransFee
+            * @Author: wujingsong
+            * @Date: 2019/10/4  5:17 下午
+     */
+    PretTransFee findTop1ByCreateTimeLongBetweenOrderByCreateTimeLongDesc(long time, long time1);
 }

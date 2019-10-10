@@ -4,6 +4,8 @@ import com.pret.api.service.BaseManageService;
 import com.pret.common.VersionedAuditableIdEntity;
 import com.pret.common.annotation.Log;
 import com.pret.common.exception.FebsException;
+import com.pret.common.util.BeanUtilsExtended;
+import jdk.nashorn.internal.runtime.options.Option;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +14,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * 基础Controller
@@ -37,7 +40,7 @@ public class BaseManageController<Service extends BaseManageService, T extends V
 
     @Log("新增")
     @PostMapping
-    public void add(@Valid @RequestBody T t) throws FebsException {
+    public void add(@Valid T t) throws FebsException {
         try {
             this.service.save(t);
         } catch (Exception e) {
@@ -59,9 +62,13 @@ public class BaseManageController<Service extends BaseManageService, T extends V
 
     @Log("修改")
     @PutMapping
-    public void updateDept(@Valid @RequestBody T t) throws FebsException {
+    public void update(@Valid T t) throws FebsException {
         try {
-            this.service.save(t);
+            Optional<T> old = this.service.findById(t.getId());
+            if(old.isPresent()) {
+                BeanUtilsExtended.copyProperties(old.get(),t);
+            }
+            this.service.save(old.get());
         } catch (Exception e) {
             message = "修改失败";
             throw new FebsException(message);

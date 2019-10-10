@@ -128,6 +128,10 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
      */
     private String createBy;
 
+    private PretVender pretVender;
+
+    private PretCustomer pretCustomer;
+
     // setter and getter
 
     /**
@@ -611,5 +615,23 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
      */
     public void setCreateBy(String createBy) {
         this.createBy = createBy;
+    }
+
+    @Transient()
+    public PretVender getPretVender() {
+        return pretVender;
+    }
+
+    public void setPretVender(PretVender pretVender) {
+        this.pretVender = pretVender;
+    }
+
+    @Transient()
+    public PretCustomer getPretCustomer() {
+        return pretCustomer;
+    }
+
+    public void setPretCustomer(PretCustomer pretCustomer) {
+        this.pretCustomer = pretCustomer;
     }
 }
