@@ -41,6 +41,11 @@ public class InterfaceConfig {
     public static final String H1000003 = "outFactory.do";
 
     /**
+     * 绑定用户
+     */
+    public static final String H1000004 = "bindUser.do";
+
+    /**
      * 获取司机备货列表
      */
     public static final String H8000000 = "getPickupPlanList.get";

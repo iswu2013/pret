@@ -1,14 +1,13 @@
 package com.pret.open.entity;
 
 import com.pret.common.VersionedAuditableIdEntity;
-
-import java.io.Serializable;
-import javax.persistence.Id;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.io.Serializable;
 
 /**
  * <p>Description: [pretmodel]</p>

@@ -13,7 +13,7 @@ public class PretPickUpPlanVo extends PageFormVo implements Serializable{
     private String eq$venderId;
     private long bw$createTimeLong;
     private long createTimeLongEnd;
-    private int eq$status;
+    private int eq$status = -1;
     private String eq$driverId;
 
     public String getEq$venderId() {

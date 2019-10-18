@@ -16,7 +16,8 @@ public class ConstantEnum {
          * 市
          */
         D(2);
-         S(int label) {
+
+        S(int label) {
             this.setLabel(label);
         }
 
@@ -523,6 +524,35 @@ public class ConstantEnum {
         private int label;
 
         private EPretPickUpPlanStatus(int label) {
+            this.setLabel(label);
+        }
+
+        //省略getter、setter方法
+
+        public int getLabel() {
+            return label;
+        }
+
+        public void setLabel(int label) {
+            this.label = label;
+        }
+    }
+
+    /* *
+     * 功能描述: 异常状态
+     * 〈〉
+     * @Param:
+            * @Return:
+            * @Author: wujingsong
+            * @Date: 2019/10/19  6:46 上午
+     */
+    public enum EPretTransExceptionStatus {
+        待审核(0),
+        通过(1),
+        不通过(2);
+        private int label;
+
+        private EPretTransExceptionStatus(int label) {
             this.setLabel(label);
         }
 

@@ -13,7 +13,7 @@ public class PretTransFeeVo extends PageFormVo implements Serializable{
     private String eq$venderId;
     private long bw$createTimeLong;
     private long createTimeLongEnd;
-    private int eq$status;
+    private int eq$status = -1;
 
     public String getEq$venderId() {
         return eq$venderId;
