@@ -18,6 +18,7 @@ import com.pret.open.repository.PretPickUpPlanRepository;
 import com.pret.open.vo.req.*;
 import com.pret.open.repository.PretTransOrderRepository;
 import com.pret.api.service.impl.BaseServiceImpl;
+import com.pret.open.vo.res.PR1000000Vo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -66,6 +67,8 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
      * @Date: 2019/10/10  4:49 下午
      */
     public ResBody order(P1000000Vo res) {
+        PR1000000Vo retVo = new PR1000000Vo();
+
         // 客户
         PretCustomer customer = new PretCustomer();
         customer.setLinkPhone(res.getCustTel());
@@ -87,8 +90,9 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
         transOrder.setGoodsId(goods.getId());
         transOrder.setCustomerId(customer.getId());
         this.save(transOrder);
+        retVo.setData(transOrder);
 
 
-        return new ResBody();
+        return retVo;
     }
 }

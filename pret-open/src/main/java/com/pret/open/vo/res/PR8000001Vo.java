@@ -1,5 +1,7 @@
 package com.pret.open.vo.res;
 
+import com.pret.api.vo.ResBody;
+
 /**
  * Description: 获取待备货详情
  * Created on 2019年09月15日
@@ -7,5 +9,5 @@ package com.pret.open.vo.res;
  * @version 1.0 
  * Copyright (c) 2019年 极客城堡
  */
-public class PR8000001Vo {
+public class PR8000001Vo extends ResBody {
 }

@@ -21,6 +21,7 @@ import com.pret.open.repository.PretTransOrderRepository;
 import com.pret.open.vo.req.*;
 import com.pret.open.repository.PretPickUpPlanRepository;
 import com.pret.api.service.impl.BaseServiceImpl;
+import com.pret.open.vo.res.*;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -104,13 +105,16 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
      * @Date: 2019/10/18  9:55 下午
      */
     public ResBody getPickupPlanList(P8000000Vo res) {
-        PretDriver pretDriver = driverRepository.findByOpenid(res.getOpenid());
-        if (pretDriver != null) {
-            List<PretPickUpPlan> pretPickUpPlanList = this.repository.findByDriverIdAndStatus(pretDriver.getId(), res.getStatus());
-            return new ResBody().setData(pretPickUpPlanList);
-        }
+        PR8000000Vo retVo = new PR8000000Vo();
 
-        return new ResBody();
+        PretDriver pretDriver = driverRepository.findByOpenid(res.getOpenid());
+        PretPickUpPlanVo vo = new PretPickUpPlanVo();
+        vo.setEq$status(res.getStatus());
+        vo.setEq$driverId(pretDriver.getId());
+        List<PretPickUpPlan> list = this.page(vo).getContent();
+        retVo.setData(list);
+
+        return retVo;
     }
 
     /* *
@@ -122,8 +126,12 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
      * @Date: 2019/10/18  10:06 下午
      */
     public ResBody getPickupPlanDetail(P8000001Vo res) {
+        PR8000001Vo retVo = new PR8000001Vo();
+
         PretPickUpPlan pretPickUpPlan = this.repository.findById(res.getId()).get();
-        return new ResBody().setData(pretPickUpPlan);
+        retVo.setData(pretPickUpPlan);
+
+        return retVo;
     }
 
     /* *
@@ -135,6 +143,8 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
      * @Date: 2019/10/18  10:14 下午
      */
     public ResBody finishPickupPlan(P1000001Vo res) {
+        PR1000001Vo retVo = new PR1000001Vo();
+
         List<String> idList = StringUtil.idsStr2ListString(res.getIds());
         for (String id : idList) {
             PretPickUpPlan pickUpPlan = this.repository.findById(id).get();
@@ -142,6 +152,52 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
             this.repository.save(pickUpPlan);
         }
 
-        return new ResBody();
+        return retVo;
+    }
+
+    /* *
+     * 功能描述: 进厂确认
+     * 〈〉
+     * @Param: [res]
+     * @Return: com.pret.api.vo.ResBody
+     * @Author: wujingsong
+     * @Date: 2019/10/18  11:06 下午
+     */
+    public ResBody inFactory(P1000002Vo res) {
+        PR1000002Vo retVo = new PR1000002Vo();
+
+        PretDriver driver = driverRepository.findByOpenid(res.getOpenid());
+
+        List<PretPickUpPlan> pretPickUpPlanList = this.repository.findByDriverIdAndStartTimeIsNull(driver.getId());
+        Date date = new Date();
+        for (PretPickUpPlan pretPickUpPlan : pretPickUpPlanList) {
+            pretPickUpPlan.setStartTime(date);
+            this.repository.save(pretPickUpPlan);
+        }
+
+        return retVo;
+    }
+
+    /* *
+     * 功能描述: 出厂确认
+     * 〈〉
+     * @Param: [res]
+     * @Return: com.pret.api.vo.ResBody
+     * @Author: wujingsong
+     * @Date: 2019/10/18  11:06 下午
+     */
+    public ResBody outFactory(P1000003Vo res) {
+        PR1000003Vo retVo = new PR1000003Vo();
+
+        PretDriver driver = driverRepository.findByOpenid(res.getOpenid());
+
+        List<PretPickUpPlan> pretPickUpPlanList = this.repository.findByDriverIdAndStartTimeIsNotNullAndEndTimeIsNull(driver.getId());
+        Date date = new Date();
+        for (PretPickUpPlan pretPickUpPlan : pretPickUpPlanList) {
+            pretPickUpPlan.setEndTime(date);
+            this.repository.save(pretPickUpPlan);
+        }
+
+        return retVo;
     }
 }

@@ -49,6 +49,8 @@ public class PretCustomer extends VersionedAuditableIdEntity implements Serializ
      */
     private String linkPhone;
 
+    private String openid;
+
     // setter and getter
 
     /**
@@ -86,5 +88,13 @@ public class PretCustomer extends VersionedAuditableIdEntity implements Serializ
 
     public void setLinkPhone(String linkPhone) {
         this.linkPhone = linkPhone;
+    }
+
+    public String getOpenid() {
+        return openid;
+    }
+
+    public void setOpenid(String openid) {
+        this.openid = openid;
     }
 }

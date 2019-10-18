@@ -13,6 +13,7 @@ public class PretTransPlanVo extends PageFormVo implements Serializable{
     private String eq$venderId;
     private long bw$createTimeLong;
     private long createTimeLongEnd;
+    private String eq$customerId;
 
     public String getEq$venderId() {
         return eq$venderId;
@@ -36,5 +37,13 @@ public class PretTransPlanVo extends PageFormVo implements Serializable{
 
     public void setCreateTimeLongEnd(long createTimeLongEnd) {
         this.createTimeLongEnd = createTimeLongEnd;
+    }
+
+    public String getEq$customerId() {
+        return eq$customerId;
+    }
+
+    public void setEq$customerId(String eq$customerId) {
+        this.eq$customerId = eq$customerId;
     }
 }

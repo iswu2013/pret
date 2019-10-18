@@ -3,6 +3,7 @@ package com.pret.open.vo.res;
 import java.util.List;
 
 import com.pret.api.vo.PageFormVo;
+import com.pret.api.vo.ResBody;
 
 /**
  * Description: 下单
@@ -11,5 +12,5 @@ import com.pret.api.vo.PageFormVo;
  * @version 1.0 
  * Copyright (c) 2019年 极客城堡
  */
-public class PR1000000Vo {
+public class PR1000000Vo extends ResBody {
 }

@@ -32,4 +32,24 @@ public interface PretPickUpPlanRepository extends BaseRepository<PretPickUpPlan>
             * @Date: 2019/10/18  9:58 下午
      */
     List<PretPickUpPlan> findByDriverIdAndStatus(String driverId,Integer status);
+    
+    /* *
+     * 功能描述: 根据driverId和实际到场时间不为Null查找
+     * 〈〉
+     * @Param: [driverId]
+            * @Return: java.util.List<com.pret.open.entity.PretPickUpPlan>
+            * @Author: wujingsong
+            * @Date: 2019/10/18  11:10 下午
+     */
+    List<PretPickUpPlan> findByDriverIdAndStartTimeIsNull(String driverId);
+
+    /* *
+     * 功能描述: 根据driverId和实际到场时间不为Null查找
+     * 〈〉
+     * @Param: [driverId]
+            * @Return: java.util.List<com.pret.open.entity.PretPickUpPlan>
+            * @Author: wujingsong
+            * @Date: 2019/10/18  11:13 下午
+     */
+    List<PretPickUpPlan> findByDriverIdAndStartTimeIsNotNullAndEndTimeIsNull(String driverId);
 }

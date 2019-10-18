@@ -11,4 +11,13 @@ import com.pret.open.entity.PretCustomer;
  * Copyright (c) 2019年 极客城堡
  */
 public interface PretCustomerRepository extends BaseRepository<PretCustomer>{
+    /* *
+     * 功能描述: 根据openid查找
+     * 〈〉
+     * @Param: [openid]
+            * @Return: com.pret.open.entity.PretCustomer
+            * @Author: wujingsong
+            * @Date: 2019/10/18  10:45 下午
+     */
+    PretCustomer findByOpenid(String openid);
 }

@@ -11,17 +11,15 @@ import com.pret.common.constant.Constants;
 import com.pret.common.util.BeanUtilsExtended;
 import com.pret.common.util.NoUtil;
 import com.pret.common.util.StringUtil;
-import com.pret.open.entity.PretPickUpPlan;
-import com.pret.open.entity.PretTransFee;
-import com.pret.open.entity.PretTransOrder;
-import com.pret.open.entity.PretTransPlan;
+import com.pret.open.entity.*;
 import com.pret.open.entity.bo.PretTransPlanBo;
+import com.pret.open.entity.vo.PretPickUpPlanVo;
 import com.pret.open.entity.vo.PretTransPlanVo;
-import com.pret.open.repository.PretTransFeeRepository;
-import com.pret.open.repository.PretTransOrderRepository;
+import com.pret.open.repository.*;
 import com.pret.open.vo.req.*;
-import com.pret.open.repository.PretTransPlanRepository;
 import com.pret.api.service.impl.BaseServiceImpl;
+import com.pret.open.vo.res.PR8000002Vo;
+import com.pret.open.vo.res.PR8000003Vo;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +47,10 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
     private PretTransFeeRepository transFeeRepository;
     @Autowired
     private PretTransFeeService transFeeService;
+    @Autowired
+    private PretCustomerRepository customerRepository;
+    @Autowired
+    private PretTransTrajectoryRepository transTrajectoryRepository;
 
     /* *
      * 功能描述: 生成模板运输计划
@@ -95,7 +97,7 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
         PretTransPlan transPlan = this.genDefaultPretTransPlan(null, null);
         BeanUtilsExtended.copyProperties(transPlan, bo);
         PretTransOrder transOrder = null;
-        String venderId=StringUtils.EMPTY;
+        String venderId = StringUtils.EMPTY;
         for (String id : idArr) {
             PretTransOrder pretTransOrder = transOrderRepository.findById(id).get();
             pretTransOrder.setTransPlanId(transPlan.getId());
@@ -148,5 +150,45 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
             pretTransFee.setStatus(ConstantEnum.EPretTransFeeStatus.待申报.getLabel());
             transFeeRepository.save(pretTransFee);
         }
+    }
+
+    /* *
+     * 功能描述: 获取用户运输计划
+     * 〈〉
+     * @Param: [res]
+     * @Return: com.pret.api.vo.ResBody
+     * @Author: wujingsong
+     * @Date: 2019/10/18  10:45 下午
+     */
+    public ResBody getTransPanList(P8000002Vo res) {
+        PR8000002Vo retVo = new PR8000002Vo();
+
+        PretCustomer customer = customerRepository.findByOpenid(res.getOpenid());
+        PretTransPlanVo vo = new PretTransPlanVo();
+        vo.setEq$customerId(customer.getId());
+        List<PretTransPlan> list = this.page(vo).getContent();
+        retVo.setData(list);
+
+        return retVo;
+    }
+
+    /* *
+     * 功能描述: 获取用户运输计划详情
+     * 〈〉
+     * @Param: [res]
+     * @Return: com.pret.api.vo.ResBody
+     * @Author: wujingsong
+     * @Date: 2019/10/18  10:53 下午
+     */
+    public ResBody getTransPlanDetail(P8000003Vo res) {
+        PR8000003Vo retVo = new PR8000003Vo();
+
+        PretTransPlan transPlan = transPlanRepository.findById(res.getId()).get();
+        retVo.setData(transPlan);
+
+        List<PretTransTrajectory> list = transTrajectoryRepository.findByTransPlanId(transPlan.getId());
+        retVo.setTransTrajectoryList(list);
+
+        return retVo;
     }
 }
