@@ -3,6 +3,7 @@ package com.pret.open.entity;
 import com.pret.common.VersionedAuditableIdEntity;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -57,6 +58,13 @@ public class PretAddress extends VersionedAuditableIdEntity implements Serializa
      * 0省1市2区县
      */
     private Integer levels;
+
+    private List<PretAddress> children;
+
+    /**
+     * 时效
+     */
+    private Integer prescription;
 
     // setter and getter
 
@@ -150,5 +158,22 @@ public class PretAddress extends VersionedAuditableIdEntity implements Serializa
      */
     public void setLevels(Integer levels) {
         this.levels = levels;
+    }
+
+    @Transient()
+    public List<PretAddress> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<PretAddress> children) {
+        this.children = children;
+    }
+
+    public Integer getPrescription() {
+        return prescription;
+    }
+
+    public void setPrescription(Integer prescription) {
+        this.prescription = prescription;
     }
 }

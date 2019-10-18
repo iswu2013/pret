@@ -3,6 +3,7 @@ package com.pret.open.entity;
 import com.pret.common.VersionedAuditableIdEntity;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -46,6 +47,15 @@ public class PretQuotation extends VersionedAuditableIdEntity implements Seriali
      */
     private String serviceRouteId;
 
+    /**
+     * 对账开始日期
+     */
+    private java.util.Date periodFrom;
+    /**
+     * 对账截止日期
+     */
+    private java.util.Date periodTo;
+
     // setter and getter
 
     /**
@@ -88,5 +98,21 @@ public class PretQuotation extends VersionedAuditableIdEntity implements Seriali
      */
     public void setServiceRouteId(String serviceRouteId) {
         this.serviceRouteId = serviceRouteId;
+    }
+
+    public Date getPeriodFrom() {
+        return periodFrom;
+    }
+
+    public void setPeriodFrom(Date periodFrom) {
+        this.periodFrom = periodFrom;
+    }
+
+    public Date getPeriodTo() {
+        return periodTo;
+    }
+
+    public void setPeriodTo(Date periodTo) {
+        this.periodTo = periodTo;
     }
 }

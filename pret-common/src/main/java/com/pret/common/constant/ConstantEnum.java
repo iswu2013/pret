@@ -9,17 +9,28 @@ public class ConstantEnum {
      */
     public enum S {
         /**
-         * 正常
+         * 省
          */
-        N,
+        N(1),
         /**
-         * 删除ETranName
+         * 市
          */
-        D,
-        /**
-         * 中间态
-         */
-        M
+        D(2);
+         S(int label) {
+            this.setLabel(label);
+        }
+
+        private int label;
+
+        //省略getter、setter方法
+
+        public int getLabel() {
+            return label;
+        }
+
+        public void setLabel(int label) {
+            this.label = label;
+        }
     }
 
     /**
@@ -265,12 +276,12 @@ public class ConstantEnum {
      * 功能描述: 状态
      * 〈〉
      * @Param:
-            * @Return:
-            * @Author: wujingsong
-            * @Date: 2019-08-18  17:45
+     * @Return:
+     * @Author: wujingsong
+     * @Date: 2019-08-18  17:45
      */
     public enum ECreditCardStatus {
-        正常(1),删除(0);
+        正常(1), 删除(0);
 
         private ECreditCardStatus(int value) {
             this.value = value;
@@ -335,7 +346,7 @@ public class ConstantEnum {
      * @Date: 2019/6/20  23:02
      */
     public enum EOrderStatus {
-        未支付(0), 已支付(1), 退款(2), 已取消(4),已完成(5);
+        未支付(0), 已支付(1), 退款(2), 已取消(4), 已完成(5);
 
         private EOrderStatus(int value) {
             this.value = value;
@@ -356,12 +367,12 @@ public class ConstantEnum {
      * 功能描述: 运输状态
      * 〈〉
      * @Param:
-            * @Return: 
-            * @Author: wujingsong
-            * @Date: 2019/9/20  8:40 下午
+     * @Return:
+     * @Author: wujingsong
+     * @Date: 2019/9/20  8:40 下午
      */
     public enum ETransPlanStatus {
-        运输中(0), 已签收(1), 退款(2), 已取消(4),已完成(5);
+        运输中(0), 已签收(1), 退款(2), 已取消(4), 已完成(5);
 
         private ETransPlanStatus(int value) {
             this.value = value;
@@ -416,14 +427,11 @@ public class ConstantEnum {
      * 功能描述: 费用状态
      * 〈〉
      * @Param:
-            * @Return:
-            * @Author: wujingsong
-            * @Date: 2019/10/4  3:22 下午
+     * @Return:
+     * @Author: wujingsong
+     * @Date: 2019/10/4  3:22 下午
      */
     public enum EPretTransFeeStatus {
-        /**
-         * 提货计划
-         */
         待申报(0),
         已申报(1),
         通过(2),
@@ -449,9 +457,9 @@ public class ConstantEnum {
      * 功能描述: 0待确认1已转u9
      * 〈〉
      * @Param:
-            * @Return:
-            * @Author: wujingsong
-            * @Date: 2019/10/4  5:50 下午
+     * @Return:
+     * @Author: wujingsong
+     * @Date: 2019/10/4  5:50 下午
      */
     public enum ETransStatementStatus {
         /**
@@ -465,6 +473,56 @@ public class ConstantEnum {
         private int label;
 
         private ETransStatementStatus(int label) {
+            this.setLabel(label);
+        }
+
+        //省略getter、setter方法
+
+        public int getLabel() {
+            return label;
+        }
+
+        public void setLabel(int label) {
+            this.label = label;
+        }
+    }
+
+    public enum AreaLevelEnum {
+        /**
+         * 省
+         */
+        省(1),
+        /**
+         * 市
+         */
+        市(2),
+        /**
+         * 区或县
+         */
+        区县(3);
+        private int label;
+
+        private AreaLevelEnum(int label) {
+            this.setLabel(label);
+        }
+
+        //省略getter、setter方法
+
+        public int getLabel() {
+            return label;
+        }
+
+        public void setLabel(int label) {
+            this.label = label;
+        }
+    }
+
+    public enum EPretPickUpPlanStatus {
+        待提货(1),
+        已完成(2);
+        private int label;
+
+        private EPretPickUpPlanStatus(int label) {
             this.setLabel(label);
         }
 

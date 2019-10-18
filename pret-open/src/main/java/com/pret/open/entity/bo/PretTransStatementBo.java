@@ -36,11 +36,11 @@ public class PretTransStatementBo  {
     /**
      * 对账开始日期
      */
-    private java.util.Date periodFrom;
+    private String periodFromStr;
     /**
      * 对账截止日期
      */
-    private java.util.Date periodTo;
+    private String periodToStr;
     /**
      * 费用总额
      */
@@ -128,48 +128,20 @@ public class PretTransStatementBo  {
         this.checkDate = checkDate;
     }
 
-    /**
-     * <p>Discription:[对账开始日期]</p>
-     * Created on 2019年09月15日
-     *
-     * @return java.util.Date
-     * @author:wujinsong
-     */
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    public java.util.Date getPeriodFrom() {
-        return periodFrom;
+    public String getPeriodFromStr() {
+        return periodFromStr;
     }
 
-    /**
-     * <p>Discription:[对账开始日期]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setPeriodFrom(java.util.Date periodFrom) {
-        this.periodFrom = periodFrom;
+    public void setPeriodFromStr(String periodFromStr) {
+        this.periodFromStr = periodFromStr;
     }
 
-    /**
-     * <p>Discription:[ 对账截止日期]</p>
-     * Created on 2019年09月15日
-     *
-     * @return java.util.Date
-     * @author:wujinsong
-     */
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    public java.util.Date getPeriodTo() {
-        return periodTo;
+    public String getPeriodToStr() {
+        return periodToStr;
     }
 
-    /**
-     * <p>Discription:[ 对账截止日期]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setPeriodTo(java.util.Date periodTo) {
-        this.periodTo = periodTo;
+    public void setPeriodToStr(String periodToStr) {
+        this.periodToStr = periodToStr;
     }
 
     /**

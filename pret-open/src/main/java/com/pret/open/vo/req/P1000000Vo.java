@@ -87,14 +87,29 @@ public class P1000000Vo extends PageFormVo {
      */
     private String destCityCd;
 
+    /**
+     * 料号
+     */
     private String partNo;
 
+    /**
+     * 批号
+     */
     private String batchNo;
 
+    /**
+     * 产品名
+     */
     private String product;
 
+    /**
+     * 重量
+     */
     private String gw;
 
+    /**
+     * 单位
+     */
     private int unit;
 
     private float cbm;

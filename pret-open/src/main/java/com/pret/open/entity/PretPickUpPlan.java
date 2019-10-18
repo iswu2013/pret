@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.pret.common.constant.ConstantEnum;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -67,7 +68,7 @@ public class PretPickUpPlan extends VersionedAuditableIdEntity implements Serial
     /**
      * 0待提货1已完成
      */
-    private Integer status;
+    private Integer status= ConstantEnum.EPretPickUpPlanStatus.待提货.getLabel();
     /**
      * 实际提货时间
      */

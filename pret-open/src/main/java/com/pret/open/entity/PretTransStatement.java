@@ -3,6 +3,7 @@ package com.pret.open.entity;
 import com.pret.common.VersionedAuditableIdEntity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -71,7 +72,7 @@ public class PretTransStatement extends VersionedAuditableIdEntity implements Se
     /**
      *
      */
-    private Long realAmount;
+    private BigDecimal realAmount;
     /**
      * 币别
      */
@@ -80,6 +81,8 @@ public class PretTransStatement extends VersionedAuditableIdEntity implements Se
      * 0待确认1通过2不通过3已转u9
      */
     private Integer status;
+
+    private PretVender pretVender;
 
     // setter and getter
 
@@ -239,24 +242,11 @@ public class PretTransStatement extends VersionedAuditableIdEntity implements Se
         this.penIndAmount = penIndAmount;
     }
 
-    /**
-     * <p>Discription:[]</p>
-     * Created on 2019年09月15日
-     *
-     * @return Long
-     * @author:wujinsong
-     */
-    public Long getRealAmount() {
+    public BigDecimal getRealAmount() {
         return realAmount;
     }
 
-    /**
-     * <p>Discription:[]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setRealAmount(Long realAmount) {
+    public void setRealAmount(BigDecimal realAmount) {
         this.realAmount = realAmount;
     }
 
@@ -300,5 +290,14 @@ public class PretTransStatement extends VersionedAuditableIdEntity implements Se
      */
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    @Transient()
+    public PretVender getPretVender() {
+        return pretVender;
+    }
+
+    public void setPretVender(PretVender pretVender) {
+        this.pretVender = pretVender;
     }
 }

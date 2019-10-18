@@ -11,4 +11,13 @@ import com.pret.open.entity.PretDriver;
  * Copyright (c) 2019年 极客城堡
  */
 public interface PretDriverRepository extends BaseRepository<PretDriver>{
+    /* *
+     * 功能描述: 根据openid查找
+     * 〈〉
+     * @Param: [openid]
+            * @Return: com.pret.open.entity.PretDriver
+            * @Author: wujingsong
+            * @Date: 2019/10/18  9:56 下午
+     */
+    PretDriver findByOpenid(String openid);
 }

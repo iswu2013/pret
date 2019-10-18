@@ -5,6 +5,7 @@ import java.util.List;
 import com.pret.api.vo.ResBody;
 import com.pret.common.util.BeanUtilsExtended;
 import com.pret.open.entity.PretQuotation;
+import com.pret.open.entity.bo.PretQuotationBo;
 import com.pret.open.entity.vo.PretQuotationVo;
 import com.pret.open.vo.req.*;
 import com.pret.open.repository.PretQuotationRepository;
@@ -23,4 +24,7 @@ import javax.transaction.Transactional;
 @Service
 @Transactional(rollbackOn = Exception.class)
 public class PretQuotationService extends BaseServiceImpl<PretQuotationRepository, PretQuotation, PretQuotationVo>{
+    public void pretQuotationAdd(PretQuotationBo bo) {
+
+    }
 }

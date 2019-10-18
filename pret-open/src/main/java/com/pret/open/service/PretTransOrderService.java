@@ -5,10 +5,15 @@ import java.util.Optional;
 
 import com.pret.api.vo.ResBody;
 import com.pret.common.util.BeanUtilsExtended;
+import com.pret.common.util.StringUtil;
+import com.pret.open.entity.PretCustomer;
+import com.pret.open.entity.PretGoods;
 import com.pret.open.entity.PretPickUpPlan;
 import com.pret.open.entity.PretTransOrder;
 import com.pret.open.entity.bo.PretPickUpPlanBo;
 import com.pret.open.entity.vo.PretTransOrderVo;
+import com.pret.open.repository.PretCustomerRepository;
+import com.pret.open.repository.PretGoodsRepository;
 import com.pret.open.repository.PretPickUpPlanRepository;
 import com.pret.open.vo.req.*;
 import com.pret.open.repository.PretTransOrderRepository;
@@ -34,6 +39,10 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
     private PretPickUpPlanRepository pretPickUpPlanRepository;
     @Autowired
     private PretPickUpPlanService pretPickUpPlanService;
+    @Autowired
+    private PretCustomerRepository pretCustomerRepository;
+    @Autowired
+    private PretGoodsRepository pretGoodsRepository;
 
     public void genPickUpPlan(PretPickUpPlanBo bo) {
         String[] idArr = bo.getIds().split(",");
@@ -57,6 +66,28 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
      * @Date: 2019/10/10  4:49 下午
      */
     public ResBody order(P1000000Vo res) {
+        // 客户
+        PretCustomer customer = new PretCustomer();
+        customer.setLinkPhone(res.getCustTel());
+        customer.setLinkName(res.getCustAttn());
+        customer.setName(res.getCustName());
+
+        pretCustomerRepository.save(customer);
+
+        // 商品
+        PretGoods goods = new PretGoods();
+        goods.setUnit(res.getUnit());
+        goods.setProduct(res.getProduct());
+        goods.setPartNo(res.getPartNo());
+        goods.setBatchNo(res.getBatchNo());
+        pretGoodsRepository.save(goods);
+
+        PretTransOrder transOrder = new PretTransOrder();
+        transOrder.setCustomerId(customer.getId());
+        transOrder.setGoodsId(goods.getId());
+        transOrder.setCustomerId(customer.getId());
+        this.save(transOrder);
+
 
         return new ResBody();
     }

@@ -10,4 +10,13 @@ import java.io.Serializable;
  * Copyright (c) 2019年 极客城堡
  */
 public class PretServiceRouteItemVo extends PageFormVo implements Serializable{
+    private String eq$serviceRouteOrginId;
+
+    public String getEq$serviceRouteOrginId() {
+        return eq$serviceRouteOrginId;
+    }
+
+    public void setEq$serviceRouteOrginId(String eq$serviceRouteOrginId) {
+        this.eq$serviceRouteOrginId = eq$serviceRouteOrginId;
+    }
 }

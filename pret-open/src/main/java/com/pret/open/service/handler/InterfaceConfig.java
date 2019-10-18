@@ -25,11 +25,32 @@ public class InterfaceConfig {
 	 */
 	public static final String H1000000 = "api.order.do";
 
+    /**
+     * 完成备货
+     */
+    public static final String H1000001 = "finishPickupPlan.do";
+
+    /**
+     * 获取司机备货列表
+     */
+    public static final String H8000000 = "getPickupPlanList.get";
+
+    /**
+     * 获取待备货详情
+     */
+    public static final String H8000001 = "getPickupPlanDetail.get";
+
     static {
         JOP_HANDLER.put(H1000000, "h1000000");
+        JOP_HANDLER.put(H1000001, "h1000001");
+        JOP_HANDLER.put(H8000000, "h8000000");
+        JOP_HANDLER.put(H8000001, "h8000001");
     }
 
     static {
         JOP_VO.put(H1000000, P1000000Vo.class);
+        JOP_VO.put(H1000001, P1000001Vo.class);
+        JOP_VO.put(H8000000, P8000000Vo.class);
+        JOP_VO.put(H8000001, P8000001Vo.class);
     }
 }

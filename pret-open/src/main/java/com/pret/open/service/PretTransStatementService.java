@@ -1,5 +1,7 @@
 package com.pret.open.service;
 
+import java.math.BigDecimal;
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -80,14 +82,27 @@ public class PretTransStatementService extends BaseServiceImpl<PretTransStatemen
         String[] idArr = bo.getIds().split(",");
         PretTransStatement transStatement = this.genDefaultPretPickUpPlan(null, null);
         BeanUtilsExtended.copyProperties(transStatement, bo);
-        transStatement.setStatus(ConstantEnum.ETransStatementStatus.待确认.getLabel());
-        this.repository.save(transStatement);
+        try {
+            transStatement.setPeriodFrom(DateUtils.parseDate(bo.getPeriodFromStr(), "yyyy-MM-dd"));
+            transStatement.setPeriodTo(DateUtils.parseDate(bo.getPeriodToStr(), "yyyy-MM-dd"));
+            transStatement.setStatus(ConstantEnum.ETransStatementStatus.待确认.getLabel());
+            transStatement.setCheckDate(new Date());
+            this.repository.save(transStatement);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
+        BigDecimal totalAmount = BigDecimal.ZERO;
         for (String id : idArr) {
             PretTransFee transFee = transFeeRepository.findById(id).get();
             transFee.setTransStatementId(transStatement.getId());
             transFeeRepository.save(transFee);
+            totalAmount = totalAmount.add(transFee.getQuotation());
         }
+
+        transStatement.setTotalAmount(totalAmount);
+        transStatement.setRealAmount(totalAmount);
+        this.repository.save(transStatement);
     }
 
     /* *
@@ -101,6 +116,8 @@ public class PretTransStatementService extends BaseServiceImpl<PretTransStatemen
     public void confirmStatement(String ids) {
         String[] idArr = ids.split(",");
         for (String id : idArr) {
+            // 对接U9
+
             PretTransStatement transStatement = transStatementRepository.findById(id).get();
             transStatement.setStatus(ConstantEnum.ETransStatementStatus.已转U9.getLabel());
             transStatementRepository.save(transStatement);
