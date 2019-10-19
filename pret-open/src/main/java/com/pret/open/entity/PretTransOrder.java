@@ -99,11 +99,21 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
     /**
      * 商品数量
      */
-    private Integer count;
+    private Integer gw;
     /**
-     * 商品重量/体积
+     * 单位(1吨，2公斤)
      */
-    private String cb;
+    private int unit;
+
+    /**
+     * 立方体积
+     */
+    private float cbm;
+
+    /**
+     * 货物件数
+     */
+    private int goodsNum;
 
     @Transient()
     private PretVender pretVender;
@@ -392,20 +402,36 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
         this.transPlanId = transPlanId;
     }
 
-    public Integer getCount() {
-        return count;
+    public Integer getGw() {
+        return gw;
     }
 
-    public void setCount(Integer count) {
-        this.count = count;
+    public void setGw(Integer gw) {
+        this.gw = gw;
     }
 
-    public String getCb() {
-        return cb;
+    public int getUnit() {
+        return unit;
     }
 
-    public void setCb(String cb) {
-        this.cb = cb;
+    public void setUnit(int unit) {
+        this.unit = unit;
+    }
+
+    public float getCbm() {
+        return cbm;
+    }
+
+    public void setCbm(float cbm) {
+        this.cbm = cbm;
+    }
+
+    public int getGoodsNum() {
+        return goodsNum;
+    }
+
+    public void setGoodsNum(int goodsNum) {
+        this.goodsNum = goodsNum;
     }
 
     public PretVender getPretVender() {

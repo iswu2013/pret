@@ -12,14 +12,17 @@ import com.pret.common.util.NoUtil;
 import com.pret.common.util.StringUtil;
 import com.pret.open.entity.PretPickUpPlan;
 import com.pret.open.entity.PretTransException;
+import com.pret.open.entity.PretTransPlan;
 import com.pret.open.entity.bo.PretPickUpPlanBo;
 import com.pret.open.entity.bo.PretTransExceptionBo;
 import com.pret.open.entity.vo.PretTransExceptionVo;
+import com.pret.open.repository.PretTransPlanRepository;
 import com.pret.open.vo.req.*;
 import com.pret.open.repository.PretTransExceptionRepository;
 import com.pret.api.service.impl.BaseServiceImpl;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
@@ -36,6 +39,9 @@ import javax.transaction.Transactional;
 @Service
 @Transactional(rollbackOn = Exception.class)
 public class PretTransExceptionService extends BaseServiceImpl<PretTransExceptionRepository, PretTransException, PretTransExceptionVo> {
+    @Autowired
+    private PretTransPlanRepository transPlanRepository;
+
     /* *
      * 功能描述: 生成默认异常单
      * 〈〉
@@ -68,9 +74,20 @@ public class PretTransExceptionService extends BaseServiceImpl<PretTransExceptio
         return transException;
     }
 
+    /* *
+     * 功能描述: 生产运输异常
+     * 〈〉
+     * @Param: [bo]
+     * @Return: void
+     * @Author: wujingsong
+     * @Date: 2019/10/19  8:07 上午
+     */
     public void genPretTransException(PretTransExceptionBo bo) {
-        PretTransException pretTransException = this.genDefaultPretTransException(null,null);
-        BeanUtilsExtended.copyProperties(pretTransException,bo);
+        PretTransException pretTransException = this.genDefaultPretTransException(null, null);
+        PretTransPlan pretTransPlan = transPlanRepository.findById(bo.getTransPlanId()).get();
+        pretTransException.setVenderId(pretTransPlan.getVenderId());
+
+        BeanUtilsExtended.copyProperties(pretTransException, bo);
         this.repository.save(pretTransException);
     }
 }

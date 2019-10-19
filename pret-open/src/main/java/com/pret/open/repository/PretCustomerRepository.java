@@ -20,4 +20,14 @@ public interface PretCustomerRepository extends BaseRepository<PretCustomer>{
             * @Date: 2019/10/18  10:45 下午
      */
     PretCustomer findByOpenid(String openid);
+
+    /* *
+     * 功能描述: <br>
+     * 〈〉
+     * @Param: [linkPhone]
+            * @Return: com.pret.open.entity.PretCustomer
+            * @Author: wujingsong
+            * @Date: 2019/10/19  9:58 下午
+     */
+    PretCustomer findByLinkPhone(String linkPhone);
 }

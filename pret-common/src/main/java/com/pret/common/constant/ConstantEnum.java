@@ -566,4 +566,34 @@ public class ConstantEnum {
             this.label = label;
         }
     }
+
+    /* *
+     * 功能描述: 用户类型
+     * 〈〉
+     * @Param:
+            * @Return:
+            * @Author: wujingsong
+            * @Date: 2019/10/19  9:43 下午
+     */
+    public enum EUserType {
+        理货员(0),
+        客户(1),
+        业务员(2),
+        门卫(3);
+        private int label;
+
+        EUserType(int label) {
+            this.setLabel(label);
+        }
+
+        //省略getter、setter方法
+
+        public int getLabel() {
+            return label;
+        }
+
+        public void setLabel(int label) {
+            this.label = label;
+        }
+    }
 }

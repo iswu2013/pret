@@ -1,13 +1,11 @@
 package com.pret.open.constant;
 
-import com.pret.common.constant.ConstantEnum;
-
 /**
  * 错误码
  *
  * @author wujinsong
  */
-public enum UserBEEnum {
+public enum OpenBEEnum {
     /**
      * 用户已经注册
      */
@@ -53,7 +51,7 @@ public enum UserBEEnum {
      */
     E90000011("您已经参与过活动！", "You have participated in the activities.");
 
-    private UserBEEnum(String msg, String emsg) {
+    private OpenBEEnum(String msg, String emsg) {
         this.msg = msg;
         this.emsg = emsg;
     }

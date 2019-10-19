@@ -98,6 +98,10 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
         BeanUtilsExtended.copyProperties(transPlan, bo);
         PretTransOrder transOrder = null;
         String venderId = StringUtils.EMPTY;
+        int count = 0;
+        int gw = 0;
+        int cw = 0;
+
         for (String id : idArr) {
             PretTransOrder pretTransOrder = transOrderRepository.findById(id).get();
             pretTransOrder.setTransPlanId(transPlan.getId());
@@ -108,10 +112,14 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
             if (StringUtils.isEmpty(venderId)) {
                 venderId = pretTransOrder.getVenderId();
             }
+            count += pretTransOrder.getGw();
+            cw += pretTransOrder.getGw();
         }
         transPlan.setCustomerId(transOrder.getCustomerId());
         transPlan.setVenderId(venderId);
-        transPlan.setStatus(ConstantEnum.ETransPlanStatus.已完成.getValue());
+        transPlan.setStatus(ConstantEnum.ETransPlanStatus.运输中.getValue());
+        transPlan.setCount(count);
+        transPlan.setCw(cw);
         this.repository.save(transPlan);
     }
 

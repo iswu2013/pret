@@ -47,6 +47,7 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
      * 客户id
      */
     private String customerId;
+
     /**
      * 预计提货日期
      */
@@ -131,6 +132,16 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
     private PretVender pretVender;
 
     private PretCustomer pretCustomer;
+
+    /**
+     * 从运输任务单中获取一些信息
+     */
+    private PretTransOrder pretTransOrder;
+
+    /**
+     * 司机信息
+     */
+    private PretDriver pretDriver;
 
     // setter and getter
 
@@ -633,5 +644,23 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
 
     public void setPretCustomer(PretCustomer pretCustomer) {
         this.pretCustomer = pretCustomer;
+    }
+
+    @Transient()
+    public PretTransOrder getPretTransOrder() {
+        return pretTransOrder;
+    }
+
+    public void setPretTransOrder(PretTransOrder pretTransOrder) {
+        this.pretTransOrder = pretTransOrder;
+    }
+
+    @Transient()
+    public PretDriver getPretDriver() {
+        return pretDriver;
+    }
+
+    public void setPretDriver(PretDriver pretDriver) {
+        this.pretDriver = pretDriver;
     }
 }

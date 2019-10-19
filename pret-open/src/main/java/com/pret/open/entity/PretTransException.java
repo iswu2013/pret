@@ -86,6 +86,20 @@ public class PretTransException extends VersionedAuditableIdEntity implements Se
      */
     private String handleBy;
 
+    /**
+     * 物流供应商
+     */
+    private String venderId;
+
+    @Transient()
+    private PretVender pretVender;
+
+    @Transient()
+    private PretTransPlan pretTransPlan;
+
+    @Transient()
+    private PretTransOrder pretTransOrder;
+
     // setter and getter
 
 
@@ -313,5 +327,37 @@ public class PretTransException extends VersionedAuditableIdEntity implements Se
      */
     public void setHandleBy(String handleBy) {
         this.handleBy = handleBy;
+    }
+
+    public String getVenderId() {
+        return venderId;
+    }
+
+    public void setVenderId(String venderId) {
+        this.venderId = venderId;
+    }
+
+    public PretVender getPretVender() {
+        return pretVender;
+    }
+
+    public void setPretVender(PretVender pretVender) {
+        this.pretVender = pretVender;
+    }
+
+    public PretTransPlan getPretTransPlan() {
+        return pretTransPlan;
+    }
+
+    public void setPretTransPlan(PretTransPlan pretTransPlan) {
+        this.pretTransPlan = pretTransPlan;
+    }
+
+    public PretTransOrder getPretTransOrder() {
+        return pretTransOrder;
+    }
+
+    public void setPretTransOrder(PretTransOrder pretTransOrder) {
+        this.pretTransOrder = pretTransOrder;
     }
 }

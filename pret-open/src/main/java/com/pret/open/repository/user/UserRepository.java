@@ -12,4 +12,13 @@ import com.pret.open.entity.user.User;
  * Copyright (c) 2019年 极客城堡
  */
 public interface UserRepository extends BaseRepository<User> {
+    /* *
+     * 功能描述: 根据手机号码查找
+     * 〈〉
+     * @Param: [mobile]
+            * @Return: com.pret.open.entity.user.User
+            * @Author: wujingsong
+            * @Date: 2019/10/19  9:46 下午
+     */
+    User findByMobile(String mobile);
 }

@@ -3,13 +3,12 @@ package com.pret.open.controller;
 import com.pret.api.rest.BaseManageController;
 import com.pret.common.annotation.Log;
 import com.pret.common.exception.FebsException;
-import com.pret.open.entity.PretCustomer;
-import com.pret.open.entity.PretTransFee;
-import com.pret.open.entity.PretTransPlan;
-import com.pret.open.entity.PretVender;
+import com.pret.open.entity.*;
 import com.pret.open.entity.bo.PretTransPlanBo;
 import com.pret.open.entity.vo.PretTransPlanVo;
 import com.pret.open.repository.PretCustomerRepository;
+import com.pret.open.repository.PretDriverRepository;
+import com.pret.open.repository.PretTransOrderRepository;
 import com.pret.open.repository.PretVenderRepository;
 import com.pret.open.service.PretTransPlanService;
 import lombok.extern.slf4j.Slf4j;
@@ -34,6 +33,10 @@ public class PretTransPlanController extends BaseManageController<PretTransPlanS
     private PretVenderRepository pretVenderRepository;
     @Autowired
     private PretCustomerRepository pretCustomerRepository;
+    @Autowired
+    private PretDriverRepository pretDriverRepository;
+    @Autowired
+    private PretTransOrderRepository pretTransOrderRepository;
 
     @GetMapping
     @Override()
@@ -48,6 +51,12 @@ public class PretTransPlanController extends BaseManageController<PretTransPlanS
                 PretCustomer pretCustomer = pretCustomerRepository.findById(transPlan.getCustomerId()).get();
                 transPlan.setPretCustomer(pretCustomer);
             }
+            if (!StringUtils.isEmpty(transPlan.getDriverId())) {
+                PretDriver pretDriver = pretDriverRepository.findById(transPlan.getDriverId()).get();
+                transPlan.setPretDriver(pretDriver);
+            }
+            PretTransOrder pretTransOrder = pretTransOrderRepository.findTop1ByTransPlanId(transPlan.getId());
+            transPlan.setPretTransOrder(pretTransOrder);
         }
         Map<String, Object> rspData = new HashMap<>();
         rspData.put("rows", page.getContent());
