@@ -79,9 +79,14 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
      * @Date: 2019/10/4  2:03 下午
      */
     public void genPickUpPlan(PretPickUpPlanBo bo) {
+        PretDriver pretDriver = new PretDriver();
+        BeanUtilsExtended.copyProperties(pretDriver, bo);
+        driverRepository.save(pretDriver);
+
         String[] idArr = bo.getIds().split(",");
         PretPickUpPlan pretPickUpPlan = this.genDefaultPretPickUpPlan(null, null);
         BeanUtilsExtended.copyProperties(pretPickUpPlan, bo);
+        pretPickUpPlan.setDriverId(pretDriver.getId());
         this.repository.save(pretPickUpPlan);
         String venderId = StringUtils.EMPTY;
         for (String id : idArr) {
@@ -92,6 +97,7 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
                 venderId = pretTransOrder.getVenderId();
             }
         }
+
         pretPickUpPlan.setVenderId(venderId);
         this.repository.save(pretPickUpPlan);
     }

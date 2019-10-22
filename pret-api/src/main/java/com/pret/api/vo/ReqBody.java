@@ -1,5 +1,6 @@
 package com.pret.api.vo;
 
+import com.pret.api.info.TypeUserInfo;
 import com.pret.api.info.UserInfo;
 import com.pret.api.handler.JopHandler;
 import com.pret.common.constant.ConstantEnum;
@@ -37,6 +38,8 @@ public class ReqBody<H extends JopHandler> implements Serializable {
 
     private String token;
 
+    private String openid;
+
     private HttpServletRequest httpRequest;
 
     /**
@@ -57,7 +60,7 @@ public class ReqBody<H extends JopHandler> implements Serializable {
     /**
      * 用户信息
      */
-    private UserInfo userInfo;
+    private TypeUserInfo userInfo;
 
     private String sessionId;
 
@@ -192,11 +195,11 @@ public class ReqBody<H extends JopHandler> implements Serializable {
         isIgnoreToken = ignoreToken;
     }
 
-    public UserInfo getUserInfo() {
+    public TypeUserInfo getUserInfo() {
         return userInfo;
     }
 
-    public void setUserInfo(UserInfo userInfo) {
+    public void setUserInfo(TypeUserInfo userInfo) {
         this.userInfo = userInfo;
     }
 
@@ -242,5 +245,13 @@ public class ReqBody<H extends JopHandler> implements Serializable {
 
     public void setIgnoreBody(boolean ignoreBody) {
         isIgnoreBody = ignoreBody;
+    }
+
+    public String getOpenid() {
+        return openid;
+    }
+
+    public void setOpenid(String openid) {
+        this.openid = openid;
     }
 }

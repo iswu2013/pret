@@ -25,6 +25,11 @@ public class Role implements Serializable {
 
     @NotBlank(message = "{required}")
     @Size(max = 10, message = "{noMoreThan}")
+    @ExcelField(value = "编码")
+    private String code;
+
+    @NotBlank(message = "{required}")
+    @Size(max = 10, message = "{noMoreThan}")
     @ExcelField(value = "角色名称")
     private String roleName;
 

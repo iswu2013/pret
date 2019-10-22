@@ -1,5 +1,6 @@
 package com.pret.api.filter.impl;
 
+import com.pret.api.info.TypeUserInfo;
 import com.pret.api.info.UserInfo;
 import com.pret.api.session.ClothingSession;
 import com.pret.api.vo.ReqBody;
@@ -60,65 +61,66 @@ public class AccessFormatFilter extends BaseContext implements JopFilter {
                 .decoder(new JacksonDecoder())
                 .options(new Request.Options(10000, 35000))
                 .retryer(new Retryer.Default(5000, 50000, 3))
-                .target(IUserService.class, loadBalancer.choose("pert-open").getUri().toString());
+                .target(IUserService.class, loadBalancer.choose("pret-open").getUri().toString());
 
-            Map<String, String[]> paramtersOld = httpServletRequest.getParameterMap();
-            Map<String, String[]> paramters = new HashMap<String, String[]>();
-            for (String key : paramtersOld.keySet()) {
-                String[] param = paramtersOld.get(key);
-                if (param[0].length() > 0) {
-                    // vallidateXss(param);
-                    paramters.put(key, param);
-                }
+        Map<String, String[]> paramtersOld = httpServletRequest.getParameterMap();
+        Map<String, String[]> paramters = new HashMap<String, String[]>();
+        for (String key : paramtersOld.keySet()) {
+            String[] param = paramtersOld.get(key);
+            if (param[0].length() > 0) {
+                // vallidateXss(param);
+                paramters.put(key, param);
             }
-            String bodyStr = "";
-            try {
-                bodyStr = this.getRequestBodyJson(httpServletRequest.getInputStream()).trim();
+        }
+        String bodyStr = "";
+        try {
+            bodyStr = this.getRequestBodyJson(httpServletRequest.getInputStream()).trim();
 
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-            if (StringUtils.isEmpty(requestBody.getV())) {
-                throw new BusinessException(Constants.BUSI_ERROR_000006, Constants.S_BUSI_ERROR_000006);
-            }
-            Class<? extends ReqBody> clazz = requestBody.getReqBody();
-            if (null == clazz) {
-                throw new BusinessException(Constants.BUSI_ERROR_000007, Constants.S_BUSI_ERROR_000007);
-            }
+        if (StringUtils.isEmpty(requestBody.getV())) {
+            throw new BusinessException(Constants.BUSI_ERROR_000006, Constants.S_BUSI_ERROR_000006);
+        }
+        Class<? extends ReqBody> clazz = requestBody.getReqBody();
+        if (null == clazz) {
+            throw new BusinessException(Constants.BUSI_ERROR_000007, Constants.S_BUSI_ERROR_000007);
+        }
 
-            // 参数map转化为bean
+        // 参数map转化为bean
 
-            ReqBody newBody = (ReqBody) MapToBeanUtil.convertMap(clazz, paramters);
-            if (!requestBody.isIgnoreBody()) {
-                if (!StringUtils.isEmpty(bodyStr)) {
-                    ReqBody reqBody = gson.fromJson(bodyStr.trim(), clazz);
-                    BeanUtilsExtended.copyProperties(newBody, reqBody);
-                }
+        ReqBody newBody = (ReqBody) MapToBeanUtil.convertMap(clazz, paramters);
+        if (!requestBody.isIgnoreBody()) {
+            if (!StringUtils.isEmpty(bodyStr)) {
+                ReqBody reqBody = gson.fromJson(bodyStr.trim(), clazz);
+                BeanUtilsExtended.copyProperties(newBody, reqBody);
             }
+        }
 
-            String token = httpServletRequest.getHeader("token");
-            newBody.setToken(token);
-            newBody.setSessionId(httpServletRequest.getSession().getId());
-            newBody.setHandler(requestBody.getHandler());
-            newBody.setReqBody(requestBody.getReqBody());
-            UserInfo user = null;
-            if (!StringUtils.isEmpty(token)) {
-                UserInfo userInfo = new UserInfo();
-                userInfo.setUtoken(token);
-                user = userService.findByToken(userInfo);
-            }
+        String token = httpServletRequest.getHeader("openid");
+        newBody.setToken(token);
+        newBody.setOpenid(token);
+        newBody.setSessionId(httpServletRequest.getSession().getId());
+        newBody.setHandler(requestBody.getHandler());
+        newBody.setReqBody(requestBody.getReqBody());
+        TypeUserInfo user = null;
+        if (!StringUtils.isEmpty(token)) {
+            TypeUserInfo userInfo = new TypeUserInfo();
+            userInfo.setOpenid(token);
+            user = userService.findByOpenid(userInfo);
+        }
 
-            if (!requestBody.isIgnoreToken()) {
-                if (StringUtils.isEmpty(token)) {
-                    throw new BusinessException(Constants.BUSI_ERROR_000011, Constants.S_BUSI_ERROR_000011);
-                }
-                if (user == null) {
-                    throw new BusinessException(Constants.BUSI_ERROR_000011, Constants.S_BUSI_ERROR_000011);
-                }
+        if (!requestBody.isIgnoreToken()) {
+            if (StringUtils.isEmpty(token)) {
+                throw new BusinessException(Constants.BUSI_ERROR_000011, Constants.S_BUSI_ERROR_000011);
             }
-            ClothingSession.put("requestBody", newBody);
-            LOGGER.debug("转换请求的实体：" + (null != clazz ? clazz.getName() : "null"));
+            if (user == null) {
+                throw new BusinessException(Constants.BUSI_ERROR_000011, Constants.S_BUSI_ERROR_000011);
+            }
+        }
+        ClothingSession.put("requestBody", newBody);
+        LOGGER.debug("转换请求的实体：" + (null != clazz ? clazz.getName() : "null"));
     }
 
     /**

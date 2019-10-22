@@ -21,4 +21,14 @@ public interface UserRepository extends BaseRepository<User> {
             * @Date: 2019/10/19  9:46 下午
      */
     User findByMobile(String mobile);
+
+    /* *
+     * 功能描述: 根据openid查找
+     * 〈〉
+     * @Param: [openid]
+            * @Return: com.pret.open.entity.user.User
+            * @Author: wujingsong
+            * @Date: 2019/10/20  7:54 上午
+     */
+    User findByOpenid(String openid);
 }

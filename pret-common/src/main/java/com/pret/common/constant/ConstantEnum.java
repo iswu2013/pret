@@ -542,9 +542,9 @@ public class ConstantEnum {
      * 功能描述: 异常状态
      * 〈〉
      * @Param:
-            * @Return:
-            * @Author: wujingsong
-            * @Date: 2019/10/19  6:46 上午
+     * @Return:
+     * @Author: wujingsong
+     * @Date: 2019/10/19  6:46 上午
      */
     public enum EPretTransExceptionStatus {
         待审核(0),
@@ -571,18 +571,50 @@ public class ConstantEnum {
      * 功能描述: 用户类型
      * 〈〉
      * @Param:
-            * @Return:
-            * @Author: wujingsong
-            * @Date: 2019/10/19  9:43 下午
+     * @Return:
+     * @Author: wujingsong
+     * @Date: 2019/10/19  9:43 下午
      */
     public enum EUserType {
         理货员(0),
         客户(1),
         业务员(2),
-        门卫(3);
+        门卫(3),
+        司机(4);
         private int label;
 
         EUserType(int label) {
+            this.setLabel(label);
+        }
+
+        //省略getter、setter方法
+
+        public int getLabel() {
+            return label;
+        }
+
+        public void setLabel(int label) {
+            this.label = label;
+        }
+    }
+
+    /* *
+     * 功能描述: 角色编码
+     * 〈〉
+     * @Param:
+            * @Return: 
+            * @Author: wujingsong
+            * @Date: 2019/10/20  9:05 下午
+     */
+    public enum ERoleCode {
+        Tallylerk(0),
+        Customer(1),
+        Salesman(2),
+        Guard(3),
+        Driver(4);
+        private int label;
+
+        ERoleCode(int label) {
             this.setLabel(label);
         }
 

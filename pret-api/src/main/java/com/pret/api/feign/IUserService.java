@@ -1,6 +1,7 @@
 package com.pret.api.feign;
 
 
+import com.pret.api.info.TypeUserInfo;
 import com.pret.api.info.UserInfo;
 import feign.Headers;
 import feign.RequestLine;
@@ -22,7 +23,7 @@ public interface IUserService {
      * @Author: jswul
      * @Date: 2019/6/27  10:13
      */
-    @RequestLine(value = "POST /api/user/findByToken")
+    @RequestLine(value = "POST /api/user/findByOpenid")
     @Headers("Content-Type: application/json")
-    UserInfo findByToken(@RequestBody UserInfo userInfo);
+    TypeUserInfo findByOpenid(@RequestBody TypeUserInfo typeUserInfo);
 }

@@ -1,7 +1,5 @@
 package com.pret.api.info;
 
-import com.pret.common.constant.ConstantEnum;
-
 public class BaseInfo {
     private String code;
 

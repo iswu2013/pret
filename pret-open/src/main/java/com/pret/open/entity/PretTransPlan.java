@@ -129,6 +129,11 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
      */
     private String createBy;
 
+    /**
+     * 快递单号
+     */
+    private String mailno;
+
     private PretVender pretVender;
 
     private PretCustomer pretCustomer;
@@ -626,6 +631,14 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
      */
     public void setCreateBy(String createBy) {
         this.createBy = createBy;
+    }
+
+    public String getMailno() {
+        return mailno;
+    }
+
+    public void setMailno(String mailno) {
+        this.mailno = mailno;
     }
 
     @Transient()

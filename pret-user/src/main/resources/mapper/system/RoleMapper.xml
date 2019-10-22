@@ -6,6 +6,7 @@
           WARNING - @mbg.generated
         -->
         <result column="ROLE_ID" jdbcType="DECIMAL" property="roleId"/>
+        <result column="CODE" jdbcType="VARCHAR" property="code"/>
         <result column="ROLE_NAME" jdbcType="VARCHAR" property="roleName"/>
         <result column="REMARK" jdbcType="VARCHAR" property="remark"/>
         <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
