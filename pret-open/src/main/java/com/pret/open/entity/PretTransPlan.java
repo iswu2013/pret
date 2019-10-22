@@ -134,6 +134,11 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
      */
     private String mailno;
 
+    /**
+     * 顺丰目的地码
+     */
+    private String desctcode;
+
     private PretVender pretVender;
 
     private PretCustomer pretCustomer;
@@ -639,6 +644,14 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
 
     public void setMailno(String mailno) {
         this.mailno = mailno;
+    }
+
+    public String getDesctcode() {
+        return desctcode;
+    }
+
+    public void setDesctcode(String desctcode) {
+        this.desctcode = desctcode;
     }
 
     @Transient()

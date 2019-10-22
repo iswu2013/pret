@@ -1,16 +1,16 @@
 package com.pret.open.service;
 
 import java.math.BigDecimal;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import com.pret.api.vo.ResBody;
 import com.pret.common.constant.ConstantEnum;
 import com.pret.common.constant.Constants;
 import com.pret.common.util.BeanUtilsExtended;
 import com.pret.common.util.NoUtil;
+import com.pret.common.util.SfUtil;
 import com.pret.common.util.StringUtil;
+import com.pret.open.config.Sender;
 import com.pret.open.entity.*;
 import com.pret.open.entity.bo.PretTransPlanBo;
 import com.pret.open.entity.vo.PretPickUpPlanVo;
@@ -20,9 +20,14 @@ import com.pret.open.vo.req.*;
 import com.pret.api.service.impl.BaseServiceImpl;
 import com.pret.open.vo.res.PR8000002Vo;
 import com.pret.open.vo.res.PR8000003Vo;
+import com.sf.csim.express.service.CallExpressServiceTools;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
+import org.dom4j.Document;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
@@ -51,6 +56,12 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
     private PretCustomerRepository customerRepository;
     @Autowired
     private PretTransTrajectoryRepository transTrajectoryRepository;
+    @Autowired
+    private Sender sender;
+    @Autowired
+    private PretCustomerRepository pretCustomerRepository;
+    @Value("${sf.url}")
+    private String sfUrl;
 
     /* *
      * 功能描述: 生成模板运输计划
@@ -121,6 +132,9 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
         transPlan.setCount(count);
         transPlan.setCw(cw);
         this.repository.save(transPlan);
+
+        // 生产顺丰单号
+        this.genSfMailno(transPlan);
     }
 
     /* *
@@ -198,5 +212,49 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
         retVo.setTransTrajectoryList(list);
 
         return retVo;
+    }
+
+    public void genSfMailno(PretTransPlan pretTransPlan) {
+        Map map = new HashMap();
+        PretCustomer pretCustomer = pretCustomerRepository.findById(pretTransPlan.getCustomerId()).get();
+
+        boolean hasGet = false;
+        map.put("d_company", pretCustomer.getName());
+        map.put("d_contact", pretCustomer.getLinkName());
+        map.put("d_tel", pretCustomer.getLinkPhone());
+        map.put("d_address", pretTransPlan.getDestAddress());
+        if (!StringUtils.isEmpty(pretTransPlan.getMailno())) {
+            hasGet = true;
+        }
+
+        if (!hasGet) {
+            map.put("orderid", String.valueOf(new Date().getTime()));
+            map.put("mailno", String.valueOf(new Date().getTime()));
+            map.put("j_company", sender.getJ_company());
+            map.put("j_contact", sender.getJ_contact());
+            map.put("j_tel", sender.getJ_tel());
+            map.put("j_address", sender.getAddress());
+            map.put("custid", sender.getCustid());
+            map.put("clientCode", sender.getClientCode());
+            String xmlStr = SfUtil.getOrderServiceRequestXml(map);
+            CallExpressServiceTools client = CallExpressServiceTools.getInstance();
+            String respXml = client.callSfExpressServiceByCSIM(sfUrl, xmlStr, sender.getClientCode(), sender.getCheckword());
+            Document doc = null;
+            try {
+                doc = DocumentHelper.parseText(respXml);
+                Element root = doc.getRootElement();
+                String head = root.elementText("Head");
+                if (head.equals("OK")) {
+                    Element body = root.element("Body");
+                    Element response = body.element("OrderResponse");
+                    String wayBillNo = response.attributeValue("mailno");//获取子节点
+                    String desctCode = response.attributeValue("destcode");//获取子节点
+                    pretTransPlan.setDesctcode(desctCode);
+                    pretTransPlan.setMailno(wayBillNo);
+                } else {
+                }
+            } catch (Exception e) {
+            }
+        }
     }
 }
