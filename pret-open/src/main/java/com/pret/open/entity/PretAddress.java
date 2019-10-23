@@ -66,6 +66,16 @@ public class PretAddress extends VersionedAuditableIdEntity implements Serializa
      */
     private Integer prescription;
 
+    /* *
+     * 功能描述: 是否是add的(0不是1是)，针对全省，全市的情况
+     * 〈〉
+     * @Param:
+     * @Return:
+     * @Author: wujingsong
+     * @Date: 2019/10/23  6:32 下午
+     */
+    private Integer adds;
+
     // setter and getter
 
     /**
@@ -175,5 +185,13 @@ public class PretAddress extends VersionedAuditableIdEntity implements Serializa
 
     public void setPrescription(Integer prescription) {
         this.prescription = prescription;
+    }
+
+    public Integer getAdds() {
+        return adds;
+    }
+
+    public void setAdds(Integer adds) {
+        this.adds = adds;
     }
 }

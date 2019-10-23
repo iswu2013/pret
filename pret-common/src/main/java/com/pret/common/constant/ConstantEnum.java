@@ -602,9 +602,9 @@ public class ConstantEnum {
      * 功能描述: 角色编码
      * 〈〉
      * @Param:
-            * @Return: 
-            * @Author: wujingsong
-            * @Date: 2019/10/20  9:05 下午
+     * @Return:
+     * @Author: wujingsong
+     * @Date: 2019/10/20  9:05 下午
      */
     public enum ERoleCode {
         Tallylerk(0),
@@ -626,6 +626,39 @@ public class ConstantEnum {
 
         public void setLabel(int label) {
             this.label = label;
+        }
+    }
+
+    /**
+     * 全省/全市/全区县唯一标识
+     */
+    public enum AddressEnum {
+        /**
+         * 全省
+         */
+        全省("1"),
+        /**
+         * 全市
+         */
+        全市("2"),
+        /**
+         * 全区县
+         */
+        全区县("3");
+        String value;
+
+        AddressEnum(String value) {
+            this.setValue(value);
+        }
+
+        //省略getter、setter方法
+
+        public String getValue() {
+            return value;
+        }
+
+        public void setValue(String value) {
+            this.value = value;
         }
     }
 }

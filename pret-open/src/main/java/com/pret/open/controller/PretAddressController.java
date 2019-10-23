@@ -7,6 +7,7 @@ import com.pret.common.msg.ListRestResponse;
 import com.pret.open.entity.bo.PretAddressBo;
 import com.pret.open.repository.PretAddressRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
@@ -81,7 +82,7 @@ public class PretAddressController extends BaseManageController<PretAddressServi
         ListRestResponse<List<LabelValue>> retVo = new ListRestResponse<>();
         List<PretAddress> areaList = this.pretAddressRepository.findByLevelsAndS(ConstantEnum.AreaLevelEnum.省.getLabel(), ConstantEnum.S.N.getLabel());
         List<LabelValue> labelValueList = new ArrayList<>();
-        getLV(areaList, labelValueList);
+        this.getLV(areaList, labelValueList, StringUtils.EMPTY, -1);
         retVo.setResult(labelValueList);
 
         return retVo;
@@ -95,7 +96,25 @@ public class PretAddressController extends BaseManageController<PretAddressServi
      * @Author: wujingsong
      * @Date: 2019/10/17  4:54 下午
      */
-    private void getLV(List<PretAddress> areaList, List<LabelValue> labelValueList) {
+    private void getLV(List<PretAddress> areaList, List<LabelValue> labelValueList, String parentId, int levels) {
+        // 如果是1，全省
+//        if (levels == ConstantEnum.AreaLevelEnum.省.getLabel()) {
+//            LabelValue labelValue = new LabelValue();
+//            labelValue.setLabel(ConstantEnum.AddressEnum.全省.name());
+//            labelValue.setValue(parentId + ConstantEnum.AddressEnum.全省.getValue());
+//            labelValueList.add(labelValue);
+//        } else if (levels == ConstantEnum.AreaLevelEnum.市.getLabel()) {
+//            LabelValue labelValue = new LabelValue();
+//            labelValue.setLabel(ConstantEnum.AddressEnum.全市.name());
+//            labelValue.setValue(parentId + ConstantEnum.AddressEnum.全市.getValue());
+//            labelValueList.add(labelValue);
+//        } else if (levels == ConstantEnum.AreaLevelEnum.区县.getLabel()) {
+//            LabelValue labelValue = new LabelValue();
+//            labelValue.setLabel(ConstantEnum.AddressEnum.全区县.name());
+//            labelValue.setValue(parentId + ConstantEnum.AddressEnum.全区县.getValue());
+//            labelValueList.add(labelValue);
+//        }
+
         for (PretAddress area : areaList) {
             LabelValue labelValue = new LabelValue();
             labelValue.setLabel(area.getName());
@@ -128,9 +147,23 @@ public class PretAddressController extends BaseManageController<PretAddressServi
     @ResponseBody
     public ListRestResponse<List<LabelValue>> getByParentId(String id) {
         ListRestResponse<List<LabelValue>> retVo = new ListRestResponse<>();
-        List<PretAddress> areaList = pretAddressRepository.findByParentIdAndS(id, ConstantEnum.S.N.getLabel());
         List<LabelValue> labelValueList = new ArrayList<>();
-        getLV(areaList, labelValueList);
+//        if (id.equals("1")) {
+//            LabelValue labelValue = new LabelValue();
+//            labelValue.setLabel(ConstantEnum.AddressEnum.全省.name());
+//            labelValue.setValue(ConstantEnum.AddressEnum.全省.getValue());
+//            labelValue.setProvince(ConstantEnum.AddressEnum.全省.getValue());
+//            labelValueList.add(labelValue);
+//
+//            retVo.setResult(labelValueList);
+//        } else {
+//
+//        }
+
+        PretAddress pretAddress = pretAddressRepository.findById(id).get();
+        List<PretAddress> areaList = pretAddressRepository.findByParentIdAndS(id, ConstantEnum.S.N.getLabel());
+
+        this.getLV(areaList, labelValueList, id, pretAddress.getLevels());
         retVo.setResult(labelValueList);
 
         return retVo;
