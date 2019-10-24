@@ -32,6 +32,18 @@ public class PretTransOrderController extends BaseManageController<PretTransOrde
     @Autowired
     private PretCustomerRepository pretCustomerRepository;
 
+    @Log("查看")
+    @PostMapping("/view/{id}")
+    public PretTransOrder view(@PathVariable String id) throws FebsException {
+        try {
+            PretTransOrder item = this.service.findById(id).get();
+            return item;
+        } catch (Exception e) {
+            message = "查看失败";
+            throw new FebsException(message);
+        }
+    }
+
     @GetMapping
     @Override()
     public Map<String, Object> list(PretTransOrderVo request, PretTransOrder t) {

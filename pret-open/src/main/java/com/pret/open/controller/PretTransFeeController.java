@@ -1,8 +1,10 @@
 package com.pret.open.controller;
 
 import com.pret.api.rest.BaseManageController;
+import com.pret.common.annotation.Log;
 import com.pret.common.constant.ConstantEnum;
 import com.pret.common.constant.Constants;
+import com.pret.common.exception.FebsException;
 import com.pret.common.util.NoUtil;
 import com.pret.common.util.StringUtil;
 import com.pret.open.entity.*;
@@ -15,9 +17,7 @@ import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.pret.open.entity.vo.PretTransFeeVo;
 import com.pret.open.service.PretTransFeeService;
@@ -33,6 +33,18 @@ public class PretTransFeeController extends BaseManageController<PretTransFeeSer
     private PretVenderRepository pretVenderRepository;
     @Autowired
     private PretCustomerRepository pretCustomerRepository;
+
+    @Log("查看")
+    @PostMapping("/view/{id}")
+    public PretTransFee view(@PathVariable String id) throws FebsException {
+        try {
+            PretTransFee item = this.service.findById(id).get();
+            return item;
+        } catch (Exception e) {
+            message = "查看失败";
+            throw new FebsException(message);
+        }
+    }
 
     @GetMapping
     @Override()

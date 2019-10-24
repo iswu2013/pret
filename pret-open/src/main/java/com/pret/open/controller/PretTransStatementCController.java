@@ -3,6 +3,7 @@ package com.pret.open.controller;
 import com.pret.api.rest.BaseManageController;
 import com.pret.common.annotation.Log;
 import com.pret.common.exception.FebsException;
+import com.pret.open.entity.PretTransPlan;
 import com.pret.open.entity.PretTransStatement;
 import com.pret.open.entity.PretVender;
 import com.pret.open.entity.vo.PretTransStatementVo;
@@ -25,6 +26,19 @@ import java.util.Map;
 public class PretTransStatementCController extends BaseManageController<PretTransStatementService, PretTransStatement, PretTransStatementVo> {
     @Autowired
     private PretVenderRepository pretVenderRepository;
+
+    @Log("查看")
+    @PostMapping("/view/{id}")
+    public PretTransStatement view(@PathVariable String id) throws FebsException {
+        try {
+            PretTransStatement item = this.service.findById(id).get();
+            return item;
+        } catch (Exception e) {
+            message = "查看失败";
+            throw new FebsException(message);
+        }
+    }
+
     @GetMapping
     @Override()
     public Map<String, Object> list(PretTransStatementVo request, PretTransStatement t) {

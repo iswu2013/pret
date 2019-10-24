@@ -15,10 +15,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.pret.open.entity.vo.PretTransExceptionVo;
 import com.pret.open.service.PretTransExceptionService;
@@ -37,6 +34,18 @@ public class PretTransExceptionController extends BaseManageController<PretTrans
     private PretTransPlanRepository pretTransPlanRepository;
     @Autowired
     private PretTransOrderRepository pretTransOrderRepository;
+
+    @Log("查看")
+    @PostMapping("/view/{id}")
+    public PretTransException view(@PathVariable String id) throws FebsException {
+        try {
+            PretTransException item = this.service.findById(id).get();
+            return item;
+        } catch (Exception e) {
+            message = "查看失败";
+            throw new FebsException(message);
+        }
+    }
 
     @GetMapping
     @Override()

@@ -4,6 +4,7 @@ import com.pret.api.rest.BaseManageController;
 import com.pret.common.annotation.Log;
 import com.pret.common.exception.FebsException;
 import com.pret.open.entity.PretCustomer;
+import com.pret.open.entity.PretTransExceptionItem;
 import com.pret.open.entity.PretTransFee;
 import com.pret.open.entity.PretVender;
 import com.pret.open.entity.vo.PretTransFeeVo;
@@ -29,6 +30,18 @@ public class PretTransFeeApplController extends BaseManageController<PretTransFe
     private PretVenderRepository pretVenderRepository;
     @Autowired
     private PretCustomerRepository pretCustomerRepository;
+
+    @Log("查看")
+    @PostMapping("/view/{id}")
+    public PretTransFee view(@PathVariable String id) throws FebsException {
+        try {
+            PretTransFee item = this.service.findById(id).get();
+            return item;
+        } catch (Exception e) {
+            message = "查看失败";
+            throw new FebsException(message);
+        }
+    }
 
     @GetMapping
     @Override()

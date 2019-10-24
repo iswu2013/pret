@@ -2,7 +2,9 @@ package com.pret.open.controller;
 
 import com.pret.api.rest.BaseManageController;
 import com.pret.api.vo.LabelValue;
+import com.pret.common.annotation.Log;
 import com.pret.common.constant.ConstantEnum;
+import com.pret.common.exception.FebsException;
 import com.pret.common.msg.ListRestResponse;
 import com.pret.common.util.SfUtil;
 import com.pret.open.config.Sender;
@@ -45,6 +47,18 @@ public class PretRouteController extends BaseManageController<PretRouteService, 
     private Sender sender;
     @Value("${sf.url}")
     private String sfUrl;
+
+    @Log("查看")
+    @PostMapping("/view/{id}")
+    public PretRoute view(@PathVariable String id) throws FebsException {
+        try {
+            PretRoute item = this.service.findById(id).get();
+            return item;
+        } catch (Exception e) {
+            message = "查看失败";
+            throw new FebsException(message);
+        }
+    }
 
     /* *
      * 功能描述: 根据运输计划获取轨迹
