@@ -161,9 +161,18 @@ public class PretAddressController extends BaseManageController<PretAddressServi
 //        }
 
         PretAddress pretAddress = pretAddressRepository.findById(id).get();
-        List<PretAddress> areaList = pretAddressRepository.findByParentIdAndS(id, ConstantEnum.S.N.getLabel());
+        if (pretAddress.getName().equals(ConstantEnum.AddressEnum.全省.name()) && pretAddress.getLevels() == ConstantEnum.AreaLevelEnum.市.getLabel()) {
+            PretAddress address = pretAddressRepository.findById(pretAddress.getParentId()).get();
+            LabelValue labelValue = new LabelValue();
+            labelValue.setLabel(pretAddress.getName());
+            labelValue.setValue(pretAddress.getId());
+            labelValue.setProvince(address.getName());
+            labelValueList.add(labelValue);
+        } else {
+            List<PretAddress> areaList = pretAddressRepository.findByParentIdAndS(id, ConstantEnum.S.N.getLabel());
+            this.getLV(areaList, labelValueList, id, pretAddress.getLevels());
+        }
 
-        this.getLV(areaList, labelValueList, id, pretAddress.getLevels());
         retVo.setResult(labelValueList);
 
         return retVo;

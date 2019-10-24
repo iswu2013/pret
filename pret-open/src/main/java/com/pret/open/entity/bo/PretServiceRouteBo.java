@@ -18,6 +18,7 @@ import java.io.Serializable;
  * Copyright (c) 2019年 极客城堡
  */
 public class PretServiceRouteBo {
+    private String id;
     /**
      * 线路名称
      */
@@ -27,13 +28,16 @@ public class PretServiceRouteBo {
      * 供应商id
      */
     private String venderId;
-    /**
-     * 起运地(可多条)
-     */
-    private String seviceRouteOrginId;
 
     private String serviceRouteItemStr;
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -49,14 +53,6 @@ public class PretServiceRouteBo {
 
     public void setVenderId(String venderId) {
         this.venderId = venderId;
-    }
-
-    public String getSeviceRouteOrginId() {
-        return seviceRouteOrginId;
-    }
-
-    public void setSeviceRouteOrginId(String seviceRouteOrginId) {
-        this.seviceRouteOrginId = seviceRouteOrginId;
     }
 
     public String getServiceRouteItemStr() {

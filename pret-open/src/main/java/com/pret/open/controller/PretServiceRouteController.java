@@ -5,9 +5,8 @@ import com.pret.api.rest.BaseManageController;
 import com.pret.common.annotation.Log;
 import com.pret.common.exception.FebsException;
 import com.pret.common.util.StringUtil;
-import com.pret.open.entity.PretBillingInterval;
-import com.pret.open.entity.PretServiceRouteOrgin;
-import com.pret.open.entity.PretVender;
+import com.pret.open.entity.*;
+import com.pret.open.entity.bo.PretAddressBo;
 import com.pret.open.entity.bo.PretServiceRouteBo;
 import com.pret.open.entity.bo.PretTransPlanBo;
 import com.pret.open.entity.vo.PretServiceRouteOrginVo;
@@ -24,7 +23,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pret.open.entity.PretServiceRoute;
 import com.pret.open.entity.vo.PretServiceRouteVo;
 import com.pret.open.service.PretServiceRouteService;
 
@@ -87,6 +85,17 @@ public class PretServiceRouteController extends BaseManageController<PretService
             this.service.pretServiceRouteAdd(bo);
         } catch (Exception e) {
             message = "生成服务线路失败";
+            throw new FebsException(message);
+        }
+    }
+
+    @Log("编辑服务线路")
+    @PostMapping("/pretServiceRouteEdit")
+    public void pretServiceRouteEdit(PretServiceRouteBo bo) throws FebsException {
+        try {
+            this.service.pretServiceRouteAdd(bo);
+        } catch (Exception e) {
+            message = "编辑服务线路";
             throw new FebsException(message);
         }
     }

@@ -25,7 +25,7 @@ public class PretServiceRouteItemBo {
     /**
      * 地址id
      */
-    private String addressId;
+    private String value;
     /**
      * 时效(天)
      */
@@ -39,12 +39,12 @@ public class PretServiceRouteItemBo {
         this.serviceRouteOrginId = serviceRouteOrginId;
     }
 
-    public String getAddressId() {
-        return addressId;
+    public String getValue() {
+        return value;
     }
 
-    public void setAddressId(String addressId) {
-        this.addressId = addressId;
+    public void setValue(String value) {
+        this.value = value;
     }
 
     public Integer getPrescription() {

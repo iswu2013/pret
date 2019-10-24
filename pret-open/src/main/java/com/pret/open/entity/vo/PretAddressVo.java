@@ -13,6 +13,7 @@ public class PretAddressVo extends PageFormVo implements Serializable{
     private String l$name;
     private long bw$createTimeLong;
     private long createTimeLongEnd;
+    private int eq$adds=0;
 
     public String getL$name() {
         return l$name;
@@ -36,5 +37,13 @@ public class PretAddressVo extends PageFormVo implements Serializable{
 
     public void setCreateTimeLongEnd(long createTimeLongEnd) {
         this.createTimeLongEnd = createTimeLongEnd;
+    }
+
+    public int getEq$adds() {
+        return eq$adds;
+    }
+
+    public void setEq$adds(int eq$adds) {
+        this.eq$adds = eq$adds;
     }
 }

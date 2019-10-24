@@ -1,10 +1,13 @@
 package com.pret.open.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.google.common.base.Joiner;
 import com.google.common.reflect.TypeToken;
 import com.pret.api.vo.ResBody;
 import com.pret.common.constant.CommonConstants;
+import com.pret.common.constant.ConstantEnum;
 import com.pret.common.constant.Constants;
 import com.pret.common.util.BeanUtilsExtended;
 import com.pret.open.entity.PretAddress;
@@ -18,6 +21,7 @@ import com.pret.open.repository.PretServiceRouteItemRepository;
 import com.pret.open.vo.req.*;
 import com.pret.open.repository.PretServiceRouteRepository;
 import com.pret.api.service.impl.BaseServiceImpl;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -48,13 +52,62 @@ public class PretServiceRouteService extends BaseServiceImpl<PretServiceRouteRep
         List<PretServiceRouteItemBo> list = CommonConstants.GSON.fromJson(bo.getServiceRouteItemStr(),
                 new TypeToken<List<PretServiceRouteItemBo>>() {
                 }.getType());
+        List<String> serviceRouteOrginIdList = new ArrayList<>();
         for (PretServiceRouteItemBo itemBo : list) {
             // 线路明细
             PretServiceRouteItem item = new PretServiceRouteItem();
-            item.setAddressId(itemBo.getAddressId());
+            item.setAddressId(itemBo.getValue());
             item.setPrescription(itemBo.getPrescription());
             item.setServiceLineId(pretServiceRoute.getId());
+            item.setServiceRouteOrginId(itemBo.getServiceRouteOrginId());
             pretServiceRouteItemRepository.save(item);
+            if (!serviceRouteOrginIdList.contains(itemBo.getServiceRouteOrginId())) {
+                serviceRouteOrginIdList.add(itemBo.getServiceRouteOrginId());
+            }
         }
+        pretServiceRoute.setSeviceRouteOrginId(Joiner.on(",").join(serviceRouteOrginIdList));
+        this.repository.save(pretServiceRoute);
+    }
+
+    /* *
+     * 功能描述: 编辑服务线路
+     * 〈〉
+     * @Param: [bo]
+     * @Return: void
+     * @Author: wujingsong
+     * @Date: 2019/10/24  9:23 上午
+     */
+    public void pretServiceRouteEdit(PretServiceRouteBo bo) {
+        PretServiceRoute pretServiceRoute = this.repository.findById(bo.getId()).get();
+        BeanUtilsExtended.copyProperties(pretServiceRoute, bo);
+        this.repository.save(pretServiceRoute);
+
+        // 删除之前的线路
+        List<PretServiceRouteItem> pretServiceRouteItemList = pretServiceRouteItemRepository.findByServiceLineId(bo.getId());
+        if (pretServiceRouteItemList != null && pretServiceRouteItemList.size() > 0) {
+            for (PretServiceRouteItem item : pretServiceRouteItemList) {
+                item.setS(ConstantEnum.S.D.getLabel());
+            }
+            this.pretServiceRouteItemRepository.saveAll(pretServiceRouteItemList);
+        }
+
+        List<PretServiceRouteItemBo> list = CommonConstants.GSON.fromJson(bo.getServiceRouteItemStr(),
+                new TypeToken<List<PretServiceRouteItemBo>>() {
+                }.getType());
+        List<String> serviceRouteOrginIdList = new ArrayList<>();
+        for (PretServiceRouteItemBo itemBo : list) {
+            // 线路明细
+            PretServiceRouteItem item = new PretServiceRouteItem();
+            item.setAddressId(itemBo.getValue());
+            item.setPrescription(itemBo.getPrescription());
+            item.setServiceLineId(pretServiceRoute.getId());
+            item.setServiceRouteOrginId(itemBo.getServiceRouteOrginId());
+            pretServiceRouteItemRepository.save(item);
+            if (!serviceRouteOrginIdList.contains(itemBo.getServiceRouteOrginId())) {
+                serviceRouteOrginIdList.add(itemBo.getServiceRouteOrginId());
+            }
+        }
+        pretServiceRoute.setSeviceRouteOrginId(Joiner.on(",").join(serviceRouteOrginIdList));
+        this.repository.save(pretServiceRoute);
     }
 }
