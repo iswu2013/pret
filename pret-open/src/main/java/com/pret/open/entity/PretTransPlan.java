@@ -3,6 +3,7 @@ package com.pret.open.entity;
 import com.pret.common.VersionedAuditableIdEntity;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -51,7 +52,7 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
     /**
      * 预计提货日期
      */
-    private java.util.Date transDatetime;
+    private Date transDatetime;
     /**
      * 原始运输计划id,针对异常退货
      */
@@ -235,7 +236,7 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
      *
      * @author:wujinsong
      */
-    public void setTransDatetime(java.util.Date transDatetime) {
+    public void setTransDatetime(Date transDatetime) {
         this.transDatetime = transDatetime;
     }
 
@@ -613,7 +614,7 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
      *
      * @author:wujinsong
      */
-    public void setFeeConfirmDate(java.util.Date feeConfirmDate) {
+    public void setFeeConfirmDate(Date feeConfirmDate) {
         this.feeConfirmDate = feeConfirmDate;
     }
 
