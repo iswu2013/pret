@@ -206,4 +206,21 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
 
         return retVo;
     }
+
+    /* *
+     * 功能描述: 取消提货计划
+     * 〈〉
+     * @Param: [ids]
+     * @Return: void
+     * @Author: wujingsong
+     * @Date: 2019/10/24  1:36 下午
+     */
+    public void pretPickUpPlanCancel(String ids) {
+        List<String> idList = StringUtil.idsStr2ListString(ids);
+        for (String id : idList) {
+            PretPickUpPlan pickUpPlan = this.repository.findById(id).get();
+            pickUpPlan.setStatus(ConstantEnum.EPretPickUpPlanStatus.已取消.getLabel());
+            this.repository.save(pickUpPlan);
+        }
+    }
 }

@@ -520,7 +520,8 @@ public class ConstantEnum {
 
     public enum EPretPickUpPlanStatus {
         待提货(1),
-        已完成(2);
+        已完成(2),
+        已取消(2);
         private int label;
 
         private EPretPickUpPlanStatus(int label) {

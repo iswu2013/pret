@@ -41,9 +41,9 @@ public class PretPickUpPlanController extends BaseManageController<PretPickUpPla
     public Map<String, Object> list(PretPickUpPlanVo request, PretPickUpPlan t) {
         Page<PretPickUpPlan> page = this.service.page(request);
         for (PretPickUpPlan pickUpPlan : page.getContent()) {
-            List<PretTransOrder> transOrderList  = transOrderRepository.findByPickUpPlanId(pickUpPlan.getId());
+            List<PretTransOrder> transOrderList = transOrderRepository.findByPickUpPlanId(pickUpPlan.getId());
             pickUpPlan.setTransOrderList(transOrderList);
-            if(!StringUtils.isEmpty(pickUpPlan.getVenderId())) {
+            if (!StringUtils.isEmpty(pickUpPlan.getVenderId())) {
                 PretVender pretVender = pretVenderRepository.findById(pickUpPlan.getVenderId()).get();
                 pickUpPlan.setPretVender(pretVender);
             }
@@ -60,6 +60,17 @@ public class PretPickUpPlanController extends BaseManageController<PretPickUpPla
     public void pretPickUpPlanAdd(PretPickUpPlanBo bo) throws FebsException {
         try {
             this.service.genPickUpPlan(bo);
+        } catch (Exception e) {
+            message = "生成提货失败";
+            throw new FebsException(message);
+        }
+    }
+
+    @Log("取消提货计划")
+    @PostMapping("/pretPickUpPlanCancel/{ids}")
+    public void pretPickUpPlanCancel(@PathVariable String ids) throws FebsException {
+        try {
+            this.service.pretPickUpPlanCancel(ids);
         } catch (Exception e) {
             message = "删除失败";
             throw new FebsException(message);
