@@ -44,6 +44,14 @@ public class PretServiceRouteService extends BaseServiceImpl<PretServiceRouteRep
     @Autowired
     private PretServiceRouteItemRepository pretServiceRouteItemRepository;
 
+    /* *
+     * 功能描述: 新增服务线路
+     * 〈〉
+     * @Param: [bo]
+     * @Return: void
+     * @Author: wujingsong
+     * @Date: 2019/10/24  10:20 上午
+     */
     public void pretServiceRouteAdd(PretServiceRouteBo bo) {
         PretServiceRoute pretServiceRoute = new PretServiceRoute();
         BeanUtilsExtended.copyProperties(pretServiceRoute, bo);

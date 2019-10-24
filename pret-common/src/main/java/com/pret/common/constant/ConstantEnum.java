@@ -661,4 +661,32 @@ public class ConstantEnum {
             this.value = value;
         }
     }
+
+    /* *
+     * 功能描述: 费用类型
+     * 〈〉
+     * @Param:
+     * @Return:
+     * @Author: wujingsong
+     * @Date: 2019/10/24  10:10 上午
+     */
+    public enum ECostType {
+        量(0),
+        票(1);
+        private int label;
+
+        ECostType(int label) {
+            this.setLabel(label);
+        }
+
+        //省略getter、setter方法
+
+        public int getLabel() {
+            return label;
+        }
+
+        public void setLabel(int label) {
+            this.label = label;
+        }
+    }
 }

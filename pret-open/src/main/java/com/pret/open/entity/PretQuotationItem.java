@@ -3,9 +3,11 @@ package com.pret.open.entity;
 import com.pret.common.VersionedAuditableIdEntity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.pret.common.constant.ConstantEnum;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -43,6 +45,11 @@ public class PretQuotationItem extends VersionedAuditableIdEntity implements Ser
      * 报价id
      */
     private String quotationId;
+
+    /**
+     * 线路id
+     */
+    private String serviceRouteItem;
     /**
      * 起运地id
      */
@@ -56,13 +63,13 @@ public class PretQuotationItem extends VersionedAuditableIdEntity implements Ser
      */
     private String billingIntervalItemId;
     /**
-     *
+     * 报价
      */
-    private java.math.BigDecimal quotation;
+    private BigDecimal quotation;
     /**
-     *
+     * 价格类型(0量1票)
      */
-    private Integer costType;
+    private Integer costType = ConstantEnum.ECostType.量.getLabel();
 
     // setter and getter
 
@@ -96,6 +103,14 @@ public class PretQuotationItem extends VersionedAuditableIdEntity implements Ser
      */
     public String getQuotationId() {
         return quotationId;
+    }
+
+    public String getServiceRouteItem() {
+        return serviceRouteItem;
+    }
+
+    public void setServiceRouteItem(String serviceRouteItem) {
+        this.serviceRouteItem = serviceRouteItem;
     }
 
     /**

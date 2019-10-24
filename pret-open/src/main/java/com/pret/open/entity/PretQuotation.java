@@ -36,8 +36,6 @@ public class PretQuotation extends VersionedAuditableIdEntity implements Seriali
         return id;
     }
 
-
-
     /**
      * 供应商id
      */

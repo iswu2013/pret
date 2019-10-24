@@ -20,16 +20,16 @@ import java.util.Date;
  */
 public class PretQuotationBo  {
 
-    private static final long serialVersionUID = 1L;
+    private String id;
 
     /**
      * 供应商id
      */
     private String venderId;
     /**
-     * 线路id
+     * 线路明细id
      */
-    private String serviceRouteId;
+    private String serviceRouteItemId;
 
     /**
      * 报价开始日期
@@ -45,6 +45,14 @@ public class PretQuotationBo  {
      */
     private String pretQuotationItemStr;
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getVenderId() {
         return venderId;
     }
@@ -53,12 +61,12 @@ public class PretQuotationBo  {
         this.venderId = venderId;
     }
 
-    public String getServiceRouteId() {
-        return serviceRouteId;
+    public String getServiceRouteItemId() {
+        return serviceRouteItemId;
     }
 
-    public void setServiceRouteId(String serviceRouteId) {
-        this.serviceRouteId = serviceRouteId;
+    public void setServiceRouteItemId(String serviceRouteItemId) {
+        this.serviceRouteItemId = serviceRouteItemId;
     }
 
     public String getPeriodFromStr() {
