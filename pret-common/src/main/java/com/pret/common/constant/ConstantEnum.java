@@ -694,4 +694,62 @@ public class ConstantEnum {
             this.label = label;
         }
     }
+
+    /* *
+     * 功能描述: 订单统计类别
+     * 〈〉
+     * @Param:
+     * @Return:
+     * @Author: wujingsong
+     * @Date: 2019/10/24  7:16 下午
+     */
+    public enum ETransOrderStatisticsUserType {
+        平台(0),
+        物流供应商(1);
+        private int label;
+
+        ETransOrderStatisticsUserType(int label) {
+            this.setLabel(label);
+        }
+
+        //省略getter、setter方法
+
+        public int getLabel() {
+            return label;
+        }
+
+        public void setLabel(int label) {
+            this.label = label;
+        }
+    }
+
+    /* *
+     * 功能描述: 日期类别
+     * 〈〉
+     * @Param:
+     * @Return:
+     * @Author: wujingsong
+     * @Date: 2019/10/24  7:26 下午
+     */
+    public enum EDateType {
+        日(0),
+        周(1),
+        月(2),
+        年(3);
+        private int label;
+
+        EDateType(int label) {
+            this.setLabel(label);
+        }
+
+        //省略getter、setter方法
+
+        public int getLabel() {
+            return label;
+        }
+
+        public void setLabel(int label) {
+            this.label = label;
+        }
+    }
 }
