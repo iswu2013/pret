@@ -1,15 +1,24 @@
 package com.pret.open.service;
 
+import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
 import com.pret.api.vo.ResBody;
 import com.pret.common.constant.ConstantEnum;
 import com.pret.common.constant.Constants;
 import com.pret.common.util.BeanUtilsExtended;
 import com.pret.common.util.NoUtil;
 import com.pret.common.util.StringUtil;
+import com.pret.common.util.UUIDUtils;
 import com.pret.open.entity.PretDriver;
 import com.pret.open.entity.PretPickUpPlan;
 import com.pret.open.entity.PretTransOrder;
@@ -99,6 +108,22 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
         }
 
         pretPickUpPlan.setVenderId(venderId);
+
+        // 生成二维码
+        QRCodeWriter qrCodeWriter = new QRCodeWriter();
+        String uuid = UUID.randomUUID().toString().replace("-", "");
+        String qrcode = ConstantEnum.NoTypeEnum.QR.name() + uuid;
+        String p = Constants.dfyyyyMMdd.format(new Date()) + "/" + ConstantEnum.NoTypeEnum.QR.name() + uuid + ".png";
+        try {
+            BitMatrix bitMatrix = qrCodeWriter.encode(qrcode, BarcodeFormat.QR_CODE, Constants.QR_WIDTH, Constants.QR_HEIGHT);
+            String fullPath = Constants.QR_ROOT_PATH + p;
+            Path path = FileSystems.getDefault().getPath(fullPath);
+            MatrixToImageWriter.writeToPath(bitMatrix, "PNG", path);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        pretPickUpPlan.setQrcode(qrcode);
+        pretPickUpPlan.setQrcodePath(p);
         this.repository.save(pretPickUpPlan);
     }
 

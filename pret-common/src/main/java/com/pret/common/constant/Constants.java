@@ -371,4 +371,19 @@ public class Constants {
      * 默认图像地址
      */
     public static final String DEFAULT_IMAGE_URL = "http://chuantu.xyz/t6/702/1562136776x1954578459.jpg";
+
+    /**
+     * 二维码宽度
+     */
+    public static final int QR_WIDTH = 350;
+
+    /**
+     * 二维码高度
+     */
+    public static final int QR_HEIGHT = 350;
+
+    /**
+     * 二维码地址
+     */
+    public static final String QR_ROOT_PATH = "/home/services/qrcode/";
 }

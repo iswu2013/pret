@@ -406,7 +406,11 @@ public class ConstantEnum {
         /**
          * 异常单
          */
-        YC(3);
+        YC(3),
+        /**
+         * 二维码
+         */
+        QR(4);
         private int label;
 
         private NoTypeEnum(int label) {

@@ -3,6 +3,7 @@ package com.pret.open.entity;
 import com.pret.common.VersionedAuditableIdEntity;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Id;
 
@@ -52,7 +53,7 @@ public class PretPickUpPlan extends VersionedAuditableIdEntity implements Serial
     /**
      * 预计提货时间
      */
-    private java.util.Date pickUpTime;
+    private Date pickUpTime;
     /**
      *
      */
@@ -77,6 +78,16 @@ public class PretPickUpPlan extends VersionedAuditableIdEntity implements Serial
      * 结束提货时间
      */
     private java.util.Date endTime;
+
+    /**
+     * 二维码内容
+     */
+    private String qrcode;
+
+    /**
+     * 二维码存储地址
+     */
+    private String qrcodePath;
 
     /**
      * 运输任务单
@@ -157,7 +168,7 @@ public class PretPickUpPlan extends VersionedAuditableIdEntity implements Serial
      * @return java.util.Date
      * @author:wujinsong
      */
-    public java.util.Date getPickUpTime() {
+    public Date getPickUpTime() {
         return pickUpTime;
     }
 
@@ -167,7 +178,7 @@ public class PretPickUpPlan extends VersionedAuditableIdEntity implements Serial
      *
      * @author:wujinsong
      */
-    public void setPickUpTime(java.util.Date pickUpTime) {
+    public void setPickUpTime(Date pickUpTime) {
         this.pickUpTime = pickUpTime;
     }
 
@@ -283,7 +294,7 @@ public class PretPickUpPlan extends VersionedAuditableIdEntity implements Serial
      * @return java.util.Date
      * @author:wujinsong
      */
-    public java.util.Date getEndTime() {
+    public Date getEndTime() {
         return endTime;
     }
 
@@ -293,8 +304,24 @@ public class PretPickUpPlan extends VersionedAuditableIdEntity implements Serial
      *
      * @author:wujinsong
      */
-    public void setEndTime(java.util.Date endTime) {
+    public void setEndTime(Date endTime) {
         this.endTime = endTime;
+    }
+
+    public String getQrcode() {
+        return qrcode;
+    }
+
+    public void setQrcode(String qrcode) {
+        this.qrcode = qrcode;
+    }
+
+    public String getQrcodePath() {
+        return qrcodePath;
+    }
+
+    public void setQrcodePath(String qrcodePath) {
+        this.qrcodePath = qrcodePath;
     }
 
     @Transient()
