@@ -3,7 +3,6 @@ package com.pret.open.controller;
 import com.pret.api.rest.BaseManageController;
 import com.pret.common.annotation.Log;
 import com.pret.common.exception.FebsException;
-import com.pret.open.entity.PretPickUpPlanItem;
 import com.pret.open.entity.PretQuotation;
 import com.pret.open.entity.PretQuotationItem;
 import com.pret.open.entity.bo.PretQuotationBo;
@@ -20,6 +19,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/* *
+ * 功能描述: 报价
+ * 〈〉
+ * @Param:
+ * @Return:
+ * @Author: wujingsong
+ * @Date: 2019/10/25  3:18 下午
+ */
 @Slf4j
 @Validated
 @RestController
@@ -49,6 +56,17 @@ public class PretQuotationController extends BaseManageController<PretQuotationS
             this.service.pretQuotationAdd(bo);
         } catch (Exception e) {
             message = "生成报价失败";
+            throw new FebsException(message);
+        }
+    }
+
+    @Log("报价审核")
+    @PostMapping("/check/{userId}/{id}/{status}")
+    public void check(@PathVariable String userId,@PathVariable String id, @PathVariable int status) throws FebsException {
+        try {
+            this.service.check(userId,id,status);
+        } catch (Exception e) {
+            message = "报价审核";
             throw new FebsException(message);
         }
     }

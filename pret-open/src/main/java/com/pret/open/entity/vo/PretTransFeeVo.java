@@ -14,6 +14,7 @@ public class PretTransFeeVo extends PageFormVo implements Serializable{
     private long bw$createTimeLong;
     private long createTimeLongEnd;
     private int eq$status = -1;
+    private String eq$transStatementId;
 
     public String getEq$venderId() {
         return eq$venderId;
@@ -45,5 +46,13 @@ public class PretTransFeeVo extends PageFormVo implements Serializable{
 
     public void setEq$status(int eq$status) {
         this.eq$status = eq$status;
+    }
+
+    public String getEq$transStatementId() {
+        return eq$transStatementId;
+    }
+
+    public void setEq$transStatementId(String eq$transStatementId) {
+        this.eq$transStatementId = eq$transStatementId;
     }
 }

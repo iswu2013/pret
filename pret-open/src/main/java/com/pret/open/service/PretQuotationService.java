@@ -1,6 +1,7 @@
 package com.pret.open.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.google.common.base.Joiner;
@@ -119,5 +120,22 @@ public class PretQuotationService extends BaseServiceImpl<PretQuotationRepositor
         }
         pretQuotation.setServiceRouteId(Joiner.on(",").join(serviceRouteOrginIdList));
         this.repository.save(pretQuotation);
+    }
+
+    /* *
+     * 功能描述: 报价审核
+     * 〈〉
+     * @Param: [id, type]
+     * @Return: void
+     * @Author: wujingsong
+     * @Date: 2019/10/25  3:20 下午
+     */
+    public void check(String userId, String id, int status) {
+        PretQuotation pretQuotation = this.repository.findById(id).get();
+        pretQuotation.setStatus(status);
+        pretQuotation.setCheckDate(new Date());
+        pretQuotation.setCheckUserId(userId);
+        this.repository.save(pretQuotation);
+
     }
 }

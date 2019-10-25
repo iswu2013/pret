@@ -4,6 +4,7 @@ import com.pret.common.VersionedAuditableIdEntity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -52,23 +53,23 @@ public class PretTransStatement extends VersionedAuditableIdEntity implements Se
     /**
      * 对账日期
      */
-    private java.util.Date checkDate;
+    private Date checkDate;
     /**
      * 对账开始日期
      */
-    private java.util.Date periodFrom;
+    private Date periodFrom;
     /**
      * 对账截止日期
      */
-    private java.util.Date periodTo;
+    private Date periodTo;
     /**
      * 费用总额
      */
-    private java.math.BigDecimal totalAmount;
+    private BigDecimal totalAmount;
     /**
      *
      */
-    private java.math.BigDecimal penIndAmount;
+    private BigDecimal penIndAmount;
     /**
      *
      */
