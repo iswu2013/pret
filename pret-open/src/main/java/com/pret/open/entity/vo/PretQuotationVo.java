@@ -13,6 +13,9 @@ public class PretQuotationVo extends PageFormVo implements Serializable{
     private String eq$venderId;
     private long bw$createTimeLong;
     private long createTimeLongEnd;
+    private String l$no;
+    private int eq$status;
+
 
     public String getEq$venderId() {
         return eq$venderId;
@@ -36,5 +39,21 @@ public class PretQuotationVo extends PageFormVo implements Serializable{
 
     public void setCreateTimeLongEnd(long createTimeLongEnd) {
         this.createTimeLongEnd = createTimeLongEnd;
+    }
+
+    public String getL$no() {
+        return l$no;
+    }
+
+    public void setL$no(String l$no) {
+        this.l$no = l$no;
+    }
+
+    public int getEq$status() {
+        return eq$status;
+    }
+
+    public void setEq$status(int eq$status) {
+        this.eq$status = eq$status;
     }
 }

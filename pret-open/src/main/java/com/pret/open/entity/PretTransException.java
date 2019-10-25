@@ -56,7 +56,7 @@ public class PretTransException extends VersionedAuditableIdEntity implements Se
     /**
      * 状态0待审核1通过2不通过
      */
-    private Integer status = ConstantEnum.EPretTransExceptionStatus.待审核.getLabel();
+    private Integer status = ConstantEnum.ECheckStatus.待审核.getLabel();
     /**
      * 处理方式
      */

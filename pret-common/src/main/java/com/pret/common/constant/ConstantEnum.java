@@ -551,13 +551,13 @@ public class ConstantEnum {
      * @Author: wujingsong
      * @Date: 2019/10/19  6:46 上午
      */
-    public enum EPretTransExceptionStatus {
+    public enum ECheckStatus {
         待审核(0),
         通过(1),
         不通过(2);
         private int label;
 
-        private EPretTransExceptionStatus(int label) {
+        private ECheckStatus(int label) {
             this.setLabel(label);
         }
 

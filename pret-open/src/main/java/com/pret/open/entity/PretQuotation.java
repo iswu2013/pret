@@ -4,9 +4,11 @@ import com.pret.common.VersionedAuditableIdEntity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.pret.common.constant.ConstantEnum;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -37,6 +39,11 @@ public class PretQuotation extends VersionedAuditableIdEntity implements Seriali
     }
 
     /**
+     * 报价单号
+     */
+    private String no;
+
+    /**
      * 供应商id
      */
     private String venderId;
@@ -48,13 +55,32 @@ public class PretQuotation extends VersionedAuditableIdEntity implements Seriali
     /**
      * 对账开始日期
      */
-    private java.util.Date periodFrom;
+    private Date periodFrom;
     /**
      * 对账截止日期
      */
-    private java.util.Date periodTo;
+    private Date periodTo;
+
+    /**
+     * 状态
+     */
+    private int status = ConstantEnum.ECheckStatus.待审核.getLabel();
+
+    /**
+     * 报价明细
+     */
+    private List<PretQuotationItem> pretQuotationItemList;
 
     // setter and getter
+
+
+    public String getNo() {
+        return no;
+    }
+
+    public void setNo(String no) {
+        this.no = no;
+    }
 
     /**
      * <p>Discription:[供应商id]</p>
@@ -112,5 +138,21 @@ public class PretQuotation extends VersionedAuditableIdEntity implements Seriali
 
     public void setPeriodTo(Date periodTo) {
         this.periodTo = periodTo;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public List<PretQuotationItem> getPretQuotationItemList() {
+        return pretQuotationItemList;
+    }
+
+    public void setPretQuotationItemList(List<PretQuotationItem> pretQuotationItemList) {
+        this.pretQuotationItemList = pretQuotationItemList;
     }
 }
