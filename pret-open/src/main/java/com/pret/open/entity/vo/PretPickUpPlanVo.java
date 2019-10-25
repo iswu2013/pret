@@ -19,6 +19,7 @@ public class PretPickUpPlanVo extends PageFormVo implements Serializable{
     private String eq$driverId;
     private Date bw$pickUpTime;
     private Date pickUpTimeEnd;
+    private String eq$pickupFactoryCd;
 
     public String getEq$venderId() {
         return eq$venderId;
@@ -74,5 +75,13 @@ public class PretPickUpPlanVo extends PageFormVo implements Serializable{
 
     public void setPickUpTimeEnd(Date pickUpTimeEnd) {
         this.pickUpTimeEnd = pickUpTimeEnd;
+    }
+
+    public String getEq$pickupFactoryCd() {
+        return eq$pickupFactoryCd;
+    }
+
+    public void setEq$pickupFactoryCd(String eq$pickupFactoryCd) {
+        this.eq$pickupFactoryCd = eq$pickupFactoryCd;
     }
 }

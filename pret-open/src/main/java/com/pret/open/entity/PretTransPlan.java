@@ -154,6 +154,11 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
      */
     private PretDriver pretDriver;
 
+    /**
+     * 提货工厂
+     */
+    private String pickupFactoryCd;
+
     // setter and getter
 
     /**
@@ -653,6 +658,14 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
 
     public void setDesctcode(String desctcode) {
         this.desctcode = desctcode;
+    }
+
+    public String getPickupFactoryCd() {
+        return pickupFactoryCd;
+    }
+
+    public void setPickupFactoryCd(String pickupFactoryCd) {
+        this.pickupFactoryCd = pickupFactoryCd;
     }
 
     @Transient()

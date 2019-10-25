@@ -38,6 +38,8 @@ public class PretPickUpPlanController extends BaseManageController<PretPickUpPla
     public PretPickUpPlan view(@PathVariable String id) throws FebsException {
         try {
             PretPickUpPlan item = this.service.findById(id).get();
+            List<PretTransOrder> pretTransOrderList = transOrderRepository.findByTransPlanId(item.getId());
+            item.setTransOrderList(pretTransOrderList);
             return item;
         } catch (Exception e) {
             message = "查看失败";
