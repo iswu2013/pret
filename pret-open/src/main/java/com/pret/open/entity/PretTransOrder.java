@@ -3,6 +3,7 @@ package com.pret.open.entity;
 import com.pret.common.VersionedAuditableIdEntity;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -50,11 +51,11 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
     /**
      * 提货日期
      */
-    private java.util.Date takeDeliveryDate;
+    private Date takeDeliveryDate;
     /**
      * 送达日期
      */
-    private java.util.Date deliveryDate;
+    private Date deliveryDate;
     /**
      * 送货单号
      */
@@ -114,6 +115,11 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
      * 货物件数
      */
     private int goodsNum;
+
+    /**
+     * 提货工厂code
+     */
+    private String pickupFactoryCd;
 
     @Transient()
     private PretVender pretVender;
@@ -456,5 +462,13 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
 
     public void setPretCustomer(PretCustomer pretCustomer) {
         this.pretCustomer = pretCustomer;
+    }
+
+    public String getPickupFactoryCd() {
+        return pickupFactoryCd;
+    }
+
+    public void setPickupFactoryCd(String pickupFactoryCd) {
+        this.pickupFactoryCd = pickupFactoryCd;
     }
 }
