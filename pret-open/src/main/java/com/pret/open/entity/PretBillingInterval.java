@@ -141,6 +141,7 @@ public class PretBillingInterval extends VersionedAuditableIdEntity implements S
         this.pretServiceRoute = pretServiceRoute;
     }
 
+    @Transient()
     public List<PretBillingIntervalItem> getPretBillingIntervalItemList() {
         return pretBillingIntervalItemList;
     }
