@@ -61,6 +61,11 @@ public class PretBillingIntervalItem extends VersionedAuditableIdEntity implemen
      */
     private String description;
 
+    /**
+     * 单位
+     */
+    private int unit;
+
     // setter and getter
 
     /**
@@ -189,5 +194,13 @@ public class PretBillingIntervalItem extends VersionedAuditableIdEntity implemen
      */
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getUnit() {
+        return unit;
+    }
+
+    public void setUnit(int unit) {
+        this.unit = unit;
     }
 }

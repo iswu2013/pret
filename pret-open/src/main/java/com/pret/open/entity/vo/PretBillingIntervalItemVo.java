@@ -10,4 +10,13 @@ import java.io.Serializable;
  * Copyright (c) 2019年 极客城堡
  */
 public class PretBillingIntervalItemVo extends PageFormVo implements Serializable{
+    private String eq$billingIntervalId;
+
+    public String getEq$billingIntervalId() {
+        return eq$billingIntervalId;
+    }
+
+    public void setEq$billingIntervalId(String eq$billingIntervalId) {
+        this.eq$billingIntervalId = eq$billingIntervalId;
+    }
 }

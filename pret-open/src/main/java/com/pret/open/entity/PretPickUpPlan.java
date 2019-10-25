@@ -69,15 +69,15 @@ public class PretPickUpPlan extends VersionedAuditableIdEntity implements Serial
     /**
      * 0待提货1已完成
      */
-    private Integer status= ConstantEnum.EPretPickUpPlanStatus.待提货.getLabel();
+    private Integer status = ConstantEnum.EPretPickUpPlanStatus.待提货.getLabel();
     /**
      * 实际提货时间
      */
-    private java.util.Date startTime;
+    private Date startTime;
     /**
      * 结束提货时间
      */
-    private java.util.Date endTime;
+    private Date endTime;
 
     /**
      * 二维码内容
@@ -273,7 +273,7 @@ public class PretPickUpPlan extends VersionedAuditableIdEntity implements Serial
      * @return java.util.Date
      * @author:wujinsong
      */
-    public java.util.Date getStartTime() {
+    public Date getStartTime() {
         return startTime;
     }
 
@@ -283,7 +283,7 @@ public class PretPickUpPlan extends VersionedAuditableIdEntity implements Serial
      *
      * @author:wujinsong
      */
-    public void setStartTime(java.util.Date startTime) {
+    public void setStartTime(Date startTime) {
         this.startTime = startTime;
     }
 

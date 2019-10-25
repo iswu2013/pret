@@ -3,6 +3,7 @@ package com.pret.open.entity;
 import com.pret.common.VersionedAuditableIdEntity;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -53,6 +54,11 @@ public class PretBillingInterval extends VersionedAuditableIdEntity implements S
 
     @Transient()
     private PretServiceRoute pretServiceRoute;
+
+    /**
+     * 区间明细
+     */
+    private List<PretBillingIntervalItem> pretBillingIntervalItemList;
 
     // setter and getter
 
@@ -133,5 +139,13 @@ public class PretBillingInterval extends VersionedAuditableIdEntity implements S
 
     public void setPretServiceRoute(PretServiceRoute pretServiceRoute) {
         this.pretServiceRoute = pretServiceRoute;
+    }
+
+    public List<PretBillingIntervalItem> getPretBillingIntervalItemList() {
+        return pretBillingIntervalItemList;
+    }
+
+    public void setPretBillingIntervalItemList(List<PretBillingIntervalItem> pretBillingIntervalItemList) {
+        this.pretBillingIntervalItemList = pretBillingIntervalItemList;
     }
 }
