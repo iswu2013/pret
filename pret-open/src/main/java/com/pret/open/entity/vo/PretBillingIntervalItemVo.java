@@ -11,6 +11,8 @@ import java.io.Serializable;
  */
 public class PretBillingIntervalItemVo extends PageFormVo implements Serializable{
     private String eq$billingIntervalId;
+    private long bw$createTimeLong;
+    private long createTimeLongEnd;
 
     public String getEq$billingIntervalId() {
         return eq$billingIntervalId;
@@ -18,5 +20,21 @@ public class PretBillingIntervalItemVo extends PageFormVo implements Serializabl
 
     public void setEq$billingIntervalId(String eq$billingIntervalId) {
         this.eq$billingIntervalId = eq$billingIntervalId;
+    }
+
+    public long getBw$createTimeLong() {
+        return bw$createTimeLong;
+    }
+
+    public void setBw$createTimeLong(long bw$createTimeLong) {
+        this.bw$createTimeLong = bw$createTimeLong;
+    }
+
+    public long getCreateTimeLongEnd() {
+        return createTimeLongEnd;
+    }
+
+    public void setCreateTimeLongEnd(long createTimeLongEnd) {
+        this.createTimeLongEnd = createTimeLongEnd;
     }
 }

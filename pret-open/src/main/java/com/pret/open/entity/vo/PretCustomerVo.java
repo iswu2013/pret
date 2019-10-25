@@ -11,6 +11,8 @@ import java.io.Serializable;
  */
 public class PretCustomerVo extends PageFormVo implements Serializable{
     private String l$name;
+    private long bw$createTimeLong;
+    private long createTimeLongEnd;
 
     public String getL$name() {
         return l$name;
@@ -18,5 +20,21 @@ public class PretCustomerVo extends PageFormVo implements Serializable{
 
     public void setL$name(String l$name) {
         this.l$name = l$name;
+    }
+
+    public long getBw$createTimeLong() {
+        return bw$createTimeLong;
+    }
+
+    public void setBw$createTimeLong(long bw$createTimeLong) {
+        this.bw$createTimeLong = bw$createTimeLong;
+    }
+
+    public long getCreateTimeLongEnd() {
+        return createTimeLongEnd;
+    }
+
+    public void setCreateTimeLongEnd(long createTimeLongEnd) {
+        this.createTimeLongEnd = createTimeLongEnd;
     }
 }

@@ -10,4 +10,22 @@ import java.io.Serializable;
  * Copyright (c) 2019年 极客城堡
  */
 public class PretDriverVo extends PageFormVo implements Serializable{
+    private long bw$createTimeLong;
+    private long createTimeLongEnd;
+
+    public long getBw$createTimeLong() {
+        return bw$createTimeLong;
+    }
+
+    public void setBw$createTimeLong(long bw$createTimeLong) {
+        this.bw$createTimeLong = bw$createTimeLong;
+    }
+
+    public long getCreateTimeLongEnd() {
+        return createTimeLongEnd;
+    }
+
+    public void setCreateTimeLongEnd(long createTimeLongEnd) {
+        this.createTimeLongEnd = createTimeLongEnd;
+    }
 }
