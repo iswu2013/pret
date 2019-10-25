@@ -67,6 +67,16 @@ public class PretQuotation extends VersionedAuditableIdEntity implements Seriali
     private int status = ConstantEnum.ECheckStatus.待审核.getLabel();
 
     /**
+     * 审核人
+     */
+    private String checkUserId;
+
+    /**
+     * 审核日期
+     */
+    private Date checkDate;
+
+    /**
      * 报价明细
      */
     private List<PretQuotationItem> pretQuotationItemList;
@@ -146,6 +156,22 @@ public class PretQuotation extends VersionedAuditableIdEntity implements Seriali
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public Date getCheckDate() {
+        return checkDate;
+    }
+
+    public String getCheckUserId() {
+        return checkUserId;
+    }
+
+    public void setCheckUserId(String checkUserId) {
+        this.checkUserId = checkUserId;
+    }
+
+    public void setCheckDate(Date checkDate) {
+        this.checkDate = checkDate;
     }
 
     public List<PretQuotationItem> getPretQuotationItemList() {
