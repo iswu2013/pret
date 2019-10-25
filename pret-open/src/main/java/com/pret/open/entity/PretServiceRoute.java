@@ -3,6 +3,7 @@ package com.pret.open.entity;
 import com.pret.common.VersionedAuditableIdEntity;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -64,6 +65,11 @@ public class PretServiceRoute extends VersionedAuditableIdEntity implements Seri
      */
     @Transient
     private String seviceRouteOrginName;
+
+    /**
+     * 线路明细
+     */
+    private List<PretServiceRouteItem>  pretServiceRouteItemList;
 
     // setter and getter
 
@@ -161,5 +167,13 @@ public class PretServiceRoute extends VersionedAuditableIdEntity implements Seri
 
     public void setSeviceRouteOrginName(String seviceRouteOrginName) {
         this.seviceRouteOrginName = seviceRouteOrginName;
+    }
+
+    public List<PretServiceRouteItem> getPretServiceRouteItemList() {
+        return pretServiceRouteItemList;
+    }
+
+    public void setPretServiceRouteItemList(List<PretServiceRouteItem> pretServiceRouteItemList) {
+        this.pretServiceRouteItemList = pretServiceRouteItemList;
     }
 }

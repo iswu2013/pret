@@ -11,6 +11,7 @@ import com.pret.open.entity.bo.PretServiceRouteBo;
 import com.pret.open.entity.bo.PretTransPlanBo;
 import com.pret.open.entity.vo.PretServiceRouteOrginVo;
 import com.pret.open.repository.PretBillingIntervalRepository;
+import com.pret.open.repository.PretServiceRouteItemRepository;
 import com.pret.open.repository.PretServiceRouteOrginRepository;
 import com.pret.open.repository.PretVenderRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -39,12 +40,16 @@ public class PretServiceRouteController extends BaseManageController<PretService
     private PretBillingIntervalRepository pretBillingIntervalRepository;
     @Autowired
     private PretServiceRouteOrginRepository pretServiceRouteOrginRepository;
+    @Autowired
+    private PretServiceRouteItemRepository pretServiceRouteItemRepository;
 
     @Log("查看")
     @PostMapping("/view/{id}")
     public PretServiceRoute view(@PathVariable String id) throws FebsException {
         try {
             PretServiceRoute item = this.service.findById(id).get();
+            List<PretServiceRouteItem> pretServiceRouteItemList = pretServiceRouteItemRepository.findByServiceLineId(item.getId());
+            item.setPretServiceRouteItemList(pretServiceRouteItemList);
             return item;
         } catch (Exception e) {
             message = "查看失败";
