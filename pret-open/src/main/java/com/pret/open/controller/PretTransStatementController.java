@@ -3,13 +3,12 @@ package com.pret.open.controller;
 import com.pret.api.rest.BaseManageController;
 import com.pret.common.annotation.Log;
 import com.pret.common.exception.FebsException;
-import com.pret.open.entity.PretPickUpPlan;
-import com.pret.open.entity.PretTransOrder;
+import com.pret.open.entity.PretTransStatement;
 import com.pret.open.entity.PretVender;
-import com.pret.open.entity.bo.PretPickUpPlanBo;
 import com.pret.open.entity.bo.PretTransStatementBo;
-import com.pret.open.entity.vo.PretPickUpPlanVo;
+import com.pret.open.entity.vo.PretTransStatementVo;
 import com.pret.open.repository.PretVenderRepository;
+import com.pret.open.service.PretTransStatementService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,14 +18,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
-import com.pret.open.entity.PretTransStatement;
-import com.pret.open.entity.vo.PretTransStatementVo;
-import com.pret.open.service.PretTransStatementService;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Slf4j

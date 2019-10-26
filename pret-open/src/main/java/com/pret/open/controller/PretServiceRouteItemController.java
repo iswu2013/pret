@@ -3,20 +3,15 @@ package com.pret.open.controller;
 import com.pret.api.rest.BaseManageController;
 import com.pret.common.annotation.Log;
 import com.pret.common.exception.FebsException;
-import com.pret.open.entity.PretAddress;
-import com.pret.open.entity.PretServiceRoute;
-import com.pret.open.entity.bo.PretAddressBo;
+import com.pret.open.entity.PretServiceRouteItem;
+import com.pret.open.entity.vo.PretServiceRouteItemVo;
 import com.pret.open.repository.PretServiceRouteItemRepository;
+import com.pret.open.service.PretServiceRouteItemService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import com.pret.open.entity.PretServiceRouteItem;
-import com.pret.open.entity.vo.PretServiceRouteItemVo;
-import com.pret.open.service.PretServiceRouteItemService;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j

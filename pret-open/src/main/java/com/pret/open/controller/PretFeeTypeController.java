@@ -12,6 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @Validated
 @RestController
-@RequestMapping("PretFeeType")
+@RequestMapping("pretFeeType")
 public class PretFeeTypeController extends BaseManageController<PretFeeTypeService, PretFeeType, PretFeeTypeVo> {
 }

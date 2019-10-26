@@ -169,6 +169,7 @@ public class PretServiceRoute extends VersionedAuditableIdEntity implements Seri
         this.seviceRouteOrginName = seviceRouteOrginName;
     }
 
+    @Transient()
     public List<PretServiceRouteItem> getPretServiceRouteItemList() {
         return pretServiceRouteItemList;
     }

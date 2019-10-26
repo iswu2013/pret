@@ -1,31 +1,23 @@
 package com.pret.open.controller;
 
 import com.pret.api.rest.BaseManageController;
-import com.pret.api.vo.LabelValue;
 import com.pret.common.annotation.Log;
-import com.pret.common.constant.ConstantEnum;
 import com.pret.common.exception.FebsException;
-import com.pret.common.msg.ListRestResponse;
 import com.pret.common.util.SfUtil;
 import com.pret.open.config.Sender;
-import com.pret.open.entity.*;
-import com.pret.open.entity.vo.PretBillingIntervalVo;
+import com.pret.open.entity.PretRoute;
+import com.pret.open.entity.PretTransPlan;
 import com.pret.open.entity.vo.PretRouteVo;
 import com.pret.open.repository.PretRouteRepository;
 import com.pret.open.repository.PretTransPlanRepository;
-import com.pret.open.repository.PretVenderRepository;
-import com.pret.open.service.PretBillingIntervalService;
 import com.pret.open.service.PretRouteService;
 import com.sf.csim.express.service.CallExpressServiceTools;
 import lombok.extern.slf4j.Slf4j;
-import okhttp3.Route;
-import org.apache.commons.lang3.StringUtils;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 

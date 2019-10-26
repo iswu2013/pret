@@ -3,7 +3,6 @@ package com.pret.open.controller;
 import com.pret.api.rest.BaseManageController;
 import com.pret.common.annotation.Log;
 import com.pret.common.exception.FebsException;
-import com.pret.open.entity.PretTransPlan;
 import com.pret.open.entity.PretTransStatement;
 import com.pret.open.entity.PretVender;
 import com.pret.open.entity.vo.PretTransStatementVo;

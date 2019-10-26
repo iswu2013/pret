@@ -4,7 +4,6 @@ import com.pret.api.rest.BaseManageController;
 import com.pret.common.annotation.Log;
 import com.pret.common.exception.FebsException;
 import com.pret.open.entity.PretCustomer;
-import com.pret.open.entity.PretTransExceptionItem;
 import com.pret.open.entity.PretTransFee;
 import com.pret.open.entity.PretVender;
 import com.pret.open.entity.vo.PretTransFeeVo;

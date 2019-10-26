@@ -6,23 +6,19 @@ import com.pret.common.annotation.Log;
 import com.pret.common.exception.FebsException;
 import com.pret.common.util.StringUtil;
 import com.pret.open.entity.*;
-import com.pret.open.entity.bo.PretAddressBo;
 import com.pret.open.entity.bo.PretServiceRouteBo;
-import com.pret.open.entity.bo.PretTransPlanBo;
-import com.pret.open.entity.vo.PretServiceRouteOrginVo;
+import com.pret.open.entity.vo.PretServiceRouteVo;
 import com.pret.open.repository.PretBillingIntervalRepository;
 import com.pret.open.repository.PretServiceRouteItemRepository;
 import com.pret.open.repository.PretServiceRouteOrginRepository;
 import com.pret.open.repository.PretVenderRepository;
+import com.pret.open.service.PretServiceRouteService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import com.pret.open.entity.vo.PretServiceRouteVo;
-import com.pret.open.service.PretServiceRouteService;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -174,6 +174,7 @@ public class PretQuotation extends VersionedAuditableIdEntity implements Seriali
         this.checkDate = checkDate;
     }
 
+    @Transient()
     public List<PretQuotationItem> getPretQuotationItemList() {
         return pretQuotationItemList;
     }
