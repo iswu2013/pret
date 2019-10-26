@@ -78,7 +78,7 @@ public class PretAddressController extends BaseManageController<PretAddressServi
         ListRestResponse<List<LabelValue>> retVo = new ListRestResponse<>();
         List<PretAddress> areaList = this.pretAddressRepository.findByLevelsAndS(ConstantEnum.AreaLevelEnum.省.getLabel(), ConstantEnum.S.N.getLabel());
         List<LabelValue> labelValueList = new ArrayList<>();
-        this.getLV(areaList, labelValueList, StringUtils.EMPTY, -1);
+        this.getLV(areaList, labelValueList);
         retVo.setResult(labelValueList);
 
         return retVo;
@@ -92,25 +92,7 @@ public class PretAddressController extends BaseManageController<PretAddressServi
      * @Author: wujingsong
      * @Date: 2019/10/17  4:54 下午
      */
-    private void getLV(List<PretAddress> areaList, List<LabelValue> labelValueList, String parentId, int levels) {
-        // 如果是1，全省
-//        if (levels == ConstantEnum.AreaLevelEnum.省.getLabel()) {
-//            LabelValue labelValue = new LabelValue();
-//            labelValue.setLabel(ConstantEnum.AddressEnum.全省.name());
-//            labelValue.setValue(parentId + ConstantEnum.AddressEnum.全省.getValue());
-//            labelValueList.add(labelValue);
-//        } else if (levels == ConstantEnum.AreaLevelEnum.市.getLabel()) {
-//            LabelValue labelValue = new LabelValue();
-//            labelValue.setLabel(ConstantEnum.AddressEnum.全市.name());
-//            labelValue.setValue(parentId + ConstantEnum.AddressEnum.全市.getValue());
-//            labelValueList.add(labelValue);
-//        } else if (levels == ConstantEnum.AreaLevelEnum.区县.getLabel()) {
-//            LabelValue labelValue = new LabelValue();
-//            labelValue.setLabel(ConstantEnum.AddressEnum.全区县.name());
-//            labelValue.setValue(parentId + ConstantEnum.AddressEnum.全区县.getValue());
-//            labelValueList.add(labelValue);
-//        }
-
+    private void getLV(List<PretAddress> areaList, List<LabelValue> labelValueList) {
         for (PretAddress area : areaList) {
             LabelValue labelValue = new LabelValue();
             labelValue.setLabel(area.getName());
@@ -144,17 +126,6 @@ public class PretAddressController extends BaseManageController<PretAddressServi
     public ListRestResponse<List<LabelValue>> getByParentId(String id) {
         ListRestResponse<List<LabelValue>> retVo = new ListRestResponse<>();
         List<LabelValue> labelValueList = new ArrayList<>();
-//        if (id.equals("1")) {
-//            LabelValue labelValue = new LabelValue();
-//            labelValue.setLabel(ConstantEnum.AddressEnum.全省.name());
-//            labelValue.setValue(ConstantEnum.AddressEnum.全省.getValue());
-//            labelValue.setProvince(ConstantEnum.AddressEnum.全省.getValue());
-//            labelValueList.add(labelValue);
-//
-//            retVo.setResult(labelValueList);
-//        } else {
-//
-//        }
 
         PretAddress pretAddress = pretAddressRepository.findById(id).get();
         if (pretAddress.getName().equals(ConstantEnum.AddressEnum.全省.name()) && pretAddress.getLevels() == ConstantEnum.AreaLevelEnum.市.getLabel()) {
@@ -166,8 +137,21 @@ public class PretAddressController extends BaseManageController<PretAddressServi
             labelValueList.add(labelValue);
         } else {
             List<PretAddress> areaList = pretAddressRepository.findByParentIdAndS(id, ConstantEnum.S.N.getLabel());
-            this.getLV(areaList, labelValueList, id, pretAddress.getLevels());
+            this.getLV(areaList, labelValueList );
         }
+
+        retVo.setResult(labelValueList);
+
+        return retVo;
+    }
+
+    @RequestMapping(value = "/getByParentIdNoAdd", method = RequestMethod.GET)
+    @ResponseBody
+    public ListRestResponse<List<LabelValue>> getByParentIdNoAdd(String id) {
+        ListRestResponse<List<LabelValue>> retVo = new ListRestResponse<>();
+        List<LabelValue> labelValueList = new ArrayList<>();
+        List<PretAddress> areaList = pretAddressRepository.findByParentIdAndS(id, ConstantEnum.S.N.getLabel());
+        this.getLV(areaList, labelValueList);
 
         retVo.setResult(labelValueList);
 

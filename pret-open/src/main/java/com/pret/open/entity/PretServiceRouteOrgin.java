@@ -53,6 +53,11 @@ public class PretServiceRouteOrgin extends VersionedAuditableIdEntity implements
      */
     private String name;
 
+    /**
+     * U9code
+     */
+    private String code;
+
     @Transient()
     private PretVender pretVender;
 
@@ -135,5 +140,13 @@ public class PretServiceRouteOrgin extends VersionedAuditableIdEntity implements
 
     public void setPretVender(PretVender pretVender) {
         this.pretVender = pretVender;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }
