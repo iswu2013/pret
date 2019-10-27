@@ -13,7 +13,7 @@ public class NoUtil {
     public static String genNo(String type) {
         String no = StringUtils.EMPTY;
 
-        SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+        SimpleDateFormat format = new SimpleDateFormat("yyMMddHHmmss");
         Date date = new Date();
         String dateStr = format.format(date);
 

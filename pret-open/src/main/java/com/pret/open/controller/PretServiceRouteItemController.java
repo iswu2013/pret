@@ -5,11 +5,10 @@ import com.pret.common.annotation.Log;
 import com.pret.common.constant.ConstantEnum;
 import com.pret.common.exception.FebsException;
 import com.pret.open.entity.PretAddress;
-import com.pret.open.entity.PretServiceRoute;
 import com.pret.open.entity.PretServiceRouteItem;
 import com.pret.open.entity.PretServiceRouteOrgin;
+import com.pret.open.entity.bo.AreaBo;
 import com.pret.open.entity.vo.PretServiceRouteItemVo;
-import com.pret.open.entity.vo.PretServiceRouteVo;
 import com.pret.open.repository.PretAddressRepository;
 import com.pret.open.repository.PretServiceRouteItemRepository;
 import com.pret.open.repository.PretServiceRouteOrginRepository;
@@ -21,6 +20,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -62,6 +62,40 @@ public class PretServiceRouteItemController extends BaseManageController<PretSer
         List<PretServiceRouteItem> serviceRouteItemList = pretServiceRouteItemRepository.findByServiceLineId(id);
 
         return serviceRouteItemList;
+    }
+
+    @GetMapping(value = "/getByServiceLineIdDisplayByArea/{id}")
+    public List<AreaBo> getByServiceLineIdDisplayByArea(@PathVariable String id) {
+        List<AreaBo> list = new ArrayList<>();
+
+        List<PretServiceRouteItem> serviceRouteItemList = pretServiceRouteItemRepository.findByServiceLineId(id);
+        if (serviceRouteItemList != null && serviceRouteItemList.size() > 0) {
+            for (PretServiceRouteItem item : serviceRouteItemList) {
+                AreaBo areaBo = new AreaBo();
+                if (StringUtils.isEmpty(item.getAddressId())) {
+                    PretAddress pretAddress = pretAddressRepository.findById(item.getAddressId()).get();
+                    if (pretAddress.getLevels() == ConstantEnum.AreaLevelEnum.区县.getLabel()) {
+                        areaBo.setArea(pretAddress.getName());
+                        PretAddress city = pretAddressRepository.findById(pretAddress.getParentId()).get();
+                        areaBo.setCity(city.getName());
+                        PretAddress province = pretAddressRepository.findById(city.getParentId()).get();
+                        areaBo.setProvince(province.getName());
+                    } else if (pretAddress.getLevels() == ConstantEnum.AreaLevelEnum.市.getLabel()) {
+                        areaBo.setCity(pretAddress.getName());
+                        PretAddress province = pretAddressRepository.findById(pretAddress.getParentId()).get();
+                        areaBo.setProvince(province.getName());
+                    } else if (pretAddress.getLevels() == ConstantEnum.AreaLevelEnum.省.getLabel()) {
+                        areaBo.setProvince(pretAddress.getName());
+                    }
+                    areaBo.setLabel(pretAddress.getName());
+                    areaBo.setValue(pretAddress.getId());
+                    areaBo.setServiceRouteOrginId(item.getServiceRouteOrginId());
+                    list.add(areaBo);
+                }
+            }
+        }
+
+        return list;
     }
 
     @GetMapping
