@@ -43,4 +43,14 @@ public interface PretTransOrderRepository extends BaseRepository<PretTransOrder>
      * @Date: 2019/10/19  8:32 上午
      */
     PretTransOrder findTop1ByTransPlanId(String transPlanId);
+
+    /* *
+     * 功能描述: 根据transStatementId
+     * 〈〉
+     * @Param: [transStatementId]
+            * @Return: java.util.List<com.pret.open.entity.PretTransOrder>
+            * @Author: wujingsong
+            * @Date: 2019/10/27  5:51 下午
+     */
+    List<PretTransOrder> findByTransStatementId(String transStatementId);
 }

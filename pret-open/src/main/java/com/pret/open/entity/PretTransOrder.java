@@ -98,6 +98,10 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
      */
     private String transPlanId;
     /**
+     * 对账单id
+     */
+    private String transStatementId;
+    /**
      * 商品数量
      */
     private Integer gw;
@@ -115,6 +119,11 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
      * 货物件数
      */
     private int goodsNum;
+
+    /**
+     * 状态
+     */
+    private int status;
 
     /**
      * 提货工厂code
@@ -470,5 +479,21 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
 
     public void setPickupFactoryCd(String pickupFactoryCd) {
         this.pickupFactoryCd = pickupFactoryCd;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public String getTransStatementId() {
+        return transStatementId;
+    }
+
+    public void setTransStatementId(String transStatementId) {
+        this.transStatementId = transStatementId;
     }
 }

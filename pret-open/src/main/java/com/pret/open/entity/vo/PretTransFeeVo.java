@@ -2,7 +2,9 @@ package com.pret.open.entity.vo;
 
 import com.pret.api.vo.PageFormVo;
 import java.io.Serializable;
-/** 
+import java.util.List;
+
+/**
  * <p>Description: [pretmodel]</p>
  * Created on 2019年09月15日
  * @author  <a href="mailto: 1037216275@qq.com">wujinsong</a>
@@ -15,6 +17,7 @@ public class PretTransFeeVo extends PageFormVo implements Serializable{
     private long createTimeLongEnd;
     private int eq$status = -1;
     private String eq$transStatementId;
+    private List<Integer> in$status;
 
     public String getEq$venderId() {
         return eq$venderId;
@@ -54,5 +57,13 @@ public class PretTransFeeVo extends PageFormVo implements Serializable{
 
     public void setEq$transStatementId(String eq$transStatementId) {
         this.eq$transStatementId = eq$transStatementId;
+    }
+
+    public List<Integer> getIn$status() {
+        return in$status;
+    }
+
+    public void setIn$status(List<Integer> in$status) {
+        this.in$status = in$status;
     }
 }

@@ -15,6 +15,7 @@ public class PretFeeTypeVo extends PageFormVo implements Serializable{
     private String l$name;
     private long bw$createTimeLong;
     private long createTimeLongEnd;
+    private int eq$goodsType;
 
     public String getL$no() {
         return l$no;
@@ -46,5 +47,13 @@ public class PretFeeTypeVo extends PageFormVo implements Serializable{
 
     public void setCreateTimeLongEnd(long createTimeLongEnd) {
         this.createTimeLongEnd = createTimeLongEnd;
+    }
+
+    public int getEq$goodsType() {
+        return eq$goodsType;
+    }
+
+    public void setEq$goodsType(int eq$goodsType) {
+        this.eq$goodsType = eq$goodsType;
     }
 }

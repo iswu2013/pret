@@ -109,6 +109,11 @@ public class ConstantEnum {
         Int("int"),
 
         /**
+         * Integer
+         */
+        Integer("java.lang.Integer"),
+
+        /**
          * Long
          */
         Long("long"),
@@ -752,4 +757,66 @@ public class ConstantEnum {
             this.label = label;
         }
     }
+
+    /* *
+     * 功能描述: 商品类别
+     * 〈〉
+     * @Param:
+     * @Return:
+     * @Author: wujingsong
+     * @Date: 2019/10/27  11:14 上午
+     */
+    public enum EGoodsType {
+        重货(0),
+        泡货(1);
+        private int label;
+
+        EGoodsType(int label) {
+            this.setLabel(label);
+        }
+
+        //省略getter、setter方法
+
+        public int getLabel() {
+            return label;
+        }
+
+        public void setLabel(int label) {
+            this.label = label;
+        }
+    }
+
+    /* *
+     * 功能描述: 运输单状态
+     * 〈〉
+     * @Param:
+            * @Return:
+            * @Author: wujingsong
+            * @Date: 2019/10/27  5:37 下午
+     */
+    public enum ETransOrderStatus {
+        待分配(0),
+        待提货(1),
+        已提货(2),
+        运输中(3),
+        已签收(4),
+        已完成(5);
+        private int label;
+
+        ETransOrderStatus(int label) {
+            this.setLabel(label);
+        }
+
+        //省略getter、setter方法
+
+        public int getLabel() {
+            return label;
+        }
+
+        public void setLabel(int label) {
+            this.label = label;
+        }
+    }
+
+
 }

@@ -116,6 +116,7 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
         for (String id : idArr) {
             PretTransOrder pretTransOrder = transOrderRepository.findById(id).get();
             pretTransOrder.setTransPlanId(transPlan.getId());
+            pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.运输中.getLabel());
             transOrderRepository.save(pretTransOrder);
             if (transOrder == null) {
                 transOrder = pretTransOrder;
@@ -153,6 +154,14 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
             PretTransPlan pretTransPlan = transPlanRepository.findById(id).get();
             pretTransPlan.setStatus(ConstantEnum.ETransPlanStatus.已签收.getValue());
             transPlanRepository.save(pretTransPlan);
+
+            List<PretTransOrder> pretTransOrderList = transOrderRepository.findByTransPlanId(id);
+            if (pretTransOrderList != null && pretTransOrderList.size() > 0) {
+                for (PretTransOrder pretTransOrder : pretTransOrderList) {
+                    pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.已签收.getLabel());
+                    transOrderRepository.save(pretTransOrder);
+                }
+            }
             // 生成费用
             PretTransFee pretTransFee;
             if (first) {

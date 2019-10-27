@@ -21,6 +21,7 @@ public class PretTransOrderVo extends PageFormVo implements Serializable{
     private Date bw$deliveryDate;
     private Date deliveryDateEnd;
     private String l$deliveryBillNumber;
+    private int eq$status;
 
     public String getEq$venderId() {
         return eq$venderId;
@@ -92,5 +93,13 @@ public class PretTransOrderVo extends PageFormVo implements Serializable{
 
     public void setL$deliveryBillNumber(String l$deliveryBillNumber) {
         this.l$deliveryBillNumber = l$deliveryBillNumber;
+    }
+
+    public int getEq$status() {
+        return eq$status;
+    }
+
+    public void setEq$status(int eq$status) {
+        this.eq$status = eq$status;
     }
 }

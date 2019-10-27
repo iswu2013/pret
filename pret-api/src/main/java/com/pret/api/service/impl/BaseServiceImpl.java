@@ -212,6 +212,31 @@ public abstract class BaseServiceImpl<M extends BaseRepository<T>, T extends Ver
                                     }
                                 }
                             }
+                        } else if (typeName.equals(ConstantEnum.QueryGenericType.Integer.getGenericType())) {
+                            String[] fieldValue = BeanUtils.getArrayProperty(vo, fileName);
+                            if (fieldValue != null && fieldValue.length > 0) {
+                                List<Integer> idList = new ArrayList<>();
+                                for (String v : fieldValue) {
+                                    idList.add(Integer.parseInt(v));
+                                }
+                                if (fieldValue != null && fieldValue.length > 0) {
+                                    String pub = fileName.substring(0, fileName.indexOf(CommonConstants.QUERY_MARKER) + 1);
+                                    if (pub.equals(ConstantEnum.QueryType.in$.name())) {
+                                        list.add(cb.in(root.get(subFieldName)).value(idList));
+                                    } else if (pub.equals(ConstantEnum.QueryType.lm$.name())) {
+                                        Predicate[] ps = new Predicate[idList.size()];
+                                        int i = 0;
+                                        for (Integer propValue : idList) {
+                                            if (propValue > 0) {
+                                                Predicate predicate = cb.equal(root.<String>get(subFieldName), propValue);
+                                                ps[i] = predicate;
+                                                i++;
+                                            }
+                                        }
+                                        list.add(cb.or(ps));
+                                    }
+                                }
+                            }
                         }
                     } catch (Exception e) {
                         e.printStackTrace();

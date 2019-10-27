@@ -12,13 +12,12 @@ import com.pret.common.constant.Constants;
 import com.pret.common.util.BeanUtilsExtended;
 import com.pret.common.util.NoUtil;
 import com.pret.common.util.StringUtil;
-import com.pret.open.entity.PretPickUpPlan;
-import com.pret.open.entity.PretTransFee;
-import com.pret.open.entity.PretTransOrder;
-import com.pret.open.entity.PretTransStatement;
+import com.pret.open.entity.*;
 import com.pret.open.entity.bo.PretTransStatementBo;
 import com.pret.open.entity.vo.PretTransStatementVo;
 import com.pret.open.repository.PretTransFeeRepository;
+import com.pret.open.repository.PretTransOrderRepository;
+import com.pret.open.repository.PretTransPlanRepository;
 import com.pret.open.vo.req.*;
 import com.pret.open.repository.PretTransStatementRepository;
 import com.pret.api.service.impl.BaseServiceImpl;
@@ -45,6 +44,10 @@ public class PretTransStatementService extends BaseServiceImpl<PretTransStatemen
     private PretTransFeeRepository transFeeRepository;
     @Autowired
     private PretTransStatementRepository transStatementRepository;
+    @Autowired
+    private PretTransOrderRepository transOrderRepository;
+    @Autowired
+    private PretTransPlanRepository transPlanRepository;
 
     public PretTransStatement genDefaultPretPickUpPlan(String no, String tail) {
         Date date = DateUtils.truncate(new Date(), Calendar.DATE);
@@ -96,13 +99,23 @@ public class PretTransStatementService extends BaseServiceImpl<PretTransStatemen
         for (String id : idArr) {
             PretTransFee transFee = transFeeRepository.findById(id).get();
             transFee.setTransStatementId(transStatement.getId());
+            transFee.setStatus(ConstantEnum.EPretTransFeeStatus.通过.getLabel());
             transFeeRepository.save(transFee);
             totalAmount = totalAmount.add(transFee.getQuotation());
+
+            PretTransPlan pretTransPlan = transPlanRepository.findById(transFee.getTransPanId()).get();
+            List<PretTransOrder> pretTransOrderList = transOrderRepository.findByTransPlanId(pretTransPlan.getId());
+            for (PretTransOrder pretTransOrder : pretTransOrderList) {
+                pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.已完成.getLabel());
+                transOrderRepository.save(pretTransOrder);
+            }
         }
 
         transStatement.setTotalAmount(totalAmount);
         transStatement.setRealAmount(totalAmount);
         this.repository.save(transStatement);
+
+        // 对接U9
     }
 
     /* *
@@ -121,6 +134,14 @@ public class PretTransStatementService extends BaseServiceImpl<PretTransStatemen
             PretTransStatement transStatement = transStatementRepository.findById(id).get();
             transStatement.setStatus(ConstantEnum.ETransStatementStatus.已转U9.getLabel());
             transStatementRepository.save(transStatement);
+
+            List<PretTransOrder> transOrderList = transOrderRepository.findByTransStatementId(id);
+            if (transOrderList != null && transOrderList.size() > 0) {
+                for (PretTransOrder pretTransOrder : transOrderList) {
+                    pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.已完成.getLabel());
+                    transOrderRepository.save(pretTransOrder);
+                }
+            }
         }
     }
 }

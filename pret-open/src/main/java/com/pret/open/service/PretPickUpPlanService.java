@@ -101,6 +101,7 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
         for (String id : idArr) {
             PretTransOrder pretTransOrder = transOrderRepository.findById(id).get();
             pretTransOrder.setPickUpPlanId(pretPickUpPlan.getId());
+            pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.待提货.getLabel());
             transOrderRepository.save(pretTransOrder);
             if (StringUtils.isEmpty(venderId)) {
                 venderId = pretTransOrder.getVenderId();
@@ -227,6 +228,14 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
         for (PretPickUpPlan pretPickUpPlan : pretPickUpPlanList) {
             pretPickUpPlan.setEndTime(date);
             this.repository.save(pretPickUpPlan);
+
+            List<PretTransOrder> pretTransOrderList = transOrderRepository.findByTransPlanId(pretPickUpPlan.getId());
+            if (pretPickUpPlanList != null && pretPickUpPlanList.size() > 0) {
+                for (PretTransOrder pretTransOrder : pretTransOrderList) {
+                    pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.已提货.getLabel());
+                    transOrderRepository.save(pretTransOrder);
+                }
+            }
         }
 
         return retVo;

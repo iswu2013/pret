@@ -2,6 +2,7 @@ package com.pret.open.controller;
 
 import com.pret.api.rest.BaseManageController;
 import com.pret.common.annotation.Log;
+import com.pret.common.constant.ConstantEnum;
 import com.pret.common.exception.FebsException;
 import com.pret.open.entity.PretCustomer;
 import com.pret.open.entity.PretTransFee;
@@ -17,7 +18,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -45,13 +48,19 @@ public class PretTransFeeController extends BaseManageController<PretTransFeeSer
     @GetMapping
     @Override()
     public Map<String, Object> list(PretTransFeeVo request, PretTransFee t) {
+        List<Integer> statusList = new ArrayList<>();
+        statusList.add(ConstantEnum.EPretTransFeeStatus.已申报.getLabel());
+        statusList.add(ConstantEnum.EPretTransFeeStatus.通过.getLabel());
+        statusList.add(ConstantEnum.EPretTransFeeStatus.不通过.getLabel());
+        request.setIn$status(statusList);
+
         Page<PretTransFee> page = this.service.page(request);
         for (PretTransFee transFee : page.getContent()) {
             if (!StringUtils.isEmpty(transFee.getVenderId())) {
                 PretVender pretVender = pretVenderRepository.findById(transFee.getVenderId()).get();
                 transFee.setPretVender(pretVender);
             }
-            if(!StringUtils.isEmpty(transFee.getCustomerId())) {
+            if (!StringUtils.isEmpty(transFee.getCustomerId())) {
                 PretCustomer pretCustomer = pretCustomerRepository.findById(transFee.getCustomerId()).get();
                 transFee.setPretCustomer(pretCustomer);
             }

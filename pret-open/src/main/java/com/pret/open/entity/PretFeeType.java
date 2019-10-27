@@ -46,9 +46,14 @@ public class PretFeeType extends VersionedAuditableIdEntity implements Serializa
     private String description;
 
     /**
-     * 费用类型
+     * 费用类型0票1量
      */
     private int type;
+
+    /**
+     * 商品类别,0重货，1泡货
+     */
+    private int goodsType;
 
     public String getName() {
         return name;
@@ -72,5 +77,13 @@ public class PretFeeType extends VersionedAuditableIdEntity implements Serializa
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    public int getGoodsType() {
+        return goodsType;
+    }
+
+    public void setGoodsType(int goodsType) {
+        this.goodsType = goodsType;
     }
 }

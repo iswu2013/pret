@@ -3,6 +3,7 @@ package com.pret.open.entity;
 import com.pret.common.VersionedAuditableIdEntity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -67,11 +68,11 @@ public class PretTransFee extends VersionedAuditableIdEntity implements Serializ
     /**
      * 单价
      */
-    private java.math.BigDecimal unitPrice;
+    private BigDecimal unitPrice;
     /**
      * 总金额
      */
-    private java.math.BigDecimal quotation;
+    private BigDecimal quotation;
     /**
      * 状态(待审核,通过,不通过)
      */
@@ -234,7 +235,7 @@ public class PretTransFee extends VersionedAuditableIdEntity implements Serializ
      * @return java.math.BigDecimal
      * @author:wujinsong
      */
-    public java.math.BigDecimal getUnitPrice() {
+    public BigDecimal getUnitPrice() {
         return unitPrice;
     }
 
@@ -244,7 +245,7 @@ public class PretTransFee extends VersionedAuditableIdEntity implements Serializ
      *
      * @author:wujinsong
      */
-    public void setUnitPrice(java.math.BigDecimal unitPrice) {
+    public void setUnitPrice(BigDecimal unitPrice) {
         this.unitPrice = unitPrice;
     }
 
@@ -255,7 +256,7 @@ public class PretTransFee extends VersionedAuditableIdEntity implements Serializ
      * @return java.math.BigDecimal
      * @author:wujinsong
      */
-    public java.math.BigDecimal getQuotation() {
+    public BigDecimal getQuotation() {
         return quotation;
     }
 
@@ -265,7 +266,7 @@ public class PretTransFee extends VersionedAuditableIdEntity implements Serializ
      *
      * @author:wujinsong
      */
-    public void setQuotation(java.math.BigDecimal quotation) {
+    public void setQuotation(BigDecimal quotation) {
         this.quotation = quotation;
     }
 
