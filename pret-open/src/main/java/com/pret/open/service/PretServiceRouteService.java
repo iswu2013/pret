@@ -68,6 +68,7 @@ public class PretServiceRouteService extends BaseServiceImpl<PretServiceRouteRep
             item.setPrescription(itemBo.getPrescription());
             item.setServiceLineId(pretServiceRoute.getId());
             item.setServiceRouteOrginId(itemBo.getServiceRouteOrginId());
+            item.setVenderId(pretServiceRoute.getVenderId());
             pretServiceRouteItemRepository.save(item);
             if (!serviceRouteOrginIdList.contains(itemBo.getServiceRouteOrginId())) {
                 serviceRouteOrginIdList.add(itemBo.getServiceRouteOrginId());

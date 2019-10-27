@@ -52,6 +52,16 @@ public class PretServiceRouteItem extends VersionedAuditableIdEntity implements 
      */
     private Integer prescription;
 
+    /**
+     * 物流供应商
+     */
+    private String venderId;
+
+    /**
+     * 起始地名称
+     */
+    private String startEndName;
+
     // setter and getter
 
     /**
@@ -136,5 +146,21 @@ public class PretServiceRouteItem extends VersionedAuditableIdEntity implements 
      */
     public void setPrescription(Integer prescription) {
         this.prescription = prescription;
+    }
+
+    public String getVenderId() {
+        return venderId;
+    }
+
+    public void setVenderId(String venderId) {
+        this.venderId = venderId;
+    }
+
+    public String getStartEndName() {
+        return startEndName;
+    }
+
+    public void setStartEndName(String startEndName) {
+        this.startEndName = startEndName;
     }
 }

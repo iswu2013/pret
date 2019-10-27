@@ -5,6 +5,7 @@ import com.pret.common.annotation.Log;
 import com.pret.common.exception.FebsException;
 import com.pret.open.entity.PretServiceRouteOrgin;
 import com.pret.open.entity.PretVender;
+import com.pret.open.entity.bo.PretServiceRouteOrginBo;
 import com.pret.open.entity.vo.PretServiceRouteOrginVo;
 import com.pret.open.repository.PretVenderRepository;
 import com.pret.open.service.PretServiceRouteOrginService;
@@ -53,5 +54,16 @@ public class PretServiceRouteOrginController extends BaseManageController<PretSe
         rspData.put("total", page.getTotalElements());
 
         return rspData;
+    }
+
+    @Log("新增起运地")
+    @PostMapping("/serviceRouteOrginAdd")
+    public void serviceRouteOrginAdd(PretServiceRouteOrginBo bo) throws FebsException {
+        try {
+            this.service.serviceRouteOrginAdd(bo);
+        } catch (Exception e) {
+            message = "新增起运地失败";
+            throw new FebsException(message);
+        }
     }
 }

@@ -62,4 +62,14 @@ public interface PretAddressRepository extends BaseRepository<PretAddress>{
             * @Date: 2019/10/23  6:39 下午
      */
     List<PretAddress> findByLevelsAndAdds(int levels,int adds);
+
+    /* *
+     * 功能描述: 根据父id，是否添加和状态查找
+     * 〈〉
+     * @Param: [id, adds, s]
+            * @Return: java.util.List<com.pret.open.entity.PretAddress>
+            * @Author: wujingsong
+            * @Date: 2019/10/26  11:50 下午
+     */
+    List<PretAddress> findByParentIdAndAddsAndS(String id,Integer adds, Integer s);
 }

@@ -56,7 +56,7 @@ public abstract class BaseServiceImpl<M extends BaseRepository<T>, T extends Ver
     @Override
     public void deleteByIds(String ids) {
         String[] idArr = ids.split(",");
-        for(String id:idArr) {
+        for (String id : idArr) {
             Optional<T> t = this.findById(id);
             t.get().setS(0);
             repository.save(t.get());
@@ -234,9 +234,10 @@ public abstract class BaseServiceImpl<M extends BaseRepository<T>, T extends Ver
                 if (field.getGenericType().toString().equals(ConstantEnum.QueryGenericType.Date.getGenericType())) {
                     try {
                         String pub = fileName.substring(0, fileName.indexOf(CommonConstants.QUERY_MARKER) + 1);
-                        if (pub.equals(ConstantEnum.QueryType.bw$.name())) {
+                        String fieldValueStr = BeanUtils.getProperty(vo, fileName);
+                        if (!StringUtils.isEmpty(fieldValueStr) && pub.equals(ConstantEnum.QueryType.bw$.name())) {
                             String subFieldName = fileName.substring(fileName.indexOf(ConstantEnum.QueryType.bw$.name()) + 1);
-                            Date start = DateUtils.parseDate(BeanUtils.getProperty(vo, fileName + "Start"),
+                            Date start = DateUtils.parseDate(BeanUtils.getProperty(vo, fileName),
                                     "yyyy-MM-dd HH:mm:ss");
                             Date end = DateUtils.parseDate(
                                     BeanUtils.getProperty(vo, fileName + "End"),

@@ -138,7 +138,7 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
     public ResBody getPickupPlanList(P8000000Vo res) {
         PR8000000Vo retVo = new PR8000000Vo();
 
-        PretDriver pretDriver = driverRepository.findByOpenid(res.getOpenid());
+        PretDriver pretDriver = driverRepository.findByOpenid(res.getUserInfo().getOpenid());
         PretPickUpPlanVo vo = new PretPickUpPlanVo();
         vo.setEq$status(res.getStatus());
         vo.setEq$driverId(pretDriver.getId());

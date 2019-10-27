@@ -137,7 +137,7 @@ public class PretAddressController extends BaseManageController<PretAddressServi
             labelValueList.add(labelValue);
         } else {
             List<PretAddress> areaList = pretAddressRepository.findByParentIdAndS(id, ConstantEnum.S.N.getLabel());
-            this.getLV(areaList, labelValueList );
+            this.getLV(areaList, labelValueList);
         }
 
         retVo.setResult(labelValueList);
@@ -150,7 +150,7 @@ public class PretAddressController extends BaseManageController<PretAddressServi
     public ListRestResponse<List<LabelValue>> getByParentIdNoAdd(String id) {
         ListRestResponse<List<LabelValue>> retVo = new ListRestResponse<>();
         List<LabelValue> labelValueList = new ArrayList<>();
-        List<PretAddress> areaList = pretAddressRepository.findByParentIdAndS(id, ConstantEnum.S.N.getLabel());
+        List<PretAddress> areaList = pretAddressRepository.findByParentIdAndAddsAndS(id, 0, ConstantEnum.S.N.getLabel());
         this.getLV(areaList, labelValueList);
 
         retVo.setResult(labelValueList);

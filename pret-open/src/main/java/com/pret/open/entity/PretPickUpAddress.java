@@ -48,6 +48,11 @@ public class PretPickUpAddress extends VersionedAuditableIdEntity implements Ser
      */
     private String address;
 
+    /**
+     * 起运地id
+     */
+    private String pretServiceRouteOrginId;
+
     // setter and getter
 
     /**
@@ -111,5 +116,13 @@ public class PretPickUpAddress extends VersionedAuditableIdEntity implements Ser
      */
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getPretServiceRouteOrginId() {
+        return pretServiceRouteOrginId;
+    }
+
+    public void setPretServiceRouteOrginId(String pretServiceRouteOrginId) {
+        this.pretServiceRouteOrginId = pretServiceRouteOrginId;
     }
 }

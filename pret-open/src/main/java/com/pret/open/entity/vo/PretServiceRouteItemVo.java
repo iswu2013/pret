@@ -13,6 +13,7 @@ public class PretServiceRouteItemVo extends PageFormVo implements Serializable{
     private String eq$serviceRouteOrginId;
     private long bw$createTimeLong;
     private long createTimeLongEnd;
+    private String eq$venderId;
 
     public String getEq$serviceRouteOrginId() {
         return eq$serviceRouteOrginId;
@@ -36,5 +37,13 @@ public class PretServiceRouteItemVo extends PageFormVo implements Serializable{
 
     public void setCreateTimeLongEnd(long createTimeLongEnd) {
         this.createTimeLongEnd = createTimeLongEnd;
+    }
+
+    public String getEq$venderId() {
+        return eq$venderId;
+    }
+
+    public void setEq$venderId(String eq$venderId) {
+        this.eq$venderId = eq$venderId;
     }
 }
