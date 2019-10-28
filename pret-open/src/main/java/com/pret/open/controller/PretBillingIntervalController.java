@@ -5,9 +5,14 @@ import com.pret.common.annotation.Log;
 import com.pret.common.exception.FebsException;
 import com.pret.open.entity.PretBillingInterval;
 import com.pret.open.entity.PretBillingIntervalItem;
+import com.pret.open.entity.PretServiceRoute;
 import com.pret.open.entity.PretVender;
+import com.pret.open.entity.bo.PretBillingIntervalBo;
+import com.pret.open.entity.bo.PretBillingIntervalItemBo;
+import com.pret.open.entity.bo.PretServiceRouteBo;
 import com.pret.open.entity.vo.PretBillingIntervalVo;
 import com.pret.open.repository.PretBillingIntervalItemRepository;
+import com.pret.open.repository.PretServiceRouteRepository;
 import com.pret.open.repository.PretVenderRepository;
 import com.pret.open.service.PretBillingIntervalService;
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +35,8 @@ public class PretBillingIntervalController extends BaseManageController<PretBill
     private PretVenderRepository pretVenderRepository;
     @Autowired
     private PretBillingIntervalItemRepository pretBillingIntervalItemRepository;
+    @Autowired
+    private PretServiceRouteRepository pretServiceRouteRepository;
 
     @GetMapping
     @Override()
@@ -39,6 +46,11 @@ public class PretBillingIntervalController extends BaseManageController<PretBill
             if (!StringUtils.isEmpty(interval.getVenderId())) {
                 PretVender pretVender = pretVenderRepository.findById(interval.getVenderId()).get();
                 interval.setPretVender(pretVender);
+            }
+            if (!StringUtils.isEmpty(interval.getServiceRouteId())) {
+                PretServiceRoute pretServiceRoute = pretServiceRouteRepository.findById(interval.getServiceRouteId()).get();
+                interval.setPretServiceRoute(pretServiceRoute);
+
             }
         }
         Map<String, Object> rspData = new HashMap<>();
@@ -58,6 +70,28 @@ public class PretBillingIntervalController extends BaseManageController<PretBill
             return item;
         } catch (Exception e) {
             message = "查看失败";
+            throw new FebsException(message);
+        }
+    }
+
+    @Log("生成计费区间")
+    @PostMapping("/pretBillingIntervalAdd")
+    public void pretBillingIntervalAdd(PretBillingIntervalBo bo) throws FebsException {
+        try {
+            this.service.pretBillingIntervalAdd(bo);
+        } catch (Exception e) {
+            message = "生成计费区间失败";
+            throw new FebsException(message);
+        }
+    }
+
+    @Log("编辑计费区间")
+    @PostMapping("/pretBillingIntervalEdit")
+    public void pretBillingIntervalEdit(PretBillingIntervalBo bo) throws FebsException {
+        try {
+            this.service.pretBillingIntervalEdit(bo);
+        } catch (Exception e) {
+            message = "编辑计费区间失败";
             throw new FebsException(message);
         }
     }

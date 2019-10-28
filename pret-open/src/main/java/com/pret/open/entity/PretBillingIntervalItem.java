@@ -62,7 +62,7 @@ public class PretBillingIntervalItem extends VersionedAuditableIdEntity implemen
     private String description;
 
     /**
-     * 单位
+     * 单位1公斤2吨3立方米
      */
     private int unit;
 
