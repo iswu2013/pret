@@ -1,6 +1,7 @@
 package com.pret.open.entity;
 
 import com.pret.common.VersionedAuditableIdEntity;
+import com.wuwenze.poi.annotation.Excel;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -11,6 +12,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "pret_route")
+@Excel("路由")
 public class PretRoute extends VersionedAuditableIdEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 

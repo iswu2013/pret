@@ -7,6 +7,8 @@ import java.util.List;
 import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.wuwenze.poi.annotation.Excel;
+import com.wuwenze.poi.annotation.ExcelField;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -21,6 +23,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "pret_billing_interval")
+@Excel("计费区间")
 public class PretBillingInterval extends VersionedAuditableIdEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -39,6 +42,7 @@ public class PretBillingInterval extends VersionedAuditableIdEntity implements S
     /**
      * 计费区间名称
      */
+    @ExcelField(value = "名称")
     private String name;
     /**
      * 供应商id
@@ -47,6 +51,7 @@ public class PretBillingInterval extends VersionedAuditableIdEntity implements S
     /**
      * 线路id
      */
+    @ExcelField(value = "线路名称")
     private String serviceRouteId;
 
     @Transient()

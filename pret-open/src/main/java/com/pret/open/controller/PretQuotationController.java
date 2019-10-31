@@ -3,21 +3,23 @@ package com.pret.open.controller;
 import com.pret.api.rest.BaseManageController;
 import com.pret.common.annotation.Log;
 import com.pret.common.exception.FebsException;
-import com.pret.open.entity.PretQuotation;
-import com.pret.open.entity.PretQuotationItem;
+import com.pret.open.entity.*;
 import com.pret.open.entity.bo.PretQuotationBo;
 import com.pret.open.entity.vo.PretQuotationVo;
 import com.pret.open.repository.PretQuotationItemRepository;
+import com.pret.open.repository.PretServiceRouteRepository;
+import com.pret.open.repository.PretVenderRepository;
 import com.pret.open.service.PretQuotationService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /* *
  * 功能描述: 报价
@@ -34,6 +36,31 @@ import java.util.List;
 public class PretQuotationController extends BaseManageController<PretQuotationService, PretQuotation, PretQuotationVo> {
     @Autowired
     private PretQuotationItemRepository pretQuotationItemRepository;
+    @Autowired
+    private PretVenderRepository pretVenderRepository;
+    @Autowired
+    private PretServiceRouteRepository pretServiceRouteRepository;
+
+    @GetMapping
+    @Override()
+    public Map<String, Object> list(PretQuotationVo request, PretQuotation t) {
+        Page<PretQuotation> page = this.service.page(request);
+        for (PretQuotation pretQuotation : page.getContent()) {
+            if (!StringUtils.isEmpty(pretQuotation.getVenderId())) {
+                PretVender pretVender = pretVenderRepository.findById(pretQuotation.getVenderId()).get();
+                pretQuotation.setPretVender(pretVender);
+            }
+            if (!StringUtils.isEmpty(pretQuotation.getVenderId())) {
+                PretServiceRoute pretServiceRoute = pretServiceRouteRepository.findById(pretQuotation.getServiceRouteId()).get();
+                pretQuotation.setPretServiceRoute(pretServiceRoute);
+            }
+        }
+        Map<String, Object> rspData = new HashMap<>();
+        rspData.put("rows", page.getContent());
+        rspData.put("total", page.getTotalElements());
+
+        return rspData;
+    }
 
     @Log("查看")
     @PostMapping("/view/{id}")
@@ -62,9 +89,9 @@ public class PretQuotationController extends BaseManageController<PretQuotationS
 
     @Log("报价审核")
     @PostMapping("/check/{userId}/{id}/{status}")
-    public void check(@PathVariable String userId,@PathVariable String id, @PathVariable int status) throws FebsException {
+    public void check(@PathVariable String userId, @PathVariable String id, @PathVariable int status) throws FebsException {
         try {
-            this.service.check(userId,id,status);
+            this.service.check(userId, id, status);
         } catch (Exception e) {
             message = "报价审核";
             throw new FebsException(message);

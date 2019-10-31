@@ -5,14 +5,17 @@ import com.pret.common.VersionedAuditableIdEntity;
 import com.pret.common.annotation.Log;
 import com.pret.common.exception.FebsException;
 import com.pret.common.util.BeanUtilsExtended;
+import com.wuwenze.poi.ExcelKit;
 import jdk.nashorn.internal.runtime.options.Option;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -65,8 +68,8 @@ public class BaseManageController<Service extends BaseManageService, T extends V
     public void update(@Valid T t) throws FebsException {
         try {
             Optional<T> old = this.service.findById(t.getId());
-            if(old.isPresent()) {
-                BeanUtilsExtended.copyProperties(old.get(),t);
+            if (old.isPresent()) {
+                BeanUtilsExtended.copyProperties(old.get(), t);
             }
             this.service.save(old.get());
         } catch (Exception e) {
@@ -75,15 +78,16 @@ public class BaseManageController<Service extends BaseManageService, T extends V
         }
     }
 
-//    @PostMapping("excel")
-//    public void export(T dept, QueryRequest request, HttpServletResponse response) throws FebsException {
-//        try {
-//            List<T> depts = this.service.page(dept, request);
-//            ExcelKit.$Export(T.class, response).downXlsx(depts, false);
-//        } catch (Exception e) {
-//            message = "导出Excel失败";
-//            log.error(message, e);
-//            throw new FebsException(message);
-//        }
-//    }
+    @PostMapping("excel")
+    public void export(T t, D request, HttpServletResponse response) throws FebsException {
+        try {
+            List<T> list = this.service.page(request).getContent();
+            if (list != null && list.size() > 0) {
+                ExcelKit.$Export(t.getClass(), response).downXlsx(list, false);
+            }
+        } catch (Exception e) {
+            message = "导出Excel失败";
+            throw new FebsException(message);
+        }
+    }
 }

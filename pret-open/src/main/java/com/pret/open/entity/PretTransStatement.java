@@ -8,6 +8,9 @@ import java.util.Date;
 import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.pret.common.converter.TimeConverter;
+import com.wuwenze.poi.annotation.Excel;
+import com.wuwenze.poi.annotation.ExcelField;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -22,6 +25,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "pret_trans_statement")
+@Excel("对账单")
 public class PretTransStatement extends VersionedAuditableIdEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -40,31 +44,40 @@ public class PretTransStatement extends VersionedAuditableIdEntity implements Se
     /**
      * 单号
      */
+    @ExcelField(value = "快递单号")
     private String no;
 
     /**
      * 收款人
      */
+    @ExcelField(value = "快递单号")
     private String billToId;
+
     /**
      * 付款人
      */
+    @ExcelField(value = "快递单号")
     private String payById;
+
     /**
      * 对账日期
      */
+    @ExcelField(value = "对账日期", writeConverter = TimeConverter.class)
     private Date checkDate;
     /**
      * 对账开始日期
      */
+    @ExcelField(value = "对账开始日期", writeConverter = TimeConverter.class)
     private Date periodFrom;
     /**
      * 对账截止日期
      */
+    @ExcelField(value = "对账截止日期", writeConverter = TimeConverter.class)
     private Date periodTo;
     /**
      * 费用总额
      */
+    @ExcelField(value = "费用总额")
     private BigDecimal totalAmount;
     /**
      *
@@ -77,10 +90,12 @@ public class PretTransStatement extends VersionedAuditableIdEntity implements Se
     /**
      * 币别
      */
+    @ExcelField(value = "币别")
     private String currencyId;
     /**
      * 0待确认1通过2不通过3已转u9
      */
+    @ExcelField(value = "状态", writeConverterExp = "0=待确认,1=通过,2=不通过,3=已转u9")
     private Integer status;
 
     private PretVender pretVender;

@@ -1,15 +1,13 @@
 package com.pret.open.entity;
 
 import com.pret.common.VersionedAuditableIdEntity;
-
-import java.io.Serializable;
-import java.util.List;
-import javax.persistence.Id;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.wuwenze.poi.annotation.Excel;
+import com.wuwenze.poi.annotation.ExcelField;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * <p>Description: [pretmodel]</p>
@@ -21,6 +19,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "pret_service_route")
+@Excel("服务线路")
 public class PretServiceRoute extends VersionedAuditableIdEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -39,11 +38,13 @@ public class PretServiceRoute extends VersionedAuditableIdEntity implements Seri
     /**
      * 线路名称
      */
+    @ExcelField(value = "线路名称")
     private String name;
 
     /**
      * 供应商id
      */
+    @ExcelField(value = "供应商id")
     private String venderId;
     /**
      * 起运地,可多个
@@ -52,18 +53,16 @@ public class PretServiceRoute extends VersionedAuditableIdEntity implements Seri
     /**
      * 计费区间id
      */
+    @ExcelField(value = "计费区间id")
     private String billingIntervalId;
 
-    @Transient()
     private PretVender pretVender;
 
-    @Transient
     private PretBillingInterval pretBillingInterval;
 
     /**
      * 起运地名称
      */
-    @Transient
     private String seviceRouteOrginName;
 
     /**
@@ -145,6 +144,7 @@ public class PretServiceRoute extends VersionedAuditableIdEntity implements Seri
         this.billingIntervalId = billingIntervalId;
     }
 
+    @Transient()
     public PretVender getPretVender() {
         return pretVender;
     }
@@ -153,6 +153,7 @@ public class PretServiceRoute extends VersionedAuditableIdEntity implements Seri
         this.pretVender = pretVender;
     }
 
+    @Transient()
     public PretBillingInterval getPretBillingInterval() {
         return pretBillingInterval;
     }
@@ -161,6 +162,7 @@ public class PretServiceRoute extends VersionedAuditableIdEntity implements Seri
         this.pretBillingInterval = pretBillingInterval;
     }
 
+    @Transient()
     public String getSeviceRouteOrginName() {
         return seviceRouteOrginName;
     }

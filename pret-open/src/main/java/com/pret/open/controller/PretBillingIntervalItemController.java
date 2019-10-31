@@ -6,11 +6,11 @@ import com.pret.common.annotation.Log;
 import com.pret.common.constant.ConstantEnum;
 import com.pret.common.exception.FebsException;
 import com.pret.common.msg.ListRestResponse;
-import com.pret.open.entity.PretAddress;
-import com.pret.open.entity.PretBillingInterval;
-import com.pret.open.entity.PretBillingIntervalItem;
+import com.pret.open.entity.*;
 import com.pret.open.entity.vo.PretBillingIntervalItemVo;
 import com.pret.open.repository.PretBillingIntervalItemRepository;
+import com.pret.open.repository.PretServiceRouteItemRepository;
+import com.pret.open.repository.PretServiceRouteRepository;
 import com.pret.open.service.PretBillingIntervalItemService;
 import lombok.extern.slf4j.Slf4j;
 import net.bytebuddy.asm.Advice;
@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Validated
@@ -28,6 +29,10 @@ import java.util.List;
 public class PretBillingIntervalItemController extends BaseManageController<PretBillingIntervalItemService, PretBillingIntervalItem, PretBillingIntervalItemVo> {
     @Autowired
     private PretBillingIntervalItemRepository pretBillingIntervalItemRepository;
+    @Autowired
+    private PretServiceRouteItemRepository pretServiceRouteItemRepository;
+    @Autowired
+    private PretServiceRouteRepository pretServiceRouteRepository;
 
     @Log("查看")
     @PostMapping("/view/{id}")
@@ -49,10 +54,22 @@ public class PretBillingIntervalItemController extends BaseManageController<Pret
      * @Author: wujingsong
      * @Date: 2019/10/28  11:41 下午
      */
-    @RequestMapping(value = "/getByBillingInterval/{billingIntervalId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/getByServiceRouteItemId/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public List<PretBillingIntervalItem> getByBillingInterval(@PathVariable String billingIntervalId) {
-        List<PretBillingIntervalItem> pretBillingIntervalItemList = pretBillingIntervalItemRepository.findByBillingIntervalId(billingIntervalId);
+    public List<PretBillingIntervalItem> getByBillingInterval(@PathVariable String id) {
+        List<PretBillingIntervalItem> pretBillingIntervalItemList = null;
+        try {
+            Optional<PretServiceRouteItem> pretServiceRouteItemOptional = this.pretServiceRouteItemRepository.findById(id);
+            if (pretServiceRouteItemOptional.isPresent()) {
+                PretServiceRoute pretServiceRoute = this.pretServiceRouteRepository.findById(pretServiceRouteItemOptional.get().getServiceLineId()).get();
+                pretBillingIntervalItemList = pretBillingIntervalItemRepository.findByBillingIntervalId(pretServiceRoute.getBillingIntervalId());
+
+                return pretBillingIntervalItemList;
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
         return pretBillingIntervalItemList;
     }
 }

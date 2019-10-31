@@ -8,6 +8,8 @@ import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pret.common.constant.ConstantEnum;
+import com.wuwenze.poi.annotation.Excel;
+import com.wuwenze.poi.annotation.ExcelField;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -22,6 +24,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "pret_quotation_item")
+@Excel("报价项")
 public class PretQuotationItem extends VersionedAuditableIdEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -40,35 +43,43 @@ public class PretQuotationItem extends VersionedAuditableIdEntity implements Ser
     /**
      * 供应商id
      */
+    @ExcelField(value = "配送单id")
     private String venderId;
     /**
      * 报价id
      */
+    @ExcelField(value = "配送单id")
     private String quotationId;
 
     /**
      * 线路id
      */
+    @ExcelField(value = "配送单id")
     private String serviceRouteItem;
     /**
      * 起运地id
      */
+    @ExcelField(value = "配送单id")
     private String serviceRouteOriginId;
     /**
      * 线路明细id
      */
+    @ExcelField(value = "配送单id")
     private String serviceRouteItemId;
     /**
      * 计费区间项id
      */
+    @ExcelField(value = "配送单id")
     private String billingIntervalItemId;
     /**
      * 报价
      */
+    @ExcelField(value = "配送单id")
     private BigDecimal quotation;
     /**
      * 价格类型(0量1票)
      */
+    @ExcelField(value = "货物类型", writeConverterExp = "0=量,2=泡货")
     private Integer costType = ConstantEnum.ECostType.量.getLabel();
 
     // setter and getter

@@ -9,6 +9,9 @@ import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pret.common.constant.ConstantEnum;
+import com.pret.common.converter.TimeConverter;
+import com.wuwenze.poi.annotation.Excel;
+import com.wuwenze.poi.annotation.ExcelField;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -23,6 +26,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "pret_quotation")
+@Excel("报价")
 public class PretQuotation extends VersionedAuditableIdEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -41,45 +45,63 @@ public class PretQuotation extends VersionedAuditableIdEntity implements Seriali
     /**
      * 报价单号
      */
+    @ExcelField(value = "配送单id")
     private String no;
 
     /**
      * 供应商id
      */
+    @ExcelField(value = "配送单id")
     private String venderId;
     /**
      * 线路id
      */
+    @ExcelField(value = "配送单id")
     private String serviceRouteId;
 
     /**
      * 对账开始日期
      */
+    @ExcelField(value = "对账开始日期", writeConverter = TimeConverter.class)
     private Date periodFrom;
     /**
      * 对账截止日期
      */
+    @ExcelField(value = "对账截止日期", writeConverter = TimeConverter.class)
     private Date periodTo;
 
     /**
      * 状态
      */
+    @ExcelField(value = "配送单id")
     private int status = ConstantEnum.ECheckStatus.待审核.getLabel();
 
     /**
      * 审核人
      */
+    @ExcelField(value = "配送单id")
     private String checkUserId;
 
     /**
      * 审核日期
      */
+    @ExcelField(value = "审核日期", writeConverter = TimeConverter.class)
     private Date checkDate;
 
     /**
      * 报价明细
      */
     private List<PretQuotationItem> pretQuotationItemList;
+
+    /**
+     * 供应商
+     */
+    private PretVender pretVender;
+
+    /**
+     * 线路
+     */
+    private PretServiceRoute pretServiceRoute;
 
     // setter and getter
 
@@ -181,5 +203,23 @@ public class PretQuotation extends VersionedAuditableIdEntity implements Seriali
 
     public void setPretQuotationItemList(List<PretQuotationItem> pretQuotationItemList) {
         this.pretQuotationItemList = pretQuotationItemList;
+    }
+
+    @Transient()
+    public PretVender getPretVender() {
+        return pretVender;
+    }
+
+    public void setPretVender(PretVender pretVender) {
+        this.pretVender = pretVender;
+    }
+
+    @Transient()
+    public PretServiceRoute getPretServiceRoute() {
+        return pretServiceRoute;
+    }
+
+    public void setPretServiceRoute(PretServiceRoute pretServiceRoute) {
+        this.pretServiceRoute = pretServiceRoute;
     }
 }

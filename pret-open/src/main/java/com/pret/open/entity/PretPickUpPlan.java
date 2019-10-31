@@ -9,6 +9,9 @@ import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pret.common.constant.ConstantEnum;
+import com.pret.common.converter.TimeConverter;
+import com.wuwenze.poi.annotation.Excel;
+import com.wuwenze.poi.annotation.ExcelField;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -23,6 +26,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "pret_pick_up_plan")
+@Excel("提货计划")
 public class PretPickUpPlan extends VersionedAuditableIdEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -41,42 +45,52 @@ public class PretPickUpPlan extends VersionedAuditableIdEntity implements Serial
     /**
      * 编号
      */
+    @ExcelField(value = "编号")
     private String no;
     /**
      * 供应商id
      */
+    @ExcelField(value = "供应商id")
     private String venderId;
     /**
      * 类型
      */
+    @ExcelField(value = "类型")
     private String type;
     /**
      * 预计提货时间
      */
+    @ExcelField(value = "预计提货时间", writeConverter = TimeConverter.class)
     private Date pickUpTime;
     /**
      *
      */
+    @ExcelField(value = "司机")
     private String driverId;
     /**
      * 提货数量
      */
+    @ExcelField(value = "提货数量")
     private Integer count;
     /**
      * 提货重量
      */
+    @ExcelField(value = "提货重量")
     private String weight;
     /**
      * 0待提货1已完成
      */
+    @ExcelField(value = "状态", writeConverterExp = "0=待提货,1=已完成")
     private Integer status = ConstantEnum.EPretPickUpPlanStatus.待提货.getLabel();
     /**
      * 实际提货时间
      */
+    @ExcelField(value = "实际提货时间", writeConverter = TimeConverter.class)
     private Date startTime;
     /**
      * 结束提货时间
      */
+    @ExcelField(value = "结束提货时间", writeConverter = TimeConverter.class)
     private Date endTime;
 
     /**

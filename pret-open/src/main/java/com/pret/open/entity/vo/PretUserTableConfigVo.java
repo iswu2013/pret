@@ -1,29 +1,22 @@
 package com.pret.open.entity.vo;
 
+
 import com.pret.api.vo.PageFormVo;
 
 import java.io.Serializable;
-/** 
- * <p>Description: [pretmodel]</p>
- * Created on 2019年10月25日
+
+/**
+ * <p>Description: [plutomodel]</p>
+ * Created on 2019年10月03日
  * @author  <a href="mailto: 1037216275@qq.com">wujinsong</a>
  * @version 1.0 
  * Copyright (c) 2019年 极客城堡
  */
-public class PretFeeTypeVo extends PageFormVo implements Serializable{
-    private String l$no;
+public class PretUserTableConfigVo extends PageFormVo implements Serializable{
     private String l$name;
+
     private long bw$createTimeLong;
     private long createTimeLongEnd;
-    private int eq$goodsType = -1;
-
-    public String getL$no() {
-        return l$no;
-    }
-
-    public void setL$no(String l$no) {
-        this.l$no = l$no;
-    }
 
     public String getL$name() {
         return l$name;
@@ -47,13 +40,5 @@ public class PretFeeTypeVo extends PageFormVo implements Serializable{
 
     public void setCreateTimeLongEnd(long createTimeLongEnd) {
         this.createTimeLongEnd = createTimeLongEnd;
-    }
-
-    public int getEq$goodsType() {
-        return eq$goodsType;
-    }
-
-    public void setEq$goodsType(int eq$goodsType) {
-        this.eq$goodsType = eq$goodsType;
     }
 }

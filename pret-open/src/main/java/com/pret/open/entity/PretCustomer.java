@@ -1,6 +1,8 @@
 package com.pret.open.entity;
 
 import com.pret.common.VersionedAuditableIdEntity;
+import com.wuwenze.poi.annotation.Excel;
+import com.wuwenze.poi.annotation.ExcelField;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Entity;
@@ -19,6 +21,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "pret_customer")
+@Excel("客户")
 public class PretCustomer extends VersionedAuditableIdEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -37,17 +40,21 @@ public class PretCustomer extends VersionedAuditableIdEntity implements Serializ
     /**
      * 客户名称
      */
+    @ExcelField(value = "客户名称")
     private String name;
 
     /**
      * 客户联系人
      */
+    @ExcelField(value = "客户联系人")
     private String linkName;
     /**
      * 客户联系人电话
      */
+    @ExcelField(value = "客户联系人电话")
     private String linkPhone;
 
+    @ExcelField(value = "openid")
     private String openid;
 
     // setter and getter

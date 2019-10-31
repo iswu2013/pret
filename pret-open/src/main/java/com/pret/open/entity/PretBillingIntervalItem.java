@@ -6,6 +6,8 @@ import java.io.Serializable;
 import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.wuwenze.poi.annotation.Excel;
+import com.wuwenze.poi.annotation.ExcelField;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -20,6 +22,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "pret_billing_interval_item")
+@Excel("计费区间项")
 public class PretBillingIntervalItem extends VersionedAuditableIdEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -43,6 +46,7 @@ public class PretBillingIntervalItem extends VersionedAuditableIdEntity implemen
      * 1重货
      * 2泡货
      */
+    @ExcelField(value = "货物类型", writeConverterExp = "1=重货,2=泡货")
     private Integer type;
     /**
      * 计费区间id
@@ -51,19 +55,23 @@ public class PretBillingIntervalItem extends VersionedAuditableIdEntity implemen
     /**
      * 计费起始量
      */
+    @ExcelField(value = "计费起始量")
     private String start;
     /**
      * 计费结束量
      */
+    @ExcelField(value = "计费结束量")
     private String end;
     /**
      * 描述
      */
+    @ExcelField(value = "描述")
     private String description;
 
     /**
      * 单位1公斤2吨3立方米
      */
+    @ExcelField(value = "单位", writeConverterExp = "1=公斤,2=吨,3=立方米")
     private int unit;
 
     // setter and getter

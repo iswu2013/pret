@@ -1,6 +1,8 @@
 package com.pret.open.entity;
 
 import com.pret.common.VersionedAuditableIdEntity;
+import com.wuwenze.poi.annotation.Excel;
+import com.wuwenze.poi.annotation.ExcelField;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Entity;
@@ -19,6 +21,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "pret_trans_exception_item")
+@Excel("运输异常")
 public class PretTransExceptionItem extends VersionedAuditableIdEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -37,6 +40,7 @@ public class PretTransExceptionItem extends VersionedAuditableIdEntity implement
     /**
      * 异常id
      */
+    @ExcelField(value = "物流供应商")
     private String transExceptionId;
 
     /**

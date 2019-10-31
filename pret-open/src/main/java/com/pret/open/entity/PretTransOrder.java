@@ -7,6 +7,8 @@ import java.util.Date;
 import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.wuwenze.poi.annotation.Excel;
+import com.wuwenze.poi.annotation.ExcelField;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -21,6 +23,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "pret_trans_order")
+@Excel("运输单")
 public class PretTransOrder extends VersionedAuditableIdEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -39,14 +42,17 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
     /**
      * 订单号
      */
+    @ExcelField(value = "订单号")
     private String orderNo;
     /**
      * 供应商id
      */
+    @ExcelField(value = "供应商id")
     private String venderId;
     /**
      * 运输方式
      */
+    @ExcelField(value = "运输方式")
     private String transMode;
     /**
      * 提货日期
@@ -59,75 +65,92 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
     /**
      * 送货单号
      */
+    @ExcelField(value = "送货单号")
     private String deliveryBillNumber;
     /**
      * 起运地
      */
+    @ExcelField(value = "起运地")
     private String serviceRouteOrginId;
     /**
      * 送达客户id
      */
+    @ExcelField(value = "送达客户id")
     private String customerId;
     /**
      * 客户名称
      */
+    @ExcelField(value = "客户名称")
     private String customerName;
     /**
      * 客户地址
      */
+    @ExcelField(value = "客户地址")
     private String customerAddress;
     /**
      * 客户联系人
      */
+    @ExcelField(value = "客户联系人")
     private String customerLinkName;
     /**
      * 客户联系人电话
      */
+    @ExcelField(value = "客户联系人电话")
     private String customerLinkPhone;
 
     /**
      * 商品id
      */
+    @ExcelField(value = "商品id")
     private String goodsId;
     /**
      * 提货计划id
      */
+    @ExcelField(value = "提货计划id")
     private String pickUpPlanId;
     /**
      * 运输计划id
      */
+    @ExcelField(value = "运输计划id")
     private String transPlanId;
     /**
      * 对账单id
      */
+    @ExcelField(value = "对账单id")
     private String transStatementId;
     /**
      * 商品数量
      */
+    @ExcelField(value = "商品数量")
     private Integer gw;
     /**
      * 单位(1吨，2公斤)
      */
+    @ExcelField(value = "单位", writeConverterExp = "1=吨,2=公斤")
     private int unit;
 
     /**
      * 立方体积
      */
+    @ExcelField(value = "立方体积")
     private float cbm;
 
     /**
      * 货物件数
      */
+    @ExcelField(value = "货物件数")
     private int goodsNum;
 
     /**
      * 状态
      */
+    @ExcelField(value = "状态", writeConverterExp = "0=待分配,1=待提货,2=已提货,3=运输中,4=已签收,5=已完成")
     private int status;
 
     /**
      * 提货工厂code
      */
+    @ExcelField(value = "提货工厂code")
     private String pickupFactoryCd;
 
     @Transient()

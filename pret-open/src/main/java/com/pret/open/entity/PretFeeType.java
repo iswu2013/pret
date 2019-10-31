@@ -1,6 +1,8 @@
 package com.pret.open.entity;
 
 import com.pret.common.VersionedAuditableIdEntity;
+import com.wuwenze.poi.annotation.Excel;
+import com.wuwenze.poi.annotation.ExcelField;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -17,6 +19,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "pret_fee_type")
+@Excel("费用类型")
 public class PretFeeType extends VersionedAuditableIdEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -38,21 +41,25 @@ public class PretFeeType extends VersionedAuditableIdEntity implements Serializa
     /**
      * 名称
      */
+    @ExcelField(value = "名称")
     private String name;
 
     /**
      * 描述
      */
+    @ExcelField(value = "描述")
     private String description;
 
     /**
      * 费用类型0票1量
      */
+    @ExcelField(value = "货物类型", writeConverterExp = "0=票,1=量")
     private int type;
 
     /**
      * 商品类别,0重货，1泡货
      */
+    @ExcelField(value = "货物类型", writeConverterExp = "0=重货,1=泡货")
     private int goodsType;
 
     public String getName() {

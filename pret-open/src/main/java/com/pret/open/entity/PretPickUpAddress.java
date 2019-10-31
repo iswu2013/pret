@@ -6,6 +6,8 @@ import java.io.Serializable;
 import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.wuwenze.poi.annotation.Excel;
+import com.wuwenze.poi.annotation.ExcelField;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -20,6 +22,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "pret_pick_up_address")
+@Excel("提货地址")
 public class PretPickUpAddress extends VersionedAuditableIdEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -38,19 +41,23 @@ public class PretPickUpAddress extends VersionedAuditableIdEntity implements Ser
     /**
      * 名称
      */
+    @ExcelField(value = "名称")
     private String name;
     /**
      * 地址id
      */
+    @ExcelField(value = "地址id")
     private String addressId;
     /**
      * 详细地址
      */
+    @ExcelField(value = "详细地址")
     private String address;
 
     /**
      * 起运地id
      */
+    @ExcelField(value = "起运地id")
     private String pretServiceRouteOrginId;
 
     // setter and getter

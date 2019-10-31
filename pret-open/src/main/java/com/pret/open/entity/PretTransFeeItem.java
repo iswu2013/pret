@@ -3,9 +3,12 @@ package com.pret.open.entity;
 import com.pret.common.VersionedAuditableIdEntity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.wuwenze.poi.annotation.Excel;
+import com.wuwenze.poi.annotation.ExcelField;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -20,6 +23,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "pret_trans_fee_item")
+@Excel("运输费用项")
 public class PretTransFeeItem extends VersionedAuditableIdEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -38,10 +42,12 @@ public class PretTransFeeItem extends VersionedAuditableIdEntity implements Seri
     /**
      * 供应商id
      */
+    @ExcelField(value = "总金额")
     private String venderId;
     /**
      * 运输单费用id
      */
+    @ExcelField(value = "总金额")
     private String transFeeId;
     /**
      * 1运费2罚款3赔款
@@ -50,19 +56,23 @@ public class PretTransFeeItem extends VersionedAuditableIdEntity implements Seri
     /**
      * 运输计划id
      */
+    @ExcelField(value = "总金额")
     private String transPlanId;
     /**
      * 计费数量
      */
+    @ExcelField(value = "总金额")
     private Integer quotationCount;
     /**
      * 单价
      */
+    @ExcelField(value = "总金额")
     private java.math.BigDecimal unitPrice;
     /**
      * 金额
      */
-    private java.math.BigDecimal quotation;
+    @ExcelField(value = "总金额")
+    private BigDecimal quotation;
     /**
      * 备注
      */
@@ -186,7 +196,7 @@ public class PretTransFeeItem extends VersionedAuditableIdEntity implements Seri
      * @return java.math.BigDecimal
      * @author:wujinsong
      */
-    public java.math.BigDecimal getUnitPrice() {
+    public BigDecimal getUnitPrice() {
         return unitPrice;
     }
 
@@ -207,7 +217,7 @@ public class PretTransFeeItem extends VersionedAuditableIdEntity implements Seri
      * @return java.math.BigDecimal
      * @author:wujinsong
      */
-    public java.math.BigDecimal getQuotation() {
+    public BigDecimal getQuotation() {
         return quotation;
     }
 
@@ -217,7 +227,7 @@ public class PretTransFeeItem extends VersionedAuditableIdEntity implements Seri
      *
      * @author:wujinsong
      */
-    public void setQuotation(java.math.BigDecimal quotation) {
+    public void setQuotation(BigDecimal quotation) {
         this.quotation = quotation;
     }
 

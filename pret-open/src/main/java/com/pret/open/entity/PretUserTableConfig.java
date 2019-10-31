@@ -11,17 +11,17 @@ import javax.persistence.Table;
 import java.io.Serializable;
 
 /**
- * <p>Description: [pretmodel]</p>
- * Created on 2019年09月15日
+ * <p>Description: [plutomodel]</p>
+ * Created on 2019年10月03日
  *
  * @author <a href="mailto: 1037216275@qq.com">wujinsong</a>
  * @version 1.0
  * Copyright (c) 2019年 极客城堡
  */
 @Entity
-@Table(name = "pret_trans_order_statistics")
-@Excel("订单统计")
-public class PretTransOrderStatistics extends VersionedAuditableIdEntity implements Serializable {
+@Table(name = "pret_user_table_config")
+@Excel("用户表格配置")
+public class PretUserTableConfig extends VersionedAuditableIdEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -36,37 +36,11 @@ public class PretTransOrderStatistics extends VersionedAuditableIdEntity impleme
         return id;
     }
 
-    /**
-     * 统计类别
-     */
-    private int userType;
-
-    /**
-     * 平台为空，物流供应商取值
-     */
     private String userId;
 
-    /**
-     * 统计时间类别
-     */
-    private int dateType;
+    private String module;
 
-    /**
-     * 数量
-     */
-    private int count;
-
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
-    public int getUserType() {
-        return userType;
-    }
-
-    public void setUserType(int userType) {
-        this.userType = userType;
-    }
+    private String configInfo;
 
     public String getUserId() {
         return userId;
@@ -76,19 +50,19 @@ public class PretTransOrderStatistics extends VersionedAuditableIdEntity impleme
         this.userId = userId;
     }
 
-    public int getDateType() {
-        return dateType;
+    public String getModule() {
+        return module;
     }
 
-    public void setDateType(int dateType) {
-        this.dateType = dateType;
+    public void setModule(String module) {
+        this.module = module;
     }
 
-    public int getCount() {
-        return count;
+    public String getConfigInfo() {
+        return configInfo;
     }
 
-    public void setCount(int count) {
-        this.count = count;
+    public void setConfigInfo(String configInfo) {
+        this.configInfo = configInfo;
     }
 }

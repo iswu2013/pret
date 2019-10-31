@@ -18,6 +18,7 @@ import com.pret.open.entity.bo.PretBillingIntervalItemBo;
 import com.pret.open.entity.bo.PretServiceRouteItemBo;
 import com.pret.open.entity.vo.PretBillingIntervalVo;
 import com.pret.open.repository.PretBillingIntervalItemRepository;
+import com.pret.open.repository.PretServiceRouteRepository;
 import com.pret.open.vo.req.*;
 import com.pret.open.repository.PretBillingIntervalRepository;
 import com.pret.api.service.impl.BaseServiceImpl;
@@ -40,6 +41,8 @@ import javax.transaction.Transactional;
 public class PretBillingIntervalService extends BaseServiceImpl<PretBillingIntervalRepository, PretBillingInterval, PretBillingIntervalVo> {
     @Autowired
     private PretBillingIntervalItemRepository pretBillingIntervalItemRepository;
+    @Autowired
+    private PretServiceRouteRepository pretServiceRouteRepository;
 
 
     /* *
@@ -54,6 +57,10 @@ public class PretBillingIntervalService extends BaseServiceImpl<PretBillingInter
         PretBillingInterval pretBillingInterval = new PretBillingInterval();
         BeanUtilsExtended.copyProperties(pretBillingInterval, bo);
         this.repository.save(pretBillingInterval);
+
+        PretServiceRoute pretServiceRoute = this.pretServiceRouteRepository.findById(bo.getServiceRouteId()).get();
+        pretServiceRoute.setBillingIntervalId(pretBillingInterval.getId());
+        this.pretServiceRouteRepository.save(pretServiceRoute);
 
         List<PretBillingIntervalItemBo> list = CommonConstants.GSON.fromJson(bo.getBillingIntervalItemStr(),
                 new TypeToken<List<PretBillingIntervalItemBo>>() {

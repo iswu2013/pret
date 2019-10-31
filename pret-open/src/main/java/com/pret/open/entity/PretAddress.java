@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.wuwenze.poi.annotation.Excel;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -21,6 +22,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "pret_address")
+@Excel("地址")
 public class PretAddress extends VersionedAuditableIdEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
