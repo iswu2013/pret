@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.google.common.base.Joiner;
 import com.google.common.reflect.TypeToken;
 import com.pret.api.vo.ResBody;
@@ -19,6 +21,7 @@ import com.pret.open.entity.bo.PretQuotationItemBo;
 import com.pret.open.entity.bo.PretServiceRouteBo;
 import com.pret.open.entity.bo.PretServiceRouteItemBo;
 import com.pret.open.entity.vo.PretQuotationVo;
+import com.pret.open.repository.PretBillingIntervalItemRepository;
 import com.pret.open.repository.PretQuotationItemRepository;
 import com.pret.open.vo.req.*;
 import com.pret.open.repository.PretQuotationRepository;
@@ -42,6 +45,8 @@ import javax.transaction.Transactional;
 public class PretQuotationService extends BaseServiceImpl<PretQuotationRepository, PretQuotation, PretQuotationVo> {
     @Autowired
     private PretQuotationItemRepository pretQuotationItemRepository;
+    @Autowired
+    private PretBillingIntervalItemRepository pretBillingIntervalItemRepository;
 
     /* *
      * 功能描述: 新增报价
@@ -56,23 +61,22 @@ public class PretQuotationService extends BaseServiceImpl<PretQuotationRepositor
         BeanUtilsExtended.copyProperties(pretQuotation, bo);
         this.repository.save(pretQuotation);
 
-        List<PretQuotationItemBo> list = CommonConstants.GSON.fromJson(bo.getPretQuotationItemStr(),
-                new TypeToken<List<PretServiceRouteItemBo>>() {
-                }.getType());
+        JSONArray json = JSONArray.parseArray(bo.getPretQuotationItemStr());
         List<String> serviceRouteOrginIdList = new ArrayList<>();
-        for (PretQuotationItemBo itemBo : list) {
+        for (int i = 0; i < json.size(); i++) {
             // 线路明细
+            JSONObject jsonObject = json.getJSONObject(i);
             PretQuotationItem item = new PretQuotationItem();
-            item.setBillingIntervalItemId(itemBo.getBillingIntervalItemId());
-            item.setCostType(itemBo.getCostType());
-            item.setQuotationId(pretQuotation.getId());
-            item.setServiceRouteItemId(itemBo.getServiceRouteItemId());
-            item.setServiceRouteOriginId(itemBo.getServiceRouteOriginId());
-            item.setVenderId(bo.getVenderId());
-            pretQuotationItemRepository.save(item);
-            if (!serviceRouteOrginIdList.contains(itemBo.getServiceRouteId())) {
-                serviceRouteOrginIdList.add(itemBo.getServiceRouteId());
-            }
+//            item.setBillingIntervalItemId(itemBo.getBillingIntervalItemId());
+//            item.setCostType(itemBo.getCostType());
+//            item.setQuotationId(pretQuotation.getId());
+//            item.setServiceRouteItemId(itemBo.getServiceRouteItemId());
+//            item.setServiceRouteOriginId(itemBo.getServiceRouteOriginId());
+//            item.setVenderId(bo.getVenderId());
+//            pretQuotationItemRepository.save(item);
+//            if (!serviceRouteOrginIdList.contains(itemBo.getServiceRouteId())) {
+//                serviceRouteOrginIdList.add(itemBo.getServiceRouteId());
+//            }
         }
         pretQuotation.setServiceRouteId(Joiner.on(",").join(serviceRouteOrginIdList));
         this.repository.save(pretQuotation);

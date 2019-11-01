@@ -19,16 +19,6 @@ spring:
       ddl-auto: update
       naming:
         physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
-  redis:
-    pool:
-      max-active: 3000
-      max-idle: 1000
-      max-wait: 10000
-    host: 118.31.61.162
-    port: 6379
-    password: xpx2017
-    timeout: 20000
-    database: 10
   cloud:
     consul:
       host: 127.0.0.1
@@ -70,21 +60,6 @@ hystrix:
       execution:
         timeout:
           enabled: false
-
-#redis-cache
-redis:
-  pool:
-    maxActive: 300
-    maxIdle: 100
-    maxWait: 1000
-  host: 118.31.61.162
-  port: 6379
-  password: xpx2017
-  timeout: 20000
-  #
-  sysName: pret-open
-  enable: true
-  database: 10
 
 qiniu:
   baseurl: http://oi42x1205.bkt.clouddn.com/

@@ -21,9 +21,9 @@ spring:
         # 数据源-1，名称为 primary
         primary:
           username: root
-          password: jikechengbao@1
+          password: AdMin@2019
           driver-class-name: com.mysql.cj.jdbc.Driver
-          url: jdbc:mysql://121.40.72.147:3306/db_pret?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+          url: jdbc:mysql://192.168.0.123:3306/db_pret?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
         # 数据源-2，名称为 test
 #        test:
 #          username: root
@@ -51,9 +51,9 @@ spring:
     time-zone: GMT+8
 
   redis:
-    host: 118.31.61.162
+    host: 139.9.130.188
     port: 6379
-    password: xpx2017
+    password:
     jedis:
       pool:
         min-idle: 8

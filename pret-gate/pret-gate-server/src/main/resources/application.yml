@@ -10,11 +10,11 @@ spring:
     default-property-inclusion: non_null
   redis:
     database: 12
-    host: 118.31.61.162
+    host: 139.9.130.188
     pool:
       max-active: 20
     port: 6379
-    password: xpx2017
+    password:
     timeout: 20000
   cloud:
     consul:

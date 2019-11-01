@@ -7,9 +7,9 @@ spring:
     default-property-inclusion: non_null
   datasource:
     name: test
-    url: jdbc:mysql://121.40.72.147:3306/db_pret?useUnicode=true&characterEncoding=UTF8&serverTimezone=GMT%2B8
+    url: jdbc:mysql://192.168.0.123:3306/db_pret?useUnicode=true&characterEncoding=UTF8&serverTimezone=GMT%2B8
     username: root
-    password: jikechengbao@1
+    password: AdMin@2019
     driver-class-name: com.mysql.jdbc.Driver
   jpa:
     database: mysql
@@ -19,16 +19,6 @@ spring:
       ddl-auto: update
       naming:
         physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
-  redis:
-    pool:
-      max-active: 3000
-      max-idle: 1000
-      max-wait: 10000
-    host: 118.31.61.162
-    port: 6379
-    password: xpx2017
-    timeout: 20000
-    database: 10
   cloud:
     consul:
       host: 127.0.0.1
@@ -71,21 +61,6 @@ hystrix:
         timeout:
           enabled: false
 
-#redis-cache
-redis:
-    pool:
-         maxActive: 300
-         maxIdle: 100
-         maxWait: 1000
-    host: 118.31.61.162
-    port: 6379
-    password: xpx2017
-    timeout: 20000
-    #
-    sysName: pret-open
-    enable: true
-    database: 10
-
 qiniu:
   baseurl: http://oi42x1205.bkt.clouddn.com/
 
@@ -101,3 +76,22 @@ wx:
         secret: 41c30ad3020cd82a6ea67353f144abf6
         token: xpx
         aesKey: x5BIUL0nSaR77Wv3YYfR8Bvh5tqjiAuoI3PTKAIqoZE
+
+
+sender:
+  name: \u5E2D\u4E39
+  phone: 18916528900
+  tel: 021-69898845
+  province: \u4E0A\u6D77\u5E02
+  city: \u4E0A\u6D77\u5E02
+  area: \u5609\u5B9A\u533A
+  address: \u4E0A\u6D77\u4E0A\u6D77\u5E02\u5609\u5B9A\u533A\u987A\u8FBE\u8DEF111\u5F0463\u53F7
+  j_company: \u4E0A\u6D77\u6613\u7FBD\u6807\u8BC6\u7CFB\u7EDF\u6709\u9650\u516C\u53F8
+  j_contact: \u5E2D\u4E39
+  j_tel: 021-69898845
+  custid: 0210036987
+  clientCode: APBP_DAShow
+  checkword: tjOl5JBdOb4TyaVunWo2YlQTspmUmVv3
+
+sf:
+  url: http://bsp-oisp.sf-express.com/bsp-oisp/sfexpressService
