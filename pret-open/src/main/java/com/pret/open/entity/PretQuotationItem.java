@@ -43,44 +43,45 @@ public class PretQuotationItem extends VersionedAuditableIdEntity implements Ser
     /**
      * 供应商id
      */
-    @ExcelField(value = "配送单id")
+    @ExcelField(value = "供应商id")
     private String venderId;
     /**
      * 报价id
      */
-    @ExcelField(value = "配送单id")
+    @ExcelField(value = "报价id")
     private String quotationId;
 
     /**
      * 线路id
      */
-    @ExcelField(value = "配送单id")
+    @ExcelField(value = "线路id")
     private String serviceRouteItem;
     /**
      * 起运地id
      */
-    @ExcelField(value = "配送单id")
+    @ExcelField(value = "起运地id")
     private String serviceRouteOriginId;
     /**
      * 线路明细id
      */
-    @ExcelField(value = "配送单id")
+    @ExcelField(value = "线路明细id")
     private String serviceRouteItemId;
     /**
      * 计费区间项id
      */
-    @ExcelField(value = "配送单id")
+    @ExcelField(value = "计费区间项id")
     private String billingIntervalItemId;
     /**
      * 报价
      */
-    @ExcelField(value = "配送单id")
+    @ExcelField(value = "报价")
     private BigDecimal quotation;
+
     /**
-     * 价格类型(0量1票)
+     * 费用类型
      */
-    @ExcelField(value = "货物类型", writeConverterExp = "0=量,2=泡货")
-    private Integer costType = ConstantEnum.ECostType.量.getLabel();
+    private String feeTypeId;
+
 
     // setter and getter
 
@@ -218,24 +219,11 @@ public class PretQuotationItem extends VersionedAuditableIdEntity implements Ser
         this.quotation = quotation;
     }
 
-    /**
-     * <p>Discription:[]</p>
-     * Created on 2019年09月15日
-     *
-     * @return Integer
-     * @author:wujinsong
-     */
-    public Integer getCostType() {
-        return costType;
+    public String getFeeTypeId() {
+        return feeTypeId;
     }
 
-    /**
-     * <p>Discription:[]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setCostType(Integer costType) {
-        this.costType = costType;
+    public void setFeeTypeId(String feeTypeId) {
+        this.feeTypeId = feeTypeId;
     }
 }

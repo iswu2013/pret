@@ -17,20 +17,20 @@ public interface PretServiceRouteItemRepository extends BaseRepository<PretServi
     /* *
      * 功能描述: 根据serviceLineId, serviceRouteOrginId, addressId, s查找
      * 〈〉
-     * @Param: [serviceLineId, serviceRouteOrginId, addressId, s]
+     * @Param: [serviceRouteId, serviceRouteOrginId, addressId, s]
      * @Return: com.pret.open.entity.PretServiceRouteItem
      * @Author: wujingsong
      * @Date: 2019/10/24  9:26 上午
      */
-    PretServiceRouteItem findByServiceLineIdAndServiceRouteOrginIdAndAddressIdAndS(String serviceLineId, String serviceRouteOrginId, String addressId, int s);
-    
+    PretServiceRouteItem findByServiceRouteIdAndServiceRouteOrginIdAndAddressIdAndS(String serviceRouteId, String serviceRouteOrginId, String addressId, int s);
+
     /* *
      * 功能描述: 根据serviceLineId查找
      * 〈〉
-     * @Param: [serviceLineId]
-            * @Return: java.util.List<com.pret.open.entity.PretServiceRouteItem>
-            * @Author: wujingsong
-            * @Date: 2019/10/24  9:28 上午
+     * @Param: [serviceRouteId]
+     * @Return: java.util.List<com.pret.open.entity.PretServiceRouteItem>
+     * @Author: wujingsong
+     * @Date: 2019/10/24  9:28 上午
      */
-    List<PretServiceRouteItem> findByServiceLineId(String serviceLineId);
+    List<PretServiceRouteItem> findByServiceRouteId(String serviceLineId);
 }

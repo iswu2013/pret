@@ -45,18 +45,18 @@ public class PretQuotation extends VersionedAuditableIdEntity implements Seriali
     /**
      * 报价单号
      */
-    @ExcelField(value = "配送单id")
+    @ExcelField(value = "报价单号")
     private String no;
 
     /**
      * 供应商id
      */
-    @ExcelField(value = "配送单id")
+    @ExcelField(value = "供应商id")
     private String venderId;
     /**
      * 线路id
      */
-    @ExcelField(value = "配送单id")
+    @ExcelField(value = "线路id")
     private String serviceRouteId;
 
     /**
@@ -73,13 +73,13 @@ public class PretQuotation extends VersionedAuditableIdEntity implements Seriali
     /**
      * 状态
      */
-    @ExcelField(value = "配送单id")
+    @ExcelField(value = "状态")
     private int status = ConstantEnum.ECheckStatus.待审核.getLabel();
 
     /**
      * 审核人
      */
-    @ExcelField(value = "配送单id")
+    @ExcelField(value = "审核人")
     private String checkUserId;
 
     /**
@@ -102,6 +102,11 @@ public class PretQuotation extends VersionedAuditableIdEntity implements Seriali
      * 线路
      */
     private PretServiceRoute pretServiceRoute;
+
+    /**
+     * 线路名称
+     */
+    private String serviceRouteNames;
 
     // setter and getter
 
@@ -194,6 +199,15 @@ public class PretQuotation extends VersionedAuditableIdEntity implements Seriali
 
     public void setCheckDate(Date checkDate) {
         this.checkDate = checkDate;
+    }
+
+    @Transient()
+    public String getServiceRouteNames() {
+        return serviceRouteNames;
+    }
+
+    public void setServiceRouteNames(String serviceRouteNames) {
+        this.serviceRouteNames = serviceRouteNames;
     }
 
     @Transient()

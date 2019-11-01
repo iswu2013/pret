@@ -1,8 +1,10 @@
 package com.pret.open.controller;
 
+import com.google.common.base.Joiner;
 import com.pret.api.rest.BaseManageController;
 import com.pret.common.annotation.Log;
 import com.pret.common.exception.FebsException;
+import com.pret.common.util.StringUtil;
 import com.pret.open.entity.*;
 import com.pret.open.entity.bo.PretQuotationBo;
 import com.pret.open.entity.vo.PretQuotationVo;
@@ -17,6 +19,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,9 +53,21 @@ public class PretQuotationController extends BaseManageController<PretQuotationS
                 PretVender pretVender = pretVenderRepository.findById(pretQuotation.getVenderId()).get();
                 pretQuotation.setPretVender(pretVender);
             }
-            if (!StringUtils.isEmpty(pretQuotation.getVenderId())) {
-                PretServiceRoute pretServiceRoute = pretServiceRouteRepository.findById(pretQuotation.getServiceRouteId()).get();
-                pretQuotation.setPretServiceRoute(pretServiceRoute);
+            if (!StringUtils.isEmpty(pretQuotation.getServiceRouteId())) {
+                if (pretQuotation.getServiceRouteId().contains(",")) {
+                    List<String> nameList = new ArrayList<>();
+
+                    List<String> idList = StringUtil.idsStr2ListString(pretQuotation.getServiceRouteId());
+                    for (String id : idList) {
+                        PretServiceRoute pretServiceRoute = this.pretServiceRouteRepository.findById(id).get();
+                        nameList.add(pretServiceRoute.getName());
+                    }
+                    pretQuotation.setServiceRouteNames(Joiner.on(",").join(nameList));
+                } else {
+                    PretServiceRoute pretServiceRoute = pretServiceRouteRepository.findById(pretQuotation.getServiceRouteId()).get();
+                    pretQuotation.setPretServiceRoute(pretServiceRoute);
+                    pretQuotation.setServiceRouteNames(pretServiceRoute.getName());
+                }
             }
         }
         Map<String, Object> rspData = new HashMap<>();

@@ -3,10 +3,13 @@ package com.pret.open.controller;
 import com.pret.api.rest.BaseManageController;
 import com.pret.common.annotation.Log;
 import com.pret.common.exception.FebsException;
+import com.pret.common.util.StringUtil;
+import com.pret.open.entity.PretPickUpAddress;
 import com.pret.open.entity.PretServiceRouteOrgin;
 import com.pret.open.entity.PretVender;
 import com.pret.open.entity.bo.PretServiceRouteOrginBo;
 import com.pret.open.entity.vo.PretServiceRouteOrginVo;
+import com.pret.open.repository.PretPickUpAddressRepository;
 import com.pret.open.repository.PretVenderRepository;
 import com.pret.open.service.PretServiceRouteOrginService;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +19,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -26,6 +31,8 @@ import java.util.Map;
 public class PretServiceRouteOrginController extends BaseManageController<PretServiceRouteOrginService, PretServiceRouteOrgin, PretServiceRouteOrginVo> {
     @Autowired
     private PretVenderRepository pretVenderRepository;
+    @Autowired
+    private PretPickUpAddressRepository pretPickUpAddressRepository;
 
     @Log("查看")
     @PostMapping("/view/{id}")
@@ -47,6 +54,15 @@ public class PretServiceRouteOrginController extends BaseManageController<PretSe
             if (!StringUtils.isEmpty(orgin.getVenderId())) {
                 PretVender pretVender = pretVenderRepository.findById(orgin.getVenderId()).get();
                 orgin.setPretVender(pretVender);
+            }
+            List<String> addressList = new ArrayList<>();
+            if (!StringUtils.isEmpty(orgin.getPickUpAddressId())) {
+                List<String> idList = StringUtil.idsStr2ListString(orgin.getPickUpAddressId());
+                List<PretPickUpAddress> pretPickUpAddressList = pretPickUpAddressRepository.findByIdIn(idList);
+                for (PretPickUpAddress pretPickUpAddress : pretPickUpAddressList) {
+                    addressList.add(pretPickUpAddress.getName());
+                }
+                orgin.setPickUpAddressList(addressList);
             }
         }
         Map<String, Object> rspData = new HashMap<>();

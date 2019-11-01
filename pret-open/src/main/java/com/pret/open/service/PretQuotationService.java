@@ -1,8 +1,6 @@
 package com.pret.open.service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -12,20 +10,16 @@ import com.pret.api.vo.ResBody;
 import com.pret.common.constant.CommonConstants;
 import com.pret.common.constant.ConstantEnum;
 import com.pret.common.util.BeanUtilsExtended;
-import com.pret.open.entity.PretQuotation;
-import com.pret.open.entity.PretQuotationItem;
-import com.pret.open.entity.PretServiceRoute;
-import com.pret.open.entity.PretServiceRouteItem;
+import com.pret.open.entity.*;
 import com.pret.open.entity.bo.PretQuotationBo;
 import com.pret.open.entity.bo.PretQuotationItemBo;
 import com.pret.open.entity.bo.PretServiceRouteBo;
 import com.pret.open.entity.bo.PretServiceRouteItemBo;
 import com.pret.open.entity.vo.PretQuotationVo;
-import com.pret.open.repository.PretBillingIntervalItemRepository;
-import com.pret.open.repository.PretQuotationItemRepository;
+import com.pret.open.repository.*;
 import com.pret.open.vo.req.*;
-import com.pret.open.repository.PretQuotationRepository;
 import com.pret.api.service.impl.BaseServiceImpl;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -47,6 +41,11 @@ public class PretQuotationService extends BaseServiceImpl<PretQuotationRepositor
     private PretQuotationItemRepository pretQuotationItemRepository;
     @Autowired
     private PretBillingIntervalItemRepository pretBillingIntervalItemRepository;
+    @Autowired
+    private PretFeeTypeRepository pretFeeTypeRepository;
+    @Autowired
+    private PretServiceRouteItemRepository pretServiceRouteItemRepository;
+
 
     /* *
      * 功能描述: 新增报价
@@ -60,26 +59,7 @@ public class PretQuotationService extends BaseServiceImpl<PretQuotationRepositor
         PretQuotation pretQuotation = new PretQuotation();
         BeanUtilsExtended.copyProperties(pretQuotation, bo);
         this.repository.save(pretQuotation);
-
-        JSONArray json = JSONArray.parseArray(bo.getPretQuotationItemStr());
-        List<String> serviceRouteOrginIdList = new ArrayList<>();
-        for (int i = 0; i < json.size(); i++) {
-            // 线路明细
-            JSONObject jsonObject = json.getJSONObject(i);
-            PretQuotationItem item = new PretQuotationItem();
-//            item.setBillingIntervalItemId(itemBo.getBillingIntervalItemId());
-//            item.setCostType(itemBo.getCostType());
-//            item.setQuotationId(pretQuotation.getId());
-//            item.setServiceRouteItemId(itemBo.getServiceRouteItemId());
-//            item.setServiceRouteOriginId(itemBo.getServiceRouteOriginId());
-//            item.setVenderId(bo.getVenderId());
-//            pretQuotationItemRepository.save(item);
-//            if (!serviceRouteOrginIdList.contains(itemBo.getServiceRouteId())) {
-//                serviceRouteOrginIdList.add(itemBo.getServiceRouteId());
-//            }
-        }
-        pretQuotation.setServiceRouteId(Joiner.on(",").join(serviceRouteOrginIdList));
-        this.repository.save(pretQuotation);
+        this.editQuotion(bo, pretQuotation);
     }
 
     /* *
@@ -103,26 +83,74 @@ public class PretQuotationService extends BaseServiceImpl<PretQuotationRepositor
             }
             this.pretQuotationItemRepository.saveAll(pretQuotationItemList);
         }
+        this.editQuotion(bo, pretQuotation);
+    }
 
-        List<PretQuotationItemBo> list = CommonConstants.GSON.fromJson(bo.getPretQuotationItemStr(),
-                new TypeToken<List<PretQuotationItemBo>>() {
-                }.getType());
-        List<String> serviceRouteOrginIdList = new ArrayList<>();
-        for (PretQuotationItemBo itemBo : list) {
+    /* *
+     * 功能描述: 编辑报价
+     * 〈〉
+     * @Param: [bo, pretQuotation]
+     * @Return: void
+     * @Author: wujingsong
+     * @Date: 2019/11/1  4:16 下午
+     */
+    private void editQuotion(PretQuotationBo bo, PretQuotation pretQuotation) {
+        JSONArray json = JSONArray.parseArray(bo.getPretQuotationItemStr());
+        List<String> serviceRouteIdList = new ArrayList<>();
+        for (int i = 0; i < json.size(); i++) {
+            String serviceRouteId = StringUtils.EMPTY;
             // 线路明细
-            PretQuotationItem item = new PretQuotationItem();
-            item.setBillingIntervalItemId(itemBo.getBillingIntervalItemId());
-            item.setCostType(itemBo.getCostType());
-            item.setQuotationId(pretQuotation.getId());
-            item.setServiceRouteItemId(itemBo.getServiceRouteItemId());
-            item.setServiceRouteOriginId(itemBo.getServiceRouteOriginId());
-            item.setVenderId(bo.getVenderId());
-            pretQuotationItemRepository.save(item);
-            if (!serviceRouteOrginIdList.contains(itemBo.getServiceRouteId())) {
-                serviceRouteOrginIdList.add(itemBo.getServiceRouteId());
+            JSONObject jsonObject = json.getJSONObject(i);
+            String id = jsonObject.get("id").toString();
+            JSONArray pretFeeTypeDataSource0 = JSONArray.parseArray(jsonObject.get("pretFeeTypeDataSource0").toString());
+            for (int j = 0; j < pretFeeTypeDataSource0.size(); j++) {
+                JSONObject pretFeeTypeJsonObject = pretFeeTypeDataSource0.getJSONObject(j);
+                String type = pretFeeTypeJsonObject.get("type").toString();
+
+                Set<Map.Entry<String, Object>> entrySet = pretFeeTypeJsonObject.entrySet();
+                for (Map.Entry<String, Object> map : entrySet) {
+                    if (!(map.getKey().equals("type") || map.getKey().equals("operation"))) {
+                        PretQuotationItem item = new PretQuotationItem();
+                        item.setBillingIntervalItemId(map.getKey());
+                        item.setFeeTypeId(type);
+                        item.setQuotationId(pretQuotation.getId());
+                        item.setServiceRouteItemId(id);
+                        item.setVenderId(bo.getVenderId());
+                        pretQuotationItemRepository.save(item);
+
+                        PretServiceRouteItem pretServiceRouteItem = pretServiceRouteItemRepository.findById(id).get();
+                        serviceRouteId = pretServiceRouteItem.getServiceRouteId();
+
+                    }
+                }
+            }
+            JSONArray pretFeeTypeDataSource1 = JSONArray.parseArray(jsonObject.get("pretFeeTypeDataSource1").toString());
+            for (int j = 0; j < pretFeeTypeDataSource1.size(); j++) {
+                JSONObject pretFeeTypeJsonObject = pretFeeTypeDataSource1.getJSONObject(j);
+                String type = pretFeeTypeJsonObject.get("type").toString();
+
+                Set<Map.Entry<String, Object>> entrySet = pretFeeTypeJsonObject.entrySet();
+                for (Map.Entry<String, Object> map : entrySet) {
+                    if (!(map.getKey().equals("type") || map.getKey().equals("operation"))) {
+                        PretQuotationItem item = new PretQuotationItem();
+                        item.setBillingIntervalItemId(map.getKey());
+                        item.setFeeTypeId(type);
+                        item.setQuotationId(pretQuotation.getId());
+                        item.setServiceRouteItemId(id);
+                        item.setVenderId(bo.getVenderId());
+                        pretQuotationItemRepository.save(item);
+
+                        PretServiceRouteItem pretServiceRouteItem = pretServiceRouteItemRepository.findById(id).get();
+                        serviceRouteId = pretServiceRouteItem.getServiceRouteId();
+                    }
+                }
+            }
+
+            if (!serviceRouteIdList.contains(serviceRouteId)) {
+                serviceRouteIdList.add(serviceRouteId);
             }
         }
-        pretQuotation.setServiceRouteId(Joiner.on(",").join(serviceRouteOrginIdList));
+        pretQuotation.setServiceRouteId(Joiner.on(",").join(serviceRouteIdList));
         this.repository.save(pretQuotation);
     }
 

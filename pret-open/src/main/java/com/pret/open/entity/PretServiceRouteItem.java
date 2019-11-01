@@ -42,7 +42,7 @@ public class PretServiceRouteItem extends VersionedAuditableIdEntity implements 
      * 服务线路id
      */
     @ExcelField(value = "服务线路id")
-    private String serviceLineId;
+    private String serviceRouteId;
     /**
      * 起运地id
      */
@@ -73,25 +73,13 @@ public class PretServiceRouteItem extends VersionedAuditableIdEntity implements 
 
     // setter and getter
 
-    /**
-     * <p>Discription:[服务线路id]</p>
-     * Created on 2019年09月15日
-     *
-     * @return String
-     * @author:wujinsong
-     */
-    public String getServiceLineId() {
-        return serviceLineId;
+
+    public String getServiceRouteId() {
+        return serviceRouteId;
     }
 
-    /**
-     * <p>Discription:[服务线路id]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setServiceLineId(String serviceLineId) {
-        this.serviceLineId = serviceLineId;
+    public void setServiceRouteId(String serviceRouteId) {
+        this.serviceRouteId = serviceRouteId;
     }
 
     /**

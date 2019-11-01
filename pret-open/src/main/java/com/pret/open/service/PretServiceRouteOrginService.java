@@ -1,7 +1,9 @@
 package com.pret.open.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.google.common.base.Joiner;
 import com.google.common.reflect.TypeToken;
 import com.pret.api.vo.ResBody;
 import com.pret.common.constant.CommonConstants;
@@ -17,6 +19,7 @@ import com.pret.open.repository.PretPickUpAddressRepository;
 import com.pret.open.vo.req.*;
 import com.pret.open.repository.PretServiceRouteOrginRepository;
 import com.pret.api.service.impl.BaseServiceImpl;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -53,6 +56,9 @@ public class PretServiceRouteOrginService extends BaseServiceImpl<PretServiceRou
         List<AddressBo> list = CommonConstants.GSON.fromJson(bo.getAddressStr(),
                 new TypeToken<List<AddressBo>>() {
                 }.getType());
+
+        List<String> idList = new ArrayList<>();
+
         for (AddressBo addressBo : list) {
             PretPickUpAddress pretPickUpAddress = new PretPickUpAddress();
             pretPickUpAddress.setAddress(addressBo.getDetail());
@@ -60,6 +66,11 @@ public class PretServiceRouteOrginService extends BaseServiceImpl<PretServiceRou
             pretPickUpAddress.setName(addressBo.getName());
             pretPickUpAddress.setPretServiceRouteOrginId(item.getId());
             pretPickUpAddressRepository.save(pretPickUpAddress);
+
+            idList.add(pretPickUpAddress.getId());
         }
+
+        item.setPickUpAddressId(Joiner.on(",").join(idList));
+        this.repository.save(item);
     }
 }

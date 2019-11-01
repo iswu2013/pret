@@ -3,6 +3,7 @@ package com.pret.open.entity;
 import com.pret.common.VersionedAuditableIdEntity;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -68,6 +69,11 @@ public class PretServiceRouteOrgin extends VersionedAuditableIdEntity implements
 
     @Transient()
     private PretVender pretVender;
+
+    /**
+     * 提货地址
+     */
+    private List<String> pickUpAddressList;
 
     // setter and getter
 
@@ -142,6 +148,7 @@ public class PretServiceRouteOrgin extends VersionedAuditableIdEntity implements
         this.name = name;
     }
 
+    @Transient()
     public PretVender getPretVender() {
         return pretVender;
     }
@@ -156,5 +163,14 @@ public class PretServiceRouteOrgin extends VersionedAuditableIdEntity implements
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    @Transient()
+    public List<String> getPickUpAddressList() {
+        return pickUpAddressList;
+    }
+
+    public void setPickUpAddressList(List<String> pickUpAddressList) {
+        this.pickUpAddressList = pickUpAddressList;
     }
 }

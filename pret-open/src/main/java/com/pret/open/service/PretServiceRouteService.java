@@ -66,7 +66,7 @@ public class PretServiceRouteService extends BaseServiceImpl<PretServiceRouteRep
             PretServiceRouteItem item = new PretServiceRouteItem();
             item.setAddressId(itemBo.getValue());
             item.setPrescription(itemBo.getPrescription());
-            item.setServiceLineId(pretServiceRoute.getId());
+            item.setServiceRouteId(pretServiceRoute.getId());
             item.setServiceRouteOrginId(itemBo.getServiceRouteOrginId());
             item.setVenderId(pretServiceRoute.getVenderId());
             pretServiceRouteItemRepository.save(item);
@@ -92,7 +92,7 @@ public class PretServiceRouteService extends BaseServiceImpl<PretServiceRouteRep
         this.repository.save(pretServiceRoute);
 
         // 删除之前的线路
-        List<PretServiceRouteItem> pretServiceRouteItemList = pretServiceRouteItemRepository.findByServiceLineId(bo.getId());
+        List<PretServiceRouteItem> pretServiceRouteItemList = pretServiceRouteItemRepository.findByServiceRouteId(bo.getId());
         if (pretServiceRouteItemList != null && pretServiceRouteItemList.size() > 0) {
             for (PretServiceRouteItem item : pretServiceRouteItemList) {
                 item.setS(ConstantEnum.S.D.getLabel());
@@ -109,7 +109,7 @@ public class PretServiceRouteService extends BaseServiceImpl<PretServiceRouteRep
             PretServiceRouteItem item = new PretServiceRouteItem();
             item.setAddressId(itemBo.getValue());
             item.setPrescription(itemBo.getPrescription());
-            item.setServiceLineId(pretServiceRoute.getId());
+            item.setServiceRouteId(pretServiceRoute.getId());
             item.setServiceRouteOrginId(itemBo.getServiceRouteOrginId());
             pretServiceRouteItemRepository.save(item);
             if (!serviceRouteOrginIdList.contains(itemBo.getServiceRouteOrginId())) {

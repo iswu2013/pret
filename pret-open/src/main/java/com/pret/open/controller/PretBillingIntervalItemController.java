@@ -61,7 +61,7 @@ public class PretBillingIntervalItemController extends BaseManageController<Pret
         try {
             Optional<PretServiceRouteItem> pretServiceRouteItemOptional = this.pretServiceRouteItemRepository.findById(id);
             if (pretServiceRouteItemOptional.isPresent()) {
-                PretServiceRoute pretServiceRoute = this.pretServiceRouteRepository.findById(pretServiceRouteItemOptional.get().getServiceLineId()).get();
+                PretServiceRoute pretServiceRoute = this.pretServiceRouteRepository.findById(pretServiceRouteItemOptional.get().getServiceRouteId()).get();
                 pretBillingIntervalItemList = pretBillingIntervalItemRepository.findByBillingIntervalId(pretServiceRoute.getBillingIntervalId());
 
                 return pretBillingIntervalItemList;

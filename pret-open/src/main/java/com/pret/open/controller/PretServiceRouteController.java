@@ -44,7 +44,7 @@ public class PretServiceRouteController extends BaseManageController<PretService
     public PretServiceRoute view(@PathVariable String id) throws FebsException {
         try {
             PretServiceRoute item = this.service.findById(id).get();
-            List<PretServiceRouteItem> pretServiceRouteItemList = pretServiceRouteItemRepository.findByServiceLineId(item.getId());
+            List<PretServiceRouteItem> pretServiceRouteItemList = pretServiceRouteItemRepository.findByServiceRouteId(item.getId());
             item.setPretServiceRouteItemList(pretServiceRouteItemList);
             return item;
         } catch (Exception e) {
