@@ -56,13 +56,13 @@ public class PretBillingIntervalItemController extends BaseManageController<Pret
      */
     @RequestMapping(value = "/getByServiceRouteItemId/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public List<PretBillingIntervalItem> getByBillingInterval(@PathVariable String id) {
+    public List<PretBillingIntervalItem> getByServiceRouteItemId(@PathVariable String id) {
         List<PretBillingIntervalItem> pretBillingIntervalItemList = null;
         try {
             Optional<PretServiceRouteItem> pretServiceRouteItemOptional = this.pretServiceRouteItemRepository.findById(id);
             if (pretServiceRouteItemOptional.isPresent()) {
                 PretServiceRoute pretServiceRoute = this.pretServiceRouteRepository.findById(pretServiceRouteItemOptional.get().getServiceRouteId()).get();
-                pretBillingIntervalItemList = pretBillingIntervalItemRepository.findByBillingIntervalId(pretServiceRoute.getBillingIntervalId());
+                pretBillingIntervalItemList = pretBillingIntervalItemRepository.findByBillingIntervalIdAndS(pretServiceRoute.getBillingIntervalId(), ConstantEnum.S.N.getLabel());
 
                 return pretBillingIntervalItemList;
             }
@@ -70,6 +70,21 @@ public class PretBillingIntervalItemController extends BaseManageController<Pret
             System.out.println(e.getMessage());
         }
 
+        return pretBillingIntervalItemList;
+    }
+
+    /* *
+     * 功能描述: 根据计费区间项获取
+     * 〈〉
+     * @Param: [id]
+     * @Return: java.util.List<com.pret.open.entity.PretBillingIntervalItem>
+     * @Author: wujingsong
+     * @Date: 2019/11/2  12:57 上午
+     */
+    @RequestMapping(value = "/getByBillingInterval/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<PretBillingIntervalItem> getByBillingInterval(@PathVariable String id) {
+        List<PretBillingIntervalItem> pretBillingIntervalItemList = pretBillingIntervalItemRepository.findByBillingIntervalIdAndS(id, ConstantEnum.S.N.getLabel());
         return pretBillingIntervalItemList;
     }
 }

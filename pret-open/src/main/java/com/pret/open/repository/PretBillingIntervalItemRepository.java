@@ -17,10 +17,10 @@ public interface PretBillingIntervalItemRepository extends BaseRepository<PretBi
     /* *
      * 功能描述: 根据billingIntervalId查找
      * 〈〉
-     * @Param: [billingIntervalId]
-     * @Return: java.util.List<com.pret.open.entity.PretBillingIntervalItem>
-     * @Author: wujingsong
-     * @Date: 2019/10/25  1:39 下午
+     * @Param: [billingIntervalId, s]
+            * @Return: java.util.List<com.pret.open.entity.PretBillingIntervalItem>
+            * @Author: wujingsong
+            * @Date: 2019/11/2  1:28 上午
      */
-    List<PretBillingIntervalItem> findByBillingIntervalId(String billingIntervalId);
+    List<PretBillingIntervalItem> findByBillingIntervalIdAndS(String billingIntervalId,Integer s);
 }

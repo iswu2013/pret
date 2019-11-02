@@ -1,32 +1,24 @@
 package com.pret.open.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.google.common.base.Joiner;
 import com.google.common.reflect.TypeToken;
-import com.pret.api.vo.ResBody;
+import com.pret.api.service.impl.BaseServiceImpl;
 import com.pret.common.constant.CommonConstants;
 import com.pret.common.constant.ConstantEnum;
 import com.pret.common.util.BeanUtilsExtended;
 import com.pret.open.entity.PretBillingInterval;
 import com.pret.open.entity.PretBillingIntervalItem;
 import com.pret.open.entity.PretServiceRoute;
-import com.pret.open.entity.PretServiceRouteItem;
 import com.pret.open.entity.bo.PretBillingIntervalBo;
 import com.pret.open.entity.bo.PretBillingIntervalItemBo;
-import com.pret.open.entity.bo.PretServiceRouteItemBo;
 import com.pret.open.entity.vo.PretBillingIntervalVo;
 import com.pret.open.repository.PretBillingIntervalItemRepository;
-import com.pret.open.repository.PretServiceRouteRepository;
-import com.pret.open.vo.req.*;
 import com.pret.open.repository.PretBillingIntervalRepository;
-import com.pret.api.service.impl.BaseServiceImpl;
+import com.pret.open.repository.PretServiceRouteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 /**
  * Description: [pret服务]
@@ -88,7 +80,7 @@ public class PretBillingIntervalService extends BaseServiceImpl<PretBillingInter
         BeanUtilsExtended.copyProperties(pretBillingInterval, bo);
         this.repository.save(pretBillingInterval);
 
-        List<PretBillingIntervalItem> pretBillingIntervalItemList = pretBillingIntervalItemRepository.findByBillingIntervalId(bo.getId());
+        List<PretBillingIntervalItem> pretBillingIntervalItemList = pretBillingIntervalItemRepository.findByBillingIntervalIdAndS(bo.getId(), ConstantEnum.S.N.getLabel());
         if (pretBillingIntervalItemList != null && pretBillingIntervalItemList.size() > 0) {
             for (PretBillingIntervalItem item : pretBillingIntervalItemList) {
                 item.setS(ConstantEnum.S.D.getLabel());

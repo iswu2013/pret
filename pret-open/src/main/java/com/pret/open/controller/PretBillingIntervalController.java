@@ -2,6 +2,7 @@ package com.pret.open.controller;
 
 import com.pret.api.rest.BaseManageController;
 import com.pret.common.annotation.Log;
+import com.pret.common.constant.ConstantEnum;
 import com.pret.common.exception.FebsException;
 import com.pret.open.entity.PretBillingInterval;
 import com.pret.open.entity.PretBillingIntervalItem;
@@ -65,7 +66,7 @@ public class PretBillingIntervalController extends BaseManageController<PretBill
     public PretBillingInterval view(@PathVariable String id) throws FebsException {
         try {
             PretBillingInterval item = this.service.findById(id).get();
-            List<PretBillingIntervalItem> list = pretBillingIntervalItemRepository.findByBillingIntervalId(item.getId());
+            List<PretBillingIntervalItem> list = pretBillingIntervalItemRepository.findByBillingIntervalIdAndS(item.getId(), ConstantEnum.S.N.getLabel());
             item.setPretBillingIntervalItemList(list);
             return item;
         } catch (Exception e) {

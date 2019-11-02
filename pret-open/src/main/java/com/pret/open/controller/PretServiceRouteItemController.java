@@ -72,7 +72,7 @@ public class PretServiceRouteItemController extends BaseManageController<PretSer
         if (serviceRouteItemList != null && serviceRouteItemList.size() > 0) {
             for (PretServiceRouteItem item : serviceRouteItemList) {
                 AreaBo areaBo = new AreaBo();
-                if (StringUtils.isEmpty(item.getAddressId())) {
+                if (!StringUtils.isEmpty(item.getAddressId())) {
                     PretAddress pretAddress = pretAddressRepository.findById(item.getAddressId()).get();
                     if (pretAddress.getLevels() == ConstantEnum.AreaLevelEnum.区县.getLabel()) {
                         areaBo.setArea(pretAddress.getName());
@@ -90,6 +90,7 @@ public class PretServiceRouteItemController extends BaseManageController<PretSer
                     areaBo.setLabel(pretAddress.getName());
                     areaBo.setValue(pretAddress.getId());
                     areaBo.setServiceRouteOrginId(item.getServiceRouteOrginId());
+                    areaBo.setPrescription(item.getPrescription());
                     list.add(areaBo);
                 }
             }
