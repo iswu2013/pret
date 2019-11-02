@@ -17,12 +17,12 @@ public interface PretTransOrderRepository extends BaseRepository<PretTransOrder>
     /* *
      * 功能描述: 根据运输计划查找
      * 〈〉
-     * @Param: [transPlanId]
-     * @Return: java.util.List<com.pret.open.entity.PretTransOrder>
-     * @Author: wujingsong
-     * @Date: 2019/10/4  7:09 上午
+     * @Param: [transPlanId, s]
+            * @Return: java.util.List<com.pret.open.entity.PretTransOrder>
+            * @Author: wujingsong
+            * @Date: 2019/11/2  11:00 上午
      */
-    List<PretTransOrder> findByTransPlanId(String transPlanId);
+    List<PretTransOrder> findByTransPlanIdAndS(String transPlanId, Integer s);
 
     /* *
      * 功能描述: 根据提货计划查找
@@ -48,9 +48,9 @@ public interface PretTransOrderRepository extends BaseRepository<PretTransOrder>
      * 功能描述: 根据transStatementId
      * 〈〉
      * @Param: [transStatementId]
-            * @Return: java.util.List<com.pret.open.entity.PretTransOrder>
-            * @Author: wujingsong
-            * @Date: 2019/10/27  5:51 下午
+     * @Return: java.util.List<com.pret.open.entity.PretTransOrder>
+     * @Author: wujingsong
+     * @Date: 2019/10/27  5:51 下午
      */
     List<PretTransOrder> findByTransStatementId(String transStatementId);
 }

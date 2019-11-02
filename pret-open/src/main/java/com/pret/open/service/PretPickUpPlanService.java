@@ -229,7 +229,7 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
             pretPickUpPlan.setEndTime(date);
             this.repository.save(pretPickUpPlan);
 
-            List<PretTransOrder> pretTransOrderList = transOrderRepository.findByTransPlanId(pretPickUpPlan.getId());
+            List<PretTransOrder> pretTransOrderList = transOrderRepository.findByTransPlanIdAndS(pretPickUpPlan.getId(), ConstantEnum.S.N.getLabel());
             if (pretPickUpPlanList != null && pretPickUpPlanList.size() > 0) {
                 for (PretTransOrder pretTransOrder : pretTransOrderList) {
                     pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.已提货.getLabel());

@@ -2,6 +2,7 @@ package com.pret.open.controller;
 
 import com.pret.api.rest.BaseManageController;
 import com.pret.common.annotation.Log;
+import com.pret.common.constant.ConstantEnum;
 import com.pret.common.exception.FebsException;
 import com.pret.open.entity.PretPickUpPlan;
 import com.pret.open.entity.PretTransOrder;
@@ -37,7 +38,7 @@ public class PretPickUpPlanController extends BaseManageController<PretPickUpPla
     public PretPickUpPlan view(@PathVariable String id) throws FebsException {
         try {
             PretPickUpPlan item = this.service.findById(id).get();
-            List<PretTransOrder> pretTransOrderList = transOrderRepository.findByTransPlanId(item.getId());
+            List<PretTransOrder> pretTransOrderList = transOrderRepository.findByTransPlanIdAndS(item.getId(), ConstantEnum.S.N.getLabel());
             item.setTransOrderList(pretTransOrderList);
             return item;
         } catch (Exception e) {

@@ -2,14 +2,13 @@ package com.pret.open.controller;
 
 import com.pret.api.rest.BaseManageController;
 import com.pret.common.annotation.Log;
+import com.pret.common.constant.ConstantEnum;
 import com.pret.common.exception.FebsException;
-import com.pret.open.entity.PretCustomer;
-import com.pret.open.entity.PretGoods;
-import com.pret.open.entity.PretTransOrder;
-import com.pret.open.entity.PretVender;
+import com.pret.open.entity.*;
 import com.pret.open.entity.vo.PretTransOrderVo;
 import com.pret.open.repository.PretCustomerRepository;
 import com.pret.open.repository.PretGoodsRepository;
+import com.pret.open.repository.PretTransOrderRepository;
 import com.pret.open.repository.PretVenderRepository;
 import com.pret.open.service.PretTransOrderService;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +19,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -33,6 +33,8 @@ public class PretTransOrderController extends BaseManageController<PretTransOrde
     private PretGoodsRepository pretGoodsRepository;
     @Autowired
     private PretCustomerRepository pretCustomerRepository;
+    @Autowired
+    private PretTransOrderRepository pretTransOrderRepository;
 
     @Log("查看")
     @PostMapping("/view/{id}")
@@ -59,7 +61,7 @@ public class PretTransOrderController extends BaseManageController<PretTransOrde
                 PretGoods pretGoods = pretGoodsRepository.findById(route.getGoodsId()).get();
                 route.setPretGoods(pretGoods);
             }
-            if(!StringUtils.isEmpty(route.getCustomerId())) {
+            if (!StringUtils.isEmpty(route.getCustomerId())) {
                 PretCustomer pretCustomer = pretCustomerRepository.findById(route.getCustomerId()).get();
                 route.setPretCustomer(pretCustomer);
             }
@@ -69,5 +71,20 @@ public class PretTransOrderController extends BaseManageController<PretTransOrde
         rspData.put("total", page.getTotalElements());
 
         return rspData;
+    }
+
+    /* *
+     * 功能描述: 根据运输计划查找
+     * 〈〉
+     * @Param: [id]
+     * @Return: java.util.List<com.pret.open.entity.PretTransOrder>
+     * @Author: wujingsong
+     * @Date: 2019/11/2  11:00 上午
+     */
+    @RequestMapping(value = "/getByTansPlanId/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<PretTransOrder> getByTansPlanId(@PathVariable String id) {
+        List<PretTransOrder> transOrderList = pretTransOrderRepository.findByTransPlanIdAndS(id, ConstantEnum.S.N.getLabel());
+        return transOrderList;
     }
 }

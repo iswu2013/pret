@@ -155,7 +155,7 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
             pretTransPlan.setStatus(ConstantEnum.ETransPlanStatus.已签收.getValue());
             transPlanRepository.save(pretTransPlan);
 
-            List<PretTransOrder> pretTransOrderList = transOrderRepository.findByTransPlanId(id);
+            List<PretTransOrder> pretTransOrderList = transOrderRepository.findByTransPlanIdAndS(id, ConstantEnum.S.N.getLabel());
             if (pretTransOrderList != null && pretTransOrderList.size() > 0) {
                 for (PretTransOrder pretTransOrder : pretTransOrderList) {
                     pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.已签收.getLabel());
