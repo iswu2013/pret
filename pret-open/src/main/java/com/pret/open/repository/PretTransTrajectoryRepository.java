@@ -16,10 +16,10 @@ public interface PretTransTrajectoryRepository extends BaseRepository<PretTransT
     /* *
      * 功能描述: 根据运输计划查找
      * 〈〉
-     * @Param: [transPlanId]
+     * @Param: [transPlanId, s]
             * @Return: java.util.List<com.pret.open.entity.PretTransTrajectory>
             * @Author: wujingsong
-            * @Date: 2019/10/18  10:55 下午
+            * @Date: 2019/11/3  8:33 上午
      */
-    List<PretTransTrajectory> findByTransPlanId(String transPlanId);
+    List<PretTransTrajectory> findByTransPlanId(String transPlanId,Integer s);
 }
