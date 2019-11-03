@@ -217,7 +217,7 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
         PretTransPlan transPlan = transPlanRepository.findById(res.getId()).get();
         retVo.setData(transPlan);
 
-        List<PretTransTrajectory> list = transTrajectoryRepository.findByTransPlanId(transPlan.getId());
+        List<PretTransTrajectory> list = transTrajectoryRepository.findByTransPlanIdAndS(transPlan.getId(), ConstantEnum.S.N.getLabel());
         retVo.setTransTrajectoryList(list);
 
         return retVo;

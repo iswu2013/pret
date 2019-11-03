@@ -66,6 +66,11 @@ public class PretTransTrajectory extends VersionedAuditableIdEntity implements S
     @ExcelField(value = "备注")
     private String remark;
 
+    /**
+     * 完整地址
+     */
+    private String address;
+
     // setter and getter
 
     /**
@@ -158,5 +163,14 @@ public class PretTransTrajectory extends VersionedAuditableIdEntity implements S
      */
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    @Transient()
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

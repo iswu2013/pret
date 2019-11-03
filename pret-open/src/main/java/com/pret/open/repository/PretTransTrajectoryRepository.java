@@ -21,5 +21,5 @@ public interface PretTransTrajectoryRepository extends BaseRepository<PretTransT
             * @Author: wujingsong
             * @Date: 2019/11/3  8:33 上午
      */
-    List<PretTransTrajectory> findByTransPlanId(String transPlanId,Integer s);
+    List<PretTransTrajectory> findByTransPlanIdAndS(String transPlanId,Integer s);
 }
