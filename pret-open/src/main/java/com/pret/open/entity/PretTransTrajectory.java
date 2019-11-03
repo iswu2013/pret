@@ -53,6 +53,13 @@ public class PretTransTrajectory extends VersionedAuditableIdEntity implements S
      */
     @ExcelField(value = "地址id")
     private String addressId;
+
+    /**
+     * 详细地址
+     */
+    @ExcelField(value = "详细地址")
+    private String detail;
+
     /**
      * 备注
      */
@@ -122,6 +129,14 @@ public class PretTransTrajectory extends VersionedAuditableIdEntity implements S
      */
     public void setAddressId(String addressId) {
         this.addressId = addressId;
+    }
+
+    public String getDetail() {
+        return detail;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail;
     }
 
     /**
