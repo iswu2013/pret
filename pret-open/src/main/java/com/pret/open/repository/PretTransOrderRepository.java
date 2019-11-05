@@ -53,4 +53,34 @@ public interface PretTransOrderRepository extends BaseRepository<PretTransOrder>
      * @Date: 2019/10/27  5:51 下午
      */
     List<PretTransOrder> findByTransStatementId(String transStatementId);
+
+    /* *
+     * 功能描述: 根据状态查找
+     * 〈〉
+     * @Param: [status]
+            * @Return: java.util.List<com.pret.open.entity.PretTransOrder>
+            * @Author: wujingsong
+            * @Date: 2019/11/4  7:20 上午
+     */
+    List<PretTransOrder> findByStatus(Integer status);
+
+    /* *
+     * 功能描述: 获取最前面的5个
+     * 〈〉
+     * @Param: [status]
+            * @Return: java.util.List<com.pret.open.entity.PretTransOrder>
+            * @Author: wujingsong
+            * @Date: 2019/11/4  7:30 上午
+     */
+    List<PretTransOrder> findTop5ByStatus(Integer status);
+
+    /* *
+     * 功能描述: 根据状态统计数量
+     * 〈〉
+     * @Param: [status]
+            * @Return: long
+            * @Author: wujingsong
+            * @Date: 2019/11/4  7:20 上午
+     */
+    long countByStatus(Integer status);
 }

@@ -52,4 +52,6 @@ public class UserConfig {
      */
     private String color;
 
+
+
 }

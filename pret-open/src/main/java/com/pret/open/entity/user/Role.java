@@ -3,10 +3,7 @@ package com.pret.open.entity.user;
 import com.pret.common.VersionedAuditableIdEntity;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -30,9 +27,15 @@ public class Role extends VersionedAuditableIdEntity implements Serializable {
     @GenericGenerator(name = "idGenerator", strategy = "uuid") //这个是hibernate的注解/生成32位UUID
     @GeneratedValue(generator = "idGenerator")
     @Override
+    @Column(name = "id")
     public String getId() {
         return id;
     }
+
+    /**
+     * 角色id
+     */
+    private Long roleId;
 
     /**
      * 角色编码
@@ -58,6 +61,14 @@ public class Role extends VersionedAuditableIdEntity implements Serializable {
 
     // setter and getter
 
+
+    public Long getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(Long roleId) {
+        this.roleId = roleId;
+    }
 
     public String getCode() {
         return code;

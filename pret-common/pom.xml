@@ -91,11 +91,6 @@
             <version>5.4.1.Final</version>
         </dependency>
         <dependency>
-            <groupId>com.taobao</groupId>
-            <artifactId>taobao-sdk-java-sms</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>mail</artifactId>
             <version>1.4</version>
@@ -191,11 +186,6 @@
             <id>nexus-aliyun</id>
             <name>Nexus aliyun</name>
             <url>http://maven.aliyun.com/nexus/content/groups/public</url>
-        </repository>
-        <repository>
-            <id>nexus</id>
-            <name>Team Nexus Repository</name>
-            <url>http://116.62.57.180:8090/nexus/content/repositories/thirdparty/</url>
         </repository>
     </repositories>
 </project>

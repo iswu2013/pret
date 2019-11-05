@@ -59,7 +59,7 @@ public class PretFeeType extends VersionedAuditableIdEntity implements Serializa
     /**
      * 商品类别,0重货，1泡货
      */
-    @ExcelField(value = "货物类型", writeConverterExp = "0=重货,1=泡货")
+    @ExcelField(value = "商品类别", writeConverterExp = "0=重货,1=泡货")
     private int goodsType;
 
     public String getName() {

@@ -356,9 +356,9 @@ public class Constants {
 
     public static final String CP_NOTE = "满40可用";
 
-    public static final String APP_KEY = "pertcnihplod";
+    public static final String APP_KEY = "pretterp";
 
-    public static final String APP_SECRET = "pertcnihplod98234";
+    public static final String APP_SECRET = "pretterp91209";
 
     public static final String TAIL = "000001";
 

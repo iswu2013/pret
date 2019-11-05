@@ -60,12 +60,12 @@ public class PretQuotation extends VersionedAuditableIdEntity implements Seriali
     private String serviceRouteId;
 
     /**
-     * 对账开始日期
+     * 报价开始日期
      */
     @ExcelField(value = "对账开始日期", writeConverter = TimeConverter.class)
     private Date periodFrom;
     /**
-     * 对账截止日期
+     * 报价截止日期
      */
     @ExcelField(value = "对账截止日期", writeConverter = TimeConverter.class)
     private Date periodTo;

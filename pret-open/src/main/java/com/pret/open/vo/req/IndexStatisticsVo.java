@@ -11,52 +11,52 @@ public class IndexStatisticsVo {
     /**
      * 待提货配送任务
      */
-    private int waitingPickUpCount;
+    private long waitingPickUpCount;
 
     /**
      * 待处理异常
      */
-    private int waitingHandleExcepitonCount;
+    private long waitingHandleExcepitonCount;
 
     /**
      * 在途运输业务数量
      */
-    private int onTheWayTransCount;
+    private long onTheWayTransCount;
 
     /**
      * 未提货完成数
      */
-    private int unFinishPickUpCount;
+    private long unFinishPickUpCount;
 
-    public int getWaitingPickUpCount() {
+    public long getWaitingPickUpCount() {
         return waitingPickUpCount;
     }
 
-    public void setWaitingPickUpCount(int waitingPickUpCount) {
+    public void setWaitingPickUpCount(long waitingPickUpCount) {
         this.waitingPickUpCount = waitingPickUpCount;
     }
 
-    public int getWaitingHandleExcepitonCount() {
+    public long getWaitingHandleExcepitonCount() {
         return waitingHandleExcepitonCount;
     }
 
-    public void setWaitingHandleExcepitonCount(int waitingHandleExcepitonCount) {
+    public void setWaitingHandleExcepitonCount(long waitingHandleExcepitonCount) {
         this.waitingHandleExcepitonCount = waitingHandleExcepitonCount;
     }
 
-    public int getOnTheWayTransCount() {
+    public long getOnTheWayTransCount() {
         return onTheWayTransCount;
     }
 
-    public void setOnTheWayTransCount(int onTheWayTransCount) {
+    public void setOnTheWayTransCount(long onTheWayTransCount) {
         this.onTheWayTransCount = onTheWayTransCount;
     }
 
-    public int getUnFinishPickUpCount() {
+    public long getUnFinishPickUpCount() {
         return unFinishPickUpCount;
     }
 
-    public void setUnFinishPickUpCount(int unFinishPickUpCount) {
+    public void setUnFinishPickUpCount(long unFinishPickUpCount) {
         this.unFinishPickUpCount = unFinishPickUpCount;
     }
 }

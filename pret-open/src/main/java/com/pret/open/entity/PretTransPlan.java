@@ -7,6 +7,7 @@ import java.util.Date;
 import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.pret.common.constant.ConstantEnum;
 import com.pret.common.converter.TimeConverter;
 import com.wuwenze.poi.annotation.Excel;
 import com.wuwenze.poi.annotation.ExcelField;
@@ -137,7 +138,7 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
      * 状态(运输中,已签收)
      */
     @ExcelField(value = "状态", writeConverterExp = "1=运输中,2=已签收")
-    private Integer status;
+    private Integer status = ConstantEnum.ETransPlanStatus.运输中.getValue();
     /**
      * 费用创建人
      */

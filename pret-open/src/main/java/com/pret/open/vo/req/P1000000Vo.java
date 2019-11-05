@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.pret.api.vo.PageFormVo;
+import com.pret.api.vo.ReqBody;
 
 /**
  * Description: 下单
@@ -13,43 +14,66 @@ import com.pret.api.vo.PageFormVo;
  * @version 1.0
  * Copyright (c) 2019年 极客城堡
  */
-public class P1000000Vo extends PageFormVo {
+public class P1000000Vo extends ReqBody {
+    /**
+     * 发货类型0正常发货，1库间调拨
+     */
+    private Integer transType;
+
     /**
      * 运输方式Code(U9 Code)
      */
     private String transModeCd;
+
+    /**
+     * 运输方式名称
+     */
+    private String tranModeNm;
     /**
      * 业务部门
      */
     private String depCd;
+
     /**
-     * 空转单标志位 0:非空转单  1:空转单
+     * 部门名称
      */
-    private String preOrderFlag;
+    private String depNm;
+
     /**
      * 要求提货时间
      */
-    private Date reqPickupDatetime;
+    private String reqPickupDatetime;
+
     /**
      * 要求送达时间
      */
-    private Date reqDlvDatetime;
+    private String reqDlvDatetime;
+
     /**
      * 送货单号
      */
-    private Long dlvOrdNo;
+    private String dlvOrdNo;
+
     /**
      * 业务员(U9 Code)
      */
     private String salesCd;
+
+    /**
+     * 业务员名称
+     */
+    private String salesNm;
+
     /**
      * PRET提货工厂Code(U9 Code)
      */
     private String pickupFactoryCd;
+
     /**
      * 起运地省份code(U9 Code)
      */
     private String orgProvinceCd;
+
     /**
      * 起运地城市code(U9 Code)
      */
@@ -59,6 +83,11 @@ public class P1000000Vo extends PageFormVo {
      * 起运地县/区code(U9 Code)
      */
     private String orgAreaCd;
+
+    /**
+     * 客户代码
+     */
+    private String  custCd;
 
     /**
      * 客户名称
@@ -88,6 +117,11 @@ public class P1000000Vo extends PageFormVo {
     private String destCityCd;
 
     /**
+     * 客户地址县/区code（U9 code）
+     */
+    private String destAreaCd;
+
+    /**
      * 料号
      */
     private String partNo;
@@ -108,17 +142,42 @@ public class P1000000Vo extends PageFormVo {
     private String gw;
 
     /**
-     * 单位
+     * 单位(1吨，2公斤)
      */
     private int unit;
 
+    /**
+     * 立方体积
+     */
     private float cbm;
 
+    /**
+     * 货物件数
+     */
     private int goodsNum;
 
+    /**
+     * 销售备注
+     */
     private String remark;
 
+    /**
+     * 来源：0，U9,1，OA
+     */
     private int dataSource;
+
+    /**
+     * 空转单标志位 0:非空转单  1:空转单
+     */
+    private String preOrderFlag;
+
+    public Integer getTransType() {
+        return transType;
+    }
+
+    public void setTransType(Integer transType) {
+        this.transType = transType;
+    }
 
     public String getTransModeCd() {
         return transModeCd;
@@ -126,6 +185,14 @@ public class P1000000Vo extends PageFormVo {
 
     public void setTransModeCd(String transModeCd) {
         this.transModeCd = transModeCd;
+    }
+
+    public String getTranModeNm() {
+        return tranModeNm;
+    }
+
+    public void setTranModeNm(String tranModeNm) {
+        this.tranModeNm = tranModeNm;
     }
 
     public String getDepCd() {
@@ -136,35 +203,35 @@ public class P1000000Vo extends PageFormVo {
         this.depCd = depCd;
     }
 
-    public String getPreOrderFlag() {
-        return preOrderFlag;
+    public String getDepNm() {
+        return depNm;
     }
 
-    public void setPreOrderFlag(String preOrderFlag) {
-        this.preOrderFlag = preOrderFlag;
+    public void setDepNm(String depNm) {
+        this.depNm = depNm;
     }
 
-    public Date getReqPickupDatetime() {
+    public String getReqPickupDatetime() {
         return reqPickupDatetime;
     }
 
-    public void setReqPickupDatetime(Date reqPickupDatetime) {
+    public void setReqPickupDatetime(String reqPickupDatetime) {
         this.reqPickupDatetime = reqPickupDatetime;
     }
 
-    public Date getReqDlvDatetime() {
+    public String getReqDlvDatetime() {
         return reqDlvDatetime;
     }
 
-    public void setReqDlvDatetime(Date reqDlvDatetime) {
+    public void setReqDlvDatetime(String reqDlvDatetime) {
         this.reqDlvDatetime = reqDlvDatetime;
     }
 
-    public Long getDlvOrdNo() {
+    public String getDlvOrdNo() {
         return dlvOrdNo;
     }
 
-    public void setDlvOrdNo(Long dlvOrdNo) {
+    public void setDlvOrdNo(String dlvOrdNo) {
         this.dlvOrdNo = dlvOrdNo;
     }
 
@@ -174,6 +241,14 @@ public class P1000000Vo extends PageFormVo {
 
     public void setSalesCd(String salesCd) {
         this.salesCd = salesCd;
+    }
+
+    public String getSalesNm() {
+        return salesNm;
+    }
+
+    public void setSalesNm(String salesNm) {
+        this.salesNm = salesNm;
     }
 
     public String getPickupFactoryCd() {
@@ -206,6 +281,14 @@ public class P1000000Vo extends PageFormVo {
 
     public void setOrgAreaCd(String orgAreaCd) {
         this.orgAreaCd = orgAreaCd;
+    }
+
+    public String getCustCd() {
+        return custCd;
+    }
+
+    public void setCustCd(String custCd) {
+        this.custCd = custCd;
     }
 
     public String getCustName() {
@@ -254,6 +337,14 @@ public class P1000000Vo extends PageFormVo {
 
     public void setDestCityCd(String destCityCd) {
         this.destCityCd = destCityCd;
+    }
+
+    public String getDestAreaCd() {
+        return destAreaCd;
+    }
+
+    public void setDestAreaCd(String destAreaCd) {
+        this.destAreaCd = destAreaCd;
     }
 
     public String getPartNo() {
@@ -326,5 +417,13 @@ public class P1000000Vo extends PageFormVo {
 
     public void setDataSource(int dataSource) {
         this.dataSource = dataSource;
+    }
+
+    public String getPreOrderFlag() {
+        return preOrderFlag;
+    }
+
+    public void setPreOrderFlag(String preOrderFlag) {
+        this.preOrderFlag = preOrderFlag;
     }
 }

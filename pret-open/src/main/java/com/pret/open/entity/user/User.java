@@ -3,10 +3,7 @@ package com.pret.open.entity.user;
 import com.pret.common.VersionedAuditableIdEntity;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -33,6 +30,11 @@ public class User extends VersionedAuditableIdEntity implements Serializable {
     public String getId() {
         return id;
     }
+
+    public static final String DEFAULT_PASSWORD = "admin1";
+
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long userId;
 
     /**
      * 用户名
@@ -89,6 +91,15 @@ public class User extends VersionedAuditableIdEntity implements Serializable {
 	private String openid;
 
     // setter and getter
+
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 
     /**
      * <p>Discription:[用户名]</p>

@@ -119,9 +119,9 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
     @ExcelField(value = "对账单id")
     private String transStatementId;
     /**
-     * 商品数量
+     * 商品重量
      */
-    @ExcelField(value = "商品数量")
+    @ExcelField(value = "商品重量")
     private Integer gw;
     /**
      * 单位(1吨，2公斤)

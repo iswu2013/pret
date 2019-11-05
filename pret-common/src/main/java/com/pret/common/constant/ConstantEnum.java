@@ -621,7 +621,8 @@ public class ConstantEnum {
         Customer(1),
         Salesman(2),
         Guard(3),
-        Driver(4);
+        Driver(4),
+        Vender(5);
         private int label;
 
         ERoleCode(int label) {
@@ -790,9 +791,9 @@ public class ConstantEnum {
      * 功能描述: 运输单状态
      * 〈〉
      * @Param:
-            * @Return:
-            * @Author: wujingsong
-            * @Date: 2019/10/27  5:37 下午
+     * @Return:
+     * @Author: wujingsong
+     * @Date: 2019/10/27  5:37 下午
      */
     public enum ETransOrderStatus {
         待分配(0),

@@ -3,6 +3,7 @@ package com.pret.open.controller;
 import com.pret.api.rest.BaseManageController;
 import com.pret.common.annotation.Log;
 import com.pret.common.constant.ConstantEnum;
+import com.pret.common.constant.Constants;
 import com.pret.common.exception.FebsException;
 import com.pret.open.entity.*;
 import com.pret.open.entity.vo.PretTransOrderVo;
@@ -18,6 +19,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -86,5 +88,51 @@ public class PretTransOrderController extends BaseManageController<PretTransOrde
     public List<PretTransOrder> getByTansPlanId(@PathVariable String id) {
         List<PretTransOrder> transOrderList = pretTransOrderRepository.findByTransPlanIdAndS(id, ConstantEnum.S.N.getLabel());
         return transOrderList;
+    }
+
+    @Log("创建物流单")
+    @PostMapping("/createTestData")
+    public void createTestData() throws FebsException {
+        try {
+            for (int i = 0; i < 10; i++) {
+                PretTransOrder pretTransOrder = new PretTransOrder();
+                pretTransOrder.setCustomerAddress("上海市闵行区闵柏物流" + i % 5);
+                PretCustomer pretCustomer = new PretCustomer();
+                pretCustomer.setName("客户" + i % 5);
+                pretCustomer.setLinkName("客户" + i % 5);
+                pretCustomer.setLinkPhone("1378777777" + i % 5);
+                pretCustomerRepository.save(pretCustomer);
+                pretTransOrder.setCustomerId(pretCustomer.getId());
+                pretTransOrder.setCustomerLinkName("客户" + i % 5);
+                pretTransOrder.setCustomerAddress("上海市闵行区闵柏物流" + i % 5);
+                pretTransOrder.setCustomerLinkPhone("1378777777" + i % 5);
+                pretTransOrder.setDeliveryBillNumber("20191001" + i % 8);
+                pretTransOrder.setDeliveryDate(new Date());
+                pretTransOrder.setOrderNo(Constants.df_yyyyMMddHHmmssSSS.format(new Date()));
+                pretTransOrder.setTakeDeliveryDate(new Date());
+                pretTransOrder.setServiceRouteOrginId("SH-JX");
+                pretTransOrder.setTransMode("陆运");
+
+                PretVender pretVender = pretVenderRepository.findTop1ByOrderByCreateTimeLongDesc();
+                pretTransOrder.setVenderId(pretVender.getId());
+                pretTransOrder.setGw(i % 7);
+
+                PretGoods pretGoods = new PretGoods();
+                pretGoods.setBatchNo("B100");
+                pretGoods.setPartNo("P100");
+                pretGoods.setProduct("平板电脑");
+                pretGoods.setUnit(i % 2);
+                pretGoods.setWeight(String.valueOf(i % 4));
+                pretGoodsRepository.save(pretGoods);
+
+                pretTransOrder.setGoodsId(pretGoods.getId());
+                pretTransOrder.setGoodsNum(i % 9);
+
+                pretTransOrderRepository.save(pretTransOrder);
+            }
+        } catch (Exception e) {
+            message = "创建物流单";
+            throw new FebsException(message);
+        }
     }
 }

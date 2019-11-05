@@ -76,7 +76,7 @@ public class UserRest implements IUserService {
                 UserInfo userInfo = new UserInfo();
                 BeanUtilsExtended.copyProperties(userInfo, user);
                 UserRole userRole = userRoleRepository.findById(userInfo.getId()).get();
-                Role role = roleRepository.findById(userRole.getRoleId()).get();
+                Role role = roleRepository.findByRoleId(userRole.getRoleId());
                 int type = 0;
                 if (role.getCode().equals(ConstantEnum.ERoleCode.Tallylerk.name())) {
                     type = ConstantEnum.ERoleCode.Tallylerk.getLabel();
