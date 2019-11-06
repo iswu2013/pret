@@ -1,6 +1,7 @@
 package com.pret.open.entity;
 
 import com.pret.common.VersionedAuditableIdEntity;
+import com.pret.open.entity.bo.AreaBo;
 import com.wuwenze.poi.annotation.Excel;
 import com.wuwenze.poi.annotation.ExcelField;
 import org.hibernate.annotations.GenericGenerator;
@@ -69,6 +70,8 @@ public class PretServiceRoute extends VersionedAuditableIdEntity implements Seri
      * 线路明细
      */
     private List<PretServiceRouteItem>  pretServiceRouteItemList;
+
+    private  List<AreaBo> areaBoList;
 
     // setter and getter
 
@@ -178,5 +181,14 @@ public class PretServiceRoute extends VersionedAuditableIdEntity implements Seri
 
     public void setPretServiceRouteItemList(List<PretServiceRouteItem> pretServiceRouteItemList) {
         this.pretServiceRouteItemList = pretServiceRouteItemList;
+    }
+
+    @Transient()
+    public List<AreaBo> getAreaBoList() {
+        return areaBoList;
+    }
+
+    public void setAreaBoList(List<AreaBo> areaBoList) {
+        this.areaBoList = areaBoList;
     }
 }
