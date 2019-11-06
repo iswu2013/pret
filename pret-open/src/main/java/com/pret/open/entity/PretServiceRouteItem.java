@@ -71,6 +71,11 @@ public class PretServiceRouteItem extends VersionedAuditableIdEntity implements 
     @ExcelField(value = "起始地名称")
     private String startEndName;
 
+    /**
+     * 供应商
+     */
+    private PretVender pretVender;
+
     // setter and getter
 
 
@@ -160,5 +165,14 @@ public class PretServiceRouteItem extends VersionedAuditableIdEntity implements 
 
     public void setStartEndName(String startEndName) {
         this.startEndName = startEndName;
+    }
+
+    @Transient()
+    public PretVender getPretVender() {
+        return pretVender;
+    }
+
+    public void setPretVender(PretVender pretVender) {
+        this.pretVender = pretVender;
     }
 }

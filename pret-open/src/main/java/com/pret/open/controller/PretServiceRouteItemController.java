@@ -12,6 +12,7 @@ import com.pret.open.entity.vo.PretServiceRouteItemVo;
 import com.pret.open.repository.PretAddressRepository;
 import com.pret.open.repository.PretServiceRouteItemRepository;
 import com.pret.open.repository.PretServiceRouteOrginRepository;
+import com.pret.open.repository.PretVenderRepository;
 import com.pret.open.service.PretServiceRouteItemService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -36,6 +37,8 @@ public class PretServiceRouteItemController extends BaseManageController<PretSer
     private PretServiceRouteOrginRepository pretServiceRouteOrginRepository;
     @Autowired
     private PretAddressRepository pretAddressRepository;
+    @Autowired
+    private PretVenderRepository pretVenderRepository;
 
     @Log("查看")
     @PostMapping("/view/{id}")
@@ -125,5 +128,25 @@ public class PretServiceRouteItemController extends BaseManageController<PretSer
         rspData.put("total", page.getTotalElements());
 
         return rspData;
+    }
+
+    /* *
+     * 功能描述: 获取线路明细
+     * 〈〉
+     * @Param: []
+     * @Return: java.lang.Iterable<com.pret.open.entity.PretServiceRouteItem>
+     * @Author: wujingsong
+     * @Date: 2019/11/6  4:48 下午
+     */
+    @GetMapping(value = "/getItemList")
+    public Iterable<PretServiceRouteItem> getItemList() {
+        Iterable<PretServiceRouteItem> serviceRouteItemList = this.service.findAll();
+        for (PretServiceRouteItem item : serviceRouteItemList) {
+            if (!StringUtils.isEmpty(item.getVenderId())) {
+                item.setPretVender(pretVenderRepository.findById(item.getVenderId()).get());
+            }
+        }
+
+        return serviceRouteItemList;
     }
 }
