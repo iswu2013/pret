@@ -4,7 +4,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import com.google.common.reflect.TypeToken;
 import com.pret.api.vo.ResBody;
+import com.pret.common.constant.CommonConstants;
 import com.pret.common.constant.ConstantEnum;
 import com.pret.common.constant.Constants;
 import com.pret.common.util.BeanUtilsExtended;
@@ -12,10 +14,14 @@ import com.pret.common.util.NoUtil;
 import com.pret.common.util.StringUtil;
 import com.pret.open.entity.PretPickUpPlan;
 import com.pret.open.entity.PretTransException;
+import com.pret.open.entity.PretTransExceptionItem;
 import com.pret.open.entity.PretTransPlan;
 import com.pret.open.entity.bo.PretPickUpPlanBo;
+import com.pret.open.entity.bo.PretServiceRouteItemBo;
 import com.pret.open.entity.bo.PretTransExceptionBo;
+import com.pret.open.entity.bo.PretTransExceptionItemBo;
 import com.pret.open.entity.vo.PretTransExceptionVo;
+import com.pret.open.repository.PretTransExceptionItemRepository;
 import com.pret.open.repository.PretTransPlanRepository;
 import com.pret.open.vo.req.*;
 import com.pret.open.repository.PretTransExceptionRepository;
@@ -41,6 +47,8 @@ import javax.transaction.Transactional;
 public class PretTransExceptionService extends BaseServiceImpl<PretTransExceptionRepository, PretTransException, PretTransExceptionVo> {
     @Autowired
     private PretTransPlanRepository transPlanRepository;
+    @Autowired
+    private PretTransExceptionItemRepository pretTransExceptionItemRepository;
 
     /* *
      * 功能描述: 生成默认异常单
@@ -89,5 +97,19 @@ public class PretTransExceptionService extends BaseServiceImpl<PretTransExceptio
 
         BeanUtilsExtended.copyProperties(pretTransException, bo);
         this.repository.save(pretTransException);
+
+        List<PretTransExceptionItemBo> list = CommonConstants.GSON.fromJson(bo.getTransExceptionStr(),
+                new TypeToken<List<PretTransExceptionItemBo>>() {
+                }.getType());
+        if (list != null && list.size() > 0) {
+            for (PretTransExceptionItemBo pretTransExceptionItemBo : list) {
+                PretTransExceptionItem pretTransExceptionItem = new PretTransExceptionItem();
+                BeanUtilsExtended.copyProperties(pretTransExceptionItem, pretTransExceptionItemBo);
+                pretTransExceptionItem.setTransExceptionId(pretTransException.getId());
+                pretTransExceptionItem.setTransPlanId(pretTransPlan.getId());
+                pretTransExceptionItem.setTransOrderId(pretTransPlan.getId());
+                pretTransExceptionItemRepository.save(pretTransExceptionItem);
+            }
+        }
     }
 }

@@ -91,6 +91,7 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
                 transPlan.setNo(NoUtil.genNo(ConstantEnum.NoTypeEnum.YS.name()) + tail);
             }
         }
+        this.repository.save(transPlan);
 
         return transPlan;
     }

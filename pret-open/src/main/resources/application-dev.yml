@@ -93,3 +93,7 @@ sender:
 
 sf:
   url: http://bsp-oisp.sf-express.com/bsp-oisp/sfexpressService
+
+upload:
+  baseurl: https://resource.dolphinc.co.uk/
+  path: /Users/wujingsong/Desktop/

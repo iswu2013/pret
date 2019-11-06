@@ -162,6 +162,11 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
     @Transient()
     private PretCustomer pretCustomer;
 
+    /**
+     * 地址id
+     */
+    private String addressId;
+
     // setter and getter
 
     /**
@@ -518,5 +523,13 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
 
     public void setTransStatementId(String transStatementId) {
         this.transStatementId = transStatementId;
+    }
+
+    public String getAddressId() {
+        return addressId;
+    }
+
+    public void setAddressId(String addressId) {
+        this.addressId = addressId;
     }
 }
