@@ -1,11 +1,6 @@
 package com.pret.open.entity;
 
 import com.pret.common.VersionedAuditableIdEntity;
-
-import java.io.Serializable;
-import javax.persistence.Id;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pret.common.constant.ConstantEnum;
 import com.pret.common.converter.TimeConverter;
 import com.wuwenze.poi.annotation.Excel;
@@ -13,6 +8,9 @@ import com.wuwenze.poi.annotation.ExcelField;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 
 /**
  * <p>Description: [pretmodel]</p>
@@ -51,16 +49,13 @@ public class PretTransException extends VersionedAuditableIdEntity implements Se
      */
     @ExcelField(value = "运输计划id")
     private String transPlanId;
-    /**
-     * 运输任务单明细id
-     */
-    @ExcelField(value = "运输任务单明细id")
-    private String transOrderId;
+
     /**
      * 异常类别0
      */
     @ExcelField(value = "异常类别")
     private Integer type;
+
     /**
      * 状态0待审核1通过2不通过
      */
@@ -71,20 +66,7 @@ public class PretTransException extends VersionedAuditableIdEntity implements Se
      */
     @ExcelField(value = "处理方式")
     private Integer handleStyle;
-    /**
-     * 异常描述
-     */
-    @ExcelField(value = "异常描述")
-    private String remark;
-    /**
-     * 图片id
-     */
-    private String picIds;
-    /**
-     * 异常数量
-     */
-    @ExcelField(value = "异常数量")
-    private Integer count;
+
     /**
      * 责任方0物流1货主2客户
      */
@@ -94,7 +76,7 @@ public class PretTransException extends VersionedAuditableIdEntity implements Se
      * 处理时间
      */
     @ExcelField(value = "处理时间", writeConverter = TimeConverter.class)
-    private java.util.Date handleTime;
+    private Date handleTime;
     /**
      * 处理人
      */
@@ -107,14 +89,13 @@ public class PretTransException extends VersionedAuditableIdEntity implements Se
     @ExcelField(value = "物流供应商")
     private String venderId;
 
-    @Transient()
     private PretVender pretVender;
 
-    @Transient()
     private PretTransPlan pretTransPlan;
 
-    @Transient()
     private PretTransOrder pretTransOrder;
+
+    private List<PretTransExceptionItem> pretTransExceptionItemList;
 
     // setter and getter
 
@@ -146,14 +127,6 @@ public class PretTransException extends VersionedAuditableIdEntity implements Se
      */
     public void setTransPlanId(String transPlanId) {
         this.transPlanId = transPlanId;
-    }
-
-    public String getTransOrderId() {
-        return transOrderId;
-    }
-
-    public void setTransOrderId(String transOrderId) {
-        this.transOrderId = transOrderId;
     }
 
     /**
@@ -219,68 +192,6 @@ public class PretTransException extends VersionedAuditableIdEntity implements Se
         this.handleStyle = handleStyle;
     }
 
-    /**
-     * <p>Discription:[异常描述]</p>
-     * Created on 2019年09月15日
-     *
-     * @return String
-     * @author:wujinsong
-     */
-    public String getRemark() {
-        return remark;
-    }
-
-    /**
-     * <p>Discription:[异常描述]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setRemark(String remark) {
-        this.remark = remark;
-    }
-
-    /**
-     * <p>Discription:[图片id	]</p>
-     * Created on 2019年09月15日
-     *
-     * @return String
-     * @author:wujinsong
-     */
-    public String getPicIds() {
-        return picIds;
-    }
-
-    /**
-     * <p>Discription:[图片id	]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setPicIds(String picIds) {
-        this.picIds = picIds;
-    }
-
-    /**
-     * <p>Discription:[异常数量]</p>
-     * Created on 2019年09月15日
-     *
-     * @return Integer
-     * @author:wujinsong
-     */
-    public Integer getCount() {
-        return count;
-    }
-
-    /**
-     * <p>Discription:[异常数量]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setCount(Integer count) {
-        this.count = count;
-    }
 
     /**
      * <p>Discription:[责任方0物流1货主2客户]</p>
@@ -353,6 +264,7 @@ public class PretTransException extends VersionedAuditableIdEntity implements Se
         this.venderId = venderId;
     }
 
+    @Transient()
     public PretVender getPretVender() {
         return pretVender;
     }
@@ -361,6 +273,7 @@ public class PretTransException extends VersionedAuditableIdEntity implements Se
         this.pretVender = pretVender;
     }
 
+    @Transient()
     public PretTransPlan getPretTransPlan() {
         return pretTransPlan;
     }
@@ -369,11 +282,21 @@ public class PretTransException extends VersionedAuditableIdEntity implements Se
         this.pretTransPlan = pretTransPlan;
     }
 
+    @Transient()
     public PretTransOrder getPretTransOrder() {
         return pretTransOrder;
     }
 
     public void setPretTransOrder(PretTransOrder pretTransOrder) {
         this.pretTransOrder = pretTransOrder;
+    }
+
+    @Transient()
+    public List<PretTransExceptionItem> getPretTransExceptionItemList() {
+        return pretTransExceptionItemList;
+    }
+
+    public void setPretTransExceptionItemList(List<PretTransExceptionItem> pretTransExceptionItemList) {
+        this.pretTransExceptionItemList = pretTransExceptionItemList;
     }
 }

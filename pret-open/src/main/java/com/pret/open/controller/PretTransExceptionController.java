@@ -3,12 +3,10 @@ package com.pret.open.controller;
 import com.pret.api.rest.BaseManageController;
 import com.pret.common.annotation.Log;
 import com.pret.common.exception.FebsException;
-import com.pret.open.entity.PretTransException;
-import com.pret.open.entity.PretTransOrder;
-import com.pret.open.entity.PretTransPlan;
-import com.pret.open.entity.PretVender;
+import com.pret.open.entity.*;
 import com.pret.open.entity.bo.PretTransExceptionBo;
 import com.pret.open.entity.vo.PretTransExceptionVo;
+import com.pret.open.repository.PretTransExceptionItemRepository;
 import com.pret.open.repository.PretTransOrderRepository;
 import com.pret.open.repository.PretTransPlanRepository;
 import com.pret.open.repository.PretVenderRepository;
@@ -21,6 +19,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -34,12 +33,17 @@ public class PretTransExceptionController extends BaseManageController<PretTrans
     private PretTransPlanRepository pretTransPlanRepository;
     @Autowired
     private PretTransOrderRepository pretTransOrderRepository;
+    @Autowired
+    private PretTransExceptionItemRepository pretTransExceptionItemRepository;
 
     @Log("查看")
     @PostMapping("/view/{id}")
     public PretTransException view(@PathVariable String id) throws FebsException {
         try {
             PretTransException item = this.service.findById(id).get();
+            List<PretTransExceptionItem> itemList = pretTransExceptionItemRepository.findByTransExceptionId(item.getId());
+            item.setPretTransExceptionItemList(itemList);
+
             return item;
         } catch (Exception e) {
             message = "查看失败";
@@ -59,11 +63,6 @@ public class PretTransExceptionController extends BaseManageController<PretTrans
             if (!StringUtils.isEmpty(orgin.getTransPlanId())) {
                 PretTransPlan pretTransPlan = pretTransPlanRepository.findById(orgin.getTransPlanId()).get();
                 orgin.setPretTransPlan(pretTransPlan);
-            }
-
-            if (!StringUtils.isEmpty(orgin.getTransOrderId())) {
-                PretTransOrder pretTransOrder = pretTransOrderRepository.findById(orgin.getTransOrderId()).get();
-                orgin.setPretTransOrder(pretTransOrder);
             }
         }
         Map<String, Object> rspData = new HashMap<>();

@@ -24,7 +24,7 @@ import java.util.Map;
 @Slf4j
 @Validated
 @RestController
-@RequestMapping("image")
+@RequestMapping("pretImage")
 public class PretImageController extends BaseManageController<PretImageService, PretImage, PretImageVo> {
     @Value("${upload.baseurl}")
     private String baseurl;
