@@ -4,11 +4,13 @@ import com.pret.api.rest.BaseManageController;
 import com.pret.common.annotation.Log;
 import com.pret.common.constant.ConstantEnum;
 import com.pret.common.exception.FebsException;
+import com.pret.open.entity.PretDriver;
 import com.pret.open.entity.PretPickUpPlan;
 import com.pret.open.entity.PretTransOrder;
 import com.pret.open.entity.PretVender;
 import com.pret.open.entity.bo.PretPickUpPlanBo;
 import com.pret.open.entity.vo.PretPickUpPlanVo;
+import com.pret.open.repository.PretDriverRepository;
 import com.pret.open.repository.PretTransOrderRepository;
 import com.pret.open.repository.PretVenderRepository;
 import com.pret.open.service.PretPickUpPlanService;
@@ -32,6 +34,8 @@ public class PretPickUpPlanController extends BaseManageController<PretPickUpPla
     private PretTransOrderRepository transOrderRepository;
     @Autowired
     private PretVenderRepository pretVenderRepository;
+    @Autowired
+    private PretDriverRepository pretDriverRepository;
 
     @Log("查看")
     @PostMapping("/view/{id}")
@@ -57,6 +61,10 @@ public class PretPickUpPlanController extends BaseManageController<PretPickUpPla
             if (!StringUtils.isEmpty(pickUpPlan.getVenderId())) {
                 PretVender pretVender = pretVenderRepository.findById(pickUpPlan.getVenderId()).get();
                 pickUpPlan.setPretVender(pretVender);
+            }
+            if (!StringUtils.isEmpty(pickUpPlan.getDriverId())) {
+                PretDriver pretDriver = pretDriverRepository.findById(pickUpPlan.getDriverId()).get();
+                pickUpPlan.setPretDriver(pretDriver);
             }
         }
         Map<String, Object> rspData = new HashMap<>();

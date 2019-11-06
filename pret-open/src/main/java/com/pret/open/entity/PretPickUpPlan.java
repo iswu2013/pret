@@ -110,6 +110,8 @@ public class PretPickUpPlan extends VersionedAuditableIdEntity implements Serial
 
     private PretVender pretVender;
 
+    private PretDriver pretDriver;
+
     // setter and getter
 
     /**
@@ -354,5 +356,14 @@ public class PretPickUpPlan extends VersionedAuditableIdEntity implements Serial
 
     public void setPretVender(PretVender pretVender) {
         this.pretVender = pretVender;
+    }
+
+    @Transient()
+    public PretDriver getPretDriver() {
+        return pretDriver;
+    }
+
+    public void setPretDriver(PretDriver pretDriver) {
+        this.pretDriver = pretDriver;
     }
 }
