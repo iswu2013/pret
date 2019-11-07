@@ -8,6 +8,7 @@ import com.pret.common.util.StringUtil;
 import com.pret.open.entity.*;
 import com.pret.open.entity.bo.PretQuotationBo;
 import com.pret.open.entity.vo.PretQuotationVo;
+import com.pret.open.repository.PretBillingIntervalRepository;
 import com.pret.open.repository.PretQuotationItemRepository;
 import com.pret.open.repository.PretServiceRouteRepository;
 import com.pret.open.repository.PretVenderRepository;
@@ -43,6 +44,8 @@ public class PretQuotationController extends BaseManageController<PretQuotationS
     private PretVenderRepository pretVenderRepository;
     @Autowired
     private PretServiceRouteRepository pretServiceRouteRepository;
+    @Autowired
+    private PretBillingIntervalRepository pretBillingIntervalRepository;
 
     @GetMapping
     @Override()
@@ -68,6 +71,10 @@ public class PretQuotationController extends BaseManageController<PretQuotationS
                     pretQuotation.setPretServiceRoute(pretServiceRoute);
                     pretQuotation.setServiceRouteNames(pretServiceRoute.getName());
                 }
+            }
+            if (!StringUtils.isEmpty(pretQuotation.getBillingIntervalId())) {
+                PretBillingInterval pretBillingInterval = pretBillingIntervalRepository.findById(pretQuotation.getBillingIntervalId()).get();
+                pretQuotation.setPretBillingInterval(pretBillingInterval);
             }
         }
         Map<String, Object> rspData = new HashMap<>();

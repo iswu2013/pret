@@ -3,23 +3,25 @@ package com.pret.open.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.google.common.reflect.TypeToken;
 import com.pret.api.vo.ResBody;
+import com.pret.common.constant.CommonConstants;
+import com.pret.common.constant.ConstantEnum;
 import com.pret.common.util.BeanUtilsExtended;
 import com.pret.common.util.StringUtil;
-import com.pret.open.entity.PretCustomer;
-import com.pret.open.entity.PretGoods;
-import com.pret.open.entity.PretPickUpPlan;
-import com.pret.open.entity.PretTransOrder;
+import com.pret.open.entity.*;
+import com.pret.open.entity.bo.AddressBo;
+import com.pret.open.entity.bo.PretMTransOrderBo;
+import com.pret.open.entity.bo.PretMTransOrderItemBo;
 import com.pret.open.entity.bo.PretPickUpPlanBo;
 import com.pret.open.entity.vo.PretTransOrderVo;
-import com.pret.open.repository.PretCustomerRepository;
-import com.pret.open.repository.PretGoodsRepository;
-import com.pret.open.repository.PretPickUpPlanRepository;
+import com.pret.open.repository.*;
 import com.pret.open.vo.req.*;
-import com.pret.open.repository.PretTransOrderRepository;
 import com.pret.api.service.impl.BaseServiceImpl;
 import com.pret.open.vo.res.PR1000000Vo;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
@@ -44,6 +46,12 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
     private PretCustomerRepository pretCustomerRepository;
     @Autowired
     private PretGoodsRepository pretGoodsRepository;
+    @Autowired
+    private PretBillingIntervalItemRepository pretBillingIntervalItemRepository;
+    @Autowired
+    private PretQuotationItemRepository pretQuotationItemRepository;
+    @Autowired
+    private PretAddressRepository pretAddressRepository;
 
     public void genPickUpPlan(PretPickUpPlanBo bo) {
         String[] idArr = bo.getIds().split(",");
@@ -94,5 +102,53 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
 
 
         return retVo;
+    }
+
+    /* *
+     * 功能描述: 手动创建订单
+     * 〈〉
+     * @Param: [bo]
+     * @Return: void
+     * @Author: wujingsong
+     * @Date: 2019/11/7  10:34 上午
+     */
+    public void pretTransOrderAdd(PretMTransOrderBo bo) {
+        List<PretMTransOrderItemBo> list = CommonConstants.GSON.fromJson(bo.getPretMTransOrderItemStr(),
+                new TypeToken<List<PretMTransOrderItemBo>>() {
+                }.getType());
+        if (list != null && list.size() > 0) {
+            for (PretMTransOrderItemBo pretMTransOrderBo : list) {
+                PretTransOrder pretTransOrder = new PretTransOrder();
+                BeanUtilsExtended.copyProperties(pretTransOrder, pretMTransOrderBo);
+                BeanUtilsExtended.copyProperties(pretTransOrder, bo);
+
+                // 指定供应商
+                List<PretQuotationItem> pretQuotationItemList = pretQuotationItemRepository.findByCodeAndAddressIdAndS(bo.getPickupFactoryCd(), bo.getAddressId(), ConstantEnum.S.N.getLabel());
+                if (pretQuotationItemList != null && pretQuotationItemList.size() > 0) {
+                    pretTransOrder.setVenderId(pretQuotationItemList.get(0).getVenderId());
+                } else {
+                    PretAddress pretAddress = pretAddressRepository.findById(bo.getAddressId()).get();
+                    if (!StringUtils.isEmpty(pretAddress.getParentId())) {
+                        pretAddress = pretAddressRepository.findById(pretAddress.getParentId()).get();
+                        pretQuotationItemList = pretQuotationItemRepository.findByCodeAndAddressIdAndS(bo.getPickupFactoryCd(), pretAddress.getId(), ConstantEnum.S.N.getLabel());
+                        if (pretQuotationItemList != null && pretQuotationItemList.size() > 0) {
+                            pretTransOrder.setVenderId(pretQuotationItemList.get(0).getVenderId());
+                        } else {
+                            if (!StringUtils.isEmpty(pretAddress.getParentId())) {
+                                pretAddress = pretAddressRepository.findById(pretAddress.getParentId()).get();
+                                pretQuotationItemList = pretQuotationItemRepository.findByCodeAndAddressIdAndS(bo.getPickupFactoryCd(), pretAddress.getId(), ConstantEnum.S.N.getLabel());
+                                if (pretQuotationItemList != null && pretQuotationItemList.size() > 0) {
+                                    pretTransOrder.setVenderId(pretQuotationItemList.get(0).getVenderId());
+                                } else {
+
+                                }
+                            }
+                        }
+                    }
+                }
+
+                this.repository.save(pretTransOrder);
+            }
+        }
     }
 }

@@ -42,36 +42,14 @@ public class PretServiceRoute extends VersionedAuditableIdEntity implements Seri
     @ExcelField(value = "线路名称")
     private String name;
 
-    /**
-     * 供应商id
-     */
-    @ExcelField(value = "供应商id")
-    private String venderId;
-    /**
-     * 起运地,可多个
-     */
-    private String seviceRouteOrginId;
-    /**
-     * 计费区间id
-     */
-    @ExcelField(value = "计费区间id")
-    private String billingIntervalId;
-
     private PretVender pretVender;
-
-    private PretBillingInterval pretBillingInterval;
-
-    /**
-     * 起运地名称
-     */
-    private String seviceRouteOrginName;
 
     /**
      * 线路明细
      */
-    private List<PretServiceRouteItem>  pretServiceRouteItemList;
+    private List<PretServiceRouteItem> pretServiceRouteItemList;
 
-    private  List<AreaBo> areaBoList;
+    private List<AreaBo> areaBoList;
 
     // setter and getter
 
@@ -84,69 +62,6 @@ public class PretServiceRoute extends VersionedAuditableIdEntity implements Seri
         this.name = name;
     }
 
-    /**
-     * <p>Discription:[供应商id]</p>
-     * Created on 2019年09月15日
-     *
-     * @return String
-     * @author:wujinsong
-     */
-    public String getVenderId() {
-        return venderId;
-    }
-
-    /**
-     * <p>Discription:[供应商id]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setVenderId(String venderId) {
-        this.venderId = venderId;
-    }
-
-    /**
-     * <p>Discription:[起运地]</p>
-     * Created on 2019年09月15日
-     *
-     * @return String
-     * @author:wujinsong
-     */
-    public String getSeviceRouteOrginId() {
-        return seviceRouteOrginId;
-    }
-
-    /**
-     * <p>Discription:[起运地]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setSeviceRouteOrginId(String seviceRouteOrginId) {
-        this.seviceRouteOrginId = seviceRouteOrginId;
-    }
-
-    /**
-     * <p>Discription:[计费区间id]</p>
-     * Created on 2019年09月15日
-     *
-     * @return String
-     * @author:wujinsong
-     */
-    public String getBillingIntervalId() {
-        return billingIntervalId;
-    }
-
-    /**
-     * <p>Discription:[计费区间id]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setBillingIntervalId(String billingIntervalId) {
-        this.billingIntervalId = billingIntervalId;
-    }
-
     @Transient()
     public PretVender getPretVender() {
         return pretVender;
@@ -154,24 +69,6 @@ public class PretServiceRoute extends VersionedAuditableIdEntity implements Seri
 
     public void setPretVender(PretVender pretVender) {
         this.pretVender = pretVender;
-    }
-
-    @Transient()
-    public PretBillingInterval getPretBillingInterval() {
-        return pretBillingInterval;
-    }
-
-    public void setPretBillingInterval(PretBillingInterval pretBillingInterval) {
-        this.pretBillingInterval = pretBillingInterval;
-    }
-
-    @Transient()
-    public String getSeviceRouteOrginName() {
-        return seviceRouteOrginName;
-    }
-
-    public void setSeviceRouteOrginName(String seviceRouteOrginName) {
-        this.seviceRouteOrginName = seviceRouteOrginName;
     }
 
     @Transient()

@@ -56,21 +56,35 @@ public class PretQuotationItem extends VersionedAuditableIdEntity implements Ser
      */
     @ExcelField(value = "线路id")
     private String serviceRouteItem;
+
     /**
      * 起运地id
      */
     @ExcelField(value = "起运地id")
     private String serviceRouteOriginId;
+
+    /**
+     * u9code
+     */
+    private String code;
+
     /**
      * 线路明细id
      */
     @ExcelField(value = "线路明细id")
     private String serviceRouteItemId;
+
+    /**
+     * 线路明细id
+     */
+    private String addressId;
+
     /**
      * 计费区间项id
      */
     @ExcelField(value = "计费区间项id")
     private String billingIntervalItemId;
+
     /**
      * 报价
      */
@@ -225,5 +239,21 @@ public class PretQuotationItem extends VersionedAuditableIdEntity implements Ser
 
     public void setFeeTypeId(String feeTypeId) {
         this.feeTypeId = feeTypeId;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getAddressId() {
+        return addressId;
+    }
+
+    public void setAddressId(String addressId) {
+        this.addressId = addressId;
     }
 }

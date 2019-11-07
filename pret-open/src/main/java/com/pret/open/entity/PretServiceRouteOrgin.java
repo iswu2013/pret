@@ -40,20 +40,10 @@ public class PretServiceRouteOrgin extends VersionedAuditableIdEntity implements
     }
 
     /**
-     * 供应商id
-     */
-    @ExcelField(value = "供应商id")
-    private String venderId;
-    /**
-     * 服务线路id
-     */
-    @ExcelField(value = "服务线路id")
-    private String serviceRouteId;
-    /**
      * 提货地址id
      */
     @ExcelField(value = "提货地址id")
-    private String pickUpAddressId;
+    private String addressId;
 
     /**
      * 起运地名称
@@ -67,77 +57,23 @@ public class PretServiceRouteOrgin extends VersionedAuditableIdEntity implements
     @ExcelField(value = "U9code")
     private String code;
 
-    @Transient()
-    private PretVender pretVender;
+    @ExcelField(value = "详细地址")
+    private String detail;
 
     /**
-     * 提货地址
+     * 完整地址
      */
-    private List<String> pickUpAddressList;
+    private String fullAddress;
 
     // setter and getter
 
-    /**
-     * <p>Discription:[供应商id]</p>
-     * Created on 2019年09月15日
-     *
-     * @return String
-     * @author:wujinsong
-     */
-    public String getVenderId() {
-        return venderId;
+
+    public String getAddressId() {
+        return addressId;
     }
 
-    /**
-     * <p>Discription:[供应商id]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setVenderId(String venderId) {
-        this.venderId = venderId;
-    }
-
-    /**
-     * <p>Discription:[服务线路id]</p>
-     * Created on 2019年09月15日
-     *
-     * @return String
-     * @author:wujinsong
-     */
-    public String getServiceRouteId() {
-        return serviceRouteId;
-    }
-
-    /**
-     * <p>Discription:[服务线路id]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setServiceRouteId(String serviceRouteId) {
-        this.serviceRouteId = serviceRouteId;
-    }
-
-    /**
-     * <p>Discription:[提货地址id]</p>
-     * Created on 2019年09月15日
-     *
-     * @return String
-     * @author:wujinsong
-     */
-    public String getPickUpAddressId() {
-        return pickUpAddressId;
-    }
-
-    /**
-     * <p>Discription:[提货地址id]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setPickUpAddressId(String pickUpAddressId) {
-        this.pickUpAddressId = pickUpAddressId;
+    public void setAddressId(String addressId) {
+        this.addressId = addressId;
     }
 
     public String getName() {
@@ -148,15 +84,6 @@ public class PretServiceRouteOrgin extends VersionedAuditableIdEntity implements
         this.name = name;
     }
 
-    @Transient()
-    public PretVender getPretVender() {
-        return pretVender;
-    }
-
-    public void setPretVender(PretVender pretVender) {
-        this.pretVender = pretVender;
-    }
-
     public String getCode() {
         return code;
     }
@@ -165,12 +92,20 @@ public class PretServiceRouteOrgin extends VersionedAuditableIdEntity implements
         this.code = code;
     }
 
-    @Transient()
-    public List<String> getPickUpAddressList() {
-        return pickUpAddressList;
+    public String getDetail() {
+        return detail;
     }
 
-    public void setPickUpAddressList(List<String> pickUpAddressList) {
-        this.pickUpAddressList = pickUpAddressList;
+    public void setDetail(String detail) {
+        this.detail = detail;
+    }
+
+    @Transient()
+    public String getFullAddress() {
+        return fullAddress;
+    }
+
+    public void setFullAddress(String fullAddress) {
+        this.fullAddress = fullAddress;
     }
 }

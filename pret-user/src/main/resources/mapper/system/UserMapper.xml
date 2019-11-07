@@ -15,6 +15,9 @@
         <result column="SSEX" jdbcType="CHAR" property="ssex"/>
         <result column="AVATAR" jdbcType="VARCHAR" property="avatar"/>
         <result column="DESCRIPTION" jdbcType="VARCHAR" property="description"/>
+        <result column="PARENT_ID" jdbcType="BIGINT" property="parentId"/>
+        <result column="USER_TYPE" jdbcType="INTEGER" property="userType"/>
+        <result column="VENDER_ID" jdbcType="INTEGER" property="venderId"/>
     </resultMap>
 
     <select id="findUserDetail" resultType="user" parameterType="user">
@@ -31,6 +34,9 @@
         d.dept_name deptName,
         u.AVATAR,
         u.DESCRIPTION,
+        u.parent_id parentId,
+        u.user_type userType,
+        u.vender_id venderId,
         u.LAST_LOGIN_TIME lastLoginTime,
         GROUP_CONCAT(r.role_id) roleId,
         GROUP_CONCAT(r.ROLE_NAME) roleName
@@ -58,6 +64,15 @@
         <if test="user.status != null and user.status != ''">
             AND u.status = #{user.status}
         </if>
+        <if test="user.parentId != null and user.parentId != ''">
+            AND u.parent_id = #{user.parentId}
+        </if>
+        <if test="user.userType != null and user.userType != ''">
+            AND u.user_type = #{user.userType}
+        </if>
+        <if test="user.notUserType != null and user.notUserType != ''">
+            AND u.user_type != #{user.notUserType}
+        </if>
         group by u.username
 
     </select>
@@ -76,6 +91,9 @@
         d.dept_name deptName,
         u.AVATAR,
         u.DESCRIPTION,
+        u.parent_id parentId,
+        u.user_type userType,
+        u.vender_id venderId,
         u.LAST_LOGIN_TIME lastLoginTime,
         GROUP_CONCAT(r.role_id) roleId,
         GROUP_CONCAT(r.ROLE_NAME) roleName

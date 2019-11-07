@@ -64,6 +64,11 @@ public class PretVender extends VersionedAuditableIdEntity implements Serializab
      */
     private Long userId;
 
+    /**
+     * 供应商类型
+     */
+    private Integer type;
+
     // setter and getter
 
     /**
@@ -156,5 +161,13 @@ public class PretVender extends VersionedAuditableIdEntity implements Serializab
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
     }
 }

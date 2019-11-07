@@ -75,28 +75,6 @@ public class PretServiceRouteController extends BaseManageController<PretService
                 }
             }
             item.setAreaBoList(list);
-            if (!StringUtils.isEmpty(item.getBillingIntervalId())) {
-                PretBillingInterval interval = pretBillingIntervalRepository.findById(item.getBillingIntervalId()).get();
-                item.setPretBillingInterval(interval);
-            }
-            if (!StringUtils.isEmpty(item.getVenderId())) {
-                PretVender pretVender = pretVenderRepository.findById(item.getVenderId()).get();
-                item.setPretVender(pretVender);
-            }
-            if (!StringUtils.isEmpty(item.getSeviceRouteOrginId())) {
-                if (item.getSeviceRouteOrginId().contains(",")) {
-                    List<String> nameList = new ArrayList<>();
-                    List<String> idList = StringUtil.idsStr2ListString(item.getSeviceRouteOrginId());
-                    List<PretServiceRouteOrgin> pretServiceRouteOrginList = pretServiceRouteOrginRepository.findByIdIn(idList);
-                    for (PretServiceRouteOrgin pretServiceRoute : pretServiceRouteOrginList) {
-                        nameList.add(pretServiceRoute.getName());
-                    }
-                    item.setSeviceRouteOrginName(Joiner.on(",").join(nameList));
-                } else {
-                    PretServiceRouteOrgin orgin = pretServiceRouteOrginRepository.findById(item.getSeviceRouteOrginId()).get();
-                    item.setSeviceRouteOrginName(orgin.getName());
-                }
-            }
             return item;
         } catch (Exception e) {
             message = "查看失败";
@@ -108,30 +86,6 @@ public class PretServiceRouteController extends BaseManageController<PretService
     @Override()
     public Map<String, Object> list(PretServiceRouteVo request, PretServiceRoute t) {
         Page<PretServiceRoute> page = this.service.page(request);
-        for (PretServiceRoute route : page.getContent()) {
-            if (!StringUtils.isEmpty(route.getVenderId())) {
-                PretVender pretVender = pretVenderRepository.findById(route.getVenderId()).get();
-                route.setPretVender(pretVender);
-            }
-            if (!StringUtils.isEmpty(route.getSeviceRouteOrginId())) {
-                if (route.getSeviceRouteOrginId().contains(",")) {
-                    List<String> nameList = new ArrayList<>();
-                    List<String> idList = StringUtil.idsStr2ListString(route.getSeviceRouteOrginId());
-                    List<PretServiceRouteOrgin> pretServiceRouteOrginList = pretServiceRouteOrginRepository.findByIdIn(idList);
-                    for (PretServiceRouteOrgin pretServiceRoute : pretServiceRouteOrginList) {
-                        nameList.add(pretServiceRoute.getName());
-                    }
-                    route.setSeviceRouteOrginName(Joiner.on(",").join(nameList));
-                } else {
-                    PretServiceRouteOrgin orgin = pretServiceRouteOrginRepository.findById(route.getSeviceRouteOrginId()).get();
-                    route.setSeviceRouteOrginName(orgin.getName());
-                }
-            }
-            if (!StringUtils.isEmpty(route.getBillingIntervalId())) {
-                PretBillingInterval interval = pretBillingIntervalRepository.findById(route.getBillingIntervalId()).get();
-                route.setPretBillingInterval(interval);
-            }
-        }
         Map<String, Object> rspData = new HashMap<>();
         rspData.put("rows", page.getContent());
         rspData.put("total", page.getTotalElements());

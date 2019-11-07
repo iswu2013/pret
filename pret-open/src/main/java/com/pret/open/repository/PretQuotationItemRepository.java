@@ -23,4 +23,24 @@ public interface PretQuotationItemRepository extends BaseRepository<PretQuotatio
      * @Date: 2019/10/24  10:57 上午
      */
     List<PretQuotationItem> findByQuotationId(String quotationId);
+
+    /* *
+     * 功能描述: 根据状态查询
+     * 〈〉
+     * @Param: [s]
+            * @Return: java.util.List<com.pret.open.entity.PretQuotationItem>
+            * @Author: wujingsong
+            * @Date: 2019/11/7  1:48 下午
+     */
+    List<PretQuotationItem> findByS(Integer s);
+
+    /* *
+     * 功能描述: 根据code,addressId查找
+     * 〈〉
+     * @Param: [code, addressId, s]
+            * @Return: java.util.List<com.pret.open.entity.PretQuotationItem>
+            * @Author: wujingsong
+            * @Date: 2019/11/7  1:54 下午
+     */
+    List<PretQuotationItem> findByCodeAndAddressIdAndS(String code,String addressId,Integer s);
 }

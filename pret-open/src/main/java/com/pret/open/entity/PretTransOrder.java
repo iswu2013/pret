@@ -87,6 +87,11 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
      */
     @ExcelField(value = "客户地址")
     private String customerAddress;
+
+    /**
+     * 客户地址
+     */
+    private String addressId;
     /**
      * 客户联系人
      */
@@ -163,9 +168,9 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
     private PretCustomer pretCustomer;
 
     /**
-     * 地址id
+     * 1重货2泡货
      */
-    private String addressId;
+    private Integer goodsType;
 
     // setter and getter
 
@@ -531,5 +536,13 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
 
     public void setAddressId(String addressId) {
         this.addressId = addressId;
+    }
+
+    public Integer getGoodsType() {
+        return goodsType;
+    }
+
+    public void setGoodsType(Integer goodsType) {
+        this.goodsType = goodsType;
     }
 }

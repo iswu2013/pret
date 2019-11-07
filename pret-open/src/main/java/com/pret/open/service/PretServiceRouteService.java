@@ -68,13 +68,11 @@ public class PretServiceRouteService extends BaseServiceImpl<PretServiceRouteRep
             item.setPrescription(itemBo.getPrescription());
             item.setServiceRouteId(pretServiceRoute.getId());
             item.setServiceRouteOrginId(itemBo.getServiceRouteOrginId());
-            item.setVenderId(pretServiceRoute.getVenderId());
             pretServiceRouteItemRepository.save(item);
             if (!serviceRouteOrginIdList.contains(itemBo.getServiceRouteOrginId())) {
                 serviceRouteOrginIdList.add(itemBo.getServiceRouteOrginId());
             }
         }
-        pretServiceRoute.setSeviceRouteOrginId(Joiner.on(",").join(serviceRouteOrginIdList));
         this.repository.save(pretServiceRoute);
     }
 
@@ -103,7 +101,6 @@ public class PretServiceRouteService extends BaseServiceImpl<PretServiceRouteRep
         List<PretServiceRouteItemBo> list = CommonConstants.GSON.fromJson(bo.getServiceRouteItemStr(),
                 new TypeToken<List<PretServiceRouteItemBo>>() {
                 }.getType());
-        List<String> serviceRouteOrginIdList = new ArrayList<>();
         for (PretServiceRouteItemBo itemBo : list) {
             // 线路明细
             PretServiceRouteItem item = new PretServiceRouteItem();
@@ -112,11 +109,7 @@ public class PretServiceRouteService extends BaseServiceImpl<PretServiceRouteRep
             item.setServiceRouteId(pretServiceRoute.getId());
             item.setServiceRouteOrginId(itemBo.getServiceRouteOrginId());
             pretServiceRouteItemRepository.save(item);
-            if (!serviceRouteOrginIdList.contains(itemBo.getServiceRouteOrginId())) {
-                serviceRouteOrginIdList.add(itemBo.getServiceRouteOrginId());
-            }
         }
-        pretServiceRoute.setSeviceRouteOrginId(Joiner.on(",").join(serviceRouteOrginIdList));
         this.repository.save(pretServiceRoute);
     }
 }

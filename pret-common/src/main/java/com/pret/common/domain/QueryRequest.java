@@ -14,4 +14,7 @@ public class QueryRequest  implements Serializable {
 
     private String sortField;
     private String sortOrder;
+    private Long parentId;
+    private Integer userType;
+    private Integer notUserType;
 }

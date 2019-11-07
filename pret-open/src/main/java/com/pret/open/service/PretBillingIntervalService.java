@@ -50,10 +50,6 @@ public class PretBillingIntervalService extends BaseServiceImpl<PretBillingInter
         BeanUtilsExtended.copyProperties(pretBillingInterval, bo);
         this.repository.save(pretBillingInterval);
 
-        PretServiceRoute pretServiceRoute = this.pretServiceRouteRepository.findById(bo.getServiceRouteId()).get();
-        pretServiceRoute.setBillingIntervalId(pretBillingInterval.getId());
-        this.pretServiceRouteRepository.save(pretServiceRoute);
-
         List<PretBillingIntervalItemBo> list = CommonConstants.GSON.fromJson(bo.getBillingIntervalItemStr(),
                 new TypeToken<List<PretBillingIntervalItemBo>>() {
                 }.getType());
@@ -62,7 +58,6 @@ public class PretBillingIntervalService extends BaseServiceImpl<PretBillingInter
             PretBillingIntervalItem item = new PretBillingIntervalItem();
             BeanUtilsExtended.copyProperties(item, itemBo);
             item.setBillingIntervalId(pretBillingInterval.getId());
-            item.setVenderId(bo.getVenderId());
             pretBillingIntervalItemRepository.save(item);
         }
     }
@@ -96,7 +91,6 @@ public class PretBillingIntervalService extends BaseServiceImpl<PretBillingInter
             PretBillingIntervalItem item = new PretBillingIntervalItem();
             BeanUtilsExtended.copyProperties(item, itemBo);
             item.setBillingIntervalId(pretBillingInterval.getId());
-            item.setVenderId(bo.getVenderId());
             pretBillingIntervalItemRepository.save(item);
         }
     }

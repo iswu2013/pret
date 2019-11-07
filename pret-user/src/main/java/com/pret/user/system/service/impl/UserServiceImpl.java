@@ -56,6 +56,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         try {
             Page<User> page = new Page<>();
             SortUtil.handlePageSort(request, page, "userId", FebsConstant.ORDER_ASC, false);
+            user.setNotUserType(request.getNotUserType());
+            user.setParentId(request.getParentId());
+            user.setUserType(request.getUserType());
             return this.baseMapper.findUserDetail(page, user);
         } catch (Exception e) {
             log.error("查询用户异常", e);

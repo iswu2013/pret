@@ -72,6 +72,8 @@ public class PretVenderController extends BaseManageController<PretVenderService
             user.setUsername(vender.getLinkPhone());
             user.setMobile(vender.getLinkPhone());
             user.setPassword(MD5Util.encrypt(user.getUsername(), User.DEFAULT_PASSWORD));
+            user.setUserType(ConstantEnum.EUserType.供应商.getLabel());
+            user.setVenderId(vender.getId());
             userRepository.save(user);
             user = userRepository.findById(user.getId()).get();
 

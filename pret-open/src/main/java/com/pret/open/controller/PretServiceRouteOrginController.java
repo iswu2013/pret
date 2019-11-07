@@ -4,11 +4,13 @@ import com.pret.api.rest.BaseManageController;
 import com.pret.common.annotation.Log;
 import com.pret.common.exception.FebsException;
 import com.pret.common.util.StringUtil;
+import com.pret.open.entity.PretAddress;
 import com.pret.open.entity.PretPickUpAddress;
 import com.pret.open.entity.PretServiceRouteOrgin;
 import com.pret.open.entity.PretVender;
 import com.pret.open.entity.bo.PretServiceRouteOrginBo;
 import com.pret.open.entity.vo.PretServiceRouteOrginVo;
+import com.pret.open.repository.PretAddressRepository;
 import com.pret.open.repository.PretPickUpAddressRepository;
 import com.pret.open.repository.PretVenderRepository;
 import com.pret.open.service.PretServiceRouteOrginService;
@@ -33,12 +35,20 @@ public class PretServiceRouteOrginController extends BaseManageController<PretSe
     private PretVenderRepository pretVenderRepository;
     @Autowired
     private PretPickUpAddressRepository pretPickUpAddressRepository;
+    @Autowired
+    private PretAddressRepository pretAddressRepository;
 
     @Log("查看")
     @PostMapping("/view/{id}")
     public PretServiceRouteOrgin view(@PathVariable String id) throws FebsException {
         try {
             PretServiceRouteOrgin item = this.service.findById(id).get();
+            if (!StringUtils.isEmpty(item.getAddressId())) {
+                PretAddress area = pretAddressRepository.findById(item.getAddressId()).get();
+                PretAddress city = pretAddressRepository.findById(area.getParentId()).get();
+                PretAddress province = pretAddressRepository.findById(city.getParentId()).get();
+                item.setFullAddress(province.getName() + city.getName() + area.getName() + item.getDetail());
+            }
             return item;
         } catch (Exception e) {
             message = "查看失败";
@@ -50,20 +60,15 @@ public class PretServiceRouteOrginController extends BaseManageController<PretSe
     @Override()
     public Map<String, Object> list(PretServiceRouteOrginVo request, PretServiceRouteOrgin t) {
         Page<PretServiceRouteOrgin> page = this.service.page(request);
-        for (PretServiceRouteOrgin orgin : page.getContent()) {
-            if (!StringUtils.isEmpty(orgin.getVenderId())) {
-                PretVender pretVender = pretVenderRepository.findById(orgin.getVenderId()).get();
-                orgin.setPretVender(pretVender);
+        for (PretServiceRouteOrgin pretServiceRouteOrgin : page.getContent()) {
+            if (!StringUtils.isEmpty(pretServiceRouteOrgin.getAddressId())) {
+                PretAddress area = pretAddressRepository.findById(pretServiceRouteOrgin.getAddressId()).get();
+                PretAddress city = pretAddressRepository.findById(area.getParentId()).get();
+                PretAddress province = pretAddressRepository.findById(city.getParentId()).get();
+
+                pretServiceRouteOrgin.setFullAddress(province.getName() + city.getName() + area.getName() + pretServiceRouteOrgin.getDetail());
             }
-            List<String> addressList = new ArrayList<>();
-            if (!StringUtils.isEmpty(orgin.getPickUpAddressId())) {
-                List<String> idList = StringUtil.idsStr2ListString(orgin.getPickUpAddressId());
-                List<PretPickUpAddress> pretPickUpAddressList = pretPickUpAddressRepository.findByIdIn(idList);
-                for (PretPickUpAddress pretPickUpAddress : pretPickUpAddressList) {
-                    addressList.add(pretPickUpAddress.getName());
-                }
-                orgin.setPickUpAddressList(addressList);
-            }
+
         }
         Map<String, Object> rspData = new HashMap<>();
         rspData.put("rows", page.getContent());

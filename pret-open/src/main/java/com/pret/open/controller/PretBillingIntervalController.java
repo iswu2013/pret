@@ -43,17 +43,6 @@ public class PretBillingIntervalController extends BaseManageController<PretBill
     @Override()
     public Map<String, Object> list(PretBillingIntervalVo request, PretBillingInterval t) {
         Page<PretBillingInterval> page = this.service.page(request);
-        for (PretBillingInterval interval : page.getContent()) {
-            if (!StringUtils.isEmpty(interval.getVenderId())) {
-                PretVender pretVender = pretVenderRepository.findById(interval.getVenderId()).get();
-                interval.setPretVender(pretVender);
-            }
-            if (!StringUtils.isEmpty(interval.getServiceRouteId())) {
-                PretServiceRoute pretServiceRoute = pretServiceRouteRepository.findById(interval.getServiceRouteId()).get();
-                interval.setPretServiceRoute(pretServiceRoute);
-
-            }
-        }
         Map<String, Object> rspData = new HashMap<>();
         rspData.put("rows", page.getContent());
         rspData.put("total", page.getTotalElements());

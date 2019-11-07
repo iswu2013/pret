@@ -39,10 +39,6 @@ public class PretBillingIntervalItem extends VersionedAuditableIdEntity implemen
     }
 
     /**
-     * 供应商id
-     */
-    private String venderId;
-    /**
      * 1重货
      * 2泡货
      */
@@ -75,27 +71,6 @@ public class PretBillingIntervalItem extends VersionedAuditableIdEntity implemen
     private int unit;
 
     // setter and getter
-
-    /**
-     * <p>Discription:[供应商id]</p>
-     * Created on 2019年09月15日
-     *
-     * @return String
-     * @author:wujinsong
-     */
-    public String getVenderId() {
-        return venderId;
-    }
-
-    /**
-     * <p>Discription:[供应商id]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setVenderId(String venderId) {
-        this.venderId = venderId;
-    }
 
     /**
      * <p>Discription:[1重货

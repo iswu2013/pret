@@ -37,9 +37,6 @@ import javax.transaction.Transactional;
 @Service
 @Transactional(rollbackOn = Exception.class)
 public class PretServiceRouteOrginService extends BaseServiceImpl<PretServiceRouteOrginRepository, PretServiceRouteOrgin, PretServiceRouteOrginVo> {
-    @Autowired
-    private PretPickUpAddressRepository pretPickUpAddressRepository;
-
     /* *
      * 功能描述: 新增起运地
      * 〈〉
@@ -51,26 +48,6 @@ public class PretServiceRouteOrginService extends BaseServiceImpl<PretServiceRou
     public void serviceRouteOrginAdd(PretServiceRouteOrginBo bo) {
         PretServiceRouteOrgin item = new PretServiceRouteOrgin();
         BeanUtilsExtended.copyProperties(item, bo);
-        this.repository.save(item);
-
-        List<AddressBo> list = CommonConstants.GSON.fromJson(bo.getAddressStr(),
-                new TypeToken<List<AddressBo>>() {
-                }.getType());
-
-        List<String> idList = new ArrayList<>();
-
-        for (AddressBo addressBo : list) {
-            PretPickUpAddress pretPickUpAddress = new PretPickUpAddress();
-            pretPickUpAddress.setAddress(addressBo.getDetail());
-            pretPickUpAddress.setAddressId(addressBo.getAddressId());
-            pretPickUpAddress.setName(addressBo.getName());
-            pretPickUpAddress.setPretServiceRouteOrginId(item.getId());
-            pretPickUpAddressRepository.save(pretPickUpAddress);
-
-            idList.add(pretPickUpAddress.getId());
-        }
-
-        item.setPickUpAddressId(Joiner.on(",").join(idList));
         this.repository.save(item);
     }
 }

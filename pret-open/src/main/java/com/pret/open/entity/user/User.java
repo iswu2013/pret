@@ -90,6 +90,21 @@ public class User extends VersionedAuditableIdEntity implements Serializable {
 	 */
 	private String openid;
 
+    /**
+     * 用户类型
+     */
+	private Integer userType;
+
+    /**
+     * 父用户
+     */
+	private Long parentId;
+
+    /**
+     * 供应商id
+     */
+	private String venderId;
+
     // setter and getter
 
 
@@ -360,4 +375,28 @@ public class User extends VersionedAuditableIdEntity implements Serializable {
 	public void setOpenid(String openid) {
 		this.openid = openid;
 	}
+
+    public Integer getUserType() {
+        return userType;
+    }
+
+    public void setUserType(Integer userType) {
+        this.userType = userType;
+    }
+
+    public Long getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
+    }
+
+    public String getVenderId() {
+        return venderId;
+    }
+
+    public void setVenderId(String venderId) {
+        this.venderId = venderId;
+    }
 }

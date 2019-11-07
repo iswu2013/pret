@@ -60,6 +60,17 @@ public class PretQuotation extends VersionedAuditableIdEntity implements Seriali
     private String serviceRouteId;
 
     /**
+     * 区间id
+     */
+    @ExcelField(value = "区间id")
+    private String billingIntervalId;
+
+    /**
+     * 计费区间
+     */
+    private PretBillingInterval pretBillingInterval;
+
+    /**
      * 报价开始日期
      */
     @ExcelField(value = "对账开始日期", writeConverter = TimeConverter.class)
@@ -235,5 +246,22 @@ public class PretQuotation extends VersionedAuditableIdEntity implements Seriali
 
     public void setPretServiceRoute(PretServiceRoute pretServiceRoute) {
         this.pretServiceRoute = pretServiceRoute;
+    }
+
+    public String getBillingIntervalId() {
+        return billingIntervalId;
+    }
+
+    public void setBillingIntervalId(String billingIntervalId) {
+        this.billingIntervalId = billingIntervalId;
+    }
+
+    @Transient()
+    public PretBillingInterval getPretBillingInterval() {
+        return pretBillingInterval;
+    }
+
+    public void setPretBillingInterval(PretBillingInterval pretBillingInterval) {
+        this.pretBillingInterval = pretBillingInterval;
     }
 }

@@ -44,21 +44,6 @@ public class PretBillingInterval extends VersionedAuditableIdEntity implements S
      */
     @ExcelField(value = "名称")
     private String name;
-    /**
-     * 供应商id
-     */
-    private String venderId;
-    /**
-     * 线路id
-     */
-    @ExcelField(value = "线路名称")
-    private String serviceRouteId;
-
-    @Transient()
-    private PretVender pretVender;
-
-    @Transient()
-    private PretServiceRoute pretServiceRoute;
 
     /**
      * 区间明细
@@ -86,64 +71,6 @@ public class PretBillingInterval extends VersionedAuditableIdEntity implements S
      */
     public void setName(String name) {
         this.name = name;
-    }
-
-    /**
-     * <p>Discription:[供应商id]</p>
-     * Created on 2019年09月15日
-     *
-     * @return String
-     * @author:wujinsong
-     */
-    public String getVenderId() {
-        return venderId;
-    }
-
-    /**
-     * <p>Discription:[供应商id]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setVenderId(String venderId) {
-        this.venderId = venderId;
-    }
-
-    /**
-     * <p>Discription:[线路id]</p>
-     * Created on 2019年09月15日
-     *
-     * @return String
-     * @author:wujinsong
-     */
-    public String getServiceRouteId() {
-        return serviceRouteId;
-    }
-
-    /**
-     * <p>Discription:[线路id]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setServiceRouteId(String serviceRouteId) {
-        this.serviceRouteId = serviceRouteId;
-    }
-
-    public PretVender getPretVender() {
-        return pretVender;
-    }
-
-    public void setPretVender(PretVender pretVender) {
-        this.pretVender = pretVender;
-    }
-
-    public PretServiceRoute getPretServiceRoute() {
-        return pretServiceRoute;
-    }
-
-    public void setPretServiceRoute(PretServiceRoute pretServiceRoute) {
-        this.pretServiceRoute = pretServiceRoute;
     }
 
     @Transient()

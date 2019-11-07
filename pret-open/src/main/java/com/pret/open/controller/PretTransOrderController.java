@@ -6,6 +6,8 @@ import com.pret.common.constant.ConstantEnum;
 import com.pret.common.constant.Constants;
 import com.pret.common.exception.FebsException;
 import com.pret.open.entity.*;
+import com.pret.open.entity.bo.PretMTransOrderBo;
+import com.pret.open.entity.bo.PretTransPlanBo;
 import com.pret.open.entity.vo.PretTransOrderVo;
 import com.pret.open.repository.PretCustomerRepository;
 import com.pret.open.repository.PretGoodsRepository;
@@ -88,6 +90,17 @@ public class PretTransOrderController extends BaseManageController<PretTransOrde
     public List<PretTransOrder> getByTansPlanId(@PathVariable String id) {
         List<PretTransOrder> transOrderList = pretTransOrderRepository.findByTransPlanIdAndS(id, ConstantEnum.S.N.getLabel());
         return transOrderList;
+    }
+
+    @Log("手动创建订单")
+    @PostMapping("/pretTransOrderAdd")
+    public void pretTransOrderAdd(PretMTransOrderBo bo) throws FebsException {
+        try {
+            this.service.pretTransOrderAdd(bo);
+        } catch (Exception e) {
+            message = "生成运输计划失败";
+            throw new FebsException(message);
+        }
     }
 
     @Log("创建物流单")

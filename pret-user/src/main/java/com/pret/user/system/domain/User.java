@@ -86,7 +86,21 @@ public class User implements Serializable {
     @ExcelField(value = "个人描述")
     private String description;
 
+    @Size(max = 100, message = "{noMoreThan}")
+    @ExcelField(value = "用户类型")
+    private Integer userType;
+
     private String avatar;
+
+    /**
+     * 父id
+     */
+    private Long parentId;
+
+    /**
+     * 供应商id
+     */
+    private String venderId;
 
     @NotBlank(message = "{required}")
     private transient String roleId;
@@ -101,6 +115,7 @@ public class User implements Serializable {
 
     private transient String createTimeFrom;
     private transient String createTimeTo;
+    private transient Integer notUserType;
 
     private transient String id;
 

@@ -20,17 +20,9 @@ public class PretServiceRouteOrginBo {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 供应商id
-     */
-    private String venderId;
-    /**
-     * 服务线路id
-     */
-    private String serviceRouteId;
-    /**
      * 提货地址id
      */
-    private String pickUpAddressId;
+    private String addressId;
 
     /**
      * 起运地名称
@@ -45,30 +37,18 @@ public class PretServiceRouteOrginBo {
     /**
      * 地址
      */
-    private String addressStr;
+    private String detail;
 
-    public String getVenderId() {
-        return venderId;
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 
-    public void setVenderId(String venderId) {
-        this.venderId = venderId;
+    public String getAddressId() {
+        return addressId;
     }
 
-    public String getServiceRouteId() {
-        return serviceRouteId;
-    }
-
-    public void setServiceRouteId(String serviceRouteId) {
-        this.serviceRouteId = serviceRouteId;
-    }
-
-    public String getPickUpAddressId() {
-        return pickUpAddressId;
-    }
-
-    public void setPickUpAddressId(String pickUpAddressId) {
-        this.pickUpAddressId = pickUpAddressId;
+    public void setAddressId(String addressId) {
+        this.addressId = addressId;
     }
 
     public String getName() {
@@ -87,11 +67,11 @@ public class PretServiceRouteOrginBo {
         this.code = code;
     }
 
-    public String getAddressStr() {
-        return addressStr;
+    public String getDetail() {
+        return detail;
     }
 
-    public void setAddressStr(String addressStr) {
-        this.addressStr = addressStr;
+    public void setDetail(String detail) {
+        this.detail = detail;
     }
 }
