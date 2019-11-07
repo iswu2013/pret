@@ -111,14 +111,16 @@ public class PretQuotationService extends BaseServiceImpl<PretQuotationRepositor
                 for (Map.Entry<String, Object> map : entrySet) {
                     if (!(map.getKey().equals("type") || map.getKey().equals("operation"))) {
                         PretQuotationItem item = new PretQuotationItem();
+                        PretServiceRouteItem pretServiceRouteItem = pretServiceRouteItemRepository.findById(id).get();
                         item.setBillingIntervalItemId(map.getKey());
                         item.setFeeTypeId(type);
                         item.setQuotationId(pretQuotation.getId());
                         item.setServiceRouteItemId(id);
                         item.setVenderId(bo.getVenderId());
+                        item.setAddressId(pretServiceRouteItem.getAddressId());
                         pretQuotationItemRepository.save(item);
 
-                        PretServiceRouteItem pretServiceRouteItem = pretServiceRouteItemRepository.findById(id).get();
+
                         serviceRouteId = pretServiceRouteItem.getServiceRouteId();
 
                     }
@@ -133,14 +135,16 @@ public class PretQuotationService extends BaseServiceImpl<PretQuotationRepositor
                 for (Map.Entry<String, Object> map : entrySet) {
                     if (!(map.getKey().equals("type") || map.getKey().equals("operation"))) {
                         PretQuotationItem item = new PretQuotationItem();
+                        PretServiceRouteItem pretServiceRouteItem = pretServiceRouteItemRepository.findById(id).get();
                         item.setBillingIntervalItemId(map.getKey());
                         item.setFeeTypeId(type);
                         item.setQuotationId(pretQuotation.getId());
                         item.setServiceRouteItemId(id);
                         item.setVenderId(bo.getVenderId());
+                        item.setAddressId(pretServiceRouteItem.getAddressId());
                         pretQuotationItemRepository.save(item);
 
-                        PretServiceRouteItem pretServiceRouteItem = pretServiceRouteItemRepository.findById(id).get();
+
                         serviceRouteId = pretServiceRouteItem.getServiceRouteId();
                     }
                 }

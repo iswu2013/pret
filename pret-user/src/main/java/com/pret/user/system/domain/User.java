@@ -86,7 +86,6 @@ public class User implements Serializable {
     @ExcelField(value = "个人描述")
     private String description;
 
-    @Size(max = 100, message = "{noMoreThan}")
     @ExcelField(value = "用户类型")
     private Integer userType;
 
