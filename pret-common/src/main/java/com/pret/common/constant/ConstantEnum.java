@@ -613,7 +613,11 @@ public class ConstantEnum {
         /**
          * 供应商子账号
          */
-        供应商子账号(6);
+        供应商子账号(6),
+        /**
+         * 管理员
+         */
+        管理员(7);
         private int label;
 
         EUserType(int label) {
