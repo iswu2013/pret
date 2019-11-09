@@ -136,10 +136,12 @@ public class UserManager {
     public void loadUserPermissionRoleRedisCache(List<String> userIds) throws Exception {
         for (String userId : userIds) {
             User user = userService.getById(userId);
-            // 缓存用户角色
-            cacheService.saveRoles(user.getUsername());
-            // 缓存用户权限
-            cacheService.savePermissions(user.getUsername());
+            if(user != null) {
+                // 缓存用户角色
+                cacheService.saveRoles(user.getUsername());
+                // 缓存用户权限
+                cacheService.savePermissions(user.getUsername());
+            }
         }
     }
 

@@ -60,9 +60,9 @@ public class PretQuotation extends VersionedAuditableIdEntity implements Seriali
     private String serviceRouteId;
 
     /**
-     * 区间id
+     * 计费区间id
      */
-    @ExcelField(value = "区间id")
+    @ExcelField(value = "计费区间id")
     private String billingIntervalId;
 
     /**
@@ -109,15 +109,7 @@ public class PretQuotation extends VersionedAuditableIdEntity implements Seriali
      */
     private PretVender pretVender;
 
-    /**
-     * 线路
-     */
-    private PretServiceRoute pretServiceRoute;
-
-    /**
-     * 线路名称
-     */
-    private String serviceRouteNames;
+    private String username;
 
     // setter and getter
 
@@ -213,15 +205,6 @@ public class PretQuotation extends VersionedAuditableIdEntity implements Seriali
     }
 
     @Transient()
-    public String getServiceRouteNames() {
-        return serviceRouteNames;
-    }
-
-    public void setServiceRouteNames(String serviceRouteNames) {
-        this.serviceRouteNames = serviceRouteNames;
-    }
-
-    @Transient()
     public List<PretQuotationItem> getPretQuotationItemList() {
         return pretQuotationItemList;
     }
@@ -239,15 +222,6 @@ public class PretQuotation extends VersionedAuditableIdEntity implements Seriali
         this.pretVender = pretVender;
     }
 
-    @Transient()
-    public PretServiceRoute getPretServiceRoute() {
-        return pretServiceRoute;
-    }
-
-    public void setPretServiceRoute(PretServiceRoute pretServiceRoute) {
-        this.pretServiceRoute = pretServiceRoute;
-    }
-
     public String getBillingIntervalId() {
         return billingIntervalId;
     }
@@ -263,5 +237,13 @@ public class PretQuotation extends VersionedAuditableIdEntity implements Seriali
 
     public void setPretBillingInterval(PretBillingInterval pretBillingInterval) {
         this.pretBillingInterval = pretBillingInterval;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

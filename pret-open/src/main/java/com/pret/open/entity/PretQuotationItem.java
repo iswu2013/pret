@@ -55,7 +55,7 @@ public class PretQuotationItem extends VersionedAuditableIdEntity implements Ser
      * 线路id
      */
     @ExcelField(value = "线路id")
-    private String serviceRouteItem;
+    private String serviceRouteId;
 
     /**
      * 起运地id
@@ -131,12 +131,12 @@ public class PretQuotationItem extends VersionedAuditableIdEntity implements Ser
         return quotationId;
     }
 
-    public String getServiceRouteItem() {
-        return serviceRouteItem;
+    public String getServiceRouteId() {
+        return serviceRouteId;
     }
 
-    public void setServiceRouteItem(String serviceRouteItem) {
-        this.serviceRouteItem = serviceRouteItem;
+    public void setServiceRouteId(String serviceRouteId) {
+        this.serviceRouteId = serviceRouteId;
     }
 
     /**

@@ -11,7 +11,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * <p>Description: [pretmodel]</p>
+ * <p>Description: 计费区间明细</p>
  * Created on 2019年09月15日
  *
  * @author <a href="mailto: 1037216275@qq.com">wujinsong</a>
@@ -26,13 +26,11 @@ public class PretBillingIntervalBo {
      */
     private String name;
     /**
-     * 供应商id
-     */
-    private String venderId;
-    /**
      * 线路id
      */
     private String serviceRouteId;
+
+    private String username;
 
     private String billingIntervalItemStr;
 
@@ -52,14 +50,6 @@ public class PretBillingIntervalBo {
         this.name = name;
     }
 
-    public String getVenderId() {
-        return venderId;
-    }
-
-    public void setVenderId(String venderId) {
-        this.venderId = venderId;
-    }
-
     public String getServiceRouteId() {
         return serviceRouteId;
     }
@@ -74,5 +64,13 @@ public class PretBillingIntervalBo {
 
     public void setBillingIntervalItemStr(String billingIntervalItemStr) {
         this.billingIntervalItemStr = billingIntervalItemStr;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

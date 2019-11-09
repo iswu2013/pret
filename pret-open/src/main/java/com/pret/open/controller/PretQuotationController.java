@@ -56,22 +56,6 @@ public class PretQuotationController extends BaseManageController<PretQuotationS
                 PretVender pretVender = pretVenderRepository.findById(pretQuotation.getVenderId()).get();
                 pretQuotation.setPretVender(pretVender);
             }
-            if (!StringUtils.isEmpty(pretQuotation.getServiceRouteId())) {
-                if (pretQuotation.getServiceRouteId().contains(",")) {
-                    List<String> nameList = new ArrayList<>();
-
-                    List<String> idList = StringUtil.idsStr2ListString(pretQuotation.getServiceRouteId());
-                    for (String id : idList) {
-                        PretServiceRoute pretServiceRoute = this.pretServiceRouteRepository.findById(id).get();
-                        nameList.add(pretServiceRoute.getName());
-                    }
-                    pretQuotation.setServiceRouteNames(Joiner.on(",").join(nameList));
-                } else {
-                    PretServiceRoute pretServiceRoute = pretServiceRouteRepository.findById(pretQuotation.getServiceRouteId()).get();
-                    pretQuotation.setPretServiceRoute(pretServiceRoute);
-                    pretQuotation.setServiceRouteNames(pretServiceRoute.getName());
-                }
-            }
             if (!StringUtils.isEmpty(pretQuotation.getBillingIntervalId())) {
                 PretBillingInterval pretBillingInterval = pretBillingIntervalRepository.findById(pretQuotation.getBillingIntervalId()).get();
                 pretQuotation.setPretBillingInterval(pretBillingInterval);
@@ -103,6 +87,17 @@ public class PretQuotationController extends BaseManageController<PretQuotationS
     public void pretQuotationAdd(PretQuotationBo bo) throws FebsException {
         try {
             this.service.pretQuotationAdd(bo);
+        } catch (Exception e) {
+            message = "生成报价失败";
+            throw new FebsException(message);
+        }
+    }
+
+    @Log("编辑报价")
+    @PostMapping("/pretQuotationEdit")
+    public void pretQuotationEdit(PretQuotationBo bo) throws FebsException {
+        try {
+            this.service.pretQuotationEdit(bo);
         } catch (Exception e) {
             message = "生成报价失败";
             throw new FebsException(message);

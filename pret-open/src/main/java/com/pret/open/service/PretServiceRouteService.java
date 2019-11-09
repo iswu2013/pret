@@ -13,11 +13,13 @@ import com.pret.common.util.BeanUtilsExtended;
 import com.pret.open.entity.PretAddress;
 import com.pret.open.entity.PretServiceRoute;
 import com.pret.open.entity.PretServiceRouteItem;
+import com.pret.open.entity.PretServiceRouteOrgin;
 import com.pret.open.entity.bo.PretServiceRouteBo;
 import com.pret.open.entity.bo.PretServiceRouteItemBo;
 import com.pret.open.entity.vo.PretServiceRouteVo;
 import com.pret.open.repository.PretAddressRepository;
 import com.pret.open.repository.PretServiceRouteItemRepository;
+import com.pret.open.repository.PretServiceRouteOrginRepository;
 import com.pret.open.vo.req.*;
 import com.pret.open.repository.PretServiceRouteRepository;
 import com.pret.api.service.impl.BaseServiceImpl;
@@ -43,6 +45,8 @@ public class PretServiceRouteService extends BaseServiceImpl<PretServiceRouteRep
     private PretAddressRepository pretAddressRepository;
     @Autowired
     private PretServiceRouteItemRepository pretServiceRouteItemRepository;
+    @Autowired
+    private PretServiceRouteOrginRepository pretServiceRouteOrginRepository;
 
     /* *
      * 功能描述: 新增服务线路
@@ -64,10 +68,15 @@ public class PretServiceRouteService extends BaseServiceImpl<PretServiceRouteRep
         for (PretServiceRouteItemBo itemBo : list) {
             // 线路明细
             PretServiceRouteItem item = new PretServiceRouteItem();
+            PretServiceRouteOrgin pretServiceRouteOrgin = pretServiceRouteOrginRepository.findById(itemBo.getServiceRouteOrginId()).get();
+            item.setCode(pretServiceRouteOrgin.getCode());
+            item.setVenderId(bo.getVenderId());
             item.setAddressId(itemBo.getValue());
             item.setPrescription(itemBo.getPrescription());
             item.setServiceRouteId(pretServiceRoute.getId());
             item.setServiceRouteOrginId(itemBo.getServiceRouteOrginId());
+            item.setLowerLimit(itemBo.getLowerLimit());
+            item.setMileage(itemBo.getMileage());
             pretServiceRouteItemRepository.save(item);
             if (!serviceRouteOrginIdList.contains(itemBo.getServiceRouteOrginId())) {
                 serviceRouteOrginIdList.add(itemBo.getServiceRouteOrginId());
@@ -90,7 +99,7 @@ public class PretServiceRouteService extends BaseServiceImpl<PretServiceRouteRep
         this.repository.save(pretServiceRoute);
 
         // 删除之前的线路
-        List<PretServiceRouteItem> pretServiceRouteItemList = pretServiceRouteItemRepository.findByServiceRouteId(bo.getId());
+        List<PretServiceRouteItem> pretServiceRouteItemList = pretServiceRouteItemRepository.findByServiceRouteIdAndS(bo.getId(), ConstantEnum.S.N.getLabel());
         if (pretServiceRouteItemList != null && pretServiceRouteItemList.size() > 0) {
             for (PretServiceRouteItem item : pretServiceRouteItemList) {
                 item.setS(ConstantEnum.S.D.getLabel());
@@ -104,10 +113,15 @@ public class PretServiceRouteService extends BaseServiceImpl<PretServiceRouteRep
         for (PretServiceRouteItemBo itemBo : list) {
             // 线路明细
             PretServiceRouteItem item = new PretServiceRouteItem();
+            PretServiceRouteOrgin pretServiceRouteOrgin = pretServiceRouteOrginRepository.findById(itemBo.getServiceRouteOrginId()).get();
+            item.setCode(pretServiceRouteOrgin.getCode());
+            item.setVenderId(bo.getVenderId());
             item.setAddressId(itemBo.getValue());
             item.setPrescription(itemBo.getPrescription());
             item.setServiceRouteId(pretServiceRoute.getId());
             item.setServiceRouteOrginId(itemBo.getServiceRouteOrginId());
+            item.setLowerLimit(itemBo.getLowerLimit());
+            item.setMileage(itemBo.getMileage());
             pretServiceRouteItemRepository.save(item);
         }
         this.repository.save(pretServiceRoute);

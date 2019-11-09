@@ -31,6 +31,16 @@ public class PretServiceRouteItemBo {
      */
     private Integer prescription;
 
+    /**
+     * 里程
+     */
+    private Float mileage;
+
+    /**
+     * 自动分配下限
+     */
+    private Float lowerLimit;
+
     public String getServiceRouteOrginId() {
         return serviceRouteOrginId;
     }
@@ -53,5 +63,21 @@ public class PretServiceRouteItemBo {
 
     public void setPrescription(Integer prescription) {
         this.prescription = prescription;
+    }
+
+    public Float getMileage() {
+        return mileage;
+    }
+
+    public void setMileage(Float mileage) {
+        this.mileage = mileage;
+    }
+
+    public Float getLowerLimit() {
+        return lowerLimit;
+    }
+
+    public void setLowerLimit(Float lowerLimit) {
+        this.lowerLimit = lowerLimit;
     }
 }

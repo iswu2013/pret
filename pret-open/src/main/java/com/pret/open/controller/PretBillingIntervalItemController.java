@@ -72,7 +72,7 @@ public class PretBillingIntervalItemController extends BaseManageController<Pret
     }
 
     /* *
-     * 功能描述: 根据计费区间项获取
+     * 功能描述: 根据计费区间项和类别获取
      * 〈〉
      * @Param: [id]
      * @Return: java.util.List<com.pret.open.entity.PretBillingIntervalItem>
@@ -83,6 +83,21 @@ public class PretBillingIntervalItemController extends BaseManageController<Pret
     @ResponseBody
     public List<PretBillingIntervalItem> getByBillingInterval(@PathVariable String id, @PathVariable Integer type) {
         List<PretBillingIntervalItem> pretBillingIntervalItemList = pretBillingIntervalItemRepository.findByBillingIntervalIdAndTypeAndS(id, type, ConstantEnum.S.N.getLabel());
+        return pretBillingIntervalItemList;
+    }
+
+    /* *
+     * 功能描述: 根据计费区间项获取
+     * 〈〉
+     * @Param: [id]
+            * @Return: java.util.List<com.pret.open.entity.PretBillingIntervalItem>
+            * @Author: wujingsong
+            * @Date: 2019/11/9  2:46 下午
+     */
+    @RequestMapping(value = "/getByBillingInterval/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<PretBillingIntervalItem> getByBillingInterval(@PathVariable String id) {
+        List<PretBillingIntervalItem> pretBillingIntervalItemList = pretBillingIntervalItemRepository.findByBillingIntervalIdAndS(id, ConstantEnum.S.N.getLabel());
         return pretBillingIntervalItemList;
     }
 }

@@ -62,7 +62,6 @@ public class ScheduleService {
             pretGoods.setPartNo("P100");
             pretGoods.setProduct("平板电脑");
             pretGoods.setUnit(i % 2);
-            pretGoods.setWeight(String.valueOf(i % 4));
             pretGoodsRepository.save(pretGoods);
 
             pretTransOrder.setGoodsId(pretGoods.getId());

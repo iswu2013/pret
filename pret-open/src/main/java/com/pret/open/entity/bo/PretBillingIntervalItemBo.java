@@ -27,11 +27,11 @@ public class PretBillingIntervalItemBo {
     /**
      * 计费起始量
      */
-    private String start;
+    private Float start;
     /**
      * 计费结束量
      */
-    private String end;
+    private Float end;
     /**
      * 描述
      */
@@ -50,19 +50,19 @@ public class PretBillingIntervalItemBo {
         this.type = type;
     }
 
-    public String getStart() {
+    public Float getStart() {
         return start;
     }
 
-    public void setStart(String start) {
+    public void setStart(Float start) {
         this.start = start;
     }
 
-    public String getEnd() {
+    public Float getEnd() {
         return end;
     }
 
-    public void setEnd(String end) {
+    public void setEnd(Float end) {
         this.end = end;
     }
 

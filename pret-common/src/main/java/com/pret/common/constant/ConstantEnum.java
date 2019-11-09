@@ -644,11 +644,29 @@ public class ConstantEnum {
      * @Date: 2019/10/20  9:05 下午
      */
     public enum ERoleCode {
+        /**
+         * 理货员
+         */
         Tallylerk(0),
+        /**
+         * 客户
+         */
         Customer(1),
+        /**
+         * 销售员
+         */
         Salesman(2),
+        /**
+         * 门卫
+         */
         Guard(3),
+        /**
+         * 司机
+         */
         Driver(4),
+        /**
+         * 供应商
+         */
         Vender(5);
         private int label;
 

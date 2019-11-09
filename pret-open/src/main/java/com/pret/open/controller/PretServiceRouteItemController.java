@@ -62,7 +62,7 @@ public class PretServiceRouteItemController extends BaseManageController<PretSer
      */
     @GetMapping(value = "/getByServiceLineId/{id}")
     public List<PretServiceRouteItem> getByServiceLineId(@PathVariable String id) {
-        List<PretServiceRouteItem> serviceRouteItemList = pretServiceRouteItemRepository.findByServiceRouteId(id);
+        List<PretServiceRouteItem> serviceRouteItemList = pretServiceRouteItemRepository.findByServiceRouteIdAndS(id, ConstantEnum.S.N.getLabel());
 
         return serviceRouteItemList;
     }
@@ -71,7 +71,7 @@ public class PretServiceRouteItemController extends BaseManageController<PretSer
     public List<AreaBo> getByServiceLineIdDisplayByArea(@PathVariable String id) {
         List<AreaBo> list = new ArrayList<>();
 
-        List<PretServiceRouteItem> serviceRouteItemList = pretServiceRouteItemRepository.findByServiceRouteId(id);
+        List<PretServiceRouteItem> serviceRouteItemList = pretServiceRouteItemRepository.findByServiceRouteIdAndS(id, ConstantEnum.S.N.getLabel());
         if (serviceRouteItemList != null && serviceRouteItemList.size() > 0) {
             for (PretServiceRouteItem item : serviceRouteItemList) {
                 AreaBo areaBo = new AreaBo();

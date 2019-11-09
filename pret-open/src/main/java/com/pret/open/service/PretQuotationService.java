@@ -1,5 +1,7 @@
 package com.pret.open.service;
 
+import java.math.BigDecimal;
+import java.text.ParseException;
 import java.util.*;
 
 import com.alibaba.fastjson.JSONArray;
@@ -9,7 +11,9 @@ import com.google.common.reflect.TypeToken;
 import com.pret.api.vo.ResBody;
 import com.pret.common.constant.CommonConstants;
 import com.pret.common.constant.ConstantEnum;
+import com.pret.common.constant.Constants;
 import com.pret.common.util.BeanUtilsExtended;
+import com.pret.common.utils.DateUtil;
 import com.pret.open.entity.*;
 import com.pret.open.entity.bo.PretQuotationBo;
 import com.pret.open.entity.bo.PretQuotationItemBo;
@@ -20,6 +24,7 @@ import com.pret.open.repository.*;
 import com.pret.open.vo.req.*;
 import com.pret.api.service.impl.BaseServiceImpl;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -58,6 +63,12 @@ public class PretQuotationService extends BaseServiceImpl<PretQuotationRepositor
     public void pretQuotationAdd(PretQuotationBo bo) {
         PretQuotation pretQuotation = new PretQuotation();
         BeanUtilsExtended.copyProperties(pretQuotation, bo);
+        try {
+            pretQuotation.setPeriodFrom(DateUtils.parseDate(bo.getPeriodFromStr(), "yyyy-MM-dd"));
+            pretQuotation.setPeriodTo(DateUtils.parseDate(bo.getPeriodToStr(), "yyyy-MM-dd"));
+        } catch (ParseException e) {
+        }
+
         this.repository.save(pretQuotation);
         this.editQuotion(bo, pretQuotation);
     }
@@ -73,6 +84,11 @@ public class PretQuotationService extends BaseServiceImpl<PretQuotationRepositor
     public void pretQuotationEdit(PretQuotationBo bo) {
         PretQuotation pretQuotation = this.repository.findById(bo.getId()).get();
         BeanUtilsExtended.copyProperties(pretQuotation, bo);
+        try {
+            pretQuotation.setPeriodFrom(DateUtils.parseDate(bo.getPeriodFromStr(), "yyyy-MM-dd"));
+            pretQuotation.setPeriodTo(DateUtils.parseDate(bo.getPeriodToStr(), "yyyy-MM-dd"));
+        } catch (ParseException e) {
+        }
         this.repository.save(pretQuotation);
 
         // 删除之前的报价明细
@@ -102,22 +118,28 @@ public class PretQuotationService extends BaseServiceImpl<PretQuotationRepositor
             // 线路明细
             JSONObject jsonObject = json.getJSONObject(i);
             String id = jsonObject.get("id").toString();
+            PretServiceRouteItem pretServiceRouteItem = pretServiceRouteItemRepository.findById(id).get();
+            pretServiceRouteItem.setVenderId(bo.getVenderId());
+            pretServiceRouteItemRepository.save(pretServiceRouteItem);
             JSONArray pretFeeTypeDataSource0 = JSONArray.parseArray(jsonObject.get("pretFeeTypeDataSource0").toString());
             for (int j = 0; j < pretFeeTypeDataSource0.size(); j++) {
                 JSONObject pretFeeTypeJsonObject = pretFeeTypeDataSource0.getJSONObject(j);
                 String type = pretFeeTypeJsonObject.get("type").toString();
-
                 Set<Map.Entry<String, Object>> entrySet = pretFeeTypeJsonObject.entrySet();
                 for (Map.Entry<String, Object> map : entrySet) {
                     if (!(map.getKey().equals("type") || map.getKey().equals("operation"))) {
                         PretQuotationItem item = new PretQuotationItem();
-                        PretServiceRouteItem pretServiceRouteItem = pretServiceRouteItemRepository.findById(id).get();
+
                         item.setBillingIntervalItemId(map.getKey());
                         item.setFeeTypeId(type);
                         item.setQuotationId(pretQuotation.getId());
                         item.setServiceRouteItemId(id);
                         item.setVenderId(bo.getVenderId());
                         item.setAddressId(pretServiceRouteItem.getAddressId());
+                        item.setCode(pretServiceRouteItem.getCode());
+                        item.setQuotation(new BigDecimal(map.getValue().toString()));
+                        item.setServiceRouteId(pretServiceRouteItem.getServiceRouteId());
+                        item.setServiceRouteOriginId(pretServiceRouteItem.getServiceRouteOrginId());
                         pretQuotationItemRepository.save(item);
 
 
@@ -135,13 +157,16 @@ public class PretQuotationService extends BaseServiceImpl<PretQuotationRepositor
                 for (Map.Entry<String, Object> map : entrySet) {
                     if (!(map.getKey().equals("type") || map.getKey().equals("operation"))) {
                         PretQuotationItem item = new PretQuotationItem();
-                        PretServiceRouteItem pretServiceRouteItem = pretServiceRouteItemRepository.findById(id).get();
                         item.setBillingIntervalItemId(map.getKey());
                         item.setFeeTypeId(type);
                         item.setQuotationId(pretQuotation.getId());
                         item.setServiceRouteItemId(id);
                         item.setVenderId(bo.getVenderId());
                         item.setAddressId(pretServiceRouteItem.getAddressId());
+                        item.setCode(pretServiceRouteItem.getCode());
+                        item.setQuotation(new BigDecimal(map.getValue().toString()));
+                        item.setServiceRouteId(pretServiceRouteItem.getServiceRouteId());
+                        item.setServiceRouteOriginId(pretServiceRouteItem.getServiceRouteOrginId());
                         pretQuotationItemRepository.save(item);
 
 

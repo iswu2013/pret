@@ -28,7 +28,7 @@ public class PretMTransOrderItemBo {
     /**
      * 商品重量
      */
-    private String weight;
+    private Float weight;
     /**
      * 商品单位
      */
@@ -43,6 +43,8 @@ public class PretMTransOrderItemBo {
      * 货物类型1重货2泡货
      */
     private Integer goodsType;
+
+    private Integer goodsNum;
 
     public String getPartNo() {
         return partNo;
@@ -68,11 +70,11 @@ public class PretMTransOrderItemBo {
         this.product = product;
     }
 
-    public String getWeight() {
+    public Float getWeight() {
         return weight;
     }
 
-    public void setWeight(String weight) {
+    public void setWeight(Float weight) {
         this.weight = weight;
     }
 
@@ -98,5 +100,13 @@ public class PretMTransOrderItemBo {
 
     public void setCbm(float cbm) {
         this.cbm = cbm;
+    }
+
+    public Integer getGoodsNum() {
+        return goodsNum;
+    }
+
+    public void setGoodsNum(Integer goodsNum) {
+        this.goodsNum = goodsNum;
     }
 }

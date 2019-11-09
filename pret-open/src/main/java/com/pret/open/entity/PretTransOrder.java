@@ -164,13 +164,11 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
     @ExcelField(value = "提货工厂code")
     private String pickupFactoryCd;
 
-    @Transient()
+
     private PretVender pretVender;
 
-    @Transient()
     private PretGoods pretGoods;
 
-    @Transient()
     private PretCustomer pretCustomer;
 
     /**
@@ -501,6 +499,7 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
         this.goodsNum = goodsNum;
     }
 
+    @Transient()
     public PretVender getPretVender() {
         return pretVender;
     }
@@ -509,6 +508,7 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
         this.pretVender = pretVender;
     }
 
+    @Transient()
     public PretGoods getPretGoods() {
         return pretGoods;
     }
@@ -517,6 +517,7 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
         this.pretGoods = pretGoods;
     }
 
+    @Transient()
     public PretCustomer getPretCustomer() {
         return pretCustomer;
     }

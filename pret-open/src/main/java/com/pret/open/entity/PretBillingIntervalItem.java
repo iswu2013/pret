@@ -53,11 +53,25 @@ public class PretBillingIntervalItem extends VersionedAuditableIdEntity implemen
      */
     @ExcelField(value = "计费起始量")
     private Float start;
+
+    /**
+     * 公斤
+     */
+    @ExcelField(value = "计费起始量")
+    private Float kstart;
+
     /**
      * 计费结束量
      */
     @ExcelField(value = "计费结束量")
     private Float end;
+
+    /**
+     * 公斤
+     */
+    @ExcelField(value = "计费结束量")
+    private Float kend;
+
     /**
      * 描述
      */
@@ -159,5 +173,21 @@ public class PretBillingIntervalItem extends VersionedAuditableIdEntity implemen
 
     public void setUnit(int unit) {
         this.unit = unit;
+    }
+
+    public Float getKstart() {
+        return kstart;
+    }
+
+    public void setKstart(Float kstart) {
+        this.kstart = kstart;
+    }
+
+    public Float getKend() {
+        return kend;
+    }
+
+    public void setKend(Float kend) {
+        this.kend = kend;
     }
 }

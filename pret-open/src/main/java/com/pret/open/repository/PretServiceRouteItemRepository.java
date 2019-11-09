@@ -27,30 +27,40 @@ public interface PretServiceRouteItemRepository extends BaseRepository<PretServi
     /* *
      * 功能描述: 根据serviceLineId查找
      * 〈〉
-     * @Param: [serviceRouteId]
-     * @Return: java.util.List<com.pret.open.entity.PretServiceRouteItem>
-     * @Author: wujingsong
-     * @Date: 2019/10/24  9:28 上午
+     * @Param: [serviceLineId, s]
+            * @Return: java.util.List<com.pret.open.entity.PretServiceRouteItem>
+            * @Author: wujingsong
+            * @Date: 2019/11/9  2:38 下午
      */
-    List<PretServiceRouteItem> findByServiceRouteId(String serviceLineId);
+    List<PretServiceRouteItem> findByServiceRouteIdAndS(String serviceLineId,Integer s);
 
     /* *
      * 功能描述: 根据起运地和地址查找
      * 〈〉
      * @Param: [serviceRouteOrginId, addressId, s]
-            * @Return: java.util.List<com.pret.open.entity.PretServiceRouteItem>
-            * @Author: wujingsong
-            * @Date: 2019/11/8  10:14 上午
+     * @Return: java.util.List<com.pret.open.entity.PretServiceRouteItem>
+     * @Author: wujingsong
+     * @Date: 2019/11/8  10:14 上午
      */
-    List<PretServiceRouteItem> findByServiceRouteOrginIdAndAddressIdAndS(String serviceRouteOrginId, String addressId,Integer s);
+    List<PretServiceRouteItem> findByServiceRouteOrginIdAndAddressIdAndS(String serviceRouteOrginId, String addressId, Integer s);
 
     /* *
      * 功能描述: 根据code查找
      * 〈〉
      * @Param: [code, addressId, s]
-            * @Return: java.util.List<com.pret.open.entity.PretServiceRouteItem>
-            * @Author: wujingsong
-            * @Date: 2019/11/8  10:17 上午
+     * @Return: java.util.List<com.pret.open.entity.PretServiceRouteItem>
+     * @Author: wujingsong
+     * @Date: 2019/11/8  10:17 上午
      */
-    List<PretServiceRouteItem> findByCodeAndAddressIdAndS(String code, String addressId,Integer s);
+    List<PretServiceRouteItem> findByCodeAndAddressIdAndS(String code, String addressId, Integer s);
+
+    /* *
+     * 功能描述: 根据code或者addreddId查找
+     * 〈〉
+     * @Param: [code, addressIdList, s]
+     * @Return: java.util.List<com.pret.open.entity.PretServiceRouteItem>
+     * @Author: wujingsong
+     * @Date: 2019/11/9  11:01 上午
+     */
+    List<PretServiceRouteItem> findByCodeAndAddressIdInAndS(String code, List<String> addressIdList, Integer s);
 }

@@ -57,7 +57,7 @@ public class PretGoods extends VersionedAuditableIdEntity implements Serializabl
      * 商品重量
      */
     @ExcelField(value = "商品重量")
-    private String weight;
+    private Float weight;
     /**
      * 商品单位
      */
@@ -129,24 +129,11 @@ public class PretGoods extends VersionedAuditableIdEntity implements Serializabl
         this.product = product;
     }
 
-    /**
-     * <p>Discription:[商品重量]</p>
-     * Created on 2019年09月15日
-     *
-     * @return String
-     * @author:wujinsong
-     */
-    public String getWeight() {
+    public Float getWeight() {
         return weight;
     }
 
-    /**
-     * <p>Discription:[商品重量]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setWeight(String weight) {
+    public void setWeight(Float weight) {
         this.weight = weight;
     }
 

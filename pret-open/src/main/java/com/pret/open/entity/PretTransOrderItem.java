@@ -42,7 +42,6 @@ public class PretTransOrderItem extends VersionedAuditableIdEntity implements Se
      */
     private String transOrderId;
 
-    @Transient()
     private PretTransOrder pretTransOrder;
 
     /**
@@ -89,7 +88,7 @@ public class PretTransOrderItem extends VersionedAuditableIdEntity implements Se
         this.transOrderId = transOrderId;
     }
 
-
+    @Transient()
     public PretTransOrder getPretTransOrder() {
         return pretTransOrder;
     }

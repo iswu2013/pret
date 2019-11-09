@@ -45,6 +45,16 @@ public class PretQuotationBo  {
      */
     private String pretQuotationItemStr;
 
+    /**
+     * 计费区间
+     */
+    private String billingIntervalId;
+
+    /**
+     * 创建用户
+     */
+    private String username;
+
     public String getId() {
         return id;
     }
@@ -91,5 +101,21 @@ public class PretQuotationBo  {
 
     public void setPretQuotationItemStr(String pretQuotationItemStr) {
         this.pretQuotationItemStr = pretQuotationItemStr;
+    }
+
+    public String getBillingIntervalId() {
+        return billingIntervalId;
+    }
+
+    public void setBillingIntervalId(String billingIntervalId) {
+        this.billingIntervalId = billingIntervalId;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

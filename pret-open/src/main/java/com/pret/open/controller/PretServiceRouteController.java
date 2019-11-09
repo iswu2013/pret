@@ -47,7 +47,7 @@ public class PretServiceRouteController extends BaseManageController<PretService
             List<AreaBo> list = new ArrayList<>();
 
             PretServiceRoute item = this.service.findById(id).get();
-            List<PretServiceRouteItem> serviceRouteItemList = pretServiceRouteItemRepository.findByServiceRouteId(item.getId());
+            List<PretServiceRouteItem> serviceRouteItemList = pretServiceRouteItemRepository.findByServiceRouteIdAndS(item.getId(), ConstantEnum.S.N.getLabel());
             if (serviceRouteItemList != null && serviceRouteItemList.size() > 0) {
                 for (PretServiceRouteItem it : serviceRouteItemList) {
                     AreaBo areaBo = new AreaBo();
@@ -108,7 +108,7 @@ public class PretServiceRouteController extends BaseManageController<PretService
     @PostMapping("/pretServiceRouteEdit")
     public void pretServiceRouteEdit(PretServiceRouteBo bo) throws FebsException {
         try {
-            this.service.pretServiceRouteAdd(bo);
+            this.service.pretServiceRouteEdit(bo);
         } catch (Exception e) {
             message = "编辑服务线路";
             throw new FebsException(message);

@@ -58,6 +58,13 @@ public class PretBillingIntervalService extends BaseServiceImpl<PretBillingInter
             PretBillingIntervalItem item = new PretBillingIntervalItem();
             BeanUtilsExtended.copyProperties(item, itemBo);
             item.setBillingIntervalId(pretBillingInterval.getId());
+            if (itemBo.getUnit() == ConstantEnum.EUnit.吨.getLabel()) {
+                item.setKstart(itemBo.getStart() * 1000);
+                item.setKend(itemBo.getEnd() * 1000);
+            } else {
+                item.setKstart(itemBo.getStart());
+                item.setKend(itemBo.getEnd());
+            }
             pretBillingIntervalItemRepository.save(item);
         }
     }
@@ -91,6 +98,13 @@ public class PretBillingIntervalService extends BaseServiceImpl<PretBillingInter
             PretBillingIntervalItem item = new PretBillingIntervalItem();
             BeanUtilsExtended.copyProperties(item, itemBo);
             item.setBillingIntervalId(pretBillingInterval.getId());
+            if (itemBo.getUnit() == ConstantEnum.EUnit.吨.getLabel()) {
+                item.setKstart(itemBo.getStart() * 1000);
+                item.setKend(itemBo.getEnd() * 1000);
+            } else {
+                item.setKstart(itemBo.getStart());
+                item.setKend(itemBo.getEnd());
+            }
             pretBillingIntervalItemRepository.save(item);
         }
     }
