@@ -48,6 +48,12 @@ public class PretServiceRouteItem extends VersionedAuditableIdEntity implements 
      */
     @ExcelField(value = "起运地id")
     private String serviceRouteOrginId;
+
+    /**
+     * u9code
+     */
+    private String code;
+
     /**
      * 地址id
      */
@@ -75,6 +81,16 @@ public class PretServiceRouteItem extends VersionedAuditableIdEntity implements 
      * 供应商
      */
     private PretVender pretVender;
+
+    /**
+     * 里程
+     */
+    private Float mileage;
+
+    /**
+     * 自动分配下限
+     */
+    private Float lowerLimit;
 
     // setter and getter
 
@@ -129,6 +145,14 @@ public class PretServiceRouteItem extends VersionedAuditableIdEntity implements 
         this.addressId = addressId;
     }
 
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
     /**
      * <p>Discription:[时效(天)]</p>
      * Created on 2019年09月15日
@@ -174,5 +198,21 @@ public class PretServiceRouteItem extends VersionedAuditableIdEntity implements 
 
     public void setPretVender(PretVender pretVender) {
         this.pretVender = pretVender;
+    }
+
+    public Float getMileage() {
+        return mileage;
+    }
+
+    public void setMileage(Float mileage) {
+        this.mileage = mileage;
+    }
+
+    public Float getLowerLimit() {
+        return lowerLimit;
+    }
+
+    public void setLowerLimit(Float lowerLimit) {
+        this.lowerLimit = lowerLimit;
     }
 }

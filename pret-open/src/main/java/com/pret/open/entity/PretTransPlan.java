@@ -89,31 +89,36 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
      */
     @ExcelField(value = "司机id")
     private String driverId;
+
     /**
-     * 提货数量
+     * 商品重量
      */
-    @ExcelField(value = "提货数量")
-    private Integer count;
-    /**
-     * 重物数量
-     */
-    @ExcelField(value = "重物数量")
+    @ExcelField(value = "商品重量")
     private Integer gw;
     /**
-     * 重物单位重
+     * 单位(1吨，2公斤)
      */
-    @ExcelField(value = "重物单位重")
-    private String cbm;
+    @ExcelField(value = "单位", writeConverterExp = "1=吨,2=公斤")
+    private int unit;
+
     /**
-     * 泡物数量
+     * 立方体积
      */
-    @ExcelField(value = "泡物数量")
-    private Integer cw;
+    @ExcelField(value = "立方体积")
+    private float cbm;
+
     /**
-     * 泡物单位立方
+     * 货物件数
      */
-    @ExcelField(value = "泡物单位立方")
-    private String unit;
+    @ExcelField(value = "货物件数")
+    private int goodsNum;
+
+    /**
+     *
+     */
+    @ExcelField(value = "实际数量")
+    private Integer realNum;
+
     /**
      * 线路明细id
      */
@@ -149,6 +154,7 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
      */
     @ExcelField(value = "费用创建日期", writeConverter = TimeConverter.class)
     private Date feeConfirmDate;
+
     /**
      * 创建人
      */
@@ -185,6 +191,17 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
      * 提货工厂
      */
     private String pickupFactoryCd;
+
+    /**
+     * 签收日期
+     */
+    @ExcelField(value = "签收日期", writeConverter = TimeConverter.class)
+    private Date signDatetime;
+
+    /**
+     * 送达日期
+     */
+    private Date deliveryDate;
 
     // setter and getter
 
@@ -398,109 +415,36 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
         this.driverId = driverId;
     }
 
-    /**
-     * <p>Discription:[提货数量]</p>
-     * Created on 2019年09月15日
-     *
-     * @return Integer
-     * @author:wujinsong
-     */
-    public Integer getCount() {
-        return count;
-    }
-
-    /**
-     * <p>Discription:[提货数量]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setCount(Integer count) {
-        this.count = count;
-    }
-
-    /**
-     * <p>Discription:[重物数量]</p>
-     * Created on 2019年09月15日
-     *
-     * @return Integer
-     * @author:wujinsong
-     */
     public Integer getGw() {
         return gw;
     }
 
-    /**
-     * <p>Discription:[重物数量]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
     public void setGw(Integer gw) {
         this.gw = gw;
     }
 
-    /**
-     * <p>Discription:[重物单位重]</p>
-     * Created on 2019年09月15日
-     *
-     * @return String
-     * @author:wujinsong
-     */
-    public String getCbm() {
-        return cbm;
-    }
-
-    /**
-     * <p>Discription:[重物单位重]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setCbm(String cbm) {
-        this.cbm = cbm;
-    }
-
-    /**
-     * <p>Discription:[泡物数量]</p>
-     * Created on 2019年09月15日
-     *
-     * @return Integer
-     * @author:wujinsong
-     */
-    public Integer getCw() {
-        return cw;
-    }
-
-    /**
-     * <p>Discription:[泡物数量]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setCw(Integer cw) {
-        this.cw = cw;
-    }
-
-    /**
-     * <p>Discription:[泡物单位立方]</p>
-     * Created on 2019年09月15日
-     *
-     * @return String
-     * @author:wujinsong
-     */
-    public String getUnit() {
+    public int getUnit() {
         return unit;
     }
 
-    /**
-     * <p>Discription:[泡物单位立方]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setUnit(String unit) {
+    public void setUnit(int unit) {
         this.unit = unit;
+    }
+
+    public float getCbm() {
+        return cbm;
+    }
+
+    public void setCbm(float cbm) {
+        this.cbm = cbm;
+    }
+
+    public int getGoodsNum() {
+        return goodsNum;
+    }
+
+    public void setGoodsNum(int goodsNum) {
+        this.goodsNum = goodsNum;
     }
 
     /**
@@ -729,5 +673,29 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
 
     public void setPretDriver(PretDriver pretDriver) {
         this.pretDriver = pretDriver;
+    }
+
+    public Date getSignDatetime() {
+        return signDatetime;
+    }
+
+    public void setSignDatetime(Date signDatetime) {
+        this.signDatetime = signDatetime;
+    }
+
+    public Integer getRealNum() {
+        return realNum;
+    }
+
+    public void setRealNum(Integer realNum) {
+        this.realNum = realNum;
+    }
+
+    public Date getDeliveryDate() {
+        return deliveryDate;
+    }
+
+    public void setDeliveryDate(Date deliveryDate) {
+        this.deliveryDate = deliveryDate;
     }
 }

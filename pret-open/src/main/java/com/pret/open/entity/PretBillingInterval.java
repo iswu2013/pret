@@ -46,6 +46,11 @@ public class PretBillingInterval extends VersionedAuditableIdEntity implements S
     private String name;
 
     /**
+     * 创建人
+     */
+    private String username;
+
+    /**
      * 区间明细
      */
     private List<PretBillingIntervalItem> pretBillingIntervalItemList;
@@ -71,6 +76,14 @@ public class PretBillingInterval extends VersionedAuditableIdEntity implements S
      */
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     @Transient()

@@ -89,6 +89,12 @@ public class PretTransException extends VersionedAuditableIdEntity implements Se
     @ExcelField(value = "物流供应商")
     private String venderId;
 
+    /**
+     *
+     */
+    @ExcelField(value = "拒收数量")
+    private Integer rejectCount;
+
     private PretVender pretVender;
 
     private PretTransPlan pretTransPlan;
@@ -298,5 +304,13 @@ public class PretTransException extends VersionedAuditableIdEntity implements Se
 
     public void setPretTransExceptionItemList(List<PretTransExceptionItem> pretTransExceptionItemList) {
         this.pretTransExceptionItemList = pretTransExceptionItemList;
+    }
+
+    public Integer getRejectCount() {
+        return rejectCount;
+    }
+
+    public void setRejectCount(Integer rejectCount) {
+        this.rejectCount = rejectCount;
     }
 }

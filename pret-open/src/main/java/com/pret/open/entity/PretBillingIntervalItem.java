@@ -39,10 +39,10 @@ public class PretBillingIntervalItem extends VersionedAuditableIdEntity implemen
     }
 
     /**
-     * 1重货
-     * 2泡货
+     * 0重货
+     * 1泡货
      */
-    @ExcelField(value = "货物类型", writeConverterExp = "1=重货,2=泡货")
+    @ExcelField(value = "货物类型", writeConverterExp = "0=重货,1=泡货")
     private Integer type;
     /**
      * 计费区间id
@@ -52,12 +52,12 @@ public class PretBillingIntervalItem extends VersionedAuditableIdEntity implemen
      * 计费起始量
      */
     @ExcelField(value = "计费起始量")
-    private String start;
+    private Float start;
     /**
      * 计费结束量
      */
     @ExcelField(value = "计费结束量")
-    private String end;
+    private Float end;
     /**
      * 描述
      */
@@ -116,45 +116,19 @@ public class PretBillingIntervalItem extends VersionedAuditableIdEntity implemen
         this.billingIntervalId = billingIntervalId;
     }
 
-    /**
-     * <p>Discription:[计费起始量]</p>
-     * Created on 2019年09月15日
-     *
-     * @return String
-     * @author:wujinsong
-     */
-    public String getStart() {
+    public Float getStart() {
         return start;
     }
 
-    /**
-     * <p>Discription:[计费起始量]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setStart(String start) {
+    public void setStart(Float start) {
         this.start = start;
     }
 
-    /**
-     * <p>Discription:[计费结束量]</p>
-     * Created on 2019年09月15日
-     *
-     * @return String
-     * @author:wujinsong
-     */
-    public String getEnd() {
+    public Float getEnd() {
         return end;
     }
 
-    /**
-     * <p>Discription:[计费结束量]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setEnd(String end) {
+    public void setEnd(Float end) {
         this.end = end;
     }
 

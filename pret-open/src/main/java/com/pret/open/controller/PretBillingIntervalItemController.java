@@ -79,10 +79,10 @@ public class PretBillingIntervalItemController extends BaseManageController<Pret
      * @Author: wujingsong
      * @Date: 2019/11/2  12:57 上午
      */
-    @RequestMapping(value = "/getByBillingInterval/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/getByBillingInterval/{id}/{type}", method = RequestMethod.GET)
     @ResponseBody
-    public List<PretBillingIntervalItem> getByBillingInterval(@PathVariable String id) {
-        List<PretBillingIntervalItem> pretBillingIntervalItemList = pretBillingIntervalItemRepository.findByBillingIntervalIdAndS(id, ConstantEnum.S.N.getLabel());
+    public List<PretBillingIntervalItem> getByBillingInterval(@PathVariable String id, @PathVariable Integer type) {
+        List<PretBillingIntervalItem> pretBillingIntervalItemList = pretBillingIntervalItemRepository.findByBillingIntervalIdAndTypeAndS(id, type, ConstantEnum.S.N.getLabel());
         return pretBillingIntervalItemList;
     }
 }

@@ -70,8 +70,14 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
     /**
      * 起运地
      */
-    @ExcelField(value = "起运地")
     private String serviceRouteOrginId;
+
+    /**
+     * 起运地
+     */
+    @ExcelField(value = "起运地")
+    private String serviceRouteOrginName;
+
     /**
      * 送达客户id
      */
@@ -127,7 +133,7 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
      * 商品重量
      */
     @ExcelField(value = "商品重量")
-    private Integer gw;
+    private Float gw;
     /**
      * 单位(1吨，2公斤)
      */
@@ -138,7 +144,7 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
      * 立方体积
      */
     @ExcelField(value = "立方体积")
-    private float cbm;
+    private Float cbm;
 
     /**
      * 货物件数
@@ -168,9 +174,14 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
     private PretCustomer pretCustomer;
 
     /**
-     * 1重货2泡货
+     * 0重货1泡货
      */
     private Integer goodsType;
+
+    /**
+     * 计费区间id
+     */
+    private String billingIntervalItemId;
 
     // setter and getter
 
@@ -321,6 +332,14 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
         this.serviceRouteOrginId = serviceRouteOrginId;
     }
 
+    public String getServiceRouteOrginName() {
+        return serviceRouteOrginName;
+    }
+
+    public void setServiceRouteOrginName(String serviceRouteOrginName) {
+        this.serviceRouteOrginName = serviceRouteOrginName;
+    }
+
     /**
      * <p>Discription:[送达客户id]</p>
      * Created on 2019年09月15日
@@ -450,11 +469,11 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
         this.transPlanId = transPlanId;
     }
 
-    public Integer getGw() {
+    public Float getGw() {
         return gw;
     }
 
-    public void setGw(Integer gw) {
+    public void setGw(Float gw) {
         this.gw = gw;
     }
 
@@ -466,11 +485,11 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
         this.unit = unit;
     }
 
-    public float getCbm() {
+    public Float getCbm() {
         return cbm;
     }
 
-    public void setCbm(float cbm) {
+    public void setCbm(Float cbm) {
         this.cbm = cbm;
     }
 
@@ -544,5 +563,13 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
 
     public void setGoodsType(Integer goodsType) {
         this.goodsType = goodsType;
+    }
+
+    public String getBillingIntervalItemId() {
+        return billingIntervalItemId;
+    }
+
+    public void setBillingIntervalItemId(String billingIntervalItemId) {
+        this.billingIntervalItemId = billingIntervalItemId;
     }
 }

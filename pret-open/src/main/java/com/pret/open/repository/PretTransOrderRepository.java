@@ -3,6 +3,7 @@ package com.pret.open.repository;
 import com.pret.common.repository.BaseRepository;
 import com.pret.open.entity.PretTransOrder;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,9 +19,9 @@ public interface PretTransOrderRepository extends BaseRepository<PretTransOrder>
      * 功能描述: 根据运输计划查找
      * 〈〉
      * @Param: [transPlanId, s]
-            * @Return: java.util.List<com.pret.open.entity.PretTransOrder>
-            * @Author: wujingsong
-            * @Date: 2019/11/2  11:00 上午
+     * @Return: java.util.List<com.pret.open.entity.PretTransOrder>
+     * @Author: wujingsong
+     * @Date: 2019/11/2  11:00 上午
      */
     List<PretTransOrder> findByTransPlanIdAndS(String transPlanId, Integer s);
 
@@ -58,9 +59,9 @@ public interface PretTransOrderRepository extends BaseRepository<PretTransOrder>
      * 功能描述: 根据状态查找
      * 〈〉
      * @Param: [status]
-            * @Return: java.util.List<com.pret.open.entity.PretTransOrder>
-            * @Author: wujingsong
-            * @Date: 2019/11/4  7:20 上午
+     * @Return: java.util.List<com.pret.open.entity.PretTransOrder>
+     * @Author: wujingsong
+     * @Date: 2019/11/4  7:20 上午
      */
     List<PretTransOrder> findByStatus(Integer status);
 
@@ -68,9 +69,9 @@ public interface PretTransOrderRepository extends BaseRepository<PretTransOrder>
      * 功能描述: 获取最前面的5个
      * 〈〉
      * @Param: [status]
-            * @Return: java.util.List<com.pret.open.entity.PretTransOrder>
-            * @Author: wujingsong
-            * @Date: 2019/11/4  7:30 上午
+     * @Return: java.util.List<com.pret.open.entity.PretTransOrder>
+     * @Author: wujingsong
+     * @Date: 2019/11/4  7:30 上午
      */
     List<PretTransOrder> findTop5ByStatus(Integer status);
 
@@ -78,9 +79,19 @@ public interface PretTransOrderRepository extends BaseRepository<PretTransOrder>
      * 功能描述: 根据状态统计数量
      * 〈〉
      * @Param: [status]
-            * @Return: long
-            * @Author: wujingsong
-            * @Date: 2019/11/4  7:20 上午
+     * @Return: long
+     * @Author: wujingsong
+     * @Date: 2019/11/4  7:20 上午
      */
     long countByStatus(Integer status);
+
+    /* *
+     * 功能描述: 根据用户，地址和送达日期以及状态查找
+     * 〈〉
+     * @Param: [customerId, addressId, customerAddress, deliveryDate, statusList]
+     * @Return: java.util.List<com.pret.open.entity.PretTransOrder>
+     * @Author: wujingsong
+     * @Date: 2019/11/9  8:23 上午
+     */
+    List<PretTransOrder> findByCustomerIdAndAddressIdAndCustomerAddressAndDeliveryDateAndStatusIn(String customerId, String addressId, String customerAddress, Date deliveryDate, List<Integer> statusList);
 }

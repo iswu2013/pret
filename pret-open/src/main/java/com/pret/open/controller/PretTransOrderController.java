@@ -103,6 +103,17 @@ public class PretTransOrderController extends BaseManageController<PretTransOrde
         }
     }
 
+    @Log("查看")
+    @PostMapping("/allocateVender/{id}/{venderId}")
+    public void allocateVender(@PathVariable String id, @PathVariable String venderId) throws FebsException {
+        try {
+            this.service.allocateVender(id,venderId);
+        } catch (Exception e) {
+            message = "查看失败";
+            throw new FebsException(message);
+        }
+    }
+
     @Log("创建物流单")
     @PostMapping("/createTestData")
     public void createTestData() throws FebsException {
@@ -128,7 +139,7 @@ public class PretTransOrderController extends BaseManageController<PretTransOrde
 
                 PretVender pretVender = pretVenderRepository.findTop1ByOrderByCreateTimeLongDesc();
                 pretTransOrder.setVenderId(pretVender.getId());
-                pretTransOrder.setGw(i % 7);
+                pretTransOrder.setGw(Float.valueOf((i % 7)));
 
                 PretGoods pretGoods = new PretGoods();
                 pretGoods.setBatchNo("B100");

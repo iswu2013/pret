@@ -33,4 +33,24 @@ public interface PretServiceRouteItemRepository extends BaseRepository<PretServi
      * @Date: 2019/10/24  9:28 上午
      */
     List<PretServiceRouteItem> findByServiceRouteId(String serviceLineId);
+
+    /* *
+     * 功能描述: 根据起运地和地址查找
+     * 〈〉
+     * @Param: [serviceRouteOrginId, addressId, s]
+            * @Return: java.util.List<com.pret.open.entity.PretServiceRouteItem>
+            * @Author: wujingsong
+            * @Date: 2019/11/8  10:14 上午
+     */
+    List<PretServiceRouteItem> findByServiceRouteOrginIdAndAddressIdAndS(String serviceRouteOrginId, String addressId,Integer s);
+
+    /* *
+     * 功能描述: 根据code查找
+     * 〈〉
+     * @Param: [code, addressId, s]
+            * @Return: java.util.List<com.pret.open.entity.PretServiceRouteItem>
+            * @Author: wujingsong
+            * @Date: 2019/11/8  10:17 上午
+     */
+    List<PretServiceRouteItem> findByCodeAndAddressIdAndS(String code, String addressId,Integer s);
 }

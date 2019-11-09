@@ -1,5 +1,6 @@
 package com.pret.open.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,6 +53,8 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
     private PretQuotationItemRepository pretQuotationItemRepository;
     @Autowired
     private PretAddressRepository pretAddressRepository;
+    @Autowired
+    private PretServiceRouteItemRepository pretServiceRouteItemRepository;
 
     public void genPickUpPlan(PretPickUpPlanBo bo) {
         String[] idArr = bo.getIds().split(",");
@@ -120,34 +123,165 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
             for (PretMTransOrderItemBo pretMTransOrderBo : list) {
                 PretTransOrder pretTransOrder = new PretTransOrder();
                 BeanUtilsExtended.copyProperties(pretTransOrder, pretMTransOrderBo);
+                if (StringUtils.isEmpty(bo.getCustomerName())) {
+                    pretTransOrder.setCustomerName(bo.getCustomerLinkName());
+                }
                 BeanUtilsExtended.copyProperties(pretTransOrder, bo);
-
-                // 指定供应商
-                List<PretQuotationItem> pretQuotationItemList = pretQuotationItemRepository.findByCodeAndAddressIdAndS(bo.getPickupFactoryCd(), bo.getAddressId(), ConstantEnum.S.N.getLabel());
-                if (pretQuotationItemList != null && pretQuotationItemList.size() > 0) {
-                    pretTransOrder.setVenderId(pretQuotationItemList.get(0).getVenderId());
-                } else {
-                    PretAddress pretAddress = pretAddressRepository.findById(bo.getAddressId()).get();
-                    if (!StringUtils.isEmpty(pretAddress.getParentId())) {
-                        pretAddress = pretAddressRepository.findById(pretAddress.getParentId()).get();
-                        pretQuotationItemList = pretQuotationItemRepository.findByCodeAndAddressIdAndS(bo.getPickupFactoryCd(), pretAddress.getId(), ConstantEnum.S.N.getLabel());
-                        if (pretQuotationItemList != null && pretQuotationItemList.size() > 0) {
-                            pretTransOrder.setVenderId(pretQuotationItemList.get(0).getVenderId());
-                        } else {
-                            if (!StringUtils.isEmpty(pretAddress.getParentId())) {
-                                pretAddress = pretAddressRepository.findById(pretAddress.getParentId()).get();
-                                pretQuotationItemList = pretQuotationItemRepository.findByCodeAndAddressIdAndS(bo.getPickupFactoryCd(), pretAddress.getId(), ConstantEnum.S.N.getLabel());
-                                if (pretQuotationItemList != null && pretQuotationItemList.size() > 0) {
-                                    pretTransOrder.setVenderId(pretQuotationItemList.get(0).getVenderId());
+                PretCustomer pretCustomer = pretCustomerRepository.findByLinkPhone(bo.getCustomerLinkPhone());
+                // 是否存在同一客户，同一地址，同一送达日期的运输单
+                boolean hasE = false;
+                if (pretCustomer != null) {
+                    List<Integer> statusList = new ArrayList<>();
+                    statusList.add(ConstantEnum.ETransOrderStatus.待分配.getLabel());
+                    statusList.add(ConstantEnum.ETransOrderStatus.待提货.getLabel());
+                    List<PretTransOrder> pretTransOrderList = this.repository.findByCustomerIdAndAddressIdAndCustomerAddressAndDeliveryDateAndStatusIn(pretCustomer.getId(), bo.getAddressId(), bo.getCustomerAddress(), bo.getDeliveryDate(), statusList);
+                    float total = 0.0f;
+                    if (pretTransOrderList != null) {
+                        for (PretTransOrder transOrder : pretTransOrderList) {
+                            if (transOrder.getGoodsType() == ConstantEnum.EGoodsType.重货.getLabel()) {
+                                if (transOrder.getUnit() == ConstantEnum.EUnit.公斤.getLabel()) {
+                                    total += transOrder.getGw() * transOrder.getGoodsNum();
                                 } else {
-
+                                    total += transOrder.getGw() * transOrder.getGoodsNum() * 1000;
                                 }
+                            }
+                        }
+                        List<PretQuotationItem> pretQuotationItemList = pretQuotationItemRepository.findByVenderIdAndS(pretTransOrderList.get(0).getVenderId(), ConstantEnum.S.N.getLabel());
+                        PretBillingIntervalItem pretBillingIntervalItem = this.calBillingInterval(pretTransOrder, total, true, pretQuotationItemList);
+                        if (pretBillingIntervalItem != null) {
+                            for (PretTransOrder transOrder : pretTransOrderList) {
+                                transOrder.setBillingIntervalItemId(pretBillingIntervalItem.getId());
+                                this.repository.save(pretTransOrder);
                             }
                         }
                     }
                 }
 
-                this.repository.save(pretTransOrder);
+                if (!hasE) {
+                    // 查找线路,指定供应商
+                    // 重量
+                    float total = 0.0f;
+                    boolean isHeavyCargo = true;
+
+                    if (pretTransOrder.getGw() != null && pretTransOrder.getGw().floatValue() > 0) {
+                        if (pretTransOrder.getUnit() == ConstantEnum.EUnit.公斤.getLabel()) {
+                            total = pretTransOrder.getGw() * pretTransOrder.getGoodsNum();
+                        } else {
+                            total = pretTransOrder.getGw() * pretTransOrder.getGoodsNum() * 1000;
+                        }
+                        pretTransOrder.setGoodsType(ConstantEnum.EGoodsType.重货.getLabel());
+                    }
+                    if (pretTransOrder.getCbm() != null && pretTransOrder.getCbm().floatValue() > 0) {
+                        total = pretTransOrder.getCbm() * pretTransOrder.getGoodsNum();
+                        isHeavyCargo = false;
+                        pretTransOrder.setGoodsType(ConstantEnum.EGoodsType.泡货.getLabel());
+                    }
+
+
+                    PretAddress pretAddress = pretAddressRepository.findById(bo.getAddressId()).get();
+                    List<PretQuotationItem> pretQuotationItemList = pretQuotationItemRepository.findByCodeAndAddressIdAndS(bo.getPickupFactoryCd(), pretAddress.getId(), ConstantEnum.S.N.getLabel());
+                    if (pretQuotationItemList != null && pretQuotationItemList.size() > 0) {
+                        this.calBillingInterval(pretTransOrder, total, isHeavyCargo, pretQuotationItemList);
+                    } else {
+                        if (!StringUtils.isEmpty(pretAddress.getParentId())) {
+                            pretAddress = pretAddressRepository.findById(pretAddress.getParentId()).get();
+                            pretQuotationItemList = pretQuotationItemRepository.findByCodeAndAddressIdAndS(bo.getPickupFactoryCd(), pretAddress.getId(), ConstantEnum.S.N.getLabel());
+                            if (pretQuotationItemList != null && pretQuotationItemList.size() > 0) {
+                                this.calBillingInterval(pretTransOrder, total, isHeavyCargo, pretQuotationItemList);
+                            } else {
+                                if (!StringUtils.isEmpty(pretAddress.getParentId())) {
+                                    pretQuotationItemList = pretQuotationItemRepository.findByCodeAndAddressIdAndS(bo.getPickupFactoryCd(), pretAddress.getParentId(), ConstantEnum.S.N.getLabel());
+                                    if (pretQuotationItemList != null && pretQuotationItemList.size() > 0) {
+                                        this.calBillingInterval(pretTransOrder, total, isHeavyCargo, pretQuotationItemList);
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    this.repository.save(pretTransOrder);
+                }
+            }
+        }
+    }
+
+    /* *
+     * 功能描述: 计算区间
+     * 〈〉
+     * @Param: [pretTransOrder, total, isHeavyCargo, pretQuotationItemList]
+     * @Return: void
+     * @Author: wujingsong
+     * @Date: 2019/11/9  8:01 上午
+     */
+    public PretBillingIntervalItem calBillingInterval(PretTransOrder pretTransOrder, float total, boolean isHeavyCargo, List<PretQuotationItem> pretQuotationItemList) {
+        PretBillingIntervalItem pretBillingIntervalItem = null;
+        for (PretQuotationItem item : pretQuotationItemList) {
+            pretBillingIntervalItem = pretBillingIntervalItemRepository.findById(item.getBillingIntervalItemId()).get();
+            PretServiceRouteItem pretServiceRouteItem = pretServiceRouteItemRepository.findById(item.getServiceRouteItemId()).get();
+            if (isHeavyCargo) {
+                if (pretBillingIntervalItem.getUnit() == ConstantEnum.EUnit.公斤.getLabel()) {
+                    if (total > pretBillingIntervalItem.getStart() && total < pretBillingIntervalItem.getEnd() && total > pretServiceRouteItem.getLowerLimit()) {
+                        pretTransOrder.setBillingIntervalItemId(pretBillingIntervalItem.getId());
+                        pretTransOrder.setVenderId(item.getVenderId());
+
+                        return pretBillingIntervalItem;
+                    }
+                } else if (pretBillingIntervalItem.getUnit() == ConstantEnum.EUnit.吨.getLabel()) {
+                    if (total > pretBillingIntervalItem.getStart() * 1000 && total < pretBillingIntervalItem.getEnd() * 1000 && total > pretServiceRouteItem.getLowerLimit()) {
+                        pretTransOrder.setBillingIntervalItemId(pretBillingIntervalItem.getId());
+                        pretTransOrder.setVenderId(item.getVenderId());
+
+                        return pretBillingIntervalItem;
+                    }
+                }
+            } else {
+                if (total > pretBillingIntervalItem.getStart() && total < pretBillingIntervalItem.getEnd()) {
+                    pretTransOrder.setBillingIntervalItemId(pretBillingIntervalItem.getId());
+                    pretTransOrder.setVenderId(item.getVenderId());
+
+                    return pretBillingIntervalItem;
+                }
+            }
+        }
+
+        return null;
+    }
+
+    /* *
+     * 功能描述: 指定供应商
+     * 〈〉
+     * @Param: [id, venderId]
+     * @Return: void
+     * @Author: wujingsong
+     * @Date: 2019/11/9  8:51 上午
+     */
+    public void allocateVender(String id, String venderId) {
+        PretTransOrder pretTransOrder = this.repository.findById(id).get();
+        pretTransOrder.setVenderId(venderId);
+        this.repository.save(pretTransOrder);
+
+        List<Integer> statusList = new ArrayList<>();
+        statusList.add(ConstantEnum.ETransOrderStatus.待分配.getLabel());
+        statusList.add(ConstantEnum.ETransOrderStatus.待提货.getLabel());
+        List<PretTransOrder> pretTransOrderList = this.repository.findByCustomerIdAndAddressIdAndCustomerAddressAndDeliveryDateAndStatusIn(pretTransOrder.getId(), pretTransOrder.getAddressId(), pretTransOrder.getCustomerAddress(), pretTransOrder.getDeliveryDate(), statusList);
+        float total = 0.0f;
+        if (pretTransOrderList != null) {
+            for (PretTransOrder transOrder : pretTransOrderList) {
+                if (transOrder.getGoodsType() == ConstantEnum.EGoodsType.重货.getLabel()) {
+                    if (transOrder.getUnit() == ConstantEnum.EUnit.公斤.getLabel()) {
+                        total += transOrder.getGw() * transOrder.getGoodsNum();
+                    } else {
+                        total += transOrder.getGw() * transOrder.getGoodsNum() * 1000;
+                    }
+                }
+            }
+            List<PretQuotationItem> pretQuotationItemList = pretQuotationItemRepository.findByVenderIdAndS(pretTransOrderList.get(0).getVenderId(), ConstantEnum.S.N.getLabel());
+            PretBillingIntervalItem pretBillingIntervalItem = this.calBillingInterval(pretTransOrder, total, true, pretQuotationItemList);
+            if (pretBillingIntervalItem != null) {
+                for (PretTransOrder transOrder : pretTransOrderList) {
+                    transOrder.setBillingIntervalItemId(pretBillingIntervalItem.getId());
+                    this.repository.save(pretTransOrder);
+                }
             }
         }
     }

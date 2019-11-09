@@ -63,6 +63,11 @@ public class PretMTransOrderBo {
      */
     private String pickupFactoryCd;
 
+    /**
+     * 起运地名称
+     */
+    private String serviceRouteOrginName;
+
     private String pretMTransOrderItemStr;
 
     public String getTransMode() {
@@ -143,6 +148,14 @@ public class PretMTransOrderBo {
 
     public void setCustomerLinkPhone(String customerLinkPhone) {
         this.customerLinkPhone = customerLinkPhone;
+    }
+
+    public String getServiceRouteOrginName() {
+        return serviceRouteOrginName;
+    }
+
+    public void setServiceRouteOrginName(String serviceRouteOrginName) {
+        this.serviceRouteOrginName = serviceRouteOrginName;
     }
 
     public String getPickupFactoryCd() {

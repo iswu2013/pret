@@ -55,7 +55,7 @@ public class ScheduleService {
 
             PretVender pretVender = pretVenderRepository.findTop1ByOrderByCreateTimeLongDesc();
             pretTransOrder.setVenderId(pretVender.getId());
-            pretTransOrder.setGw(i % 7);
+            pretTransOrder.setGw(Float.valueOf((i % 7)));
 
             PretGoods pretGoods = new PretGoods();
             pretGoods.setBatchNo("B100");

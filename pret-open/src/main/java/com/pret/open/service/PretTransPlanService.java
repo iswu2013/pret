@@ -131,8 +131,8 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
         transPlan.setCustomerId(transOrder.getCustomerId());
         transPlan.setVenderId(venderId);
         transPlan.setStatus(ConstantEnum.ETransPlanStatus.运输中.getValue());
-        transPlan.setCount(count);
-        transPlan.setCw(cw);
+        transPlan.setGoodsNum(count);
+        transPlan.setGw(cw);
         this.repository.save(transPlan);
 
         // 生产顺丰单号

@@ -846,5 +846,28 @@ public class ConstantEnum {
         }
     }
 
+    /**
+     * 单位1公斤2吨3立方米
+     */
+    public enum EUnit {
+        公斤(1),
+        吨(2),
+        立方米(3);
+        private int label;
+
+        EUnit(int label) {
+            this.setLabel(label);
+        }
+
+        //省略getter、setter方法
+
+        public int getLabel() {
+            return label;
+        }
+
+        public void setLabel(int label) {
+            this.label = label;
+        }
+    }
 
 }
