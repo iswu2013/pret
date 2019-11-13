@@ -74,7 +74,7 @@ public class PretServiceRouteController extends BaseManageController<PretService
                         }
                         areaBo.setLabel(pretAddress.getName());
                         areaBo.setValue(pretAddress.getId());
-                        areaBo.setServiceRouteOrginId(it.getServiceRouteOriginId());
+                        areaBo.setServiceRouteOriginId(it.getServiceRouteOriginId());
                         areaBo.setPrescription(it.getPrescription());
                         list.add(areaBo);
                     }
