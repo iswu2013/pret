@@ -23,10 +23,10 @@ import javax.persistence.*;
  * Copyright (c) 2019年 极客城堡
  */
 @Entity
-@Table(name = "pret_service_route_orgin")
+@Table(name = "pret_service_route_origin")
 @Excel("起运地")
 @Data
-public class PretServiceRouteOrgin extends VersionedAuditableIdEntity implements Serializable {
+public class PretServiceRouteOrigin extends VersionedAuditableIdEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

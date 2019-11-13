@@ -1,14 +1,5 @@
 package com.pret.open.entity.bo;
 
-import com.pret.common.VersionedAuditableIdEntity;
-import com.pret.open.entity.PretBillingInterval;
-import com.pret.open.entity.PretServiceRouteOrgin;
-import com.pret.open.entity.PretVender;
-import org.hibernate.annotations.GenericGenerator;
-
-import javax.persistence.*;
-import java.io.Serializable;
-
 /**
  * <p>Description: [pretmodel]</p>
  * Created on 2019年09月15日

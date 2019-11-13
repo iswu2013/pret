@@ -6,13 +6,13 @@ import com.pret.common.constant.ConstantEnum;
 import com.pret.common.exception.FebsException;
 import com.pret.open.entity.PretAddress;
 import com.pret.open.entity.PretServiceRouteItem;
-import com.pret.open.entity.PretServiceRouteOrgin;
+import com.pret.open.entity.PretServiceRouteOrigin;
 import com.pret.open.entity.PretVender;
 import com.pret.open.entity.bo.AreaBo;
 import com.pret.open.entity.vo.PretServiceRouteItemVo;
 import com.pret.open.repository.PretAddressRepository;
 import com.pret.open.repository.PretServiceRouteItemRepository;
-import com.pret.open.repository.PretServiceRouteOrginRepository;
+import com.pret.open.repository.PretServiceRouteOriginRepository;
 import com.pret.open.repository.PretVenderRepository;
 import com.pret.open.service.PretServiceRouteItemService;
 import lombok.extern.slf4j.Slf4j;
@@ -38,7 +38,7 @@ public class PretServiceRouteItemController extends BaseManageController<PretSer
     @Autowired
     private PretServiceRouteItemRepository pretServiceRouteItemRepository;
     @Autowired
-    private PretServiceRouteOrginRepository pretServiceRouteOrginRepository;
+    private PretServiceRouteOriginRepository pretServiceRouteOrginRepository;
     @Autowired
     private PretAddressRepository pretAddressRepository;
     @Autowired
@@ -114,7 +114,7 @@ public class PretServiceRouteItemController extends BaseManageController<PretSer
         Page<PretServiceRouteItem> page = this.service.page(request);
         for (PretServiceRouteItem route : page.getContent()) {
             String startEndName = StringUtils.EMPTY;
-            PretServiceRouteOrgin pretServiceRouteOrgin = pretServiceRouteOrginRepository.findById(route.getServiceRouteOrginId()).get();
+            PretServiceRouteOrigin pretServiceRouteOrgin = pretServiceRouteOrginRepository.findById(route.getServiceRouteOrginId()).get();
             startEndName += pretServiceRouteOrgin.getName() + "-";
             PretAddress pretAddress = pretAddressRepository.findById(route.getAddressId()).get();
             if (pretAddress.getLevels() == ConstantEnum.AreaLevelEnum.区县.getLabel()) {
@@ -192,7 +192,7 @@ public class PretServiceRouteItemController extends BaseManageController<PretSer
         List<PretServiceRouteItem> serviceRouteItemList = pretServiceRouteItemRepository.findByIdIn(idList);
         for (PretServiceRouteItem route : serviceRouteItemList) {
             String startEndName = StringUtils.EMPTY;
-            PretServiceRouteOrgin pretServiceRouteOrgin = pretServiceRouteOrginRepository.findById(route.getServiceRouteOrginId()).get();
+            PretServiceRouteOrigin pretServiceRouteOrgin = pretServiceRouteOrginRepository.findById(route.getServiceRouteOrginId()).get();
             startEndName += pretServiceRouteOrgin.getName() + "-";
             PretAddress pretAddress = pretAddressRepository.findById(route.getAddressId()).get();
             if (pretAddress.getLevels() == ConstantEnum.AreaLevelEnum.区县.getLabel()) {

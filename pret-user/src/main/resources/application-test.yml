@@ -21,9 +21,9 @@ spring:
         # 数据源-1，名称为 primary
         primary:
           username: root
-          password: AdMin@2019
+          password: wujinsong
           driver-class-name: com.mysql.cj.jdbc.Driver
-          url: jdbc:mysql://192.168.0.123:3306/db_pret?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+          url: jdbc:mysql://localhost:3306/db_pret2?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
         # 数据源-2，名称为 test
 #        test:
 #          username: root

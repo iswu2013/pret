@@ -7,9 +7,9 @@ spring:
     default-property-inclusion: non_null
   datasource:
     name: test
-    url: jdbc:mysql://192.168.0.123:3306/db_pret?useUnicode=true&characterEncoding=UTF8&serverTimezone=GMT%2B8
+    url: jdbc:mysql://localhost:3306/db_pret2?useUnicode=true&characterEncoding=UTF8&serverTimezone=GMT%2B8
     username: root
-    password: AdMin@2019
+    password: wujinsong
     driver-class-name: com.mysql.jdbc.Driver
   jpa:
     database: mysql

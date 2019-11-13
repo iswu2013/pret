@@ -1,7 +1,7 @@
 package com.pret.open.repository;
 
 import com.pret.common.repository.BaseRepository;
-import com.pret.open.entity.PretServiceRouteOrgin;
+import com.pret.open.entity.PretServiceRouteOrigin;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import java.util.List;
  * @version 1.0 
  * Copyright (c) 2019年 极客城堡
  */
-public interface PretServiceRouteOrginRepository extends BaseRepository<PretServiceRouteOrgin>{
+public interface PretServiceRouteOriginRepository extends BaseRepository<PretServiceRouteOrigin>{
     /* *
      * 功能描述: 根据id查询
      * 〈〉
@@ -21,5 +21,5 @@ public interface PretServiceRouteOrginRepository extends BaseRepository<PretServ
             * @Author: wujingsong
             * @Date: 2019/10/18  1:13 下午
      */
-    List<PretServiceRouteOrgin> findByIdIn(List<String> idList);
+    List<PretServiceRouteOrigin> findByIdIn(List<String> idList);
 }

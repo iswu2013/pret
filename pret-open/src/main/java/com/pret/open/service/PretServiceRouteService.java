@@ -3,29 +3,22 @@ package com.pret.open.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.common.base.Joiner;
 import com.google.common.reflect.TypeToken;
-import com.pret.api.vo.ResBody;
 import com.pret.common.constant.CommonConstants;
 import com.pret.common.constant.ConstantEnum;
-import com.pret.common.constant.Constants;
 import com.pret.common.util.BeanUtilsExtended;
-import com.pret.open.entity.PretAddress;
 import com.pret.open.entity.PretServiceRoute;
 import com.pret.open.entity.PretServiceRouteItem;
-import com.pret.open.entity.PretServiceRouteOrgin;
+import com.pret.open.entity.PretServiceRouteOrigin;
 import com.pret.open.entity.bo.PretServiceRouteBo;
 import com.pret.open.entity.bo.PretServiceRouteItemBo;
 import com.pret.open.entity.vo.PretServiceRouteVo;
 import com.pret.open.repository.PretAddressRepository;
 import com.pret.open.repository.PretServiceRouteItemRepository;
-import com.pret.open.repository.PretServiceRouteOrginRepository;
-import com.pret.open.vo.req.*;
+import com.pret.open.repository.PretServiceRouteOriginRepository;
 import com.pret.open.repository.PretServiceRouteRepository;
 import com.pret.api.service.impl.BaseServiceImpl;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -46,7 +39,7 @@ public class PretServiceRouteService extends BaseServiceImpl<PretServiceRouteRep
     @Autowired
     private PretServiceRouteItemRepository pretServiceRouteItemRepository;
     @Autowired
-    private PretServiceRouteOrginRepository pretServiceRouteOrginRepository;
+    private PretServiceRouteOriginRepository pretServiceRouteOrginRepository;
 
     /* *
      * 功能描述: 新增服务线路
@@ -68,7 +61,7 @@ public class PretServiceRouteService extends BaseServiceImpl<PretServiceRouteRep
         for (PretServiceRouteItemBo itemBo : list) {
             // 线路明细
             PretServiceRouteItem item = new PretServiceRouteItem();
-            PretServiceRouteOrgin pretServiceRouteOrgin = pretServiceRouteOrginRepository.findById(itemBo.getServiceRouteOrginId()).get();
+            PretServiceRouteOrigin pretServiceRouteOrgin = pretServiceRouteOrginRepository.findById(itemBo.getServiceRouteOrginId()).get();
             item.setCode(pretServiceRouteOrgin.getCode());
             item.setVenderId(bo.getVenderId());
             item.setAddressId(itemBo.getValue());
@@ -114,7 +107,7 @@ public class PretServiceRouteService extends BaseServiceImpl<PretServiceRouteRep
         for (PretServiceRouteItemBo itemBo : list) {
             // 线路明细
             PretServiceRouteItem item = new PretServiceRouteItem();
-            PretServiceRouteOrgin pretServiceRouteOrgin = pretServiceRouteOrginRepository.findById(itemBo.getServiceRouteOrginId()).get();
+            PretServiceRouteOrigin pretServiceRouteOrgin = pretServiceRouteOrginRepository.findById(itemBo.getServiceRouteOrginId()).get();
             item.setCode(pretServiceRouteOrgin.getCode());
             item.setVenderId(bo.getVenderId());
             item.setAddressId(itemBo.getValue());
