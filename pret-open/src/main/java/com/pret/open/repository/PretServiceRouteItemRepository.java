@@ -22,7 +22,7 @@ public interface PretServiceRouteItemRepository extends BaseRepository<PretServi
      * @Author: wujingsong
      * @Date: 2019/10/24  9:26 上午
      */
-    PretServiceRouteItem findByServiceRouteIdAndServiceRouteOrginIdAndAddressIdAndS(String serviceRouteId, String serviceRouteOrginId, String addressId, int s);
+    PretServiceRouteItem findByServiceRouteIdAndServiceRouteOriginIdAndAddressIdAndS(String serviceRouteId, String serviceRouteOrginId, String addressId, int s);
 
     /* *
      * 功能描述: 根据serviceLineId查找
@@ -43,6 +43,7 @@ public interface PretServiceRouteItemRepository extends BaseRepository<PretServi
      * @Date: 2019/11/8  10:14 上午
      */
     List<PretServiceRouteItem> findByServiceRouteOrginIdAndAddressIdAndS(String serviceRouteOrginId, String addressId, Integer s);
+
 
     /* *
      * 功能描述: 根据code查找

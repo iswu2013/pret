@@ -139,7 +139,7 @@ public class PretQuotationService extends BaseServiceImpl<PretQuotationRepositor
                         item.setCode(pretServiceRouteItem.getCode());
                         item.setQuotation(new BigDecimal(map.getValue().toString()));
                         item.setServiceRouteId(pretServiceRouteItem.getServiceRouteId());
-                        item.setServiceRouteOriginId(pretServiceRouteItem.getServiceRouteOrginId());
+                        item.setServiceRouteOriginId(pretServiceRouteItem.getServiceRouteOriginId());
                         pretQuotationItemRepository.save(item);
 
 
@@ -166,7 +166,7 @@ public class PretQuotationService extends BaseServiceImpl<PretQuotationRepositor
                         item.setCode(pretServiceRouteItem.getCode());
                         item.setQuotation(new BigDecimal(map.getValue().toString()));
                         item.setServiceRouteId(pretServiceRouteItem.getServiceRouteId());
-                        item.setServiceRouteOriginId(pretServiceRouteItem.getServiceRouteOrginId());
+                        item.setServiceRouteOriginId(pretServiceRouteItem.getServiceRouteOriginId());
                         pretQuotationItemRepository.save(item);
 
 

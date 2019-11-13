@@ -1,6 +1,8 @@
 package com.pret.open.entity.vo;
 
 import com.pret.api.vo.PageFormVo;
+import lombok.Data;
+
 import java.io.Serializable;
 /** 
  * <p>Description: [pretmodel]</p>
@@ -9,23 +11,8 @@ import java.io.Serializable;
  * @version 1.0 
  * Copyright (c) 2019年 极客城堡
  */
+@Data
 public class PretPickUpPlanItemVo extends PageFormVo implements Serializable{
     private long bw$createTimeLong;
     private long createTimeLongEnd;
-
-    public long getBw$createTimeLong() {
-        return bw$createTimeLong;
-    }
-
-    public void setBw$createTimeLong(long bw$createTimeLong) {
-        this.bw$createTimeLong = bw$createTimeLong;
-    }
-
-    public long getCreateTimeLongEnd() {
-        return createTimeLongEnd;
-    }
-
-    public void setCreateTimeLongEnd(long createTimeLongEnd) {
-        this.createTimeLongEnd = createTimeLongEnd;
-    }
 }

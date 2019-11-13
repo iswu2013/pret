@@ -1,6 +1,7 @@
 package com.pret.open.entity.vo;
 
 import com.pret.api.vo.PageFormVo;
+import lombok.Data;
 
 import java.io.Serializable;
 
@@ -12,6 +13,7 @@ import java.io.Serializable;
  * @version 1.0
  * Copyright (c) 2019年 极客城堡
  */
+@Data
 public class PretTransPlanVo extends PageFormVo implements Serializable {
     private String eq$venderId;
     private long bw$createTimeLong;
@@ -19,52 +21,4 @@ public class PretTransPlanVo extends PageFormVo implements Serializable {
     private String eq$customerId;
     private int eq$status = -1;
     private String eq$pickupFactoryCd;
-
-    public String getEq$venderId() {
-        return eq$venderId;
-    }
-
-    public void setEq$venderId(String eq$venderId) {
-        this.eq$venderId = eq$venderId;
-    }
-
-    public long getBw$createTimeLong() {
-        return bw$createTimeLong;
-    }
-
-    public void setBw$createTimeLong(long bw$createTimeLong) {
-        this.bw$createTimeLong = bw$createTimeLong;
-    }
-
-    public long getCreateTimeLongEnd() {
-        return createTimeLongEnd;
-    }
-
-    public void setCreateTimeLongEnd(long createTimeLongEnd) {
-        this.createTimeLongEnd = createTimeLongEnd;
-    }
-
-    public String getEq$customerId() {
-        return eq$customerId;
-    }
-
-    public void setEq$customerId(String eq$customerId) {
-        this.eq$customerId = eq$customerId;
-    }
-
-    public int getEq$status() {
-        return eq$status;
-    }
-
-    public void setEq$status(int eq$status) {
-        this.eq$status = eq$status;
-    }
-
-    public String getEq$pickupFactoryCd() {
-        return eq$pickupFactoryCd;
-    }
-
-    public void setEq$pickupFactoryCd(String eq$pickupFactoryCd) {
-        this.eq$pickupFactoryCd = eq$pickupFactoryCd;
-    }
 }

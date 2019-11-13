@@ -56,7 +56,7 @@ public class PretServiceRouteItem extends VersionedAuditableIdEntity implements 
      * 起运地id
      */
     @ExcelField(value = "起运地id")
-    private String serviceRouteOrginId;
+    private String serviceRouteOriginId;
 
     /**
      * 起运地地址id

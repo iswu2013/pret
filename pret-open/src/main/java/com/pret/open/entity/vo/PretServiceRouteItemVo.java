@@ -1,6 +1,7 @@
 package com.pret.open.entity.vo;
 
 import com.pret.api.vo.PageFormVo;
+import lombok.Data;
 
 import java.io.Serializable;
 
@@ -12,6 +13,7 @@ import java.io.Serializable;
  * @version 1.0
  * Copyright (c) 2019年 极客城堡
  */
+@Data
 public class PretServiceRouteItemVo extends PageFormVo implements Serializable {
     private String eq$serviceRouteOrginId;
     private long bw$createTimeLong;
@@ -25,77 +27,4 @@ public class PretServiceRouteItemVo extends PageFormVo implements Serializable {
      * 供应商类别
      */
     private Integer type;
-
-
-    public String getEq$serviceRouteOrginId() {
-        return eq$serviceRouteOrginId;
-    }
-
-    public void setEq$serviceRouteOrginId(String eq$serviceRouteOrginId) {
-        this.eq$serviceRouteOrginId = eq$serviceRouteOrginId;
-    }
-
-    public long getBw$createTimeLong() {
-        return bw$createTimeLong;
-    }
-
-    public void setBw$createTimeLong(long bw$createTimeLong) {
-        this.bw$createTimeLong = bw$createTimeLong;
-    }
-
-    public long getCreateTimeLongEnd() {
-        return createTimeLongEnd;
-    }
-
-    public void setCreateTimeLongEnd(long createTimeLongEnd) {
-        this.createTimeLongEnd = createTimeLongEnd;
-    }
-
-    public String getEq$venderId() {
-        return eq$venderId;
-    }
-
-    public void setEq$venderId(String eq$venderId) {
-        this.eq$venderId = eq$venderId;
-    }
-
-    public String getEq$orginAddressId() {
-        return eq$orginAddressId;
-    }
-
-    public void setEq$orginAddressId(String eq$orginAddressId) {
-        this.eq$orginAddressId = eq$orginAddressId;
-    }
-
-    public String getEq$addressId() {
-        return eq$addressId;
-    }
-
-    public void setEq$addressId(String eq$addressId) {
-        this.eq$addressId = eq$addressId;
-    }
-
-    public float getBw$lowerLimit() {
-        return bw$lowerLimit;
-    }
-
-    public void setBw$lowerLimit(float bw$lowerLimit) {
-        this.bw$lowerLimit = bw$lowerLimit;
-    }
-
-    public float getLowerLimitEnd() {
-        return lowerLimitEnd;
-    }
-
-    public void setLowerLimitEnd(float lowerLimitEnd) {
-        this.lowerLimitEnd = lowerLimitEnd;
-    }
-
-    public Integer getType() {
-        return type;
-    }
-
-    public void setType(Integer type) {
-        this.type = type;
-    }
 }

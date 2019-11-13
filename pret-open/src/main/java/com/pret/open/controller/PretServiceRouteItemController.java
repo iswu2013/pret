@@ -98,7 +98,7 @@ public class PretServiceRouteItemController extends BaseManageController<PretSer
                     }
                     areaBo.setLabel(pretAddress.getName());
                     areaBo.setValue(pretAddress.getId());
-                    areaBo.setServiceRouteOrginId(item.getServiceRouteOrginId());
+                    areaBo.setServiceRouteOrginId(item.getServiceRouteOriginId());
                     areaBo.setPrescription(item.getPrescription());
                     list.add(areaBo);
                 }
@@ -114,7 +114,7 @@ public class PretServiceRouteItemController extends BaseManageController<PretSer
         Page<PretServiceRouteItem> page = this.service.page(request);
         for (PretServiceRouteItem route : page.getContent()) {
             String startEndName = StringUtils.EMPTY;
-            PretServiceRouteOrigin pretServiceRouteOrgin = pretServiceRouteOrginRepository.findById(route.getServiceRouteOrginId()).get();
+            PretServiceRouteOrigin pretServiceRouteOrgin = pretServiceRouteOrginRepository.findById(route.getServiceRouteOriginId()).get();
             startEndName += pretServiceRouteOrgin.getName() + "-";
             PretAddress pretAddress = pretAddressRepository.findById(route.getAddressId()).get();
             if (pretAddress.getLevels() == ConstantEnum.AreaLevelEnum.区县.getLabel()) {
@@ -192,7 +192,7 @@ public class PretServiceRouteItemController extends BaseManageController<PretSer
         List<PretServiceRouteItem> serviceRouteItemList = pretServiceRouteItemRepository.findByIdIn(idList);
         for (PretServiceRouteItem route : serviceRouteItemList) {
             String startEndName = StringUtils.EMPTY;
-            PretServiceRouteOrigin pretServiceRouteOrgin = pretServiceRouteOrginRepository.findById(route.getServiceRouteOrginId()).get();
+            PretServiceRouteOrigin pretServiceRouteOrgin = pretServiceRouteOrginRepository.findById(route.getServiceRouteOriginId()).get();
             startEndName += pretServiceRouteOrgin.getName() + "-";
             PretAddress pretAddress = pretAddressRepository.findById(route.getAddressId()).get();
             if (pretAddress.getLevels() == ConstantEnum.AreaLevelEnum.区县.getLabel()) {
