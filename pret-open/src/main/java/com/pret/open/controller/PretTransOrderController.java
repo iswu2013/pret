@@ -5,9 +5,11 @@ import com.pret.common.annotation.Log;
 import com.pret.common.constant.ConstantEnum;
 import com.pret.common.constant.Constants;
 import com.pret.common.exception.FebsException;
-import com.pret.open.entity.*;
+import com.pret.open.entity.PretCustomer;
+import com.pret.open.entity.PretGoods;
+import com.pret.open.entity.PretTransOrder;
+import com.pret.open.entity.PretVender;
 import com.pret.open.entity.bo.PretMTransOrderBo;
-import com.pret.open.entity.bo.PretTransPlanBo;
 import com.pret.open.entity.vo.PretTransOrderVo;
 import com.pret.open.repository.PretCustomerRepository;
 import com.pret.open.repository.PretGoodsRepository;
@@ -40,18 +42,6 @@ public class PretTransOrderController extends BaseManageController<PretTransOrde
     @Autowired
     private PretTransOrderRepository pretTransOrderRepository;
 
-    @Log("查看")
-    @PostMapping("/view/{id}")
-    public PretTransOrder view(@PathVariable String id) throws FebsException {
-        try {
-            PretTransOrder item = this.service.findById(id).get();
-            return item;
-        } catch (Exception e) {
-            message = "查看失败";
-            throw new FebsException(message);
-        }
-    }
-
     @GetMapping
     @Override()
     public Map<String, Object> list(PretTransOrderVo request, PretTransOrder t) {
@@ -75,6 +65,18 @@ public class PretTransOrderController extends BaseManageController<PretTransOrde
         rspData.put("total", page.getTotalElements());
 
         return rspData;
+    }
+
+    @Log("查看")
+    @PostMapping("/view/{id}")
+    public PretTransOrder view(@PathVariable String id) throws FebsException {
+        try {
+            PretTransOrder item = this.service.findById(id).get();
+            return item;
+        } catch (Exception e) {
+            message = "查看失败";
+            throw new FebsException(message);
+        }
     }
 
     /* *
@@ -103,11 +105,11 @@ public class PretTransOrderController extends BaseManageController<PretTransOrde
         }
     }
 
-    @Log("查看")
+    @Log("分配供应商")
     @PostMapping("/allocateVender/{id}/{venderId}")
     public void allocateVender(@PathVariable String id, @PathVariable String venderId) throws FebsException {
         try {
-            this.service.allocateVender(id,venderId);
+            this.service.allocateVender(id, venderId);
         } catch (Exception e) {
             message = "查看失败";
             throw new FebsException(message);

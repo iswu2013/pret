@@ -30,6 +30,27 @@ public class PretTransFeeApplController extends BaseManageController<PretTransFe
     @Autowired
     private PretCustomerRepository pretCustomerRepository;
 
+    @GetMapping
+    @Override()
+    public Map<String, Object> list(PretTransFeeVo request, PretTransFee t) {
+        Page<PretTransFee> page = this.service.page(request);
+        for (PretTransFee transFee : page.getContent()) {
+            if (!StringUtils.isEmpty(transFee.getVenderId())) {
+                PretVender pretVender = pretVenderRepository.findById(transFee.getVenderId()).get();
+                transFee.setPretVender(pretVender);
+            }
+            if (!StringUtils.isEmpty(transFee.getCustomerId())) {
+                PretCustomer pretCustomer = pretCustomerRepository.findById(transFee.getCustomerId()).get();
+                transFee.setPretCustomer(pretCustomer);
+            }
+        }
+        Map<String, Object> rspData = new HashMap<>();
+        rspData.put("rows", page.getContent());
+        rspData.put("total", page.getTotalElements());
+
+        return rspData;
+    }
+
     @Log("查看")
     @PostMapping("/view/{id}")
     public PretTransFee view(@PathVariable String id) throws FebsException {
@@ -40,27 +61,6 @@ public class PretTransFeeApplController extends BaseManageController<PretTransFe
             message = "查看失败";
             throw new FebsException(message);
         }
-    }
-
-    @GetMapping
-    @Override()
-    public Map<String, Object> list(PretTransFeeVo request, PretTransFee t) {
-        Page<PretTransFee> page = this.service.page(request);
-        for (PretTransFee transFee : page.getContent()) {
-            if (!StringUtils.isEmpty(transFee.getVenderId())) {
-                PretVender pretVender = pretVenderRepository.findById(transFee.getVenderId()).get();
-                transFee.setPretVender(pretVender);
-            }
-            if(!StringUtils.isEmpty(transFee.getCustomerId())) {
-                PretCustomer pretCustomer = pretCustomerRepository.findById(transFee.getCustomerId()).get();
-                transFee.setPretCustomer(pretCustomer);
-            }
-        }
-        Map<String, Object> rspData = new HashMap<>();
-        rspData.put("rows", page.getContent());
-        rspData.put("total", page.getTotalElements());
-
-        return rspData;
     }
 
     @Log("费用申报")

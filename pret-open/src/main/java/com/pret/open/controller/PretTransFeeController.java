@@ -33,18 +33,6 @@ public class PretTransFeeController extends BaseManageController<PretTransFeeSer
     @Autowired
     private PretCustomerRepository pretCustomerRepository;
 
-    @Log("查看")
-    @PostMapping("/view/{id}")
-    public PretTransFee view(@PathVariable String id) throws FebsException {
-        try {
-            PretTransFee item = this.service.findById(id).get();
-            return item;
-        } catch (Exception e) {
-            message = "查看失败";
-            throw new FebsException(message);
-        }
-    }
-
     @GetMapping
     @Override()
     public Map<String, Object> list(PretTransFeeVo request, PretTransFee t) {
@@ -70,6 +58,18 @@ public class PretTransFeeController extends BaseManageController<PretTransFeeSer
         rspData.put("total", page.getTotalElements());
 
         return rspData;
+    }
+
+    @Log("查看")
+    @PostMapping("/view/{id}")
+    public PretTransFee view(@PathVariable String id) throws FebsException {
+        try {
+            PretTransFee item = this.service.findById(id).get();
+            return item;
+        } catch (Exception e) {
+            message = "查看失败";
+            throw new FebsException(message);
+        }
     }
 
 }

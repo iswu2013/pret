@@ -31,18 +31,6 @@ public class PretTransStatementController extends BaseManageController<PretTrans
     @Autowired
     private PretVenderRepository pretVenderRepository;
 
-    @Log("查看")
-    @PostMapping("/view/{id}")
-    public PretTransStatement view(@PathVariable String id) throws FebsException {
-        try {
-            PretTransStatement item = this.service.findById(id).get();
-            return item;
-        } catch (Exception e) {
-            message = "查看失败";
-            throw new FebsException(message);
-        }
-    }
-
     @GetMapping
     @Override()
     public Map<String, Object> list(PretTransStatementVo request, PretTransStatement t) {
@@ -58,6 +46,18 @@ public class PretTransStatementController extends BaseManageController<PretTrans
         rspData.put("total", page.getTotalElements());
 
         return rspData;
+    }
+
+    @Log("查看")
+    @PostMapping("/view/{id}")
+    public PretTransStatement view(@PathVariable String id) throws FebsException {
+        try {
+            PretTransStatement item = this.service.findById(id).get();
+            return item;
+        } catch (Exception e) {
+            message = "查看失败";
+            throw new FebsException(message);
+        }
     }
 
     @Log("生成对账作业")

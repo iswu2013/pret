@@ -35,18 +35,6 @@ public class PretTransPlanController extends BaseManageController<PretTransPlanS
     @Autowired
     private PretTransOrderRepository pretTransOrderRepository;
 
-    @Log("查看")
-    @PostMapping("/view/{id}")
-    public PretTransPlan view(@PathVariable String id) throws FebsException {
-        try {
-            PretTransPlan item = this.service.findById(id).get();
-            return item;
-        } catch (Exception e) {
-            message = "查看失败";
-            throw new FebsException(message);
-        }
-    }
-
     @GetMapping
     @Override()
     public Map<String, Object> list(PretTransPlanVo request, PretTransPlan t) {
@@ -74,6 +62,17 @@ public class PretTransPlanController extends BaseManageController<PretTransPlanS
         return rspData;
     }
 
+    @Log("查看")
+    @PostMapping("/view/{id}")
+    public PretTransPlan view(@PathVariable String id) throws FebsException {
+        try {
+            PretTransPlan item = this.service.findById(id).get();
+            return item;
+        } catch (Exception e) {
+            message = "查看失败";
+            throw new FebsException(message);
+        }
+    }
 
     @Log("生成运输计划")
     @PostMapping("/pretTransPlanAdd")

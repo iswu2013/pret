@@ -1,26 +1,21 @@
 package com.pret.open.controller;
 
 import com.pret.api.rest.BaseManageController;
-import com.pret.api.vo.LabelValue;
 import com.pret.common.annotation.Log;
 import com.pret.common.constant.ConstantEnum;
 import com.pret.common.exception.FebsException;
-import com.pret.common.msg.ListRestResponse;
-import com.pret.open.entity.*;
+import com.pret.open.entity.PretBillingIntervalItem;
 import com.pret.open.entity.vo.PretBillingIntervalItemVo;
 import com.pret.open.repository.PretBillingIntervalItemRepository;
 import com.pret.open.repository.PretServiceRouteItemRepository;
 import com.pret.open.repository.PretServiceRouteRepository;
 import com.pret.open.service.PretBillingIntervalItemService;
 import lombok.extern.slf4j.Slf4j;
-import net.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Validated
@@ -44,31 +39,6 @@ public class PretBillingIntervalItemController extends BaseManageController<Pret
             message = "查看失败";
             throw new FebsException(message);
         }
-    }
-
-    /* *
-     * 功能描述: 根据billingIntervalId查找
-     * 〈〉
-     * @Param: [billingIntervalId]
-     * @Return: java.util.List<com.pret.open.entity.PretBillingIntervalItem>
-     * @Author: wujingsong
-     * @Date: 2019/10/28  11:41 下午
-     */
-    @RequestMapping(value = "/getByServiceRouteItemId/{id}", method = RequestMethod.GET)
-    @ResponseBody
-    public List<PretBillingIntervalItem> getByServiceRouteItemId(@PathVariable String id) {
-        List<PretBillingIntervalItem> pretBillingIntervalItemList = null;
-        try {
-            Optional<PretServiceRouteItem> pretServiceRouteItemOptional = this.pretServiceRouteItemRepository.findById(id);
-            if (pretServiceRouteItemOptional.isPresent()) {
-                PretServiceRoute pretServiceRoute = this.pretServiceRouteRepository.findById(pretServiceRouteItemOptional.get().getServiceRouteId()).get();
-                return pretBillingIntervalItemList;
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-
-        return pretBillingIntervalItemList;
     }
 
     /* *

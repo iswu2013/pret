@@ -1,16 +1,16 @@
 package com.pret.open.controller;
 
-import com.google.common.base.Joiner;
 import com.pret.api.rest.BaseManageController;
 import com.pret.common.annotation.Log;
 import com.pret.common.exception.FebsException;
-import com.pret.common.util.StringUtil;
-import com.pret.open.entity.*;
+import com.pret.open.entity.PretBillingInterval;
+import com.pret.open.entity.PretQuotation;
+import com.pret.open.entity.PretQuotationItem;
+import com.pret.open.entity.PretVender;
 import com.pret.open.entity.bo.PretQuotationBo;
 import com.pret.open.entity.vo.PretQuotationVo;
 import com.pret.open.repository.PretBillingIntervalRepository;
 import com.pret.open.repository.PretQuotationItemRepository;
-import com.pret.open.repository.PretServiceRouteRepository;
 import com.pret.open.repository.PretVenderRepository;
 import com.pret.open.service.PretQuotationService;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +20,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,8 +41,6 @@ public class PretQuotationController extends BaseManageController<PretQuotationS
     private PretQuotationItemRepository pretQuotationItemRepository;
     @Autowired
     private PretVenderRepository pretVenderRepository;
-    @Autowired
-    private PretServiceRouteRepository pretServiceRouteRepository;
     @Autowired
     private PretBillingIntervalRepository pretBillingIntervalRepository;
 

@@ -6,18 +6,11 @@ import com.pret.common.constant.ConstantEnum;
 import com.pret.common.exception.FebsException;
 import com.pret.open.entity.PretBillingInterval;
 import com.pret.open.entity.PretBillingIntervalItem;
-import com.pret.open.entity.PretServiceRoute;
-import com.pret.open.entity.PretVender;
 import com.pret.open.entity.bo.PretBillingIntervalBo;
-import com.pret.open.entity.bo.PretBillingIntervalItemBo;
-import com.pret.open.entity.bo.PretServiceRouteBo;
 import com.pret.open.entity.vo.PretBillingIntervalVo;
 import com.pret.open.repository.PretBillingIntervalItemRepository;
-import com.pret.open.repository.PretServiceRouteRepository;
-import com.pret.open.repository.PretVenderRepository;
 import com.pret.open.service.PretBillingIntervalService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
@@ -33,11 +26,7 @@ import java.util.Map;
 @RequestMapping("pretBillingInterval")
 public class PretBillingIntervalController extends BaseManageController<PretBillingIntervalService, PretBillingInterval, PretBillingIntervalVo> {
     @Autowired
-    private PretVenderRepository pretVenderRepository;
-    @Autowired
     private PretBillingIntervalItemRepository pretBillingIntervalItemRepository;
-    @Autowired
-    private PretServiceRouteRepository pretServiceRouteRepository;
 
     @GetMapping
     @Override()

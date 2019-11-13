@@ -31,32 +31,18 @@ import java.util.Map;
 @RequestMapping("pretPickUpPlan")
 public class PretPickUpPlanController extends BaseManageController<PretPickUpPlanService, PretPickUpPlan, PretPickUpPlanVo> {
     @Autowired
-    private PretTransOrderRepository transOrderRepository;
+    private PretTransOrderRepository pretTransOrderRepository;
     @Autowired
     private PretVenderRepository pretVenderRepository;
     @Autowired
     private PretDriverRepository pretDriverRepository;
-
-    @Log("查看")
-    @PostMapping("/view/{id}")
-    public PretPickUpPlan view(@PathVariable String id) throws FebsException {
-        try {
-            PretPickUpPlan item = this.service.findById(id).get();
-            List<PretTransOrder> pretTransOrderList = transOrderRepository.findByTransPlanIdAndS(item.getId(), ConstantEnum.S.N.getLabel());
-            item.setTransOrderList(pretTransOrderList);
-            return item;
-        } catch (Exception e) {
-            message = "查看失败";
-            throw new FebsException(message);
-        }
-    }
 
     @GetMapping
     @Override()
     public Map<String, Object> list(PretPickUpPlanVo request, PretPickUpPlan t) {
         Page<PretPickUpPlan> page = this.service.page(request);
         for (PretPickUpPlan pickUpPlan : page.getContent()) {
-            List<PretTransOrder> transOrderList = transOrderRepository.findByPickUpPlanId(pickUpPlan.getId());
+            List<PretTransOrder> transOrderList = pretTransOrderRepository.findByPickUpPlanId(pickUpPlan.getId());
             pickUpPlan.setTransOrderList(transOrderList);
             if (!StringUtils.isEmpty(pickUpPlan.getVenderId())) {
                 PretVender pretVender = pretVenderRepository.findById(pickUpPlan.getVenderId()).get();
@@ -72,6 +58,20 @@ public class PretPickUpPlanController extends BaseManageController<PretPickUpPla
         rspData.put("total", page.getTotalElements());
 
         return rspData;
+    }
+
+    @Log("查看")
+    @PostMapping("/view/{id}")
+    public PretPickUpPlan view(@PathVariable String id) throws FebsException {
+        try {
+            PretPickUpPlan item = this.service.findById(id).get();
+            List<PretTransOrder> pretTransOrderList = pretTransOrderRepository.findByTransPlanIdAndS(item.getId(), ConstantEnum.S.N.getLabel());
+            item.setTransOrderList(pretTransOrderList);
+            return item;
+        } catch (Exception e) {
+            message = "查看失败";
+            throw new FebsException(message);
+        }
     }
 
     @Log("生成提货计划")

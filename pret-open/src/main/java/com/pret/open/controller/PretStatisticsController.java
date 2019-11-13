@@ -22,8 +22,6 @@ import java.util.List;
 @RequestMapping("statistics")
 public class PretStatisticsController {
     @Autowired
-    private PretAddressRepository pretAddressRepository;
-    @Autowired
     private PretTransOrderRepository pretTransOrderRepository;
     @Autowired
     private PretTransExceptionRepository pretTransExceptionRepository;

@@ -10,7 +10,6 @@ import com.pret.open.entity.vo.PretAddressVo;
 import com.pret.open.repository.PretAddressRepository;
 import com.pret.open.service.PretAddressService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +29,7 @@ public class PretAddressController extends BaseManageController<PretAddressServi
     private PretAddressRepository pretAddressRepository;
 
     /* *
-     * 功能描述: 查找全部地址
+     * 功能描述: 查找全部省份
      * 〈〉
      * @Param: []
      * @Return: java.util.List<com.pret.open.entity.PretAddress>
@@ -41,7 +40,7 @@ public class PretAddressController extends BaseManageController<PretAddressServi
     public List<PretAddressBo> getAll() {
         List<PretAddressBo> pretAddressBoList = new ArrayList<>();
 
-        List<PretAddress> pretAddressList = pretAddressRepository.findByLevels(1);
+        List<PretAddress> pretAddressList = pretAddressRepository.findByLevels(ConstantEnum.AreaLevelEnum.省.getLabel());
         for (PretAddress pretAddress : pretAddressList) {
             PretAddressBo pretAddressBo = new PretAddressBo();
             pretAddressBo.setFirstName(pretAddress.getName());
@@ -76,6 +75,7 @@ public class PretAddressController extends BaseManageController<PretAddressServi
     @ResponseBody
     public ListRestResponse<List<LabelValue>> getProvince() {
         ListRestResponse<List<LabelValue>> retVo = new ListRestResponse<>();
+
         List<PretAddress> areaList = this.pretAddressRepository.findByLevelsAndS(ConstantEnum.AreaLevelEnum.省.getLabel(), ConstantEnum.S.N.getLabel());
         List<LabelValue> labelValueList = new ArrayList<>();
         this.getLV(areaList, labelValueList);
@@ -125,8 +125,8 @@ public class PretAddressController extends BaseManageController<PretAddressServi
     @ResponseBody
     public ListRestResponse<List<LabelValue>> getByParentId(String id) {
         ListRestResponse<List<LabelValue>> retVo = new ListRestResponse<>();
-        List<LabelValue> labelValueList = new ArrayList<>();
 
+        List<LabelValue> labelValueList = new ArrayList<>();
         PretAddress pretAddress = pretAddressRepository.findById(id).get();
         if (pretAddress.getName().equals(ConstantEnum.AddressEnum.全省.name()) && pretAddress.getLevels() == ConstantEnum.AreaLevelEnum.市.getLabel()) {
             PretAddress address = pretAddressRepository.findById(pretAddress.getParentId()).get();
@@ -139,7 +139,6 @@ public class PretAddressController extends BaseManageController<PretAddressServi
             List<PretAddress> areaList = pretAddressRepository.findByParentIdAndSOrderByAddsDesc(id, ConstantEnum.S.N.getLabel());
             this.getLV(areaList, labelValueList);
         }
-
         retVo.setResult(labelValueList);
 
         return retVo;
@@ -149,10 +148,10 @@ public class PretAddressController extends BaseManageController<PretAddressServi
     @ResponseBody
     public ListRestResponse<List<LabelValue>> getByParentIdNoAdd(String id) {
         ListRestResponse<List<LabelValue>> retVo = new ListRestResponse<>();
+
         List<LabelValue> labelValueList = new ArrayList<>();
         List<PretAddress> areaList = pretAddressRepository.findByParentIdAndAddsAndS(id, 0, ConstantEnum.S.N.getLabel());
         this.getLV(areaList, labelValueList);
-
         retVo.setResult(labelValueList);
 
         return retVo;

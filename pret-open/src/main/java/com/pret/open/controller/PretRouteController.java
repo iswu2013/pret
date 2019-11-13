@@ -68,7 +68,7 @@ public class PretRouteController extends BaseManageController<PretRouteService, 
     }
 
     /* *
-     * 功能描述: <br>
+     * 功能描述: 获取快递轨迹
      * 〈〉
      * @Param: [expressCode, transPlanId]
      * @Return: java.util.List<com.pret.open.entity.PretRoute>

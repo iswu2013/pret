@@ -5,7 +5,6 @@ import com.pret.common.annotation.Log;
 import com.pret.common.constant.ConstantEnum;
 import com.pret.common.exception.FebsException;
 import com.pret.open.entity.PretAddress;
-import com.pret.open.entity.PretBillingIntervalItem;
 import com.pret.open.entity.PretTransTrajectory;
 import com.pret.open.entity.vo.PretTransTrajectoryVo;
 import com.pret.open.repository.PretAddressRepository;
