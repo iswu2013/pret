@@ -45,8 +45,11 @@ public class PretServiceRouteOrginController extends BaseManageController<PretSe
             PretServiceRouteOrgin item = this.service.findById(id).get();
             if (!StringUtils.isEmpty(item.getAddressId())) {
                 PretAddress area = pretAddressRepository.findById(item.getAddressId()).get();
+                item.setNowArea(area.getId());
                 PretAddress city = pretAddressRepository.findById(area.getParentId()).get();
+                item.setNowCity(city.getId());
                 PretAddress province = pretAddressRepository.findById(city.getParentId()).get();
+                item.setNowProvince(province.getId());
                 item.setFullAddress(province.getName() + city.getName() + area.getName() + item.getDetail());
             }
             return item;

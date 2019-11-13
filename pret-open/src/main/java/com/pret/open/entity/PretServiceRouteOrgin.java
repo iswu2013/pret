@@ -9,12 +9,13 @@ import javax.persistence.Id;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.wuwenze.poi.annotation.Excel;
 import com.wuwenze.poi.annotation.ExcelField;
+import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
 /**
- * <p>Description: [pretmodel]</p>
+ * <p>Description: 起运地</p>
  * Created on 2019年09月15日
  *
  * @author <a href="mailto: 1037216275@qq.com">wujinsong</a>
@@ -24,6 +25,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "pret_service_route_orgin")
 @Excel("起运地")
+@Data
 public class PretServiceRouteOrgin extends VersionedAuditableIdEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -65,40 +67,13 @@ public class PretServiceRouteOrgin extends VersionedAuditableIdEntity implements
      */
     private String fullAddress;
 
+    private String nowProvince;
+
+    private String nowCity;
+
+    private String nowArea;
+
     // setter and getter
-
-
-    public String getAddressId() {
-        return addressId;
-    }
-
-    public void setAddressId(String addressId) {
-        this.addressId = addressId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getDetail() {
-        return detail;
-    }
-
-    public void setDetail(String detail) {
-        this.detail = detail;
-    }
 
     @Transient()
     public String getFullAddress() {
@@ -107,5 +82,32 @@ public class PretServiceRouteOrgin extends VersionedAuditableIdEntity implements
 
     public void setFullAddress(String fullAddress) {
         this.fullAddress = fullAddress;
+    }
+
+    @Transient()
+    public String getNowProvince() {
+        return nowProvince;
+    }
+
+    public void setNowProvince(String nowProvince) {
+        this.nowProvince = nowProvince;
+    }
+
+    @Transient()
+    public String getNowCity() {
+        return nowCity;
+    }
+
+    public void setNowCity(String nowCity) {
+        this.nowCity = nowCity;
+    }
+
+    @Transient()
+    public String getNowArea() {
+        return nowArea;
+    }
+
+    public void setNowArea(String nowArea) {
+        this.nowArea = nowArea;
     }
 }

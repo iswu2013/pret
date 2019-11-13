@@ -7,6 +7,7 @@ import com.pret.common.exception.FebsException;
 import com.pret.open.entity.PretAddress;
 import com.pret.open.entity.PretServiceRouteItem;
 import com.pret.open.entity.PretServiceRouteOrgin;
+import com.pret.open.entity.PretVender;
 import com.pret.open.entity.bo.AreaBo;
 import com.pret.open.entity.vo.PretServiceRouteItemVo;
 import com.pret.open.repository.PretAddressRepository;
@@ -21,6 +22,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -39,6 +43,8 @@ public class PretServiceRouteItemController extends BaseManageController<PretSer
     private PretAddressRepository pretAddressRepository;
     @Autowired
     private PretVenderRepository pretVenderRepository;
+    @PersistenceContext
+    private EntityManager em;
 
     @Log("查看")
     @PostMapping("/view/{id}")
@@ -139,14 +145,68 @@ public class PretServiceRouteItemController extends BaseManageController<PretSer
      * @Date: 2019/11/6  4:48 下午
      */
     @GetMapping(value = "/getItemList")
-    public Iterable<PretServiceRouteItem> getItemList() {
-        Iterable<PretServiceRouteItem> serviceRouteItemList = this.service.findAll();
+    public List<PretVender> getItemList(PretServiceRouteItemVo request) {
+        List<PretVender> pretVenderList = new ArrayList<>();
+        Iterable<PretServiceRouteItem> serviceRouteItemList = this.service.page(request).getContent();
         for (PretServiceRouteItem item : serviceRouteItemList) {
             if (!StringUtils.isEmpty(item.getVenderId())) {
-                item.setPretVender(pretVenderRepository.findById(item.getVenderId()).get());
+                PretVender pretVender = pretVenderRepository.findById(item.getVenderId()).get();
+                if (pretVender.getType() > 0) {
+                    if (pretVender.getType() == request.getType()) {
+                        pretVenderList.add(pretVender);
+                    }
+                } else {
+                    pretVenderList.add(pretVender);
+                }
+
             }
         }
 
+        return pretVenderList;
+    }
+
+    /* *
+     * 功能描述: 查找没有关联供应商的线路明细
+     * 〈〉
+     * @Param: []
+     * @Return: java.util.List<com.pret.open.entity.PretServiceRouteItem>
+     * @Author: wujingsong
+     * @Date: 2019/11/11  10:06 下午
+     */
+    @GetMapping(value = "/getByVenderIsNull/{venderId}")
+    public List<PretServiceRouteItem> getByVenderIsNull(@PathVariable String venderId) {
+        String where = " where 1=1 and (a.vender_id is NULL or a.vender_id = '" + venderId + "') and a.s = 1 ";
+        String con = "SELECT a.id,a.code FROM pret_service_route_item a  " + where;
+        StringBuffer querySql = new StringBuffer(con);
+        Query query = em.createNativeQuery(querySql.toString());
+        query.setFirstResult(0);
+        query.setMaxResults(Integer.MAX_VALUE);
+        List<String> idList = new ArrayList<>();
+        List<Object[]> objectList = query.getResultList();
+        if (objectList.size() > 0) {
+            for (Object object[] : objectList) {
+                String id = object[0].toString();
+                idList.add(id);
+            }
+        }
+        List<PretServiceRouteItem> serviceRouteItemList = pretServiceRouteItemRepository.findByIdIn(idList);
+        for (PretServiceRouteItem route : serviceRouteItemList) {
+            String startEndName = StringUtils.EMPTY;
+            PretServiceRouteOrgin pretServiceRouteOrgin = pretServiceRouteOrginRepository.findById(route.getServiceRouteOrginId()).get();
+            startEndName += pretServiceRouteOrgin.getName() + "-";
+            PretAddress pretAddress = pretAddressRepository.findById(route.getAddressId()).get();
+            if (pretAddress.getLevels() == ConstantEnum.AreaLevelEnum.区县.getLabel()) {
+                PretAddress address = pretAddressRepository.findById(pretAddress.getParentId()).get();
+                PretAddress a = pretAddressRepository.findById(address.getParentId()).get();
+                startEndName += a.getName() + address.getName() + pretAddress.getName();
+            } else if (pretAddress.getLevels() == ConstantEnum.AreaLevelEnum.市.getLabel()) {
+                PretAddress address = pretAddressRepository.findById(pretAddress.getParentId()).get();
+                startEndName += address.getName() + pretAddress.getName();
+            } else {
+                startEndName += pretAddress.getName();
+            }
+            route.setStartEndName(startEndName);
+        }
         return serviceRouteItemList;
     }
 }

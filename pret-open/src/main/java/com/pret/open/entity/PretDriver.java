@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.wuwenze.poi.annotation.Excel;
 import com.wuwenze.poi.annotation.ExcelField;
+import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -23,6 +24,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "pret_driver")
 @Excel("司机")
+@Data
 public class PretDriver extends VersionedAuditableIdEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -43,11 +45,13 @@ public class PretDriver extends VersionedAuditableIdEntity implements Serializab
      */
     @ExcelField(value = "司机姓名")
     private String name;
+
     /**
      * 司机电话
      */
     @ExcelField(value = "司机电话")
     private String phone;
+
     /**
      * 车牌号
      */
@@ -73,91 +77,4 @@ public class PretDriver extends VersionedAuditableIdEntity implements Serializab
     private String openid;
 
     // setter and getter
-
-    /**
-     * <p>Discription:[司机姓名]</p>
-     * Created on 2019年09月15日
-     *
-     * @return String
-     * @author:wujinsong
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * <p>Discription:[司机姓名]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
-     * <p>Discription:[司机电话]</p>
-     * Created on 2019年09月15日
-     *
-     * @return String
-     * @author:wujinsong
-     */
-    public String getPhone() {
-        return phone;
-    }
-
-    /**
-     * <p>Discription:[司机电话]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    /**
-     * <p>Discription:[车牌号]</p>
-     * Created on 2019年09月15日
-     *
-     * @return String
-     * @author:wujinsong
-     */
-    public String getCarNumber() {
-        return carNumber;
-    }
-
-    /**
-     * <p>Discription:[车牌号]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setCarNumber(String carNumber) {
-        this.carNumber = carNumber;
-    }
-
-    public String getVehicleType() {
-        return vehicleType;
-    }
-
-    public void setVehicleType(String vehicleType) {
-        this.vehicleType = vehicleType;
-    }
-
-    public String getVehicleLength() {
-        return vehicleLength;
-    }
-
-    public void setVehicleLength(String vehicleLength) {
-        this.vehicleLength = vehicleLength;
-    }
-
-    public String getOpenid() {
-        return openid;
-    }
-
-    public void setOpenid(String openid) {
-        this.openid = openid;
-    }
 }

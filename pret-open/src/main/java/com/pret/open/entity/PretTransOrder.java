@@ -7,14 +7,16 @@ import java.util.Date;
 import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.pret.common.converter.TimeConverter;
 import com.wuwenze.poi.annotation.Excel;
 import com.wuwenze.poi.annotation.ExcelField;
+import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
 /**
- * <p>Description: [pretmodel]</p>
+ * <p>Description: 运输单</p>
  * Created on 2019年09月15日
  *
  * @author <a href="mailto: 1037216275@qq.com">wujinsong</a>
@@ -24,6 +26,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "pret_trans_order")
 @Excel("运输单")
+@Data
 public class PretTransOrder extends VersionedAuditableIdEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -44,29 +47,37 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
      */
     @ExcelField(value = "订单号")
     private String orderNo;
+
     /**
      * 供应商id
      */
     @ExcelField(value = "供应商id")
     private String venderId;
+
     /**
      * 运输方式
      */
     @ExcelField(value = "运输方式")
     private String transMode;
+
     /**
      * 提货日期
      */
+    @ExcelField(value = "提货日期", writeConverter = TimeConverter.class)
     private Date takeDeliveryDate;
+
     /**
      * 送达日期
      */
+    @ExcelField(value = "送达日期", writeConverter = TimeConverter.class)
     private Date deliveryDate;
+
     /**
      * 送货单号
      */
     @ExcelField(value = "送货单号")
     private String deliveryBillNumber;
+
     /**
      * 起运地
      */
@@ -83,11 +94,13 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
      */
     @ExcelField(value = "送达客户id")
     private String customerId;
+
     /**
      * 客户名称
      */
     @ExcelField(value = "客户名称")
     private String customerName;
+
     /**
      * 客户地址
      */
@@ -98,11 +111,13 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
      * 客户地址
      */
     private String addressId;
+
     /**
      * 客户联系人
      */
     @ExcelField(value = "客户联系人")
     private String customerLinkName;
+
     /**
      * 客户联系人电话
      */
@@ -114,26 +129,31 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
      */
     @ExcelField(value = "商品id")
     private String goodsId;
+
     /**
      * 提货计划id
      */
     @ExcelField(value = "提货计划id")
     private String pickUpPlanId;
+
     /**
      * 运输计划id
      */
     @ExcelField(value = "运输计划id")
     private String transPlanId;
+
     /**
      * 对账单id
      */
     @ExcelField(value = "对账单id")
     private String transStatementId;
+
     /**
      * 商品重量
      */
     @ExcelField(value = "商品重量")
     private Float gw;
+
     /**
      * 单位(1吨，2公斤)
      */
@@ -164,7 +184,6 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
     @ExcelField(value = "提货工厂code")
     private String pickupFactoryCd;
 
-
     private PretVender pretVender;
 
     private PretGoods pretGoods;
@@ -183,331 +202,6 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
 
     // setter and getter
 
-    /**
-     * <p>Discription:[订单号]</p>
-     * Created on 2019年09月15日
-     *
-     * @return String
-     * @author:wujinsong
-     */
-    public String getOrderNo() {
-        return orderNo;
-    }
-
-    /**
-     * <p>Discription:[订单号]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setOrderNo(String orderNo) {
-        this.orderNo = orderNo;
-    }
-
-    /**
-     * <p>Discription:[供应商id]</p>
-     * Created on 2019年09月15日
-     *
-     * @return String
-     * @author:wujinsong
-     */
-    public String getVenderId() {
-        return venderId;
-    }
-
-    /**
-     * <p>Discription:[供应商id]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setVenderId(String venderId) {
-        this.venderId = venderId;
-    }
-
-    /**
-     * <p>Discription:[运输方式]</p>
-     * Created on 2019年09月15日
-     *
-     * @return String
-     * @author:wujinsong
-     */
-    public String getTransMode() {
-        return transMode;
-    }
-
-    /**
-     * <p>Discription:[运输方式]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setTransMode(String transMode) {
-        this.transMode = transMode;
-    }
-
-    /**
-     * <p>Discription:[提货日期]</p>
-     * Created on 2019年09月15日
-     *
-     * @return java.util.Date
-     * @author:wujinsong
-     */
-    public java.util.Date getTakeDeliveryDate() {
-        return takeDeliveryDate;
-    }
-
-    /**
-     * <p>Discription:[提货日期]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setTakeDeliveryDate(java.util.Date takeDeliveryDate) {
-        this.takeDeliveryDate = takeDeliveryDate;
-    }
-
-    /**
-     * <p>Discription:[送达日期]</p>
-     * Created on 2019年09月15日
-     *
-     * @return java.util.Date
-     * @author:wujinsong
-     */
-    public java.util.Date getDeliveryDate() {
-        return deliveryDate;
-    }
-
-    /**
-     * <p>Discription:[送达日期]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setDeliveryDate(java.util.Date deliveryDate) {
-        this.deliveryDate = deliveryDate;
-    }
-
-    /**
-     * <p>Discription:[送货单号]</p>
-     * Created on 2019年09月15日
-     *
-     * @return String
-     * @author:wujinsong
-     */
-    public String getDeliveryBillNumber() {
-        return deliveryBillNumber;
-    }
-
-    /**
-     * <p>Discription:[送货单号]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setDeliveryBillNumber(String deliveryBillNumber) {
-        this.deliveryBillNumber = deliveryBillNumber;
-    }
-
-    /**
-     * <p>Discription:[起运地]</p>
-     * Created on 2019年09月15日
-     *
-     * @return String
-     * @author:wujinsong
-     */
-    public String getServiceRouteOrginId() {
-        return serviceRouteOrginId;
-    }
-
-    /**
-     * <p>Discription:[起运地]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setServiceRouteOrginId(String serviceRouteOrginId) {
-        this.serviceRouteOrginId = serviceRouteOrginId;
-    }
-
-    public String getServiceRouteOrginName() {
-        return serviceRouteOrginName;
-    }
-
-    public void setServiceRouteOrginName(String serviceRouteOrginName) {
-        this.serviceRouteOrginName = serviceRouteOrginName;
-    }
-
-    /**
-     * <p>Discription:[送达客户id]</p>
-     * Created on 2019年09月15日
-     *
-     * @return String
-     * @author:wujinsong
-     */
-    public String getCustomerId() {
-        return customerId;
-    }
-
-    /**
-     * <p>Discription:[送达客户id]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setCustomerId(String customerId) {
-        this.customerId = customerId;
-    }
-
-    /**
-     * <p>Discription:[客户名称]</p>
-     * Created on 2019年09月15日
-     *
-     * @return String
-     * @author:wujinsong
-     */
-    public String getCustomerName() {
-        return customerName;
-    }
-
-    /**
-     * <p>Discription:[客户名称]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
-    }
-
-    /**
-     * <p>Discription:[客户地址]</p>
-     * Created on 2019年09月15日
-     *
-     * @return String
-     * @author:wujinsong
-     */
-    public String getCustomerAddress() {
-        return customerAddress;
-    }
-
-    /**
-     * <p>Discription:[客户地址]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setCustomerAddress(String customerAddress) {
-        this.customerAddress = customerAddress;
-    }
-
-    /**
-     * <p>Discription:[客户联系人]</p>
-     * Created on 2019年09月15日
-     *
-     * @return String
-     * @author:wujinsong
-     */
-    public String getCustomerLinkName() {
-        return customerLinkName;
-    }
-
-    /**
-     * <p>Discription:[客户联系人]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setCustomerLinkName(String customerLinkName) {
-        this.customerLinkName = customerLinkName;
-    }
-
-    /**
-     * <p>Discription:[客户联系人电话]</p>
-     * Created on 2019年09月15日
-     *
-     * @return String
-     * @author:wujinsong
-     */
-    public String getCustomerLinkPhone() {
-        return customerLinkPhone;
-    }
-
-    /**
-     * <p>Discription:[客户联系人电话]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setCustomerLinkPhone(String customerLinkPhone) {
-        this.customerLinkPhone = customerLinkPhone;
-    }
-
-    public String getGoodsId() {
-        return goodsId;
-    }
-
-    public void setGoodsId(String goodsId) {
-        this.goodsId = goodsId;
-    }
-
-    public String getPickUpPlanId() {
-        return pickUpPlanId;
-    }
-
-    public void setPickUpPlanId(String pickUpPlanId) {
-        this.pickUpPlanId = pickUpPlanId;
-    }
-
-    public String getTransPlanId() {
-        return transPlanId;
-    }
-
-    public void setTransPlanId(String transPlanId) {
-        this.transPlanId = transPlanId;
-    }
-
-    public Float getGw() {
-        return gw;
-    }
-
-    public void setGw(Float gw) {
-        this.gw = gw;
-    }
-
-    public int getUnit() {
-        return unit;
-    }
-
-    public void setUnit(int unit) {
-        this.unit = unit;
-    }
-
-    public Float getCbm() {
-        return cbm;
-    }
-
-    public void setCbm(Float cbm) {
-        this.cbm = cbm;
-    }
-
-    public int getGoodsNum() {
-        return goodsNum;
-    }
-
-    public void setGoodsNum(int goodsNum) {
-        this.goodsNum = goodsNum;
-    }
-
-    @Transient()
-    public PretVender getPretVender() {
-        return pretVender;
-    }
-
-    public void setPretVender(PretVender pretVender) {
-        this.pretVender = pretVender;
-    }
-
     @Transient()
     public PretGoods getPretGoods() {
         return pretGoods;
@@ -524,53 +218,5 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
 
     public void setPretCustomer(PretCustomer pretCustomer) {
         this.pretCustomer = pretCustomer;
-    }
-
-    public String getPickupFactoryCd() {
-        return pickupFactoryCd;
-    }
-
-    public void setPickupFactoryCd(String pickupFactoryCd) {
-        this.pickupFactoryCd = pickupFactoryCd;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
-    public String getTransStatementId() {
-        return transStatementId;
-    }
-
-    public void setTransStatementId(String transStatementId) {
-        this.transStatementId = transStatementId;
-    }
-
-    public String getAddressId() {
-        return addressId;
-    }
-
-    public void setAddressId(String addressId) {
-        this.addressId = addressId;
-    }
-
-    public Integer getGoodsType() {
-        return goodsType;
-    }
-
-    public void setGoodsType(Integer goodsType) {
-        this.goodsType = goodsType;
-    }
-
-    public String getBillingIntervalItemId() {
-        return billingIntervalItemId;
-    }
-
-    public void setBillingIntervalItemId(String billingIntervalItemId) {
-        this.billingIntervalItemId = billingIntervalItemId;
     }
 }

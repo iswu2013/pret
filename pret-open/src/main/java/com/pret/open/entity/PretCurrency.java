@@ -8,12 +8,13 @@ import javax.persistence.Id;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.wuwenze.poi.annotation.Excel;
 import com.wuwenze.poi.annotation.ExcelField;
+import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
 /**
- * <p>Description: [pretmodel]</p>
+ * <p>Description: 货币</p>
  * Created on 2019年09月15日
  *
  * @author <a href="mailto: 1037216275@qq.com">wujinsong</a>
@@ -23,6 +24,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "pret_currency")
 @Excel("货币")
+@Data
 public class PretCurrency extends VersionedAuditableIdEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -50,46 +52,4 @@ public class PretCurrency extends VersionedAuditableIdEntity implements Serializ
     private String code;
 
     // setter and getter
-
-    /**
-     * <p>Discription:[币别名称]</p>
-     * Created on 2019年09月15日
-     *
-     * @return String
-     * @author:wujinsong
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * <p>Discription:[币别名称]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
-     * <p>Discription:[币别编码]</p>
-     * Created on 2019年09月15日
-     *
-     * @return String
-     * @author:wujinsong
-     */
-    public String getCode() {
-        return code;
-    }
-
-    /**
-     * <p>Discription:[币别编码]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setCode(String code) {
-        this.code = code;
-    }
 }

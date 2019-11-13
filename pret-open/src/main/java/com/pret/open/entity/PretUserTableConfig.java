@@ -2,6 +2,7 @@ package com.pret.open.entity;
 
 import com.pret.common.VersionedAuditableIdEntity;
 import com.wuwenze.poi.annotation.Excel;
+import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Entity;
@@ -11,7 +12,7 @@ import javax.persistence.Table;
 import java.io.Serializable;
 
 /**
- * <p>Description: [plutomodel]</p>
+ * <p>Description: 用户表格配置</p>
  * Created on 2019年10月03日
  *
  * @author <a href="mailto: 1037216275@qq.com">wujinsong</a>
@@ -21,6 +22,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "pret_user_table_config")
 @Excel("用户表格配置")
+@Data
 public class PretUserTableConfig extends VersionedAuditableIdEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -41,28 +43,4 @@ public class PretUserTableConfig extends VersionedAuditableIdEntity implements S
     private String module;
 
     private String configInfo;
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public String getModule() {
-        return module;
-    }
-
-    public void setModule(String module) {
-        this.module = module;
-    }
-
-    public String getConfigInfo() {
-        return configInfo;
-    }
-
-    public void setConfigInfo(String configInfo) {
-        this.configInfo = configInfo;
-    }
 }

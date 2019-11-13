@@ -4,13 +4,16 @@ import com.pret.api.rest.BaseManageController;
 import com.pret.common.annotation.Log;
 import com.pret.common.constant.ConstantEnum;
 import com.pret.common.exception.FebsException;
+import com.pret.common.util.StringUtil;
 import com.pret.common.utils.MD5Util;
+import com.pret.open.entity.PretTransOrder;
 import com.pret.open.entity.PretVender;
 import com.pret.open.entity.user.Role;
 import com.pret.open.entity.user.User;
 import com.pret.open.entity.user.UserConfig;
 import com.pret.open.entity.user.UserRole;
 import com.pret.open.entity.vo.PretVenderVo;
+import com.pret.open.repository.PretTransOrderRepository;
 import com.pret.open.repository.PretVenderRepository;
 import com.pret.open.repository.user.RoleRepository;
 import com.pret.open.repository.user.UserConfigRepository;
@@ -24,6 +27,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @Slf4j
 @Validated
@@ -40,6 +45,8 @@ public class PretVenderController extends BaseManageController<PretVenderService
     private RoleRepository roleRepository;
     @Autowired
     private UserConfigRepository userConfigRepository;
+    @Autowired
+    private PretTransOrderRepository pretTransOrderRepository;
 
 
     @Log("查看")
@@ -48,6 +55,22 @@ public class PretVenderController extends BaseManageController<PretVenderService
         try {
             PretVender item = this.service.findById(id).get();
             return item;
+        } catch (Exception e) {
+            message = "查看失败";
+            throw new FebsException(message);
+        }
+    }
+
+    @Log("指派供应商")
+    @PostMapping("/dispatch/{ids}/{id}")
+    public void dispatch(@PathVariable String ids, @PathVariable String id) throws FebsException {
+        try {
+            List<String> idList = StringUtil.idsStr2ListString(ids);
+            for (String item : idList) {
+                PretTransOrder pretTransOrder = pretTransOrderRepository.findById(item).get();
+                pretTransOrder.setVenderId(id);
+                pretTransOrderRepository.save(pretTransOrder);
+            }
         } catch (Exception e) {
             message = "查看失败";
             throw new FebsException(message);

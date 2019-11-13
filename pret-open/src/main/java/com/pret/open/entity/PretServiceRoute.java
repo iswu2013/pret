@@ -4,6 +4,7 @@ import com.pret.common.VersionedAuditableIdEntity;
 import com.pret.open.entity.bo.AreaBo;
 import com.wuwenze.poi.annotation.Excel;
 import com.wuwenze.poi.annotation.ExcelField;
+import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -11,7 +12,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * <p>Description: [pretmodel]</p>
+ * <p>Description: 服务线路 </p>
  * Created on 2019年09月15日
  *
  * @author <a href="mailto: 1037216275@qq.com">wujinsong</a>
@@ -21,6 +22,7 @@ import java.util.List;
 @Entity
 @Table(name = "pret_service_route")
 @Excel("服务线路")
+@Data
 public class PretServiceRoute extends VersionedAuditableIdEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -42,6 +44,12 @@ public class PretServiceRoute extends VersionedAuditableIdEntity implements Seri
     @ExcelField(value = "线路名称")
     private String name;
 
+    /**
+     * 创建人
+     */
+    @ExcelField(value = "创建人")
+    private String username;
+
     private PretVender pretVender;
 
     /**
@@ -52,15 +60,6 @@ public class PretServiceRoute extends VersionedAuditableIdEntity implements Seri
     private List<AreaBo> areaBoList;
 
     // setter and getter
-
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     @Transient()
     public PretVender getPretVender() {

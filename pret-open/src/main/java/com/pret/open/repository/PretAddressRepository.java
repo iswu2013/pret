@@ -53,6 +53,8 @@ public interface PretAddressRepository extends BaseRepository<PretAddress>{
      */
     List<PretAddress> findByParentIdAndS(String id, Integer s);
 
+    List<PretAddress> findByParentIdAndSOrderByAddsDesc(String id, Integer s);
+
     /* *
      * 功能描述: 根据levels和是否添加查找
      * 〈〉

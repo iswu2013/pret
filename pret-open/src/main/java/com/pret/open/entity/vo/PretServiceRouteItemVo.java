@@ -1,19 +1,31 @@
 package com.pret.open.entity.vo;
 
 import com.pret.api.vo.PageFormVo;
+
 import java.io.Serializable;
-/** 
+
+/**
  * <p>Description: [pretmodel]</p>
  * Created on 2019年09月15日
- * @author  <a href="mailto: 1037216275@qq.com">wujinsong</a>
- * @version 1.0 
+ *
+ * @author <a href="mailto: 1037216275@qq.com">wujinsong</a>
+ * @version 1.0
  * Copyright (c) 2019年 极客城堡
  */
-public class PretServiceRouteItemVo extends PageFormVo implements Serializable{
+public class PretServiceRouteItemVo extends PageFormVo implements Serializable {
     private String eq$serviceRouteOrginId;
     private long bw$createTimeLong;
     private long createTimeLongEnd;
     private String eq$venderId;
+    private String eq$orginAddressId;
+    private String eq$addressId;
+    private float bw$lowerLimit;
+    private float lowerLimitEnd;
+    /**
+     * 供应商类别
+     */
+    private Integer type;
+
 
     public String getEq$serviceRouteOrginId() {
         return eq$serviceRouteOrginId;
@@ -45,5 +57,45 @@ public class PretServiceRouteItemVo extends PageFormVo implements Serializable{
 
     public void setEq$venderId(String eq$venderId) {
         this.eq$venderId = eq$venderId;
+    }
+
+    public String getEq$orginAddressId() {
+        return eq$orginAddressId;
+    }
+
+    public void setEq$orginAddressId(String eq$orginAddressId) {
+        this.eq$orginAddressId = eq$orginAddressId;
+    }
+
+    public String getEq$addressId() {
+        return eq$addressId;
+    }
+
+    public void setEq$addressId(String eq$addressId) {
+        this.eq$addressId = eq$addressId;
+    }
+
+    public float getBw$lowerLimit() {
+        return bw$lowerLimit;
+    }
+
+    public void setBw$lowerLimit(float bw$lowerLimit) {
+        this.bw$lowerLimit = bw$lowerLimit;
+    }
+
+    public float getLowerLimitEnd() {
+        return lowerLimitEnd;
+    }
+
+    public void setLowerLimitEnd(float lowerLimitEnd) {
+        this.lowerLimitEnd = lowerLimitEnd;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
     }
 }

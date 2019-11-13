@@ -3,6 +3,7 @@ package com.pret.open.entity;
 import com.pret.common.VersionedAuditableIdEntity;
 import com.wuwenze.poi.annotation.Excel;
 import com.wuwenze.poi.annotation.ExcelField;
+import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Entity;
@@ -12,7 +13,7 @@ import javax.persistence.Table;
 import java.io.Serializable;
 
 /**
- * <p>Description: [pretmodel]</p>
+ * <p>Description: 客户</p>
  * Created on 2019年09月15日
  *
  * @author <a href="mailto: 1037216275@qq.com">wujinsong</a>
@@ -22,6 +23,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "pret_customer")
 @Excel("客户")
+@Data
 public class PretCustomer extends VersionedAuditableIdEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -58,49 +60,4 @@ public class PretCustomer extends VersionedAuditableIdEntity implements Serializ
     private String openid;
 
     // setter and getter
-
-    /**
-     * <p>Discription:[客户名称]</p>
-     * Created on 2019年09月15日
-     *
-     * @return String
-     * @author:wujinsong
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * <p>Discription:[客户名称]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getLinkName() {
-        return linkName;
-    }
-
-    public void setLinkName(String linkName) {
-        this.linkName = linkName;
-    }
-
-    public String getLinkPhone() {
-        return linkPhone;
-    }
-
-    public void setLinkPhone(String linkPhone) {
-        this.linkPhone = linkPhone;
-    }
-
-    public String getOpenid() {
-        return openid;
-    }
-
-    public void setOpenid(String openid) {
-        this.openid = openid;
-    }
 }

@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.wuwenze.poi.annotation.Excel;
 import com.wuwenze.poi.annotation.ExcelField;
+import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -23,6 +24,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "pret_quotation_item_price")
 @Excel("报价项")
+@Data
 public class PretQuotationItemPrice extends VersionedAuditableIdEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -43,16 +45,19 @@ public class PretQuotationItemPrice extends VersionedAuditableIdEntity implement
      */
     @ExcelField(value = "数量")
     private Integer count;
+
     /**
      *
      */
     @ExcelField(value = "配送单id")
     private String deliveryOrderId;
+
     /**
      *
      */
     @ExcelField(value = "商品id")
     private String goodsId;
+
     /**
      *
      */
@@ -60,88 +65,4 @@ public class PretQuotationItemPrice extends VersionedAuditableIdEntity implement
     private String weight;
 
     // setter and getter
-
-    /**
-     * <p>Discription:[]</p>
-     * Created on 2019年09月15日
-     *
-     * @return Integer
-     * @author:wujinsong
-     */
-    public Integer getCount() {
-        return count;
-    }
-
-    /**
-     * <p>Discription:[]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setCount(Integer count) {
-        this.count = count;
-    }
-
-    /**
-     * <p>Discription:[]</p>
-     * Created on 2019年09月15日
-     *
-     * @return String
-     * @author:wujinsong
-     */
-    public String getDeliveryOrderId() {
-        return deliveryOrderId;
-    }
-
-    /**
-     * <p>Discription:[]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setDeliveryOrderId(String deliveryOrderId) {
-        this.deliveryOrderId = deliveryOrderId;
-    }
-
-    /**
-     * <p>Discription:[]</p>
-     * Created on 2019年09月15日
-     *
-     * @return String
-     * @author:wujinsong
-     */
-    public String getGoodsId() {
-        return goodsId;
-    }
-
-    /**
-     * <p>Discription:[]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setGoodsId(String goodsId) {
-        this.goodsId = goodsId;
-    }
-
-    /**
-     * <p>Discription:[]</p>
-     * Created on 2019年09月15日
-     *
-     * @return String
-     * @author:wujinsong
-     */
-    public String getWeight() {
-        return weight;
-    }
-
-    /**
-     * <p>Discription:[]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setWeight(String weight) {
-        this.weight = weight;
-    }
 }

@@ -2,6 +2,7 @@ package com.pret.open.entity;
 
 import com.pret.common.VersionedAuditableIdEntity;
 import com.wuwenze.poi.annotation.Excel;
+import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Entity;
@@ -21,6 +22,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "pret_table_item")
 @Excel("表格项")
+@Data
 public class PretTableItem extends VersionedAuditableIdEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -44,28 +46,4 @@ public class PretTableItem extends VersionedAuditableIdEntity implements Seriali
     private String title;
 
     private String dataIndex;
-
-    public String getModule() {
-        return module;
-    }
-
-    public void setModule(String module) {
-        this.module = module;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDataIndex() {
-        return dataIndex;
-    }
-
-    public void setDataIndex(String dataIndex) {
-        this.dataIndex = dataIndex;
-    }
 }

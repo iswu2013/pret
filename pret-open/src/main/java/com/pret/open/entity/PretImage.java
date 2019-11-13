@@ -2,6 +2,7 @@ package com.pret.open.entity;
 
 import com.pret.common.VersionedAuditableIdEntity;
 import com.wuwenze.poi.annotation.Excel;
+import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Entity;
@@ -21,6 +22,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "pret_image")
 @Excel("图片")
+@Data
 public class PretImage extends VersionedAuditableIdEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -40,10 +42,12 @@ public class PretImage extends VersionedAuditableIdEntity implements Serializabl
      * 用户id
      */
     private String userId;
+
     /**
      * 图片地址
      */
     private String url;
+
     /**
      * 图标本地地址
      */
@@ -58,123 +62,6 @@ public class PretImage extends VersionedAuditableIdEntity implements Serializabl
      * 备注
      */
     private String remark;
-    /**
-     *
-     */
-    private String createBy;
 
     // setter and getter
-
-    /**
-     * <p>Discription:[用户id]</p>
-     * Created on 2019年10月03日
-     *
-     * @return Long
-     * @author:wujinsong
-     */
-    public String getUserId() {
-        return userId;
-    }
-
-    /**
-     * <p>Discription:[用户id]</p>
-     * Created on 2019年10月03日
-     *
-     * @author:wujinsong
-     */
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    /**
-     * <p>Discription:[图片地址]</p>
-     * Created on 2019年10月03日
-     *
-     * @return String
-     * @author:wujinsong
-     */
-    public String getUrl() {
-        return url;
-    }
-
-    /**
-     * <p>Discription:[图片地址]</p>
-     * Created on 2019年10月03日
-     *
-     * @author:wujinsong
-     */
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    /**
-     * <p>Discription:[图标本地地址]</p>
-     * Created on 2019年10月03日
-     *
-     * @return String
-     * @author:wujinsong
-     */
-    public String getPath() {
-        return path;
-    }
-
-    /**
-     * <p>Discription:[图标本地地址]</p>
-     * Created on 2019年10月03日
-     *
-     * @author:wujinsong
-     */
-    public void setPath(String path) {
-        this.path = path;
-    }
-
-    /**
-     * <p>Discription:[备注]</p>
-     * Created on 2019年10月03日
-     *
-     * @return String
-     * @author:wujinsong
-     */
-    public String getRemark() {
-        return remark;
-    }
-
-    /**
-     * <p>Discription:[备注]</p>
-     * Created on 2019年10月03日
-     *
-     * @author:wujinsong
-     */
-    public void setRemark(String remark) {
-        this.remark = remark;
-    }
-
-    /**
-     * <p>Discription:[]</p>
-     * Created on 2019年10月03日
-     *
-     * @return String
-     * @author:wujinsong
-     */
-    public String getCreateBy() {
-        return createBy;
-    }
-
-    /**
-     * <p>Discription:[]</p>
-     * Created on 2019年10月03日
-     *
-     * @author:wujinsong
-     */
-    public void setCreateBy(String createBy) {
-        this.createBy = createBy;
-    }
 }

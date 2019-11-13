@@ -109,6 +109,11 @@ public class ConstantEnum {
         Int("int"),
 
         /**
+         * Float
+         */
+        Float("float"),
+
+        /**
          * Integer
          */
         Integer("java.lang.Integer"),
@@ -530,7 +535,8 @@ public class ConstantEnum {
     public enum EPretPickUpPlanStatus {
         待提货(1),
         已完成(2),
-        已取消(2);
+        已取消(3),
+        部分完成(4);
         private int label;
 
         private EPretPickUpPlanStatus(int label) {
@@ -846,7 +852,8 @@ public class ConstantEnum {
         已提货(2),
         运输中(3),
         已签收(4),
-        已完成(5);
+        已完成(5),
+        提货中(6);
         private int label;
 
         ETransOrderStatus(int label) {

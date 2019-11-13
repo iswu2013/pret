@@ -67,6 +67,8 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
     private PretBillingIntervalItemRepository pretBillingIntervalItemRepository;
     @Autowired
     private PretFeeTypeRepository pretFeeTypeRepository;
+    @Autowired
+    private PretPickUpPlanRepository pretPickUpPlanRepository;
     @Value("${sf.url}")
     private String sfUrl;
 
@@ -142,6 +144,18 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
         transPlan.setGw(cw);
         this.repository.save(transPlan);
 
+        // 设置提货计划状态
+        String[] pickUpArr = bo.getPickUpIds().split(",");
+        for (String pickUp : pickUpArr) {
+            PretPickUpPlan pretPickUpPlan = pretPickUpPlanRepository.findById(pickUp).get();
+            List<PretTransOrder> transOrderList = transOrderRepository.findByTransPlanIdAndStatusAndS(pickUp, ConstantEnum.ETransOrderStatus.提货中.getLabel(), ConstantEnum.S.N.getLabel());
+            if (transOrderList != null && transOrderList.size() > 0) {
+                pretPickUpPlan.setStatus(ConstantEnum.EPretPickUpPlanStatus.部分完成.getLabel());
+            } else {
+                pretPickUpPlan.setStatus(ConstantEnum.EPretPickUpPlanStatus.已完成.getLabel());
+            }
+        }
+
         // 生产顺丰单号
         this.genSfMailno(transPlan);
     }
@@ -179,7 +193,7 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
                 }
             }
 
-            PretBillingIntervalItem pretBillingIntervalItem = pretBillingIntervalItemRepository.findByKstartGreaterThanAndKendLessThanEqual(totalGw, totalGw);
+            PretBillingIntervalItem pretBillingIntervalItem = pretBillingIntervalItemRepository.findByKstartLessThanEqualAndKendGreaterThanEqualAndS(totalGw, totalGw, ConstantEnum.S.N.getLabel());
             List<PretQuotationItem> pretQuotationItemList = null;
             if (pretBillingIntervalItem != null) {
                 pretQuotationItemList = pretQuotationItemRepository.findByBillingIntervalItemId(pretBillingIntervalItem.getId());
@@ -201,6 +215,7 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
                     pretTransFee.setNo(NoUtil.genNo(ConstantEnum.NoTypeEnum.TF.name()) + tail);
                     first = false;
                 }
+                pretTransFee.setTransPlanId(id);
                 pretTransFee.setVenderId(pretTransPlan.getVenderId());
                 pretTransFee.setCustomerId(pretTransPlan.getCustomerId());
                 if (pretBillingIntervalItem.getUnit() == ConstantEnum.EUnit.公斤.getLabel()) {

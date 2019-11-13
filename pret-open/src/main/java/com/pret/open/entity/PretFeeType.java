@@ -3,11 +3,14 @@ package com.pret.open.entity;
 import com.pret.common.VersionedAuditableIdEntity;
 import com.wuwenze.poi.annotation.Excel;
 import com.wuwenze.poi.annotation.ExcelField;
+import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * <p>Description: 费用类别</p>
@@ -20,6 +23,7 @@ import java.util.List;
 @Entity
 @Table(name = "pret_fee_type")
 @Excel("费用类型")
+@Data
 public class PretFeeType extends VersionedAuditableIdEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -34,9 +38,6 @@ public class PretFeeType extends VersionedAuditableIdEntity implements Serializa
     public String getId() {
         return id;
     }
-
-    /**
-    private Stirng no;
 
     /**
      * 名称
@@ -61,36 +62,4 @@ public class PretFeeType extends VersionedAuditableIdEntity implements Serializa
      */
     @ExcelField(value = "商品类别", writeConverterExp = "0=重货,1=泡货")
     private int goodsType;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
-    }
-
-    public int getGoodsType() {
-        return goodsType;
-    }
-
-    public void setGoodsType(int goodsType) {
-        this.goodsType = goodsType;
-    }
 }

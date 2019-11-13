@@ -136,7 +136,7 @@ public class PretAddressController extends BaseManageController<PretAddressServi
             labelValue.setProvince(address.getName());
             labelValueList.add(labelValue);
         } else {
-            List<PretAddress> areaList = pretAddressRepository.findByParentIdAndS(id, ConstantEnum.S.N.getLabel());
+            List<PretAddress> areaList = pretAddressRepository.findByParentIdAndSOrderByAddsDesc(id, ConstantEnum.S.N.getLabel());
             this.getLV(areaList, labelValueList);
         }
 

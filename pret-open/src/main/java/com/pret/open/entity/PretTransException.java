@@ -5,6 +5,7 @@ import com.pret.common.constant.ConstantEnum;
 import com.pret.common.converter.TimeConverter;
 import com.wuwenze.poi.annotation.Excel;
 import com.wuwenze.poi.annotation.ExcelField;
+import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -13,7 +14,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * <p>Description: [pretmodel]</p>
+ * <p>Description: 运输异常</p>
  * Created on 2019年09月15日
  *
  * @author <a href="mailto: 1037216275@qq.com">wujinsong</a>
@@ -23,6 +24,7 @@ import java.util.List;
 @Entity
 @Table(name = "pret_trans_exception")
 @Excel("运输异常")
+@Data
 public class PretTransException extends VersionedAuditableIdEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -61,6 +63,7 @@ public class PretTransException extends VersionedAuditableIdEntity implements Se
      */
     @ExcelField(value = "货物类型", writeConverterExp = "0=待审核,1=通过,2=不通过")
     private Integer status = ConstantEnum.ECheckStatus.待审核.getLabel();
+
     /**
      * 处理方式
      */
@@ -72,11 +75,13 @@ public class PretTransException extends VersionedAuditableIdEntity implements Se
      */
     @ExcelField(value = "责任方", writeConverterExp = "0=物流,1=货主,2=客户")
     private Integer responsibleParty;
+
     /**
      * 处理时间
      */
     @ExcelField(value = "处理时间", writeConverter = TimeConverter.class)
     private Date handleTime;
+
     /**
      * 处理人
      */
@@ -104,171 +109,6 @@ public class PretTransException extends VersionedAuditableIdEntity implements Se
     private List<PretTransExceptionItem> pretTransExceptionItemList;
 
     // setter and getter
-
-
-    public String getNo() {
-        return no;
-    }
-
-    public void setNo(String no) {
-        this.no = no;
-    }
-
-    /**
-     * <p>Discription:[运输计划id]</p>
-     * Created on 2019年09月15日
-     *
-     * @return String
-     * @author:wujinsong
-     */
-    public String getTransPlanId() {
-        return transPlanId;
-    }
-
-    /**
-     * <p>Discription:[运输计划id]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setTransPlanId(String transPlanId) {
-        this.transPlanId = transPlanId;
-    }
-
-    /**
-     * <p>Discription:[异常类别0]</p>
-     * Created on 2019年09月15日
-     *
-     * @return Integer
-     * @author:wujinsong
-     */
-    public Integer getType() {
-        return type;
-    }
-
-    /**
-     * <p>Discription:[异常类别0]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setType(Integer type) {
-        this.type = type;
-    }
-
-    /**
-     * <p>Discription:[状态0待审核1通过2不通过]</p>
-     * Created on 2019年09月15日
-     *
-     * @return Integer
-     * @author:wujinsong
-     */
-    public Integer getStatus() {
-        return status;
-    }
-
-    /**
-     * <p>Discription:[状态0待审核1通过2不通过]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
-    /**
-     * <p>Discription:[处理方式]</p>
-     * Created on 2019年09月15日
-     *
-     * @return Integer
-     * @author:wujinsong
-     */
-    public Integer getHandleStyle() {
-        return handleStyle;
-    }
-
-    /**
-     * <p>Discription:[处理方式]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setHandleStyle(Integer handleStyle) {
-        this.handleStyle = handleStyle;
-    }
-
-
-    /**
-     * <p>Discription:[责任方0物流1货主2客户]</p>
-     * Created on 2019年09月15日
-     *
-     * @return Integer
-     * @author:wujinsong
-     */
-    public Integer getResponsibleParty() {
-        return responsibleParty;
-    }
-
-    /**
-     * <p>Discription:[责任方0物流1货主2客户]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setResponsibleParty(Integer responsibleParty) {
-        this.responsibleParty = responsibleParty;
-    }
-
-    /**
-     * <p>Discription:[处理时间]</p>
-     * Created on 2019年09月15日
-     *
-     * @return java.util.Date
-     * @author:wujinsong
-     */
-    public java.util.Date getHandleTime() {
-        return handleTime;
-    }
-
-    /**
-     * <p>Discription:[处理时间]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setHandleTime(java.util.Date handleTime) {
-        this.handleTime = handleTime;
-    }
-
-    /**
-     * <p>Discription:[处理人]</p>
-     * Created on 2019年09月15日
-     *
-     * @return String
-     * @author:wujinsong
-     */
-    public String getHandleBy() {
-        return handleBy;
-    }
-
-    /**
-     * <p>Discription:[处理人]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setHandleBy(String handleBy) {
-        this.handleBy = handleBy;
-    }
-
-    public String getVenderId() {
-        return venderId;
-    }
-
-    public void setVenderId(String venderId) {
-        this.venderId = venderId;
-    }
 
     @Transient()
     public PretVender getPretVender() {
@@ -304,13 +144,5 @@ public class PretTransException extends VersionedAuditableIdEntity implements Se
 
     public void setPretTransExceptionItemList(List<PretTransExceptionItem> pretTransExceptionItemList) {
         this.pretTransExceptionItemList = pretTransExceptionItemList;
-    }
-
-    public Integer getRejectCount() {
-        return rejectCount;
-    }
-
-    public void setRejectCount(Integer rejectCount) {
-        this.rejectCount = rejectCount;
     }
 }

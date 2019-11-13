@@ -90,9 +90,9 @@ public class PretBillingIntervalItemController extends BaseManageController<Pret
      * 功能描述: 根据计费区间项获取
      * 〈〉
      * @Param: [id]
-            * @Return: java.util.List<com.pret.open.entity.PretBillingIntervalItem>
-            * @Author: wujingsong
-            * @Date: 2019/11/9  2:46 下午
+     * @Return: java.util.List<com.pret.open.entity.PretBillingIntervalItem>
+     * @Author: wujingsong
+     * @Date: 2019/11/9  2:46 下午
      */
     @RequestMapping(value = "/getByBillingInterval/{id}", method = RequestMethod.GET)
     @ResponseBody

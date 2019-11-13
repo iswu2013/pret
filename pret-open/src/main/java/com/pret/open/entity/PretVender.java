@@ -1,19 +1,19 @@
 package com.pret.open.entity;
 
 import com.pret.common.VersionedAuditableIdEntity;
-
-import java.io.Serializable;
-import javax.persistence.Id;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.wuwenze.poi.annotation.Excel;
 import com.wuwenze.poi.annotation.ExcelField;
+import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.io.Serializable;
 
 /**
- * <p>Description: [pretmodel]</p>
+ * <p>Description: 物流供应商</p>
  * Created on 2019年09月15日
  *
  * @author <a href="mailto: 1037216275@qq.com">wujinsong</a>
@@ -23,6 +23,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "pret_vender")
 @Excel("物流供应商")
+@Data
 public class PretVender extends VersionedAuditableIdEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -43,16 +44,19 @@ public class PretVender extends VersionedAuditableIdEntity implements Serializab
      */
     @ExcelField(value = "编号")
     private String code;
+
     /**
      * 名称
      */
     @ExcelField(value = "名称")
     private String name;
+
     /**
      * 联系人
      */
     @ExcelField(value = "联系人")
     private String linkName;
+
     /**
      * 联系号码
      */
@@ -70,104 +74,4 @@ public class PretVender extends VersionedAuditableIdEntity implements Serializab
     private Integer type;
 
     // setter and getter
-
-    /**
-     * <p>Discription:[编号]</p>
-     * Created on 2019年09月15日
-     *
-     * @return String
-     * @author:wujinsong
-     */
-    public String getCode() {
-        return code;
-    }
-
-    /**
-     * <p>Discription:[编号]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    /**
-     * <p>Discription:[名称]</p>
-     * Created on 2019年09月15日
-     *
-     * @return String
-     * @author:wujinsong
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * <p>Discription:[名称]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
-     * <p>Discription:[联系人]</p>
-     * Created on 2019年09月15日
-     *
-     * @return String
-     * @author:wujinsong
-     */
-    public String getLinkName() {
-        return linkName;
-    }
-
-    /**
-     * <p>Discription:[联系人]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setLinkName(String linkName) {
-        this.linkName = linkName;
-    }
-
-    /**
-     * <p>Discription:[联系号码]</p>
-     * Created on 2019年09月15日
-     *
-     * @return String
-     * @author:wujinsong
-     */
-    public String getLinkPhone() {
-        return linkPhone;
-    }
-
-    /**
-     * <p>Discription:[联系号码]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setLinkPhone(String linkPhone) {
-        this.linkPhone = linkPhone;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public Integer getType() {
-        return type;
-    }
-
-    public void setType(Integer type) {
-        this.type = type;
-    }
 }

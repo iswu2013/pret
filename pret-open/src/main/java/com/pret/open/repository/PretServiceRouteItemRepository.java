@@ -28,11 +28,11 @@ public interface PretServiceRouteItemRepository extends BaseRepository<PretServi
      * 功能描述: 根据serviceLineId查找
      * 〈〉
      * @Param: [serviceLineId, s]
-            * @Return: java.util.List<com.pret.open.entity.PretServiceRouteItem>
-            * @Author: wujingsong
-            * @Date: 2019/11/9  2:38 下午
+     * @Return: java.util.List<com.pret.open.entity.PretServiceRouteItem>
+     * @Author: wujingsong
+     * @Date: 2019/11/9  2:38 下午
      */
-    List<PretServiceRouteItem> findByServiceRouteIdAndS(String serviceLineId,Integer s);
+    List<PretServiceRouteItem> findByServiceRouteIdAndS(String serviceLineId, Integer s);
 
     /* *
      * 功能描述: 根据起运地和地址查找
@@ -63,4 +63,34 @@ public interface PretServiceRouteItemRepository extends BaseRepository<PretServi
      * @Date: 2019/11/9  11:01 上午
      */
     List<PretServiceRouteItem> findByCodeAndAddressIdInAndS(String code, List<String> addressIdList, Integer s);
+
+    /* *
+     * 功能描述: 查找没有关联的线路
+     * 〈〉
+     * @Param: [s]
+     * @Return: java.util.List<com.pret.open.entity.PretServiceRouteItem>
+     * @Author: wujingsong
+     * @Date: 2019/11/11  10:06 下午
+     */
+    List<PretServiceRouteItem> findBySAndVenderIdIsNull(Integer s);
+
+    /* *
+     * 功能描述: venderId
+     * 〈〉
+     * @Param: [s, venderId]
+     * @Return: java.util.List<com.pret.open.entity.PretServiceRouteItem>
+     * @Author: wujingsong
+     * @Date: 2019/11/11  10:13 下午
+     */
+    List<PretServiceRouteItem> findBySAndVenderIdIsNullOrVenderId(Integer s, String venderId);
+
+    /* *
+     * 功能描述: 根据id
+     * 〈〉
+     * @Param: [idList]
+     * @Return: java.util.List<com.pret.open.entity.PretServiceRouteItem>
+     * @Author: wujingsong
+     * @Date: 2019/11/12  2:22 上午
+     */
+    List<PretServiceRouteItem> findByIdIn(List<String> idList);
 }

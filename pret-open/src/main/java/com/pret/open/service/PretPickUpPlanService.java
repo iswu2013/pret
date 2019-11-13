@@ -101,7 +101,7 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
         for (String id : idArr) {
             PretTransOrder pretTransOrder = transOrderRepository.findById(id).get();
             pretTransOrder.setPickUpPlanId(pretPickUpPlan.getId());
-            pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.待提货.getLabel());
+            pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.提货中.getLabel());
             transOrderRepository.save(pretTransOrder);
             if (StringUtils.isEmpty(venderId)) {
                 venderId = pretTransOrder.getVenderId();

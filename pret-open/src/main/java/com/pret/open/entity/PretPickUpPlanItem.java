@@ -1,19 +1,19 @@
 package com.pret.open.entity;
 
 import com.pret.common.VersionedAuditableIdEntity;
-
-import java.io.Serializable;
-import javax.persistence.Id;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.wuwenze.poi.annotation.Excel;
 import com.wuwenze.poi.annotation.ExcelField;
+import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.io.Serializable;
 
 /**
- * <p>Description: [pretmodel]</p>
+ * <p>Description: 提货计划项</p>
  * Created on 2019年09月15日
  *
  * @author <a href="mailto: 1037216275@qq.com">wujinsong</a>
@@ -23,6 +23,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "pret_pick_up_plan_item")
 @Excel("提货计划项")
+@Data
 public class PretPickUpPlanItem extends VersionedAuditableIdEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -43,6 +44,7 @@ public class PretPickUpPlanItem extends VersionedAuditableIdEntity implements Se
      */
     @ExcelField(value = "提货计划id")
     private String pickUpPlanId;
+
     /**
      * 配送单id
      */
@@ -50,46 +52,4 @@ public class PretPickUpPlanItem extends VersionedAuditableIdEntity implements Se
     private String deliveryOrderId;
 
     // setter and getter
-
-    /**
-     * <p>Discription:[提货计划id]</p>
-     * Created on 2019年09月15日
-     *
-     * @return String
-     * @author:wujinsong
-     */
-    public String getPickUpPlanId() {
-        return pickUpPlanId;
-    }
-
-    /**
-     * <p>Discription:[提货计划id]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setPickUpPlanId(String pickUpPlanId) {
-        this.pickUpPlanId = pickUpPlanId;
-    }
-
-    /**
-     * <p>Discription:[配送单id]</p>
-     * Created on 2019年09月15日
-     *
-     * @return String
-     * @author:wujinsong
-     */
-    public String getDeliveryOrderId() {
-        return deliveryOrderId;
-    }
-
-    /**
-     * <p>Discription:[配送单id]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setDeliveryOrderId(String deliveryOrderId) {
-        this.deliveryOrderId = deliveryOrderId;
-    }
 }

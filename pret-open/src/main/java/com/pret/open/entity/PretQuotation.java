@@ -12,12 +12,13 @@ import com.pret.common.constant.ConstantEnum;
 import com.pret.common.converter.TimeConverter;
 import com.wuwenze.poi.annotation.Excel;
 import com.wuwenze.poi.annotation.ExcelField;
+import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
 /**
- * <p>Description: [pretmodel]</p>
+ * <p>Description: 报价</p>
  * Created on 2019年09月15日
  *
  * @author <a href="mailto: 1037216275@qq.com">wujinsong</a>
@@ -27,6 +28,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "pret_quotation")
 @Excel("报价")
+@Data
 public class PretQuotation extends VersionedAuditableIdEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -53,6 +55,7 @@ public class PretQuotation extends VersionedAuditableIdEntity implements Seriali
      */
     @ExcelField(value = "供应商id")
     private String venderId;
+
     /**
      * 线路id
      */
@@ -66,19 +69,15 @@ public class PretQuotation extends VersionedAuditableIdEntity implements Seriali
     private String billingIntervalId;
 
     /**
-     * 计费区间
-     */
-    private PretBillingInterval pretBillingInterval;
-
-    /**
      * 报价开始日期
      */
-    @ExcelField(value = "对账开始日期", writeConverter = TimeConverter.class)
+    @ExcelField(value = "报价开始日期", writeConverter = TimeConverter.class)
     private Date periodFrom;
+
     /**
      * 报价截止日期
      */
-    @ExcelField(value = "对账截止日期", writeConverter = TimeConverter.class)
+    @ExcelField(value = "报价截止日期", writeConverter = TimeConverter.class)
     private Date periodTo;
 
     /**
@@ -86,6 +85,12 @@ public class PretQuotation extends VersionedAuditableIdEntity implements Seriali
      */
     @ExcelField(value = "状态")
     private int status = ConstantEnum.ECheckStatus.待审核.getLabel();
+
+    /**
+     * 创建人
+     */
+    @ExcelField(value = "创建人")
+    private String username;
 
     /**
      * 审核人
@@ -100,6 +105,11 @@ public class PretQuotation extends VersionedAuditableIdEntity implements Seriali
     private Date checkDate;
 
     /**
+     * 计费区间
+     */
+    private PretBillingInterval pretBillingInterval;
+
+    /**
      * 报价明细
      */
     private List<PretQuotationItem> pretQuotationItemList;
@@ -109,100 +119,9 @@ public class PretQuotation extends VersionedAuditableIdEntity implements Seriali
      */
     private PretVender pretVender;
 
-    private String username;
+
 
     // setter and getter
-
-
-    public String getNo() {
-        return no;
-    }
-
-    public void setNo(String no) {
-        this.no = no;
-    }
-
-    /**
-     * <p>Discription:[供应商id]</p>
-     * Created on 2019年09月15日
-     *
-     * @return String
-     * @author:wujinsong
-     */
-    public String getVenderId() {
-        return venderId;
-    }
-
-    /**
-     * <p>Discription:[供应商id]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setVenderId(String venderId) {
-        this.venderId = venderId;
-    }
-
-    /**
-     * <p>Discription:[线路id]</p>
-     * Created on 2019年09月15日
-     *
-     * @return String
-     * @author:wujinsong
-     */
-    public String getServiceRouteId() {
-        return serviceRouteId;
-    }
-
-    /**
-     * <p>Discription:[线路id]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setServiceRouteId(String serviceRouteId) {
-        this.serviceRouteId = serviceRouteId;
-    }
-
-    public Date getPeriodFrom() {
-        return periodFrom;
-    }
-
-    public void setPeriodFrom(Date periodFrom) {
-        this.periodFrom = periodFrom;
-    }
-
-    public Date getPeriodTo() {
-        return periodTo;
-    }
-
-    public void setPeriodTo(Date periodTo) {
-        this.periodTo = periodTo;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
-    public Date getCheckDate() {
-        return checkDate;
-    }
-
-    public String getCheckUserId() {
-        return checkUserId;
-    }
-
-    public void setCheckUserId(String checkUserId) {
-        this.checkUserId = checkUserId;
-    }
-
-    public void setCheckDate(Date checkDate) {
-        this.checkDate = checkDate;
-    }
 
     @Transient()
     public List<PretQuotationItem> getPretQuotationItemList() {
@@ -222,14 +141,6 @@ public class PretQuotation extends VersionedAuditableIdEntity implements Seriali
         this.pretVender = pretVender;
     }
 
-    public String getBillingIntervalId() {
-        return billingIntervalId;
-    }
-
-    public void setBillingIntervalId(String billingIntervalId) {
-        this.billingIntervalId = billingIntervalId;
-    }
-
     @Transient()
     public PretBillingInterval getPretBillingInterval() {
         return pretBillingInterval;
@@ -237,13 +148,5 @@ public class PretQuotation extends VersionedAuditableIdEntity implements Seriali
 
     public void setPretBillingInterval(PretBillingInterval pretBillingInterval) {
         this.pretBillingInterval = pretBillingInterval;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 }

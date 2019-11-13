@@ -43,5 +43,5 @@ public interface PretBillingIntervalItemRepository extends BaseRepository<PretBi
             * @Author: wujingsong
             * @Date: 2019/11/9  11:45 上午
      */
-    PretBillingIntervalItem findByKstartGreaterThanAndKendLessThanEqual(Float kStart, Float kEnd);
+    PretBillingIntervalItem findByKstartLessThanEqualAndKendGreaterThanEqualAndS(Float kStart, Float kEnd,Integer s);
 }

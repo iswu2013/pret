@@ -24,6 +24,11 @@ public class PretTransPlanBo {
     private String ids;
 
     /**
+     * 提货计划ids
+     */
+    private String pickUpIds;
+
+    /**
      * 供应商id
      */
     private String venderId;
@@ -89,6 +94,14 @@ public class PretTransPlanBo {
 
     public void setIds(String ids) {
         this.ids = ids;
+    }
+
+    public String getPickUpIds() {
+        return pickUpIds;
+    }
+
+    public void setPickUpIds(String pickUpIds) {
+        this.pickUpIds = pickUpIds;
     }
 
     /**

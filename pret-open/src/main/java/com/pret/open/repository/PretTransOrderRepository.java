@@ -94,4 +94,15 @@ public interface PretTransOrderRepository extends BaseRepository<PretTransOrder>
      * @Date: 2019/11/9  8:23 上午
      */
     List<PretTransOrder> findByCustomerIdAndAddressIdAndCustomerAddressAndDeliveryDateAndStatusIn(String customerId, String addressId, String customerAddress, Date deliveryDate, List<Integer> statusList);
+
+
+    /* *
+     * 功能描述: 根据提货计划，状态查找
+     * 〈〉
+     * @Param: [transPlanId, status, s]
+     * @Return: java.util.List<com.pret.open.entity.PretTransOrder>
+     * @Author: wujingsong
+     * @Date: 2019/11/9  9:38 下午
+     */
+    List<PretTransOrder> findByTransPlanIdAndStatusAndS(String transPlanId, Integer status, Integer s);
 }

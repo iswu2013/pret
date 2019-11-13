@@ -1,19 +1,19 @@
 package com.pret.open.entity;
 
 import com.pret.common.VersionedAuditableIdEntity;
-
-import java.io.Serializable;
-import javax.persistence.Id;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.wuwenze.poi.annotation.Excel;
 import com.wuwenze.poi.annotation.ExcelField;
+import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.io.Serializable;
 
 /**
- * <p>Description: [pretmodel]</p>
+ * <p>Description: 计费区间项</p>
  * Created on 2019年09月15日
  *
  * @author <a href="mailto: 1037216275@qq.com">wujinsong</a>
@@ -23,6 +23,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "pret_billing_interval_item")
 @Excel("计费区间项")
+@Data
 public class PretBillingIntervalItem extends VersionedAuditableIdEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -44,10 +45,12 @@ public class PretBillingIntervalItem extends VersionedAuditableIdEntity implemen
      */
     @ExcelField(value = "货物类型", writeConverterExp = "0=重货,1=泡货")
     private Integer type;
+
     /**
      * 计费区间id
      */
     private String billingIntervalId;
+
     /**
      * 计费起始量
      */
@@ -57,7 +60,6 @@ public class PretBillingIntervalItem extends VersionedAuditableIdEntity implemen
     /**
      * 公斤
      */
-    @ExcelField(value = "计费起始量")
     private Float kstart;
 
     /**
@@ -69,7 +71,6 @@ public class PretBillingIntervalItem extends VersionedAuditableIdEntity implemen
     /**
      * 公斤
      */
-    @ExcelField(value = "计费结束量")
     private Float kend;
 
     /**
@@ -77,7 +78,6 @@ public class PretBillingIntervalItem extends VersionedAuditableIdEntity implemen
      */
     @ExcelField(value = "描述")
     private String description;
-
     /**
      * 单位1公斤2吨3立方米
      */
@@ -85,109 +85,4 @@ public class PretBillingIntervalItem extends VersionedAuditableIdEntity implemen
     private int unit;
 
     // setter and getter
-
-    /**
-     * <p>Discription:[1重货
-     * 2泡货]</p>
-     * Created on 2019年09月15日
-     *
-     * @return Integer
-     * @author:wujinsong
-     */
-    public Integer getType() {
-        return type;
-    }
-
-    /**
-     * <p>Discription:[1重货
-     * 2泡货]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setType(Integer type) {
-        this.type = type;
-    }
-
-    /**
-     * <p>Discription:[计费区间id]</p>
-     * Created on 2019年09月15日
-     *
-     * @return String
-     * @author:wujinsong
-     */
-    public String getBillingIntervalId() {
-        return billingIntervalId;
-    }
-
-    /**
-     * <p>Discription:[计费区间id]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setBillingIntervalId(String billingIntervalId) {
-        this.billingIntervalId = billingIntervalId;
-    }
-
-    public Float getStart() {
-        return start;
-    }
-
-    public void setStart(Float start) {
-        this.start = start;
-    }
-
-    public Float getEnd() {
-        return end;
-    }
-
-    public void setEnd(Float end) {
-        this.end = end;
-    }
-
-    /**
-     * <p>Discription:[描述]</p>
-     * Created on 2019年09月15日
-     *
-     * @return String
-     * @author:wujinsong
-     */
-    public String getDescription() {
-        return description;
-    }
-
-    /**
-     * <p>Discription:[描述]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public int getUnit() {
-        return unit;
-    }
-
-    public void setUnit(int unit) {
-        this.unit = unit;
-    }
-
-    public Float getKstart() {
-        return kstart;
-    }
-
-    public void setKstart(Float kstart) {
-        this.kstart = kstart;
-    }
-
-    public Float getKend() {
-        return kend;
-    }
-
-    public void setKend(Float kend) {
-        this.kend = kend;
-    }
 }

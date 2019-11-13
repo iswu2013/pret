@@ -8,12 +8,13 @@ import javax.persistence.Id;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.wuwenze.poi.annotation.Excel;
 import com.wuwenze.poi.annotation.ExcelField;
+import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
 /**
- * <p>Description: [pretmodel]</p>
+ * <p>Description: 服务线路项</p>
  * Created on 2019年09月15日
  *
  * @author <a href="mailto: 1037216275@qq.com">wujinsong</a>
@@ -23,6 +24,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "pret_service_route_item")
 @Excel("服务线路项")
+@Data
 public class PretServiceRouteItem extends VersionedAuditableIdEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -43,6 +45,13 @@ public class PretServiceRouteItem extends VersionedAuditableIdEntity implements 
      */
     @ExcelField(value = "服务线路id")
     private String serviceRouteId;
+
+    /**
+     * 物流供应商
+     */
+    @ExcelField(value = "物流供应商")
+    private String venderId;
+
     /**
      * 起运地id
      */
@@ -50,15 +59,22 @@ public class PretServiceRouteItem extends VersionedAuditableIdEntity implements 
     private String serviceRouteOrginId;
 
     /**
+     * 起运地地址id
+     */
+    private String orginAddressId;
+
+    /**
      * u9code
      */
+    @ExcelField(value = "u9code")
     private String code;
 
     /**
-     * 地址id
+     * 目的地址
      */
-    @ExcelField(value = "地址id")
+    @ExcelField(value = "目的地址")
     private String addressId;
+
     /**
      * 时效(天)
      */
@@ -66,10 +82,16 @@ public class PretServiceRouteItem extends VersionedAuditableIdEntity implements 
     private Integer prescription;
 
     /**
-     * 物流供应商
+     * 里程
      */
-    @ExcelField(value = "物流供应商")
-    private String venderId;
+    @ExcelField(value = "里程")
+    private Float mileage;
+
+    /**
+     * 自动分配下限
+     */
+    @ExcelField(value = "自动分配下限")
+    private Float lowerLimit;
 
     /**
      * 起始地名称
@@ -82,105 +104,7 @@ public class PretServiceRouteItem extends VersionedAuditableIdEntity implements 
      */
     private PretVender pretVender;
 
-    /**
-     * 里程
-     */
-    private Float mileage;
-
-    /**
-     * 自动分配下限
-     */
-    private Float lowerLimit;
-
     // setter and getter
-
-
-    public String getServiceRouteId() {
-        return serviceRouteId;
-    }
-
-    public void setServiceRouteId(String serviceRouteId) {
-        this.serviceRouteId = serviceRouteId;
-    }
-
-    /**
-     * <p>Discription:[起运地id]</p>
-     * Created on 2019年09月15日
-     *
-     * @return String
-     * @author:wujinsong
-     */
-    public String getServiceRouteOrginId() {
-        return serviceRouteOrginId;
-    }
-
-    /**
-     * <p>Discription:[起运地id]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setServiceRouteOrginId(String serviceRouteOrginId) {
-        this.serviceRouteOrginId = serviceRouteOrginId;
-    }
-
-    /**
-     * <p>Discription:[地址id]</p>
-     * Created on 2019年09月15日
-     *
-     * @return String
-     * @author:wujinsong
-     */
-    public String getAddressId() {
-        return addressId;
-    }
-
-    /**
-     * <p>Discription:[地址id]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setAddressId(String addressId) {
-        this.addressId = addressId;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    /**
-     * <p>Discription:[时效(天)]</p>
-     * Created on 2019年09月15日
-     *
-     * @return Integer
-     * @author:wujinsong
-     */
-    public Integer getPrescription() {
-        return prescription;
-    }
-
-    /**
-     * <p>Discription:[时效(天)]</p>
-     * Created on 2019年09月15日
-     *
-     * @author:wujinsong
-     */
-    public void setPrescription(Integer prescription) {
-        this.prescription = prescription;
-    }
-
-    public String getVenderId() {
-        return venderId;
-    }
-
-    public void setVenderId(String venderId) {
-        this.venderId = venderId;
-    }
 
     @Transient()
     public String getStartEndName() {
@@ -198,21 +122,5 @@ public class PretServiceRouteItem extends VersionedAuditableIdEntity implements 
 
     public void setPretVender(PretVender pretVender) {
         this.pretVender = pretVender;
-    }
-
-    public Float getMileage() {
-        return mileage;
-    }
-
-    public void setMileage(Float mileage) {
-        this.mileage = mileage;
-    }
-
-    public Float getLowerLimit() {
-        return lowerLimit;
-    }
-
-    public void setLowerLimit(Float lowerLimit) {
-        this.lowerLimit = lowerLimit;
     }
 }

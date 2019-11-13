@@ -328,6 +328,8 @@ public abstract class BaseServiceImpl<M extends BaseRepository<T>, T extends Ver
                     try {
                         boolean isInteger = field.getGenericType().toString()
                                 .equals(ConstantEnum.QueryGenericType.Int.getGenericType());
+                        boolean isFloat = field.getGenericType().toString()
+                                .equals(ConstantEnum.QueryGenericType.Float.getGenericType());
                         String fieldValueStr = BeanUtils.getProperty(vo, fileName);
                         if (!StringUtils.isEmpty(fieldValueStr)) {
                             if (isInteger) {
@@ -364,6 +366,41 @@ public abstract class BaseServiceImpl<M extends BaseRepository<T>, T extends Ver
 
                                 if (pub.equals(ConstantEnum.QueryType.lte$.name())) {
                                     list.add(cb.lessThanOrEqualTo(root.<Integer>get(subFieldName), fieldValue));
+                                }
+                            } else if (isFloat) {
+                                float fieldValue = Float.parseFloat(fieldValueStr);
+                                if (fieldValue < 0) {
+                                    return;
+                                }
+                                if (pub.equals(ConstantEnum.QueryType.eq$.name())) {
+                                    list.add(cb.equal(root.<Float>get(subFieldName), fieldValue));
+                                }
+
+                                if (pub.equals(ConstantEnum.QueryType.neq$.name())) {
+                                    list.add(cb.notEqual(root.<Float>get(subFieldName), fieldValue));
+                                }
+
+                                if (pub.equals(ConstantEnum.QueryType.bw$.name())) {
+                                    float start = Float.parseFloat(BeanUtils.getProperty(vo, fileName + "Start"));
+                                    float end = Float
+                                            .parseFloat(BeanUtils.getProperty(vo, fileName + "End"));
+                                    list.add(cb.between(root.<Float>get(subFieldName), start, end));
+                                }
+
+                                if (pub.equals(ConstantEnum.QueryType.gt$.name())) {
+                                    list.add(cb.greaterThan(root.<Float>get(subFieldName), fieldValue));
+                                }
+
+                                if (pub.equals(ConstantEnum.QueryType.gte$.name())) {
+                                    list.add(cb.greaterThanOrEqualTo(root.<Float>get(subFieldName), fieldValue));
+                                }
+
+                                if (pub.equals(ConstantEnum.QueryType.lt$.name())) {
+                                    list.add(cb.lessThan(root.<Float>get(subFieldName), fieldValue));
+                                }
+
+                                if (pub.equals(ConstantEnum.QueryType.lte$.name())) {
+                                    list.add(cb.lessThanOrEqualTo(root.<Float>get(subFieldName), fieldValue));
                                 }
                             } else {
                                 long fieldValue = Long.parseLong(fieldValueStr);
