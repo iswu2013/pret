@@ -61,7 +61,7 @@ public class PretPickUpAddress extends VersionedAuditableIdEntity implements Ser
      * 起运地id
      */
     @ExcelField(value = "起运地id")
-    private String pretServiceRouteOrginId;
+    private String pretServiceRouteOriginId;
 
     // setter and getter
 }

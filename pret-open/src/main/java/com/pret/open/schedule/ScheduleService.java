@@ -50,7 +50,7 @@ public class ScheduleService {
             pretTransOrder.setDeliveryDate(new Date());
             pretTransOrder.setOrderNo(Constants.df_yyyyMMddHHmmssSSS.format(new Date()));
             pretTransOrder.setTakeDeliveryDate(new Date());
-            pretTransOrder.setServiceRouteOrginId("SH-JX");
+            pretTransOrder.setServiceRouteOriginId("SH-JX");
             pretTransOrder.setTransMode("陆运");
 
             PretVender pretVender = pretVenderRepository.findTop1ByOrderByCreateTimeLongDesc();

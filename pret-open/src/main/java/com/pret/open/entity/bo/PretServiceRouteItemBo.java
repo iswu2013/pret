@@ -1,6 +1,7 @@
 package com.pret.open.entity.bo;
 
 import com.pret.common.VersionedAuditableIdEntity;
+import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Entity;
@@ -17,11 +18,12 @@ import java.io.Serializable;
  * @version 1.0
  * Copyright (c) 2019年 极客城堡
  */
+@Data
 public class PretServiceRouteItemBo {
     /**
      * 起运地id
      */
-    private String serviceRouteOrginId;
+    private String serviceRouteOriginId;
     /**
      * 地址id
      */
@@ -41,43 +43,4 @@ public class PretServiceRouteItemBo {
      */
     private Float lowerLimit;
 
-    public String getServiceRouteOrginId() {
-        return serviceRouteOrginId;
-    }
-
-    public void setServiceRouteOrginId(String serviceRouteOrginId) {
-        this.serviceRouteOrginId = serviceRouteOrginId;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
-
-    public Integer getPrescription() {
-        return prescription;
-    }
-
-    public void setPrescription(Integer prescription) {
-        this.prescription = prescription;
-    }
-
-    public Float getMileage() {
-        return mileage;
-    }
-
-    public void setMileage(Float mileage) {
-        this.mileage = mileage;
-    }
-
-    public Float getLowerLimit() {
-        return lowerLimit;
-    }
-
-    public void setLowerLimit(Float lowerLimit) {
-        this.lowerLimit = lowerLimit;
-    }
 }

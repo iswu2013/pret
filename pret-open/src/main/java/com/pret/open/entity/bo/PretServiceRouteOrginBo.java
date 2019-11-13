@@ -2,6 +2,7 @@ package com.pret.open.entity.bo;
 
 import com.pret.common.VersionedAuditableIdEntity;
 import com.pret.open.entity.PretVender;
+import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -15,6 +16,7 @@ import java.io.Serializable;
  * @version 1.0
  * Copyright (c) 2019年 极客城堡
  */
+@Data
 public class PretServiceRouteOrginBo {
 
     private static final long serialVersionUID = 1L;
@@ -38,40 +40,4 @@ public class PretServiceRouteOrginBo {
      * 地址
      */
     private String detail;
-
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
-    public String getAddressId() {
-        return addressId;
-    }
-
-    public void setAddressId(String addressId) {
-        this.addressId = addressId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getDetail() {
-        return detail;
-    }
-
-    public void setDetail(String detail) {
-        this.detail = detail;
-    }
 }

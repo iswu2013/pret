@@ -1,6 +1,7 @@
 package com.pret.open.entity.bo;
 
 import com.wuwenze.poi.annotation.ExcelField;
+import lombok.Data;
 
 import java.util.Date;
 
@@ -12,6 +13,7 @@ import java.util.Date;
  * @version 1.0
  * Copyright (c) 2019年 极客城堡
  */
+@Data
 public class PretMTransOrderBo {
     /**
      * 运输方式
@@ -69,108 +71,4 @@ public class PretMTransOrderBo {
     private String serviceRouteOrginName;
 
     private String pretMTransOrderItemStr;
-
-    public String getTransMode() {
-        return transMode;
-    }
-
-    public void setTransMode(String transMode) {
-        this.transMode = transMode;
-    }
-
-    public Date getTakeDeliveryDate() {
-        return takeDeliveryDate;
-    }
-
-    public void setTakeDeliveryDate(Date takeDeliveryDate) {
-        this.takeDeliveryDate = takeDeliveryDate;
-    }
-
-    public Date getDeliveryDate() {
-        return deliveryDate;
-    }
-
-    public void setDeliveryDate(Date deliveryDate) {
-        this.deliveryDate = deliveryDate;
-    }
-
-    public String getDeliveryBillNumber() {
-        return deliveryBillNumber;
-    }
-
-    public void setDeliveryBillNumber(String deliveryBillNumber) {
-        this.deliveryBillNumber = deliveryBillNumber;
-    }
-
-    public String getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(String customerId) {
-        this.customerId = customerId;
-    }
-
-    public String getCustomerName() {
-        return customerName;
-    }
-
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
-    }
-
-    public String getAddressId() {
-        return addressId;
-    }
-
-    public void setAddressId(String addressId) {
-        this.addressId = addressId;
-    }
-
-    public String getCustomerAddress() {
-        return customerAddress;
-    }
-
-    public void setCustomerAddress(String customerAddress) {
-        this.customerAddress = customerAddress;
-    }
-
-    public String getCustomerLinkName() {
-        return customerLinkName;
-    }
-
-    public void setCustomerLinkName(String customerLinkName) {
-        this.customerLinkName = customerLinkName;
-    }
-
-    public String getCustomerLinkPhone() {
-        return customerLinkPhone;
-    }
-
-    public void setCustomerLinkPhone(String customerLinkPhone) {
-        this.customerLinkPhone = customerLinkPhone;
-    }
-
-    public String getServiceRouteOrginName() {
-        return serviceRouteOrginName;
-    }
-
-    public void setServiceRouteOrginName(String serviceRouteOrginName) {
-        this.serviceRouteOrginName = serviceRouteOrginName;
-    }
-
-    public String getPickupFactoryCd() {
-        return pickupFactoryCd;
-    }
-
-    public void setPickupFactoryCd(String pickupFactoryCd) {
-        this.pickupFactoryCd = pickupFactoryCd;
-    }
-
-    public String getPretMTransOrderItemStr() {
-        return pretMTransOrderItemStr;
-    }
-
-    public void setPretMTransOrderItemStr(String pretMTransOrderItemStr) {
-        this.pretMTransOrderItemStr = pretMTransOrderItemStr;
-    }
 }

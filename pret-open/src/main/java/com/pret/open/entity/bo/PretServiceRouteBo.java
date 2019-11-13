@@ -1,5 +1,7 @@
 package com.pret.open.entity.bo;
 
+import lombok.Data;
+
 /**
  * <p>Description: [pretmodel]</p>
  * Created on 2019年09月15日
@@ -8,6 +10,7 @@ package com.pret.open.entity.bo;
  * @version 1.0
  * Copyright (c) 2019年 极客城堡
  */
+@Data
 public class PretServiceRouteBo {
     private String id;
     /**
@@ -21,36 +24,4 @@ public class PretServiceRouteBo {
     private String venderId;
 
     private String serviceRouteItemStr;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getVenderId() {
-        return venderId;
-    }
-
-    public void setVenderId(String venderId) {
-        this.venderId = venderId;
-    }
-
-    public String getServiceRouteItemStr() {
-        return serviceRouteItemStr;
-    }
-
-    public void setServiceRouteItemStr(String serviceRouteItemStr) {
-        this.serviceRouteItemStr = serviceRouteItemStr;
-    }
 }

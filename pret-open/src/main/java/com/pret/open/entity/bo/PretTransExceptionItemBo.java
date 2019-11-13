@@ -1,5 +1,7 @@
 package com.pret.open.entity.bo;
 
+import lombok.Data;
+
 /**
  * <p>Description: [pretmodel]</p>
  * Created on 2019年09月15日
@@ -8,6 +10,7 @@ package com.pret.open.entity.bo;
  * @version 1.0
  * Copyright (c) 2019年 极客城堡
  */
+@Data
 public class PretTransExceptionItemBo {
     /**
      * 运输任务单明细id
@@ -32,45 +35,4 @@ public class PretTransExceptionItemBo {
     private Integer count;
 
     // setter and getter
-
-
-    public String getTransOrderId() {
-        return transOrderId;
-    }
-
-    public void setTransOrderId(String transOrderId) {
-        this.transOrderId = transOrderId;
-    }
-
-    public Integer getType() {
-        return type;
-    }
-
-    public void setType(Integer type) {
-        this.type = type;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark;
-    }
-
-    public String getPicIds() {
-        return picIds;
-    }
-
-    public void setPicIds(String picIds) {
-        this.picIds = picIds;
-    }
-
-    public Integer getCount() {
-        return count;
-    }
-
-    public void setCount(Integer count) {
-        this.count = count;
-    }
 }

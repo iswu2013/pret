@@ -1,6 +1,7 @@
 package com.pret.open.entity.bo;
 
 import com.pret.common.VersionedAuditableIdEntity;
+import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Entity;
@@ -17,6 +18,7 @@ import java.io.Serializable;
  * @version 1.0
  * Copyright (c) 2019年 极客城堡
  */
+@Data
 public class PretTransExceptionBo {
     /**
      * 运输计划id
@@ -39,37 +41,4 @@ public class PretTransExceptionBo {
     private String transExceptionStr;
 
     // setter and getter
-
-
-    public String getTransPlanId() {
-        return transPlanId;
-    }
-
-    public void setTransPlanId(String transPlanId) {
-        this.transPlanId = transPlanId;
-    }
-
-    public Integer getHandleStyle() {
-        return handleStyle;
-    }
-
-    public void setHandleStyle(Integer handleStyle) {
-        this.handleStyle = handleStyle;
-    }
-
-    public Integer getResponsibleParty() {
-        return responsibleParty;
-    }
-
-    public void setResponsibleParty(Integer responsibleParty) {
-        this.responsibleParty = responsibleParty;
-    }
-
-    public String getTransExceptionStr() {
-        return transExceptionStr;
-    }
-
-    public void setTransExceptionStr(String transExceptionStr) {
-        this.transExceptionStr = transExceptionStr;
-    }
 }

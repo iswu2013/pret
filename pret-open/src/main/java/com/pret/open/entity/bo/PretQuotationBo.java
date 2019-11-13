@@ -1,6 +1,7 @@
 package com.pret.open.entity.bo;
 
 import com.pret.common.VersionedAuditableIdEntity;
+import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Entity;
@@ -18,7 +19,8 @@ import java.util.Date;
  * @version 1.0
  * Copyright (c) 2019年 极客城堡
  */
-public class PretQuotationBo  {
+@Data
+public class PretQuotationBo {
 
     private String id;
 
@@ -54,68 +56,4 @@ public class PretQuotationBo  {
      * 创建用户
      */
     private String username;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getVenderId() {
-        return venderId;
-    }
-
-    public void setVenderId(String venderId) {
-        this.venderId = venderId;
-    }
-
-    public String getServiceRouteItemId() {
-        return serviceRouteItemId;
-    }
-
-    public void setServiceRouteItemId(String serviceRouteItemId) {
-        this.serviceRouteItemId = serviceRouteItemId;
-    }
-
-    public String getPeriodFromStr() {
-        return periodFromStr;
-    }
-
-    public void setPeriodFromStr(String periodFromStr) {
-        this.periodFromStr = periodFromStr;
-    }
-
-    public String getPeriodToStr() {
-        return periodToStr;
-    }
-
-    public void setPeriodToStr(String periodToStr) {
-        this.periodToStr = periodToStr;
-    }
-
-    public String getPretQuotationItemStr() {
-        return pretQuotationItemStr;
-    }
-
-    public void setPretQuotationItemStr(String pretQuotationItemStr) {
-        this.pretQuotationItemStr = pretQuotationItemStr;
-    }
-
-    public String getBillingIntervalId() {
-        return billingIntervalId;
-    }
-
-    public void setBillingIntervalId(String billingIntervalId) {
-        this.billingIntervalId = billingIntervalId;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
 }

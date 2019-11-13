@@ -70,7 +70,7 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
     /**
      * 原始运输计划id,针对异常退货
      */
-    private String orginId;
+    private String originId;
 
     /**
      * 起运地id

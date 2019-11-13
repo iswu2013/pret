@@ -81,7 +81,7 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
     /**
      * 起运地
      */
-    private String serviceRouteOrginId;
+    private String serviceRouteOriginId;
 
     /**
      * 起运地

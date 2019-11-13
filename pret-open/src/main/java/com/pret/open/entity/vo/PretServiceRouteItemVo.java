@@ -15,7 +15,7 @@ import java.io.Serializable;
  */
 @Data
 public class PretServiceRouteItemVo extends PageFormVo implements Serializable {
-    private String eq$serviceRouteOrginId;
+    private String eq$serviceRouteOriginId;
     private long bw$createTimeLong;
     private long createTimeLongEnd;
     private String eq$venderId;

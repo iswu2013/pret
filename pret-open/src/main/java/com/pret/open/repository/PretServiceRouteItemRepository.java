@@ -15,14 +15,14 @@ import java.util.List;
  */
 public interface PretServiceRouteItemRepository extends BaseRepository<PretServiceRouteItem> {
     /* *
-     * 功能描述: 根据serviceLineId, serviceRouteOrginId, addressId, s查找
+     * 功能描述: 根据serviceLineId, serviceRouteOriginId, addressId, s查找
      * 〈〉
-     * @Param: [serviceRouteId, serviceRouteOrginId, addressId, s]
+     * @Param: [serviceRouteId, serviceRouteOriginId, addressId, s]
      * @Return: com.pret.open.entity.PretServiceRouteItem
      * @Author: wujingsong
      * @Date: 2019/10/24  9:26 上午
      */
-    PretServiceRouteItem findByServiceRouteIdAndServiceRouteOriginIdAndAddressIdAndS(String serviceRouteId, String serviceRouteOrginId, String addressId, int s);
+    PretServiceRouteItem findByServiceRouteIdAndServiceRouteOriginIdAndAddressIdAndS(String serviceRouteId, String serviceRouteOriginId, String addressId, int s);
 
     /* *
      * 功能描述: 根据serviceLineId查找
@@ -37,12 +37,12 @@ public interface PretServiceRouteItemRepository extends BaseRepository<PretServi
     /* *
      * 功能描述: 根据起运地和地址查找
      * 〈〉
-     * @Param: [serviceRouteOrginId, addressId, s]
+     * @Param: [serviceRouteOriginId, addressId, s]
      * @Return: java.util.List<com.pret.open.entity.PretServiceRouteItem>
      * @Author: wujingsong
      * @Date: 2019/11/8  10:14 上午
      */
-    List<PretServiceRouteItem> findByServiceRouteOrginIdAndAddressIdAndS(String serviceRouteOrginId, String addressId, Integer s);
+    List<PretServiceRouteItem> findByServiceRouteOriginIdAndAddressIdAndS(String serviceRouteOriginId, String addressId, Integer s);
 
 
     /* *

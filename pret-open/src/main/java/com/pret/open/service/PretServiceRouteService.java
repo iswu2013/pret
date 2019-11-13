@@ -57,23 +57,23 @@ public class PretServiceRouteService extends BaseServiceImpl<PretServiceRouteRep
         List<PretServiceRouteItemBo> list = CommonConstants.GSON.fromJson(bo.getServiceRouteItemStr(),
                 new TypeToken<List<PretServiceRouteItemBo>>() {
                 }.getType());
-        List<String> serviceRouteOrginIdList = new ArrayList<>();
+        List<String> serviceRouteOriginIdList = new ArrayList<>();
         for (PretServiceRouteItemBo itemBo : list) {
             // 线路明细
             PretServiceRouteItem item = new PretServiceRouteItem();
-            PretServiceRouteOrigin pretServiceRouteOrgin = pretServiceRouteOrginRepository.findById(itemBo.getServiceRouteOrginId()).get();
+            PretServiceRouteOrigin pretServiceRouteOrgin = pretServiceRouteOrginRepository.findById(itemBo.getServiceRouteOriginId()).get();
             item.setCode(pretServiceRouteOrgin.getCode());
             item.setVenderId(bo.getVenderId());
             item.setAddressId(itemBo.getValue());
             item.setPrescription(itemBo.getPrescription());
             item.setServiceRouteId(pretServiceRoute.getId());
             item.setOrginAddressId(pretServiceRouteOrgin.getAddressId());
-            item.setServiceRouteOriginId(itemBo.getServiceRouteOrginId());
+            item.setServiceRouteOriginId(itemBo.getServiceRouteOriginId());
             item.setLowerLimit(itemBo.getLowerLimit());
             item.setMileage(itemBo.getMileage());
             pretServiceRouteItemRepository.save(item);
-            if (!serviceRouteOrginIdList.contains(itemBo.getServiceRouteOrginId())) {
-                serviceRouteOrginIdList.add(itemBo.getServiceRouteOrginId());
+            if (!serviceRouteOriginIdList.contains(itemBo.getServiceRouteOriginId())) {
+                serviceRouteOriginIdList.add(itemBo.getServiceRouteOriginId());
             }
         }
         this.repository.save(pretServiceRoute);
@@ -107,14 +107,14 @@ public class PretServiceRouteService extends BaseServiceImpl<PretServiceRouteRep
         for (PretServiceRouteItemBo itemBo : list) {
             // 线路明细
             PretServiceRouteItem item = new PretServiceRouteItem();
-            PretServiceRouteOrigin pretServiceRouteOrgin = pretServiceRouteOrginRepository.findById(itemBo.getServiceRouteOrginId()).get();
+            PretServiceRouteOrigin pretServiceRouteOrgin = pretServiceRouteOrginRepository.findById(itemBo.getServiceRouteOriginId()).get();
             item.setCode(pretServiceRouteOrgin.getCode());
             item.setVenderId(bo.getVenderId());
             item.setAddressId(itemBo.getValue());
             item.setOrginAddressId(pretServiceRouteOrgin.getAddressId());
             item.setPrescription(itemBo.getPrescription());
             item.setServiceRouteId(pretServiceRoute.getId());
-            item.setServiceRouteOriginId(itemBo.getServiceRouteOrginId());
+            item.setServiceRouteOriginId(itemBo.getServiceRouteOriginId());
             item.setLowerLimit(itemBo.getLowerLimit());
             item.setMileage(itemBo.getMileage());
             pretServiceRouteItemRepository.save(item);
