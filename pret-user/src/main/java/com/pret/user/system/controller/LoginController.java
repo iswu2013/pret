@@ -84,7 +84,7 @@ public class LoginController {
         JWTToken jwtToken = new JWTToken(token, expireTimeStr);
 
         String userId = this.saveTokenToRedis(user, jwtToken, request);
-        user.setId(userId);
+        //user.setId(userId);
 
         Map<String, Object> userInfo = this.generateUserInfo(jwtToken, user);
         return new FebsResponse().message("认证成功").data(userInfo);
@@ -205,7 +205,7 @@ public class LoginController {
         Set<String> permissions = this.userManager.getUserPermissions(username);
         userInfo.put("permissions", permissions);
 
-        UserConfig userConfig = this.userManager.getUserConfig(String.valueOf(user.getUserId()));
+        UserConfig userConfig = this.userManager.getUserConfig(String.valueOf(user.getId()));
         userInfo.put("config", userConfig);
 
         user.setPassword("it's a secret");

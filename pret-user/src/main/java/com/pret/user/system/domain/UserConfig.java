@@ -1,5 +1,6 @@
 package com.pret.user.system.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
@@ -16,11 +17,13 @@ public class UserConfig {
     public static final String DEFAULT_FIX_HEADER = "1";
     public static final String DEFAULT_COLOR = "rgb(66, 185, 131)";
 
+    @TableId(value = "id", type = IdType.UUID)
+    private String id;
+
     /**
      * 用户 ID
      */
-    @TableId(value = "USER_ID")
-    private Long userId;
+    private String userId;
 
     /**
      * 系统主题 dark暗色风格，light明亮风格
@@ -51,7 +54,4 @@ public class UserConfig {
      * 主题颜色 RGB值
      */
     private String color;
-
-
-
 }

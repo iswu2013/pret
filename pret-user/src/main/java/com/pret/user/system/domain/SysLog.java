@@ -18,8 +18,8 @@ public class SysLog implements Serializable {
 
     private static final long serialVersionUID = -8878596941954995444L;
 
-    @TableId(value = "ID", type = IdType.AUTO)
-    private Long id;
+    @TableId(value = "id", type = IdType.UUID)
+    private String id;
 
     @ExcelField(value = "操作人")
     private String username;

@@ -43,8 +43,8 @@ public class User implements Serializable {
     // 默认密码
     public static final String DEFAULT_PASSWORD = "admin1";
 
-    @TableId(value = "USER_ID", type = IdType.AUTO)
-    private Long userId;
+    @TableId(value = "id", type = IdType.UUID)
+    private String id;
 
     @Size(min = 4, max = 10, message = "{range}")
     @ExcelField(value = "用户名")
@@ -52,7 +52,7 @@ public class User implements Serializable {
 
     private String password;
 
-    private Long deptId;
+    private String deptId;
 
     @ExcelField(value = "部门")
     private transient String deptName;
@@ -94,7 +94,7 @@ public class User implements Serializable {
     /**
      * 父id
      */
-    private Long parentId;
+    private String parentId;
 
     /**
      * 供应商id
@@ -116,8 +116,6 @@ public class User implements Serializable {
     private transient String createTimeTo;
     private transient Integer notUserType;
 
-    private transient String id;
-
     /**
      * shiro-redis v3.1.0 必须要有 getAuthCacheKey()或者 getId()方法
      * # Principal id field name. The field which you can get unique id to identify this principal.
@@ -127,7 +125,7 @@ public class User implements Serializable {
      *
      * @return userId as Principal id field name
      */
-    public Long getAuthCacheKey() {
-        return userId;
+    public String getAuthCacheKey() {
+        return id;
     }
 }

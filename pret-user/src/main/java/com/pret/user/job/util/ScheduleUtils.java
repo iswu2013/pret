@@ -19,21 +19,21 @@ public class ScheduleUtils {
     /**
      * 获取触发器key
      */
-    private static TriggerKey getTriggerKey(Long jobId) {
+    private static TriggerKey getTriggerKey(String jobId) {
         return TriggerKey.triggerKey(JOB_NAME_PREFIX + jobId);
     }
 
     /**
      * 获取jobKey
      */
-    private static JobKey getJobKey(Long jobId) {
+    private static JobKey getJobKey(String jobId) {
         return JobKey.jobKey(JOB_NAME_PREFIX + jobId);
     }
 
     /**
      * 获取表达式触发器
      */
-    public static CronTrigger getCronTrigger(Scheduler scheduler, Long jobId) {
+    public static CronTrigger getCronTrigger(Scheduler scheduler, String jobId) {
         try {
             return (CronTrigger) scheduler.getTrigger(getTriggerKey(jobId));
         } catch (SchedulerException e) {
@@ -48,7 +48,7 @@ public class ScheduleUtils {
     public static void createScheduleJob(Scheduler scheduler, com.pret.user.job.domain.Job scheduleJob) {
         try {
             // 构建job信息
-            JobDetail jobDetail = JobBuilder.newJob(ScheduleJob.class).withIdentity(getJobKey(scheduleJob.getJobId()))
+            JobDetail jobDetail = JobBuilder.newJob(ScheduleJob.class).withIdentity(getJobKey(scheduleJob.getId()))
                     .build();
 
             // 表达式调度构建器
@@ -56,7 +56,7 @@ public class ScheduleUtils {
                     .withMisfireHandlingInstructionDoNothing();
 
             // 按新的cronExpression表达式构建一个新的trigger
-            CronTrigger trigger = TriggerBuilder.newTrigger().withIdentity(getTriggerKey(scheduleJob.getJobId()))
+            CronTrigger trigger = TriggerBuilder.newTrigger().withIdentity(getTriggerKey(scheduleJob.getId()))
                     .withSchedule(scheduleBuilder).build();
 
             // 放入参数，运行时的方法可以获取
@@ -66,7 +66,7 @@ public class ScheduleUtils {
 
             // 暂停任务
             if (scheduleJob.getStatus().equals(Job.ScheduleStatus.PAUSE.getValue())) {
-                pauseJob(scheduler, scheduleJob.getJobId());
+                pauseJob(scheduler, scheduleJob.getId());
             }
         } catch (SchedulerException e) {
             log.error("创建定时任务失败", e);
@@ -78,13 +78,13 @@ public class ScheduleUtils {
      */
     public static void updateScheduleJob(Scheduler scheduler, com.pret.user.job.domain.Job scheduleJob) {
         try {
-            TriggerKey triggerKey = getTriggerKey(scheduleJob.getJobId());
+            TriggerKey triggerKey = getTriggerKey(scheduleJob.getId());
 
             // 表达式调度构建器
             CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule(scheduleJob.getCronExpression())
                     .withMisfireHandlingInstructionDoNothing();
 
-            CronTrigger trigger = getCronTrigger(scheduler, scheduleJob.getJobId());
+            CronTrigger trigger = getCronTrigger(scheduler, scheduleJob.getId());
 
             if (trigger == null) {
                 throw new SchedulerException("获取Cron表达式失败");
@@ -99,7 +99,7 @@ public class ScheduleUtils {
 
             // 暂停任务
             if (scheduleJob.getStatus().equals(Job.ScheduleStatus.PAUSE.getValue())) {
-                pauseJob(scheduler, scheduleJob.getJobId());
+                pauseJob(scheduler, scheduleJob.getId());
             }
 
         } catch (SchedulerException e) {
@@ -116,7 +116,7 @@ public class ScheduleUtils {
             JobDataMap dataMap = new JobDataMap();
             dataMap.put(Job.JOB_PARAM_KEY, scheduleJob);
 
-            scheduler.triggerJob(getJobKey(scheduleJob.getJobId()), dataMap);
+            scheduler.triggerJob(getJobKey(scheduleJob.getId()), dataMap);
         } catch (SchedulerException e) {
             log.error("执行定时任务失败", e);
         }
@@ -125,7 +125,7 @@ public class ScheduleUtils {
     /**
      * 暂停任务
      */
-    public static void pauseJob(Scheduler scheduler, Long jobId) {
+    public static void pauseJob(Scheduler scheduler, String jobId) {
         try {
             scheduler.pauseJob(getJobKey(jobId));
         } catch (SchedulerException e) {
@@ -136,7 +136,7 @@ public class ScheduleUtils {
     /**
      * 恢复任务
      */
-    public static void resumeJob(Scheduler scheduler, Long jobId) {
+    public static void resumeJob(Scheduler scheduler, String jobId) {
         try {
             scheduler.resumeJob(getJobKey(jobId));
         } catch (SchedulerException e) {
@@ -147,7 +147,7 @@ public class ScheduleUtils {
     /**
      * 删除定时任务
      */
-    public static void deleteScheduleJob(Scheduler scheduler, Long jobId) {
+    public static void deleteScheduleJob(Scheduler scheduler, String jobId) {
         try {
             scheduler.deleteJob(getJobKey(jobId));
         } catch (SchedulerException e) {

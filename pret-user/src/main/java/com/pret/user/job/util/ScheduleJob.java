@@ -30,7 +30,7 @@ public class ScheduleJob extends QuartzJobBean {
         JobLogService scheduleJobLogService = SpringContextUtil.getBean(JobLogService.class);
 
         JobLog jobLog = new JobLog();
-        jobLog.setJobId(scheduleJob.getJobId());
+        jobLog.setJobId(scheduleJob.getId());
         jobLog.setBeanName(scheduleJob.getBeanName());
         jobLog.setMethodName(scheduleJob.getMethodName());
         jobLog.setParams(scheduleJob.getParams());
@@ -40,7 +40,7 @@ public class ScheduleJob extends QuartzJobBean {
 
         try {
             // 执行任务
-            log.info("任务准备执行，任务ID：{}", scheduleJob.getJobId());
+            log.info("任务准备执行，任务ID：{}", scheduleJob.getId());
             ScheduleRunnable task = new ScheduleRunnable(scheduleJob.getBeanName(), scheduleJob.getMethodName(),
                     scheduleJob.getParams());
             Future<?> future = service.submit(task);
@@ -50,9 +50,9 @@ public class ScheduleJob extends QuartzJobBean {
             // 任务状态 0：成功 1：失败
             jobLog.setStatus(JobLog.JOB_SUCCESS);
 
-            log.info("任务执行完毕，任务ID：{} 总共耗时：{} 毫秒", scheduleJob.getJobId(), times);
+            log.info("任务执行完毕，任务ID：{} 总共耗时：{} 毫秒", scheduleJob.getId(), times);
         } catch (Exception e) {
-            log.error("任务执行失败，任务ID：" + scheduleJob.getJobId(), e);
+            log.error("任务执行失败，任务ID：" + scheduleJob.getId(), e);
             long times = System.currentTimeMillis() - startTime;
             jobLog.setTimes(times);
             // 任务状态 0：成功 1：失败

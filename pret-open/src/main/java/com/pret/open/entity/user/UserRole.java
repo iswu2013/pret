@@ -1,6 +1,7 @@
 package com.pret.open.entity.user;
 
 import com.pret.common.VersionedAuditableIdEntity;
+import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Entity;
@@ -19,6 +20,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "t_user_role")
+@Data
 public class UserRole extends VersionedAuditableIdEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -37,29 +39,12 @@ public class UserRole extends VersionedAuditableIdEntity implements Serializable
     /**
      * 角色ID
      */
-    private Long roleId;
+    private String roleId;
 
     /**
      * 用户id
      */
-    private Long userId;
+    private String userId;
 
     // setter and getter
-
-
-    public Long getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(Long roleId) {
-        this.roleId = roleId;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
 }

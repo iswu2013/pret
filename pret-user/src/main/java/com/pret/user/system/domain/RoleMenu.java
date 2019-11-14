@@ -1,5 +1,7 @@
 package com.pret.user.system.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
@@ -11,7 +13,10 @@ public class RoleMenu implements Serializable {
 	
 	private static final long serialVersionUID = -7573904024872252113L;
 
-    private Long roleId;
+    @TableId(value = "id", type = IdType.UUID)
+    private String id;
 
-    private Long menuId;
+    private String roleId;
+
+    private String menuId;
 }

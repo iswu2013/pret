@@ -101,13 +101,13 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     @Override
     public void updateRole(Role role) throws Exception {
         // 查找这些角色关联了那些用户
-        String[] roleId = {String.valueOf(role.getRoleId())};
+        String[] roleId = {String.valueOf(role.getId())};
         List<String> userIds = this.userRoleService.findUserIdsByRoleId(roleId);
 
         role.setModifyTime(new Date());
         baseMapper.updateById(role);
 
-        roleMenuMapper.delete(new LambdaQueryWrapper<RoleMenu>().eq(RoleMenu::getRoleId, role.getRoleId()));
+        roleMenuMapper.delete(new LambdaQueryWrapper<RoleMenu>().eq(RoleMenu::getRoleId, role.getId()));
 
         String[] menuIds = role.getMenuId().split(StringPool.COMMA);
         setRoleMenus(role, menuIds);
@@ -119,8 +119,8 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     private void setRoleMenus(Role role, String[] menuIds) {
         Arrays.stream(menuIds).forEach(menuId -> {
             RoleMenu rm = new RoleMenu();
-            rm.setMenuId(Long.valueOf(menuId));
-            rm.setRoleId(role.getRoleId());
+            rm.setMenuId(menuId);
+            rm.setRoleId(role.getId());
             this.roleMenuMapper.insert(rm);
         });
     }

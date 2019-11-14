@@ -24,10 +24,10 @@ public class Menu implements Serializable {
 
     public static final String TYPE_BUTTON = "1";
 
-    @TableId(value = "MENU_ID", type = IdType.AUTO)
-    private Long menuId;
+    @TableId(value = "id", type = IdType.UUID)
+    private String id;
 
-    private Long parentId;
+    private String parentId;
 
     @NotBlank(message = "{required}")
     @Size(max = 10, message = "{noMoreThan}")

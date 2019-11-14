@@ -1,6 +1,7 @@
 package com.pret.open.entity.user;
 
 import com.pret.common.VersionedAuditableIdEntity;
+import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Entity;
@@ -19,6 +20,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "t_user_config")
+@Data
 public class UserConfig extends VersionedAuditableIdEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -44,7 +46,7 @@ public class UserConfig extends VersionedAuditableIdEntity implements Serializab
     /**
      * 用户 ID
      */
-    private Long userId;
+    private String userId;
 
     /**
      * 系统主题 dark暗色风格，light明亮风格
@@ -75,60 +77,4 @@ public class UserConfig extends VersionedAuditableIdEntity implements Serializab
      * 主题颜色 RGB值
      */
     private String color;
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public String getTheme() {
-        return theme;
-    }
-
-    public void setTheme(String theme) {
-        this.theme = theme;
-    }
-
-    public String getLayout() {
-        return layout;
-    }
-
-    public void setLayout(String layout) {
-        this.layout = layout;
-    }
-
-    public String getMultiPage() {
-        return multiPage;
-    }
-
-    public void setMultiPage(String multiPage) {
-        this.multiPage = multiPage;
-    }
-
-    public String getFixSiderbar() {
-        return fixSiderbar;
-    }
-
-    public void setFixSiderbar(String fixSiderbar) {
-        this.fixSiderbar = fixSiderbar;
-    }
-
-    public String getFixHeader() {
-        return fixHeader;
-    }
-
-    public void setFixHeader(String fixHeader) {
-        this.fixHeader = fixHeader;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
 }

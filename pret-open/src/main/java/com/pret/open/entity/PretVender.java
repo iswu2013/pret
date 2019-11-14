@@ -66,7 +66,7 @@ public class PretVender extends VersionedAuditableIdEntity implements Serializab
     /**
      * 所属用户id
      */
-    private Long userId;
+    private String userId;
 
     /**
      * 供应商类型

@@ -144,16 +144,16 @@ public class PretVenderController extends BaseManageController<PretVenderService
             user.setVenderId(vender.getId());
             userRepository.save(user);
             user = userRepository.findById(user.getId()).get();
-            vender.setUserId(user.getUserId());
+            vender.setUserId(user.getId());
 
             Role role = roleRepository.findByCode(ConstantEnum.ERoleCode.Vender.name());
             UserRole userRole = new UserRole();
-            userRole.setRoleId(role.getRoleId());
-            userRole.setUserId(user.getUserId());
+            userRole.setRoleId(role.getId());
+            userRole.setUserId(user.getId());
             userRoleRepository.save(userRole);
 
             UserConfig userConfig = new UserConfig();
-            userConfig.setUserId(user.getUserId());
+            userConfig.setUserId(user.getId());
             userConfig.setColor(UserConfig.DEFAULT_COLOR);
             userConfig.setFixHeader(UserConfig.DEFAULT_FIX_HEADER);
             userConfig.setFixSiderbar(UserConfig.DEFAULT_FIX_SIDERBAR);

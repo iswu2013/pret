@@ -7,9 +7,9 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.pret.common.domain.FebsConstant;
 import com.pret.common.domain.QueryRequest;
+import com.pret.common.utils.MD5Util;
 import com.pret.user.common.service.CacheService;
 import com.pret.user.common.utils.SortUtil;
-import com.pret.common.utils.MD5Util;
 import com.pret.user.system.dao.UserMapper;
 import com.pret.user.system.dao.UserRoleMapper;
 import com.pret.user.system.domain.User;
@@ -55,10 +55,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public IPage<User> findUserDetail(User user, QueryRequest request) {
         try {
             Page<User> page = new Page<>();
-            SortUtil.handlePageSort(request, page, "userId", FebsConstant.ORDER_ASC, false);
-            user.setNotUserType(request.getNotUserType());
-            user.setParentId(request.getParentId());
-            user.setUserType(request.getUserType());
+            SortUtil.handlePageSort(request, page, "id", FebsConstant.ORDER_ASC, false);
             return this.baseMapper.findUserDetail(page, user);
         } catch (Exception e) {
             log.error("查询用户异常", e);
@@ -82,7 +79,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Transactional
     public void createUser(User user) throws Exception {
         // 创建用户
-        user.setCreateTime(new Date());
         user.setAvatar(User.DEFAULT_AVATAR);
         user.setPassword(MD5Util.encrypt(user.getUsername(), User.DEFAULT_PASSWORD));
         save(user);
@@ -92,7 +88,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         setUserRoles(user, roles);
 
         // 创建用户默认的个性化配置
-        userConfigService.initDefaultUserConfig(String.valueOf(user.getUserId()));
+        userConfigService.initDefaultUserConfig(String.valueOf(user.getId()));
 
         // 将用户相关信息保存到 Redis中
         userManager.loadUserRedisCache(user);
@@ -103,10 +99,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public void updateUser(User user) throws Exception {
         // 更新用户
         user.setPassword(null);
-        user.setModifyTime(new Date());
         updateById(user);
 
-        userRoleMapper.delete(new LambdaQueryWrapper<UserRole>().eq(UserRole::getUserId, user.getUserId()));
+        userRoleMapper.delete(new LambdaQueryWrapper<UserRole>().eq(UserRole::getUserId, user.getId()));
 
         String[] roles = user.getRoleId().split(StringPool.COMMA);
         setUserRoles(user, roles);
@@ -169,7 +164,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         User user = new User();
         user.setPassword(MD5Util.encrypt(username, password));
         user.setUsername(username);
-        user.setCreateTime(new Date());
         user.setStatus(User.STATUS_VALID);
         user.setSsex(User.SEX_UNKNOW);
         user.setAvatar(User.DEFAULT_AVATAR);
@@ -177,12 +171,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         this.save(user);
 
         UserRole ur = new UserRole();
-        ur.setUserId(user.getUserId());
-        ur.setRoleId(2L); // 注册用户角色 ID
+        ur.setUserId(user.getId());
+        ur.setRoleId(String.valueOf(2)); // 注册用户角色 ID
         this.userRoleMapper.insert(ur);
 
         // 创建用户默认的个性化配置
-        userConfigService.initDefaultUserConfig(String.valueOf(user.getUserId()));
+        userConfigService.initDefaultUserConfig(user.getId());
         // 将用户相关信息保存到 Redis中
         userManager.loadUserRedisCache(user);
 
@@ -206,8 +200,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     private void setUserRoles(User user, String[] roles) {
         Arrays.stream(roles).forEach(roleId -> {
             UserRole ur = new UserRole();
-            ur.setUserId(user.getUserId());
-            ur.setRoleId(Long.valueOf(roleId));
+            ur.setUserId(user.getId());
+            ur.setRoleId(roleId);
             this.userRoleMapper.insert(ur);
         });
     }

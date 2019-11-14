@@ -2,8 +2,8 @@ package com.pret.user.system.dao;
 
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.pret.user.system.domain.User;
 import com.pret.user.system.domain.LoginLog;
+import com.pret.user.system.domain.User;
 
 import java.util.List;
 import java.util.Map;

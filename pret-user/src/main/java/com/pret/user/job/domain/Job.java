@@ -47,8 +47,8 @@ public class Job implements Serializable {
         }
     }
 
-    @TableId(value = "JOB_ID", type = IdType.AUTO)
-    private Long jobId;
+    @TableId(value = "id", type = IdType.UUID)
+    private String id;
 
     @NotBlank(message = "{required}")
     @Size(max = 50, message = "{noMoreThan}")
@@ -81,5 +81,4 @@ public class Job implements Serializable {
 
     private transient String createTimeFrom;
     private transient String createTimeTo;
-
 }

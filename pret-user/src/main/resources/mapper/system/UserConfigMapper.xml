@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.pluto.user.system.dao.UserConfigMapper">
-    <resultMap id="BaseResultMap" type="com.pluto.user.system.domain.UserConfig">
+<mapper namespace="com.pret.user.system.dao.UserConfigMapper">
+    <resultMap id="BaseResultMap" type="com.pret.user.system.domain.UserConfig">
         <id column="id" jdbcType="VARCHAR" property="id"/>
         <result column="USER_ID" jdbcType="VARCHAR" property="userId"/>
         <result column="THEME" jdbcType="VARCHAR" property="theme"/>

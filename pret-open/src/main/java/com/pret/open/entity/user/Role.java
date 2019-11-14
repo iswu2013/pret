@@ -1,10 +1,12 @@
 package com.pret.open.entity.user;
 
 import com.pret.common.VersionedAuditableIdEntity;
+import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>Description: [tmodel]</p>
@@ -16,6 +18,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "t_role")
+@Data
 public class Role extends VersionedAuditableIdEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -33,11 +36,6 @@ public class Role extends VersionedAuditableIdEntity implements Serializable {
     }
 
     /**
-     * 角色id
-     */
-    private Long roleId;
-
-    /**
      * 角色编码
      */
     private String code;
@@ -53,112 +51,11 @@ public class Role extends VersionedAuditableIdEntity implements Serializable {
     /**
      * 创建时间
      */
-    private java.util.Date createTime;
+    private Date createTime;
     /**
      * 修改时间
      */
-    private java.util.Date modifyTime;
+    private Date modifyTime;
 
     // setter and getter
-
-
-    public Long getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(Long roleId) {
-        this.roleId = roleId;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    /**
-     * <p>Discription:[角色名称]</p>
-     * Created on 2019年10月19日
-     *
-     * @return String
-     * @author:wujinsong
-     */
-    public String getRoleName() {
-        return roleName;
-    }
-
-    /**
-     * <p>Discription:[角色名称]</p>
-     * Created on 2019年10月19日
-     *
-     * @author:wujinsong
-     */
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
-    }
-
-    /**
-     * <p>Discription:[角色描述]</p>
-     * Created on 2019年10月19日
-     *
-     * @return String
-     * @author:wujinsong
-     */
-    public String getRemark() {
-        return remark;
-    }
-
-    /**
-     * <p>Discription:[角色描述]</p>
-     * Created on 2019年10月19日
-     *
-     * @author:wujinsong
-     */
-    public void setRemark(String remark) {
-        this.remark = remark;
-    }
-
-    /**
-     * <p>Discription:[创建时间]</p>
-     * Created on 2019年10月19日
-     *
-     * @return java.util.Date
-     * @author:wujinsong
-     */
-    public java.util.Date getCreateTime() {
-        return createTime;
-    }
-
-    /**
-     * <p>Discription:[创建时间]</p>
-     * Created on 2019年10月19日
-     *
-     * @author:wujinsong
-     */
-    public void setCreateTime(java.util.Date createTime) {
-        this.createTime = createTime;
-    }
-
-    /**
-     * <p>Discription:[修改时间]</p>
-     * Created on 2019年10月19日
-     *
-     * @return java.util.Date
-     * @author:wujinsong
-     */
-    public java.util.Date getModifyTime() {
-        return modifyTime;
-    }
-
-    /**
-     * <p>Discription:[修改时间]</p>
-     * Created on 2019年10月19日
-     *
-     * @author:wujinsong
-     */
-    public void setModifyTime(java.util.Date modifyTime) {
-        this.modifyTime = modifyTime;
-    }
 }

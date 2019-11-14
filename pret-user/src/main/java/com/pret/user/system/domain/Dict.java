@@ -18,8 +18,8 @@ public class Dict implements Serializable {
 
     private static final long serialVersionUID = 7780820231535870010L;
 
-    @TableId(value = "DICT_ID", type = IdType.AUTO)
-    private Long dictId;
+    @TableId(value = "id", type = IdType.UUID)
+    private String id;
 
     @NotBlank(message = "{required}")
     @Size(max = 10, message = "{noMoreThan}")

@@ -88,8 +88,8 @@ public class UserManager {
         List<Menu> menus = this.menuService.findUserMenus(username);
         menus.forEach(menu -> {
             VueRouter<Menu> route = new VueRouter<>();
-            route.setId(menu.getMenuId().toString());
-            route.setParentId(menu.getParentId().toString());
+            route.setId(menu.getId());
+            route.setParentId(menu.getParentId());
             route.setIcon(menu.getIcon());
             route.setPath(menu.getPath());
             route.setComponent(menu.getComponent());
@@ -125,7 +125,7 @@ public class UserManager {
         // 缓存用户权限
         cacheService.savePermissions(user.getUsername());
         // 缓存用户个性化配置
-        cacheService.saveUserConfigs(String.valueOf(user.getUserId()));
+        cacheService.saveUserConfigs(String.valueOf(user.getId()));
     }
 
     /**

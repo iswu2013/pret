@@ -60,9 +60,9 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements De
     @Override
     @Transactional
     public void createDept(Dept dept) {
-        Long parentId = dept.getParentId();
-        if (parentId == null)
-            dept.setParentId(0L);
+        String parentId = dept.getParentId();
+        if (StringUtils.isEmpty(parentId))
+            dept.setParentId(String.valueOf(0));
         dept.setCreateTime(new Date());
         this.save(dept);
     }
@@ -83,9 +83,9 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements De
     private void buildTrees(List<Tree<Dept>> trees, List<Dept> depts) {
         depts.forEach(dept -> {
             Tree<Dept> tree = new Tree<>();
-            tree.setId(dept.getDeptId().toString());
+            tree.setId(dept.getId());
             tree.setKey(tree.getId());
-            tree.setParentId(dept.getParentId().toString());
+            tree.setParentId(dept.getParentId());
             tree.setText(dept.getDeptName());
             tree.setCreateTime(dept.getCreateTime());
             tree.setModifyTime(dept.getModifyTime());

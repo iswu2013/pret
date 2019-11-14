@@ -20,10 +20,10 @@ public class Dept implements Serializable {
 
     private static final long serialVersionUID = -7790334862410409053L;
 
-    @TableId(value = "DEPT_ID", type = IdType.AUTO)
-    private Long deptId;
+    @TableId(value = "id", type = IdType.UUID)
+    private String id;
 
-    private Long parentId;
+    private String parentId;
 
     @NotBlank(message = "{required}")
     @Size(max = 20, message = "{noMoreThan}")

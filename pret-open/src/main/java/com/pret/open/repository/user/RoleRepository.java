@@ -21,14 +21,4 @@ public interface RoleRepository extends BaseRepository<Role> {
      * @Date: 2019/11/4  10:49 上午
      */
     Role findByCode(String code);
-
-    /* *
-     * 功能描述: 根据roleId查找
-     * 〈〉
-     * @Param: [roleId]
-     * @Return: com.pret.open.entity.user.Role
-     * @Author: wujingsong
-     * @Date: 2019/11/5  9:08 上午
-     */
-    Role findByRoleId(Long roleId);
 }

@@ -22,14 +22,14 @@ public class UserConfigServiceImpl extends ServiceImpl<UserConfigMapper, UserCon
 
     @Override
     public UserConfig findByUserId(String userId) {
-        return baseMapper.selectById(userId);
+        return baseMapper.findByUserId(userId);
     }
 
     @Override
     @Transactional
     public void initDefaultUserConfig(String userId) {
         UserConfig userConfig = new UserConfig();
-        userConfig.setUserId(Long.valueOf(userId));
+        userConfig.setUserId(userId);
         userConfig.setColor(UserConfig.DEFAULT_COLOR);
         userConfig.setFixHeader(UserConfig.DEFAULT_FIX_HEADER);
         userConfig.setFixSiderbar(UserConfig.DEFAULT_FIX_SIDERBAR);
@@ -49,7 +49,7 @@ public class UserConfigServiceImpl extends ServiceImpl<UserConfigMapper, UserCon
     @Override
     @Transactional
     public void update(UserConfig userConfig) throws Exception {
-        baseMapper.updateById(userConfig);
+        baseMapper.updateByUserId(userConfig);
         cacheService.saveUserConfigs(String.valueOf(userConfig.getUserId()));
     }
 }

@@ -20,8 +20,8 @@ public class Role implements Serializable {
 
     private static final long serialVersionUID = -1714476694755654924L;
 
-    @TableId(value = "ROLE_ID", type = IdType.AUTO)
-    private Long roleId;
+    @TableId(value = "id", type = IdType.UUID)
+    private String id;
 
     @NotBlank(message = "{required}")
     @Size(max = 10, message = "{noMoreThan}")
