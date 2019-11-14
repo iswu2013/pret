@@ -12,6 +12,7 @@ import com.pret.api.vo.ResBody;
 import com.pret.common.constant.CommonConstants;
 import com.pret.common.constant.ConstantEnum;
 import com.pret.common.constant.Constants;
+import com.pret.common.exception.FebsException;
 import com.pret.common.util.BeanUtilsExtended;
 import com.pret.common.utils.DateUtil;
 import com.pret.open.entity.*;
@@ -60,7 +61,12 @@ public class PretQuotationService extends BaseServiceImpl<PretQuotationRepositor
      * @Author: wujingsong
      * @Date: 2019/10/24  10:20 上午
      */
-    public void pretQuotationAdd(PretQuotationBo bo) {
+    public void pretQuotationAdd(PretQuotationBo bo) throws FebsException {
+        PretQuotation old = this.repository.findByVenderIdAndS(bo.getVenderId(), ConstantEnum.S.N.getLabel());
+        if (old != null) {
+            String message = "该供应商已存在报价";
+            throw new FebsException(message);
+        }
         PretQuotation pretQuotation = new PretQuotation();
         BeanUtilsExtended.copyProperties(pretQuotation, bo);
         try {

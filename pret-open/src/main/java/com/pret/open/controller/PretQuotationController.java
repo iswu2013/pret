@@ -85,8 +85,8 @@ public class PretQuotationController extends BaseManageController<PretQuotationS
         try {
             this.service.pretQuotationAdd(bo);
         } catch (Exception e) {
-            message = "生成报价失败";
-            throw new FebsException(message);
+            System.out.println("e" + e.getMessage());
+            throw new FebsException(e.getMessage());
         }
     }
 
@@ -96,8 +96,8 @@ public class PretQuotationController extends BaseManageController<PretQuotationS
         try {
             this.service.pretQuotationEdit(bo);
         } catch (Exception e) {
-            message = "生成报价失败";
-            throw new FebsException(message);
+            System.out.println("e" + e.getMessage());
+            throw new FebsException(e.getMessage());
         }
     }
 

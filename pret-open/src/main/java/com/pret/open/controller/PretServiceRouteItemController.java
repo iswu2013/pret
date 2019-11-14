@@ -175,7 +175,7 @@ public class PretServiceRouteItemController extends BaseManageController<PretSer
      */
     @GetMapping(value = "/getByVenderIsNull/{venderId}")
     public List<PretServiceRouteItem> getByVenderIsNull(@PathVariable String venderId) {
-        String where = " where 1=1 and (a.vender_id is NULL or a.vender_id = '" + venderId + "') and a.s = 1 ";
+        String where = " where 1=1 and (a.vender_id is NULL or a.vender_id = '" + venderId + "') and a.s = 1 order by service_route_origin_id Desc ";
         String con = "SELECT a.id,a.code FROM pret_service_route_item a  " + where;
         StringBuffer querySql = new StringBuffer(con);
         Query query = em.createNativeQuery(querySql.toString());

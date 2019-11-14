@@ -21,8 +21,6 @@ public class PretServiceRouteItemVo extends PageFormVo implements Serializable {
     private String eq$venderId;
     private String eq$orginAddressId;
     private String eq$addressId;
-    private float bw$lowerLimit;
-    private float lowerLimitEnd;
     /**
      * 供应商类别
      */

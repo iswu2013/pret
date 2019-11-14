@@ -61,7 +61,7 @@ public class PretServiceRouteItem extends VersionedAuditableIdEntity implements 
     /**
      * 起运地地址id
      */
-    private String orginAddressId;
+    private String originAddressId;
 
     /**
      * u9code
