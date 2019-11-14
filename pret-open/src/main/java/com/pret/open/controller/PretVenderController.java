@@ -8,6 +8,7 @@ import com.pret.common.util.StringUtil;
 import com.pret.common.utils.MD5Util;
 import com.pret.open.entity.PretTransOrder;
 import com.pret.open.entity.PretVender;
+import com.pret.open.entity.bo.PretServiceRouteBo;
 import com.pret.open.entity.user.Role;
 import com.pret.open.entity.user.User;
 import com.pret.open.entity.user.UserConfig;
@@ -25,6 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.management.remote.rmi._RMIConnection_Stub;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -132,6 +134,11 @@ public class PretVenderController extends BaseManageController<PretVenderService
             PretVender pretVender = pretVenderRepository.findByCodeAndS(vender.getCode(), ConstantEnum.S.N.getLabel());
             if (pretVender != null) {
                 message = "已存在相同的供应商code";
+                throw new FebsException(message);
+            }
+            pretVender = pretVenderRepository.findByLinkPhoneAndS(vender.getLinkPhone(), ConstantEnum.S.N.getLabel());
+            if (pretVender != null) {
+                message = "已存在相同的手机号码供应商";
                 throw new FebsException(message);
             }
             this.pretVenderRepository.save(vender);

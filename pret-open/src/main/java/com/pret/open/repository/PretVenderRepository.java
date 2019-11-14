@@ -30,4 +30,14 @@ public interface PretVenderRepository extends BaseRepository<PretVender> {
      * @return
      */
     PretVender findByCodeAndS(String code, Integer s);
+
+    /* *
+     * 功能描述: 根据联系号码和状态查询
+     * 〈〉
+     * @Param: [linkPhone, s]
+     * @Return: com.pret.open.entity.PretVender
+     * @Author: wujingsong
+     * @Date: 2019/11/14  5:03 下午
+     */
+    PretVender findByLinkPhoneAndS(String linkPhone, Integer s);
 }

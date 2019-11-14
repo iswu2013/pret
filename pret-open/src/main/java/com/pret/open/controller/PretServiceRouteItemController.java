@@ -9,6 +9,7 @@ import com.pret.open.entity.PretServiceRouteItem;
 import com.pret.open.entity.PretServiceRouteOrigin;
 import com.pret.open.entity.PretVender;
 import com.pret.open.entity.bo.AreaBo;
+import com.pret.open.entity.vo.PretQuotationItemRVo;
 import com.pret.open.entity.vo.PretServiceRouteItemVo;
 import com.pret.open.repository.PretAddressRepository;
 import com.pret.open.repository.PretServiceRouteItemRepository;
@@ -174,7 +175,9 @@ public class PretServiceRouteItemController extends BaseManageController<PretSer
      * @Date: 2019/11/11  10:06 下午
      */
     @GetMapping(value = "/getByVenderIsNull/{venderId}")
-    public List<PretServiceRouteItem> getByVenderIsNull(@PathVariable String venderId) {
+    public PretQuotationItemRVo getByVenderIsNull(@PathVariable String venderId) {
+        PretQuotationItemRVo retVo = new PretQuotationItemRVo();
+
         String where = " where 1=1 and (a.vender_id is NULL or a.vender_id = '" + venderId + "') and a.s = 1 order by service_route_origin_id Desc ";
         String con = "SELECT a.id,a.code FROM pret_service_route_item a  " + where;
         StringBuffer querySql = new StringBuffer(con);
@@ -207,6 +210,9 @@ public class PretServiceRouteItemController extends BaseManageController<PretSer
             }
             route.setStartEndName(startEndName);
         }
-        return serviceRouteItemList;
+
+        retVo.setPretServiceRouteItemList(serviceRouteItemList);
+        retVo.setPretVender(pretVenderRepository.findById(venderId).get());
+        return retVo;
     }
 }

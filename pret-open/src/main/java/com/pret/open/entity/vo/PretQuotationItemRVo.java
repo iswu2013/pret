@@ -1,5 +1,7 @@
 package com.pret.open.entity.vo;
 
+import com.pret.open.entity.PretServiceRouteItem;
+import com.pret.open.entity.PretVender;
 import lombok.Data;
 
 import java.util.List;
@@ -15,9 +17,7 @@ import java.util.Map;
  */
 @Data
 public class PretQuotationItemRVo  {
-    private String id;
+    List<PretServiceRouteItem> pretServiceRouteItemList;
 
-    private List<Map> pretFeeTypeDataSource0;
-
-    private List<Map> pretFeeTypeDataSource1;
+    PretVender pretVender;
 }
