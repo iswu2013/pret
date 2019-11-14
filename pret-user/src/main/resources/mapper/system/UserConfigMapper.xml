@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pluto.user.system.dao.UserConfigMapper">
+    <resultMap id="BaseResultMap" type="com.pluto.user.system.domain.UserConfig">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="USER_ID" jdbcType="VARCHAR" property="userId"/>
+        <result column="THEME" jdbcType="VARCHAR" property="theme"/>
+        <result column="LAYOUT" jdbcType="VARCHAR" property="layout"/>
+        <result column="MULTI_PAGE" jdbcType="CHAR" property="multiPage"/>
+        <result column="FIX_SIDERBAR" jdbcType="CHAR" property="fixSiderbar"/>
+        <result column="FIX_HEADER" jdbcType="CHAR" property="fixHeader"/>
+        <result column="COLOR" jdbcType="VARCHAR" property="color"/>
+    </resultMap>
+
+    <select id="findByUserId" resultType="userConfig" parameterType="string">
+        SELECT
+        u.id id,
+        u.USER_ID userId,
+        u.THEME theme,
+        u.LAYOUT layout,
+        u.MULTI_PAGE multiPage,
+        u.FIX_SIDERBAR fixSiderbar,
+        u.FIX_HEADER fixHeader,
+        u.COLOR color
+        FROM
+        t_user_config u
+        WHERE  u.user_id = #{userId}
+    </select>
+
+    <update id="updateByUserId" parameterType="userConfig">
+        update t_user_config u
+        set
+        u.THEME = #{theme},
+        u.LAYOUT = #{layout},
+        u.MULTI_PAGE = #{multiPage},
+        u.FIX_SIDERBAR = #{fixSiderbar},
+        u.FIX_HEADER = #{fixHeader},
+        u.COLOR = #{color}
+        WHERE  u.user_id = #{userId}
+    </update>
+</mapper>

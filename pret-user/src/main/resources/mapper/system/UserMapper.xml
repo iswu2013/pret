@@ -1,62 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.pret.user.system.dao.UserMapper">
-    <resultMap id="BaseResultMap" type="com.pret.user.system.domain.User">
-        <id column="USER_ID" jdbcType="DECIMAL" property="userId"/>
+<mapper namespace="com.pluto.user.system.dao.UserMapper">
+    <resultMap id="BaseResultMap" type="com.pluto.user.system.domain.User">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
         <result column="USERNAME" jdbcType="VARCHAR" property="username"/>
         <result column="PASSWORD" jdbcType="VARCHAR" property="password"/>
-        <result column="DEPT_ID" jdbcType="DECIMAL" property="deptId"/>
+        <result column="DEPT_ID" jdbcType="VARCHAR" property="deptId"/>
         <result column="EMAIL" jdbcType="VARCHAR" property="email"/>
         <result column="MOBILE" jdbcType="VARCHAR" property="mobile"/>
         <result column="STATUS" jdbcType="CHAR" property="status"/>
-        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
-        <result column="MODIFY_TIME" jdbcType="TIMESTAMP" property="modifyTime"/>
         <result column="LAST_LOGIN_TIME" jdbcType="TIMESTAMP" property="lastLoginTime"/>
         <result column="SSEX" jdbcType="CHAR" property="ssex"/>
         <result column="AVATAR" jdbcType="VARCHAR" property="avatar"/>
         <result column="DESCRIPTION" jdbcType="VARCHAR" property="description"/>
-        <result column="PARENT_ID" jdbcType="BIGINT" property="parentId"/>
-        <result column="USER_TYPE" jdbcType="INTEGER" property="userType"/>
-        <result column="VENDER_ID" jdbcType="INTEGER" property="venderId"/>
     </resultMap>
 
     <select id="findUserDetail" resultType="user" parameterType="user">
         SELECT
-        u.user_id userId,
+        u.id id,
         u.username,
         u.password,
         u.email,
         u.mobile,
         u. STATUS,
-        u.create_time createTime,
         u.ssex,
-        d.dept_id deptId,
+        d.id deptId,
         d.dept_name deptName,
         u.AVATAR,
         u.DESCRIPTION,
-        u.parent_id parentId,
-        u.user_type userType,
-        u.vender_id venderId,
         u.LAST_LOGIN_TIME lastLoginTime,
-        GROUP_CONCAT(r.role_id) roleId,
+        GROUP_CONCAT(r.id) roleId,
         GROUP_CONCAT(r.ROLE_NAME) roleName
         FROM
         t_user u
-        LEFT JOIN t_dept d ON (u.dept_id = d.dept_id)
-        LEFT JOIN t_user_role ur ON (u.user_id = ur.user_id)
-        LEFT JOIN t_role r ON r.role_id = ur.role_id
+        LEFT JOIN t_dept d ON (u.dept_id = d.id)
+        LEFT JOIN t_user_role ur ON (u.id = ur.user_id)
+        LEFT JOIN t_role r ON r.id = ur.role_id
         WHERE 1 = 1
         <if test="user.username != null and user.username != ''">
             AND u.username = #{user.username}
         </if>
         <if test="user.deptId != null and user.deptId != ''">
-            AND d.dept_id = #{user.deptId}
-        </if>
-        <if test="user.createTimeFrom != null and user.createTimeFrom !=''">
-            And u.create_time &gt; #{user.createTimeFrom}
-        </if>
-        <if test="user.createTimeTo!= null and user.createTimeTo !=''">
-            And u.create_time &lt; #{user.createTimeTo}
+            AND d.id = #{user.deptId}
         </if>
         <if test="user.ssex != null and user.ssex != ''">
             AND u.ssex = #{user.ssex}
@@ -64,44 +49,31 @@
         <if test="user.status != null and user.status != ''">
             AND u.status = #{user.status}
         </if>
-        <if test="user.parentId != null and user.parentId != ''">
-            AND u.parent_id = #{user.parentId}
-        </if>
-        <if test="user.userType != null and user.userType != ''">
-            AND u.user_type = #{user.userType}
-        </if>
-        <if test="user.notUserType != null and user.notUserType != ''">
-            AND u.user_type != #{user.notUserType}
-        </if>
         group by u.username
 
     </select>
 
     <select id="findDetail" resultType="user" parameterType="string">
         SELECT
-        u.user_id userId,
+        u.id id,
         u.username,
         u.password,
         u.email,
         u.mobile,
         u. STATUS,
-        u.create_time createTime,
         u.ssex,
-        d.dept_id deptId,
+        d.id deptId,
         d.dept_name deptName,
         u.AVATAR,
         u.DESCRIPTION,
-        u.parent_id parentId,
-        u.user_type userType,
-        u.vender_id venderId,
         u.LAST_LOGIN_TIME lastLoginTime,
-        GROUP_CONCAT(r.role_id) roleId,
+        GROUP_CONCAT(r.id) roleId,
         GROUP_CONCAT(r.ROLE_NAME) roleName
         FROM
         t_user u
-        LEFT JOIN t_dept d ON (u.dept_id = d.dept_id)
-        LEFT JOIN t_user_role ur ON (u.user_id = ur.user_id)
-        LEFT JOIN t_role r ON r.role_id = ur.role_id
+        LEFT JOIN t_dept d ON (u.dept_id = d.id)
+        LEFT JOIN t_user_role ur ON (u.id = ur.user_id)
+        LEFT JOIN t_role r ON r.id = ur.role_id
         WHERE  u.username = #{username}
         group by u.username
     </select>
