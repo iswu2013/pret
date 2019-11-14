@@ -170,8 +170,7 @@ public class PretVenderController extends BaseManageController<PretVenderService
             userConfigRepository.save(userConfig);
 
         } catch (Exception e) {
-            message = "新建物流供应商失败";
-            throw new FebsException(message);
+            throw new FebsException(e.getMessage());
         }
     }
 }
