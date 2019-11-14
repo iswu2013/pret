@@ -73,5 +73,10 @@ public class PretVender extends VersionedAuditableIdEntity implements Serializab
      */
     private Integer type;
 
+    /**
+     * 价格明细配置
+     */
+    private String pretQuotationItemStr;
+
     // setter and getter
 }

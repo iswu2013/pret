@@ -46,11 +46,9 @@ public class PretQuotationService extends BaseServiceImpl<PretQuotationRepositor
     @Autowired
     private PretQuotationItemRepository pretQuotationItemRepository;
     @Autowired
-    private PretBillingIntervalItemRepository pretBillingIntervalItemRepository;
-    @Autowired
-    private PretFeeTypeRepository pretFeeTypeRepository;
-    @Autowired
     private PretServiceRouteItemRepository pretServiceRouteItemRepository;
+    @Autowired
+    private PretVenderRepository pretVenderRepository;
 
 
     /* *
@@ -74,7 +72,8 @@ public class PretQuotationService extends BaseServiceImpl<PretQuotationRepositor
             pretQuotation.setPeriodTo(DateUtils.parseDate(bo.getPeriodToStr(), "yyyy-MM-dd"));
         } catch (ParseException e) {
         }
-
+        PretVender pretVender = pretVenderRepository.findById(bo.getVenderId()).get();
+        pretVender.setPretQuotationItemStr(bo.getPretQuotationItemStr());
         this.repository.save(pretQuotation);
         this.editQuotion(bo, pretQuotation);
     }
@@ -95,6 +94,8 @@ public class PretQuotationService extends BaseServiceImpl<PretQuotationRepositor
             pretQuotation.setPeriodTo(DateUtils.parseDate(bo.getPeriodToStr(), "yyyy-MM-dd"));
         } catch (ParseException e) {
         }
+        PretVender pretVender = pretVenderRepository.findById(bo.getVenderId()).get();
+        pretVender.setPretQuotationItemStr(bo.getPretQuotationItemStr());
         this.repository.save(pretQuotation);
 
         // 删除之前的报价明细
