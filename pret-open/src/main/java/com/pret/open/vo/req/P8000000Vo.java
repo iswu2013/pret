@@ -1,6 +1,8 @@
 package com.pret.open.vo.req;
 
 import com.pret.api.vo.PageFormVo;
+import com.pret.api.vo.ReqBody;
+import lombok.Data;
 
 import java.util.Date;
 
@@ -12,24 +14,9 @@ import java.util.Date;
  * @version 1.0
  * Copyright (c) 2019年 极客城堡
  */
-public class P8000000Vo extends PageFormVo {
+@Data
+public class P8000000Vo extends ReqBody {
     private String openid;
 
     private int status;
-
-    public String getOpenid() {
-        return openid;
-    }
-
-    public void setOpenid(String openid) {
-        this.openid = openid;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
 }

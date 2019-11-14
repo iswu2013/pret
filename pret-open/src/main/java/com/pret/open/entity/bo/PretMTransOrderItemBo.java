@@ -1,6 +1,7 @@
 package com.pret.open.entity.bo;
 
 import com.wuwenze.poi.annotation.ExcelField;
+import lombok.Data;
 
 import java.util.Date;
 
@@ -12,6 +13,7 @@ import java.util.Date;
  * @version 1.0
  * Copyright (c) 2019年 极客城堡
  */
+@Data
 public class PretMTransOrderItemBo {
     /**
      * 料号
@@ -45,68 +47,4 @@ public class PretMTransOrderItemBo {
     private Integer goodsType;
 
     private Integer goodsNum;
-
-    public String getPartNo() {
-        return partNo;
-    }
-
-    public void setPartNo(String partNo) {
-        this.partNo = partNo;
-    }
-
-    public String getBatchNo() {
-        return batchNo;
-    }
-
-    public void setBatchNo(String batchNo) {
-        this.batchNo = batchNo;
-    }
-
-    public String getProduct() {
-        return product;
-    }
-
-    public void setProduct(String product) {
-        this.product = product;
-    }
-
-    public Float getWeight() {
-        return weight;
-    }
-
-    public void setWeight(Float weight) {
-        this.weight = weight;
-    }
-
-    public Integer getUnit() {
-        return unit;
-    }
-
-    public void setUnit(Integer unit) {
-        this.unit = unit;
-    }
-
-    public Integer getGoodsType() {
-        return goodsType;
-    }
-
-    public void setGoodsType(Integer goodsType) {
-        this.goodsType = goodsType;
-    }
-
-    public float getCbm() {
-        return cbm;
-    }
-
-    public void setCbm(float cbm) {
-        this.cbm = cbm;
-    }
-
-    public Integer getGoodsNum() {
-        return goodsNum;
-    }
-
-    public void setGoodsNum(Integer goodsNum) {
-        this.goodsNum = goodsNum;
-    }
 }

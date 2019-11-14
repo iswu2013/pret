@@ -1,8 +1,7 @@
 package com.pret.open.vo.req;
 
-import com.pret.api.vo.PageFormVo;
-
-import java.util.Date;
+import com.pret.api.vo.ReqBody;
+import lombok.Data;
 
 /**
  * Description: 完成备货
@@ -12,14 +11,7 @@ import java.util.Date;
  * @version 1.0
  * Copyright (c) 2019年 极客城堡
  */
-public class P1000001Vo extends PageFormVo {
+@Data
+public class P1000001Vo extends ReqBody {
     private String ids;
-
-    public String getIds() {
-        return ids;
-    }
-
-    public void setIds(String ids) {
-        this.ids = ids;
-    }
 }

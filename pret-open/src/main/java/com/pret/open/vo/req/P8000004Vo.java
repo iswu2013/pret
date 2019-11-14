@@ -1,6 +1,8 @@
 package com.pret.open.vo.req;
 
 import com.pret.api.vo.PageFormVo;
+import com.pret.api.vo.ReqBody;
+import lombok.Data;
 
 /**
  * Description: 获取司机详情
@@ -10,14 +12,7 @@ import com.pret.api.vo.PageFormVo;
  * @version 1.0
  * Copyright (c) 2019年 极客城堡
  */
-public class P8000004Vo extends PageFormVo {
+@Data
+public class P8000004Vo extends ReqBody {
     private String openid;
-
-    public String getOpenid() {
-        return openid;
-    }
-
-    public void setOpenid(String openid) {
-        this.openid = openid;
-    }
 }

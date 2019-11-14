@@ -1,9 +1,6 @@
 package com.pret.open.vo.res;
 
 import com.pret.api.vo.ResBody;
-import com.pret.open.entity.PretTransTrajectory;
-
-import java.util.List;
 
 /**
  * Description: 获取司机详情

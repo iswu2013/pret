@@ -1,6 +1,8 @@
 package com.pret.open.vo.req;
 
 import com.pret.api.vo.PageFormVo;
+import com.pret.api.vo.ReqBody;
+import lombok.Data;
 
 /**
  * Description: 绑定用户
@@ -10,7 +12,8 @@ import com.pret.api.vo.PageFormVo;
  * @version 1.0
  * Copyright (c) 2019年 极客城堡
  */
-public class P1000004Vo extends PageFormVo {
+@Data
+public class P1000004Vo extends ReqBody {
     private String openid;
 
     private String phone;
@@ -19,28 +22,4 @@ public class P1000004Vo extends PageFormVo {
      * 用户类型
      */
     private Integer type;
-
-    public String getOpenid() {
-        return openid;
-    }
-
-    public void setOpenid(String openid) {
-        this.openid = openid;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public Integer getType() {
-        return type;
-    }
-
-    public void setType(Integer type) {
-        this.type = type;
-    }
 }
