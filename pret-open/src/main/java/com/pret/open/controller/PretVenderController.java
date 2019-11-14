@@ -23,12 +23,15 @@ import com.pret.open.service.PretVenderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Validated
@@ -47,6 +50,8 @@ public class PretVenderController extends BaseManageController<PretVenderService
     private UserConfigRepository userConfigRepository;
     @Autowired
     private PretTransOrderRepository pretTransOrderRepository;
+    @PersistenceContext
+    private EntityManager em;
 
 
     @Log("查看")
@@ -59,6 +64,41 @@ public class PretVenderController extends BaseManageController<PretVenderService
             message = "查看失败";
             throw new FebsException(message);
         }
+    }
+
+    /* *
+     * 功能描述: <br>
+     * 〈〉
+     * @Param: 获取没有配置过线路的供应商
+     * @Return: java.util.List<com.pret.open.entity.PretTransOrder>
+     * @Author: wujingsong
+     * @Date: 2019/11/14  11:38 上午
+     */
+    @RequestMapping(value = "/getByWithoutServiceRoute", method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String, Object> getByWithoutServiceRoute() {
+        Query query;
+        StringBuffer querySql;
+        String where = " where 1=1 and id not in (select distinct vender_id from pret_service_route_item b where b.vender_id is not null  ) and a.s=1 ";
+        String con = "SELECT id,code FROM pret_vender a  " + where;
+        querySql = new StringBuffer(con);
+        query = em.createNativeQuery(querySql.toString());
+        query.setFirstResult(0);
+        query.setMaxResults(10);
+        List<PretVender> pretVenderList = new ArrayList<>();
+        List<Object[]> objectList = query.getResultList();
+        if (objectList.size() > 0) {
+            for (Object object[] : objectList) {
+                String id = object[0].toString();
+                PretVender pretVender = this.service.findById(id).get();
+                pretVenderList.add(pretVender);
+            }
+        }
+        Map<String, Object> rspData = new HashMap<>();
+        rspData.put("rows", pretVenderList);
+        rspData.put("total", 10);
+
+        return rspData;
     }
 
     @Log("指派供应商")
@@ -89,6 +129,11 @@ public class PretVenderController extends BaseManageController<PretVenderService
     @PostMapping("/pretVenderAdd")
     public void pretVenderAdd(PretVender vender) throws FebsException {
         try {
+            PretVender pretVender = pretVenderRepository.findByCodeAndS(vender.getCode(), ConstantEnum.S.N.getLabel());
+            if (pretVender != null) {
+                message = "已存在相同的供应商code";
+                throw new FebsException(message);
+            }
             this.pretVenderRepository.save(vender);
 
             User user = new User();
@@ -99,6 +144,7 @@ public class PretVenderController extends BaseManageController<PretVenderService
             user.setVenderId(vender.getId());
             userRepository.save(user);
             user = userRepository.findById(user.getId()).get();
+            vender.setUserId(user.getUserId());
 
             Role role = roleRepository.findByCode(ConstantEnum.ERoleCode.Vender.name());
             UserRole userRole = new UserRole();
