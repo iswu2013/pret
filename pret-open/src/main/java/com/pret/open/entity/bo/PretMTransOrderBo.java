@@ -31,6 +31,7 @@ public class PretMTransOrderBo {
      * 送货单号
      */
     private String deliveryBillNumber;
+
     /**
      * 送达客户id
      */
@@ -41,6 +42,7 @@ public class PretMTransOrderBo {
      * 客户名称
      */
     private String customerName;
+
     /**
      * 客户地址
      */
@@ -68,7 +70,7 @@ public class PretMTransOrderBo {
     /**
      * 起运地名称
      */
-    private String serviceRouteOrginName;
+    private String serviceRouteOriginName;
 
     private String pretMTransOrderItemStr;
 }

@@ -87,7 +87,7 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
      * 起运地
      */
     @ExcelField(value = "起运地")
-    private String serviceRouteOrginName;
+    private String serviceRouteOriginName;
 
     /**
      * 送达客户id
@@ -106,6 +106,12 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
      */
     @ExcelField(value = "客户地址")
     private String customerAddress;
+
+    /**
+     * 客户详细地址
+     */
+    @ExcelField(value = "客户详细地址")
+    private String customerDetailAddress;
 
     /**
      * 客户地址

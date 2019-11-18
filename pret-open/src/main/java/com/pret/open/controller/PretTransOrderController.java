@@ -46,70 +46,70 @@ public class PretTransOrderController extends BaseManageController<PretTransOrde
     @Override()
     public Map<String, Object> list(PretTransOrderVo request, PretTransOrder t) {
         Page<PretTransOrder> page = this.service.page(request);
-        for (PretTransOrder route : page.getContent()) {
-            if (!StringUtils.isEmpty(route.getVenderId())) {
-                PretVender pretVender = pretVenderRepository.findById(route.getVenderId()).get();
-                route.setPretVender(pretVender);
+            for (PretTransOrder route : page.getContent()) {
+                if (!StringUtils.isEmpty(route.getVenderId())) {
+                    PretVender pretVender = pretVenderRepository.findById(route.getVenderId()).get();
+                    route.setPretVender(pretVender);
+                }
+                if (!StringUtils.isEmpty(route.getGoodsId())) {
+                    PretGoods pretGoods = pretGoodsRepository.findById(route.getGoodsId()).get();
+                    route.setPretGoods(pretGoods);
+                }
+                if (!StringUtils.isEmpty(route.getCustomerId())) {
+                    PretCustomer pretCustomer = pretCustomerRepository.findById(route.getCustomerId()).get();
+                    route.setPretCustomer(pretCustomer);
+                }
             }
-            if (!StringUtils.isEmpty(route.getGoodsId())) {
-                PretGoods pretGoods = pretGoodsRepository.findById(route.getGoodsId()).get();
-                route.setPretGoods(pretGoods);
-            }
-            if (!StringUtils.isEmpty(route.getCustomerId())) {
-                PretCustomer pretCustomer = pretCustomerRepository.findById(route.getCustomerId()).get();
-                route.setPretCustomer(pretCustomer);
+            Map<String, Object> rspData = new HashMap<>();
+            rspData.put("rows", page.getContent());
+            rspData.put("total", page.getTotalElements());
+
+            return rspData;
+        }
+
+        @Log("查看")
+        @PostMapping("/view/{id}")
+        public PretTransOrder view(@PathVariable String id) throws FebsException {
+            try {
+                PretTransOrder item = this.service.findById(id).get();
+                return item;
+            } catch (Exception e) {
+                message = "查看失败";
+                throw new FebsException(message);
             }
         }
-        Map<String, Object> rspData = new HashMap<>();
-        rspData.put("rows", page.getContent());
-        rspData.put("total", page.getTotalElements());
 
-        return rspData;
-    }
-
-    @Log("查看")
-    @PostMapping("/view/{id}")
-    public PretTransOrder view(@PathVariable String id) throws FebsException {
-        try {
-            PretTransOrder item = this.service.findById(id).get();
-            return item;
-        } catch (Exception e) {
-            message = "查看失败";
-            throw new FebsException(message);
+        /* *
+         * 功能描述: 根据运输计划查找
+         * 〈〉
+         * @Param: [id]
+         * @Return: java.util.List<com.pret.open.entity.PretTransOrder>
+         * @Author: wujingsong
+         * @Date: 2019/11/2  11:00 上午
+         */
+        @RequestMapping(value = "/getByTansPlanId/{id}", method = RequestMethod.GET)
+        @ResponseBody
+        public List<PretTransOrder> getByTansPlanId(@PathVariable String id) {
+            List<PretTransOrder> transOrderList = pretTransOrderRepository.findByTransPlanIdAndS(id, ConstantEnum.S.N.getLabel());
+            return transOrderList;
         }
-    }
 
-    /* *
-     * 功能描述: 根据运输计划查找
-     * 〈〉
-     * @Param: [id]
-     * @Return: java.util.List<com.pret.open.entity.PretTransOrder>
-     * @Author: wujingsong
-     * @Date: 2019/11/2  11:00 上午
-     */
-    @RequestMapping(value = "/getByTansPlanId/{id}", method = RequestMethod.GET)
-    @ResponseBody
-    public List<PretTransOrder> getByTansPlanId(@PathVariable String id) {
-        List<PretTransOrder> transOrderList = pretTransOrderRepository.findByTransPlanIdAndS(id, ConstantEnum.S.N.getLabel());
-        return transOrderList;
-    }
-
-    @Log("手动创建订单")
-    @PostMapping("/pretTransOrderAdd")
-    public void pretTransOrderAdd(PretMTransOrderBo bo) throws FebsException {
-        try {
-            this.service.pretTransOrderAdd(bo);
-        } catch (Exception e) {
-            message = "生成运输计划失败";
-            throw new FebsException(message);
+        @Log("手动创建订单")
+        @PostMapping("/pretTransOrderAdd")
+        public void pretTransOrderAdd(PretMTransOrderBo bo) throws FebsException {
+            try {
+                this.service.pretTransOrderAdd(bo);
+            } catch (Exception e) {
+                message = "生成运输计划失败";
+                throw new FebsException(message);
+            }
         }
-    }
 
-    @Log("分配供应商")
-    @PostMapping("/allocateVender/{id}/{venderId}")
-    public void allocateVender(@PathVariable String id, @PathVariable String venderId) throws FebsException {
-        try {
-            this.service.allocateVender(id, venderId);
+        @Log("分配供应商")
+        @PostMapping("/allocateVender/{id}/{venderId}")
+        public void allocateVender(@PathVariable String id, @PathVariable String venderId) throws FebsException {
+            try {
+                this.service.allocateVender(id, venderId);
         } catch (Exception e) {
             message = "查看失败";
             throw new FebsException(message);

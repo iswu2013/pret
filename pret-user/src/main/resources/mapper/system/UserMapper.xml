@@ -65,7 +65,9 @@
         d.id deptId,
         d.dept_name deptName,
         u.AVATAR,
+        u.user_type userType,
         u.DESCRIPTION,
+        u.vender_id venderId,
         u.LAST_LOGIN_TIME lastLoginTime,
         GROUP_CONCAT(r.id) roleId,
         GROUP_CONCAT(r.ROLE_NAME) roleName

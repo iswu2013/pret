@@ -15,7 +15,7 @@ public class ConstantEnum {
         /**
          * 市
          */
-        D(2);
+        D(0);
 
         S(int label) {
             this.setLabel(label);
@@ -895,4 +895,31 @@ public class ConstantEnum {
         }
     }
 
+    /* *
+     * 功能描述: 运输单类别
+     * 〈〉
+     * @Param:
+     * @Return:
+     * @Author: wujingsong
+     * @Date: 2019/11/18  1:50 下午
+     */
+    public enum EPretTransPlanType {
+        正常运输(0),
+        退货运输(1);
+        private int label;
+
+        EPretTransPlanType(int label) {
+            this.setLabel(label);
+        }
+
+        //省略getter、setter方法
+
+        public int getLabel() {
+            return label;
+        }
+
+        public void setLabel(int label) {
+            this.label = label;
+        }
+    }
 }

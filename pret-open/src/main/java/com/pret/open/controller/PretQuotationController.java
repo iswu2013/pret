@@ -2,6 +2,7 @@ package com.pret.open.controller;
 
 import com.pret.api.rest.BaseManageController;
 import com.pret.common.annotation.Log;
+import com.pret.common.constant.ConstantEnum;
 import com.pret.common.exception.FebsException;
 import com.pret.open.entity.PretBillingInterval;
 import com.pret.open.entity.PretQuotation;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /* *
  * 功能描述: 报价
@@ -75,6 +77,25 @@ public class PretQuotationController extends BaseManageController<PretQuotationS
             return item;
         } catch (Exception e) {
             message = "查看失败";
+            throw new FebsException(message);
+        }
+    }
+
+    @Log("删除")
+    @DeleteMapping("/delete/{ids}")
+    public void deleteByIds(@PathVariable String ids) throws FebsException {
+        try {
+            String[] idArr = ids.split(",");
+            for (String id : idArr) {
+                this.service.lDelete(id);
+                List<PretQuotationItem> pretQuotationItemList = pretQuotationItemRepository.findByQuotationId(id);
+                for (PretQuotationItem pretQuotationItem : pretQuotationItemList) {
+                    pretQuotationItem.setS(ConstantEnum.S.D.getLabel());
+                }
+                pretQuotationItemRepository.saveAll(pretQuotationItemList);
+            }
+        } catch (Exception e) {
+            message = "删除失败";
             throw new FebsException(message);
         }
     }

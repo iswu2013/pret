@@ -52,4 +52,29 @@ public class PretAddressService extends BaseServiceImpl<PretAddressRepository, P
 
         return addressIdList;
     }
+
+    /* *
+     * 功能描述: 获取详细地址
+     * 〈〉
+     * @Param: [addressId]
+     * @Return: java.lang.String
+     * @Author: wujingsong
+     * @Date: 2019/11/14  8:00 下午
+     */
+    public String getDetailByAddressId(String addressId) {
+        String detail = StringUtils.EMPTY;
+
+        PretAddress pretAddress = this.repository.findById(addressId).get();
+        detail += pretAddress.getName();
+        if (!StringUtils.isEmpty(pretAddress.getParentId())) {
+            pretAddress = this.repository.findById(pretAddress.getParentId()).get();
+            detail = pretAddress.getName() + detail;
+            if (!StringUtils.isEmpty(pretAddress.getParentId())) {
+                pretAddress = this.repository.findById(pretAddress.getParentId()).get();
+                detail = pretAddress.getName() + detail;
+            }
+        }
+
+        return detail;
+    }
 }

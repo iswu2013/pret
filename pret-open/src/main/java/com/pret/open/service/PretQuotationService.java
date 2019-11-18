@@ -74,6 +74,7 @@ public class PretQuotationService extends BaseServiceImpl<PretQuotationRepositor
         }
         PretVender pretVender = pretVenderRepository.findById(bo.getVenderId()).get();
         pretVender.setPretQuotationItemStr(bo.getPretQuotationItemStr());
+        pretVenderRepository.save(pretVender);
         this.repository.save(pretQuotation);
         this.editQuotion(bo, pretQuotation);
     }
@@ -96,6 +97,7 @@ public class PretQuotationService extends BaseServiceImpl<PretQuotationRepositor
         }
         PretVender pretVender = pretVenderRepository.findById(bo.getVenderId()).get();
         pretVender.setPretQuotationItemStr(bo.getPretQuotationItemStr());
+        pretVenderRepository.save(pretVender);
         this.repository.save(pretQuotation);
 
         // 删除之前的报价明细

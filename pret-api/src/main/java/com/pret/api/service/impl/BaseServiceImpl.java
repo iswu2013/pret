@@ -58,7 +58,7 @@ public abstract class BaseServiceImpl<M extends BaseRepository<T>, T extends Ver
         String[] idArr = ids.split(",");
         for (String id : idArr) {
             Optional<T> t = this.findById(id);
-            t.get().setS(0);
+            t.get().setS(ConstantEnum.S.D.getLabel());
             repository.save(t.get());
         }
     }
@@ -66,6 +66,7 @@ public abstract class BaseServiceImpl<M extends BaseRepository<T>, T extends Ver
     @Override
     public void lDelete(String id) {
         Optional<T> t = this.findById(id);
+        t.get().setS(ConstantEnum.S.D.getLabel());
         repository.save(t.get());
     }
 

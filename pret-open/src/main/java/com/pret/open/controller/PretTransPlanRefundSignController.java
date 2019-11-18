@@ -24,8 +24,8 @@ import java.util.Map;
 @Slf4j
 @Validated
 @RestController
-@RequestMapping("pretTransPlanSign")
-public class PretTransPlanSignController extends BaseManageController<PretTransPlanService, PretTransPlan, PretTransPlanVo> {
+@RequestMapping("pretTransPlanRefundSign")
+public class PretTransPlanRefundSignController extends BaseManageController<PretTransPlanService, PretTransPlan, PretTransPlanVo> {
     @Autowired
     private PretVenderRepository pretVenderRepository;
     @Autowired
@@ -38,6 +38,7 @@ public class PretTransPlanSignController extends BaseManageController<PretTransP
     @GetMapping
     @Override()
     public Map<String, Object> list(PretTransPlanVo request, PretTransPlan t) {
+
         request.setEq$type(ConstantEnum.EPretTransPlanType.退货运输.getLabel());
         Page<PretTransPlan> page = this.service.page(request);
         for (PretTransPlan transPlan : page.getContent()) {
@@ -77,7 +78,7 @@ public class PretTransPlanSignController extends BaseManageController<PretTransP
 
     @Log("签收")
     @PostMapping("/{ids}/{username}")
-    public void sign(@PathVariable String ids,@PathVariable String username) throws FebsException {
+    public void sign(@PathVariable String ids, @PathVariable String username) throws FebsException {
         try {
             this.service.sign(ids);
         } catch (Exception e) {

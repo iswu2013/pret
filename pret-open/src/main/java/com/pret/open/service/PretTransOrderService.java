@@ -132,6 +132,7 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
                     pretTransOrder.setCustomerName(bo.getCustomerLinkName());
                 }
                 BeanUtilsExtended.copyProperties(pretTransOrder, bo);
+                pretTransOrder.setCustomerDetailAddress(pretAddressService.getDetailByAddressId(bo.getAddressId()) + bo.getCustomerAddress());
                 this.repository.save(pretTransOrder);
                 PretCustomer pretCustomer = pretCustomerRepository.findByLinkPhone(bo.getCustomerLinkPhone());
                 if (pretCustomer == null) {
@@ -216,6 +217,7 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
     public void allocateVender(String id, String venderId) {
         PretTransOrder pretTransOrder = this.repository.findById(id).get();
         pretTransOrder.setVenderId(venderId);
+        pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.待提货.getLabel());
         this.repository.save(pretTransOrder);
     }
 }

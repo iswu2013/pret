@@ -21,7 +21,7 @@ public class PageFormVo extends ReqBody implements Pageable {
     private static final long serialVersionUID = -1377906631428380104L;
     private int page = 1;
     private int rows = 10;
-    private String sort = "id";
+    private String sort = "lastModifiedDate";
     private String order = "desc";
     private Sort sortSet;
     private Integer start;

@@ -43,6 +43,8 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
         return id;
     }
 
+    private Integer type = ConstantEnum.EPretTransPlanType.正常运输.getLabel();
+
     /**
      * 单号
      */
