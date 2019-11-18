@@ -243,6 +243,26 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
     }
 
     /* *
+     * 功能描述: 退货签收
+     * 〈〉
+     * @Param: [ids]
+     * @Return: void
+     * @Author: wujingsong
+     * @Date: 2019/11/18  5:15 下午
+     */
+    public void signRefund(String ids,String username) throws FebsException {
+        List<String> idList = StringUtil.idsStr2ListString(ids);
+        if (idList != null && idList.size() > 0) {
+            for (String id : idList) {
+                PretTransPlan pretTransPlan = transPlanRepository.findById(id).get();
+                pretTransPlan.setStatus(ConstantEnum.ETransPlanStatus.已签收.getValue());
+                pretTransPlan.setSignUsername(username);
+                transPlanRepository.save(pretTransPlan);
+            }
+        }
+    }
+
+    /* *
      * 功能描述: 获取用户运输计划
      * 〈〉
      * @Param: [res]

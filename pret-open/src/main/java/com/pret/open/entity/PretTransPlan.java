@@ -199,6 +199,12 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
     private String pickupFactoryCd;
 
     /**
+     * 签收人
+     */
+    @ExcelField(value = "签收人")
+    private String signUsername;
+
+    /**
      * 签收日期
      */
     @ExcelField(value = "签收日期", writeConverter = TimeConverter.class)

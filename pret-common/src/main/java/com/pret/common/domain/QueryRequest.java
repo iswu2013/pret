@@ -17,4 +17,5 @@ public class QueryRequest  implements Serializable {
     private String parentId;
     private Integer userType;
     private Integer notUserType;
+    private String venderId;
 }

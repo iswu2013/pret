@@ -80,7 +80,7 @@ public class PretTransPlanRefundSignController extends BaseManageController<Pret
     @PostMapping("/{ids}/{username}")
     public void sign(@PathVariable String ids, @PathVariable String username) throws FebsException {
         try {
-            this.service.sign(ids);
+            this.service.signRefund(ids, username);
         } catch (Exception e) {
             message = "签收失败";
             throw new FebsException(message);

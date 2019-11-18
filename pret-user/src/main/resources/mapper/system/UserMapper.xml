@@ -40,6 +40,9 @@
         <if test="user.username != null and user.username != ''">
             AND u.username = #{user.username}
         </if>
+        <if test="user.venderId != null and user.venderId != ''">
+            AND u.vender_id = #{user.venderId}
+        </if>
         <if test="user.deptId != null and user.deptId != ''">
             AND d.id = #{user.deptId}
         </if>
