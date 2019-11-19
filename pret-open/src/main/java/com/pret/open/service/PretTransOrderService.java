@@ -133,11 +133,11 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
                 if (StringUtils.isEmpty(bo.getCustomerName())) {
                     pretTransOrder.setCustomerName(bo.getCustomerLinkName());
                 }
-
                 // 设置起运地详细地址
                 PretServiceRouteOrigin pretServiceRouteOrigin = pretServiceRouteOriginRepository.findById(bo.getServiceRouteOriginId()).get();
+                pretTransOrder.setServiceRouteOriginName(pretServiceRouteOrigin.getName());
                 String detailAddr = pretAddressService.findAddressListByAddressId(pretServiceRouteOrigin.getAddressId()) + pretServiceRouteOrigin.getDetail();
-                pretTransOrder.setServiceRouteOriginName(pretServiceRouteOrigin.getName() + detailAddr);
+                pretTransOrder.setServiceRouteOriginAddress(detailAddr);
 
                 BeanUtilsExtended.copyProperties(pretTransOrder, bo);
                 pretTransOrder.setCustomerDetailAddress(pretAddressService.getDetailByAddressId(bo.getAddressId()) + bo.getCustomerAddress());

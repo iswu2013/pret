@@ -97,9 +97,16 @@ public class PretTransFee extends VersionedAuditableIdEntity implements Serializ
     @ExcelField(value = "状态", writeConverterExp = "0=待审核,1=通过,2=不通过")
     private Integer status;
 
+    /**
+     * 币别
+     */
+    private String pretCurrencyId;
+
     private PretVender pretVender;
 
     private PretCustomer pretCustomer;
+
+    private PretTransPlan pretTransPlan;
 
     // setter and getter
 
@@ -119,5 +126,13 @@ public class PretTransFee extends VersionedAuditableIdEntity implements Serializ
 
     public void setPretCustomer(PretCustomer pretCustomer) {
         this.pretCustomer = pretCustomer;
+    }
+
+    public PretTransPlan getPretTransPlan() {
+        return pretTransPlan;
+    }
+
+    public void setPretTransPlan(PretTransPlan pretTransPlan) {
+        this.pretTransPlan = pretTransPlan;
     }
 }

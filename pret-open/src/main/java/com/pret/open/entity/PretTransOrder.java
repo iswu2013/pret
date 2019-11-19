@@ -92,6 +92,11 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
     private String serviceRouteOriginName;
 
     /**
+     * 起运地地址
+     */
+    private String serviceRouteOriginAddress;
+
+    /**
      * 送达客户id
      */
     @ExcelField(value = "送达客户id")
@@ -198,21 +203,6 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
     private String dataSource;
 
     /**
-     * 供应商
-     */
-    private PretVender pretVender;
-
-    /**
-     * 商品
-     */
-    private PretGoods pretGoods;
-
-    /**
-     * 客户
-     */
-    private PretCustomer pretCustomer;
-
-    /**
      * 0重货1泡货
      */
     private Integer goodsType;
@@ -237,6 +227,23 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
      */
     private String storageNumber;
 
+    /**
+     * 供应商
+     */
+    private PretVender pretVender;
+
+    /**
+     * 商品
+     */
+    private PretGoods pretGoods;
+
+    /**
+     * 客户
+     */
+    private PretCustomer pretCustomer;
+
+    private PretServiceRouteOrigin pretServiceRouteOrigin;
+
     // setter and getter
 
     @Transient()
@@ -255,5 +262,14 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
 
     public void setPretCustomer(PretCustomer pretCustomer) {
         this.pretCustomer = pretCustomer;
+    }
+
+    @Transient()
+    public PretServiceRouteOrigin getPretServiceRouteOrigin() {
+        return pretServiceRouteOrigin;
+    }
+
+    public void setPretServiceRouteOrigin(PretServiceRouteOrigin pretServiceRouteOrigin) {
+        this.pretServiceRouteOrigin = pretServiceRouteOrigin;
     }
 }
