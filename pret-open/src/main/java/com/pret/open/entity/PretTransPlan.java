@@ -4,6 +4,7 @@ import com.pret.common.VersionedAuditableIdEntity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -230,6 +231,11 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
      */
     private PretDriver pretDriver;
 
+    /**
+     * 异常明细
+     */
+    private List<PretTransExceptionItem> pretTransExceptionItemList;
+
     // setter and getter
 
     @Transient()
@@ -266,5 +272,14 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
 
     public void setPretDriver(PretDriver pretDriver) {
         this.pretDriver = pretDriver;
+    }
+
+    @Transient()
+    public List<PretTransExceptionItem> getPretTransExceptionItemList() {
+        return pretTransExceptionItemList;
+    }
+
+    public void setPretTransExceptionItemList(List<PretTransExceptionItem> pretTransExceptionItemList) {
+        this.pretTransExceptionItemList = pretTransExceptionItemList;
     }
 }

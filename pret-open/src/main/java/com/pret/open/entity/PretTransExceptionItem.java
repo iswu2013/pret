@@ -6,10 +6,7 @@ import com.wuwenze.poi.annotation.ExcelField;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -70,5 +67,17 @@ public class PretTransExceptionItem extends VersionedAuditableIdEntity implement
      */
     private String handleBy;
 
+    private PretTransOrder pretTransOrder;
+
     // setter and getter
+
+
+    @Transient()
+    public PretTransOrder getPretTransOrder() {
+        return pretTransOrder;
+    }
+
+    public void setPretTransOrder(PretTransOrder pretTransOrder) {
+        this.pretTransOrder = pretTransOrder;
+    }
 }

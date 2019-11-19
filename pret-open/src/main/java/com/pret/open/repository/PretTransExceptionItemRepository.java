@@ -23,4 +23,14 @@ public interface PretTransExceptionItemRepository extends BaseRepository<PretTra
      * @Date: 2019/11/6  1:40 下午
      */
     List<PretTransExceptionItem> findByTransExceptionId(String transExceptionId);
+
+    /* *
+     * 功能描述: 根据运输计划查收
+     * 〈〉
+     * @Param: [transPlanId]
+            * @Return: java.util.List<com.pret.open.entity.PretTransExceptionItem>
+            * @Author: wujingsong
+            * @Date: 2019/11/19  4:47 下午
+     */
+    List<PretTransExceptionItem> findByTransPlanIdAndS(String transPlanId,Integer s);
 }

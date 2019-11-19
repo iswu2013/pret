@@ -6,10 +6,7 @@ import com.pret.common.constant.ConstantEnum;
 import com.pret.common.exception.FebsException;
 import com.pret.open.entity.*;
 import com.pret.open.entity.vo.PretTransPlanVo;
-import com.pret.open.repository.PretCustomerRepository;
-import com.pret.open.repository.PretDriverRepository;
-import com.pret.open.repository.PretTransOrderRepository;
-import com.pret.open.repository.PretVenderRepository;
+import com.pret.open.repository.*;
 import com.pret.open.service.PretTransPlanService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -19,6 +16,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -34,6 +32,8 @@ public class PretTransPlanRefundSignController extends BaseManageController<Pret
     private PretDriverRepository pretDriverRepository;
     @Autowired
     private PretTransOrderRepository pretTransOrderRepository;
+    @Autowired
+    private PretTransExceptionItemRepository pretTransExceptionItemRepository;
 
     @GetMapping
     @Override()
@@ -69,6 +69,12 @@ public class PretTransPlanRefundSignController extends BaseManageController<Pret
     public PretTransPlan view(@PathVariable String id) throws FebsException {
         try {
             PretTransPlan item = this.service.findById(id).get();
+            List<PretTransExceptionItem> pretTransExceptionItemList = pretTransExceptionItemRepository.findByTransPlanIdAndS(id, ConstantEnum.S.N.getLabel());
+            for (PretTransExceptionItem pretTransExceptionItem : pretTransExceptionItemList) {
+                PretTransOrder pretTransOrder = pretTransOrderRepository.findById(pretTransExceptionItem.getTransOrderId()).get();
+                pretTransExceptionItem.setPretTransOrder(pretTransOrder);
+            }
+            item.setPretTransExceptionItemList(pretTransExceptionItemList);
             return item;
         } catch (Exception e) {
             message = "查看失败";
