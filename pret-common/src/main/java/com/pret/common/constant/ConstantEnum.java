@@ -922,4 +922,31 @@ public class ConstantEnum {
             this.label = label;
         }
     }
+    /* *
+     * 功能描述: 数据来源
+     * 〈〉
+     * @Param:
+            * @Return: 
+            * @Author: wujingsong
+            * @Date: 2019/11/18  8:25 下午
+     */
+    public enum EDataSource {
+        U9(1),
+        OA(2);
+        private int label;
+
+        EDataSource(int label) {
+            this.setLabel(label);
+        }
+
+        //省略getter、setter方法
+
+        public int getLabel() {
+            return label;
+        }
+
+        public void setLabel(int label) {
+            this.label = label;
+        }
+    }
 }

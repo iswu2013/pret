@@ -1,12 +1,6 @@
 package com.pret.open.entity;
 
 import com.pret.common.VersionedAuditableIdEntity;
-
-import java.io.Serializable;
-import java.util.Date;
-import javax.persistence.Id;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pret.common.converter.TimeConverter;
 import com.wuwenze.poi.annotation.Excel;
 import com.wuwenze.poi.annotation.ExcelField;
@@ -14,6 +8,8 @@ import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>Description: 运输单</p>
@@ -190,10 +186,24 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
     @ExcelField(value = "提货工厂code")
     private String pickupFactoryCd;
 
+    /**
+     * 数据来源
+     */
+    private String dataSource;
+
+    /**
+     * 供应商
+     */
     private PretVender pretVender;
 
+    /**
+     * 商品
+     */
     private PretGoods pretGoods;
 
+    /**
+     * 客户
+     */
     private PretCustomer pretCustomer;
 
     /**
@@ -205,6 +215,16 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
      * 计费区间id
      */
     private String billingIntervalItemId;
+
+    /**
+     * 空转单标志0:非空转单  1:空转单
+     */
+    private  Integer preOrderFlag;
+
+    /**
+     * 销售备注
+     */
+    private String remark;
 
     // setter and getter
 
