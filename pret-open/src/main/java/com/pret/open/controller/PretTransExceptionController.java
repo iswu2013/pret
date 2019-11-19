@@ -5,16 +5,10 @@ import com.pret.common.annotation.Log;
 import com.pret.common.constant.ConstantEnum;
 import com.pret.common.exception.FebsException;
 import com.pret.common.util.BeanUtilsExtended;
-import com.pret.open.entity.PretTransException;
-import com.pret.open.entity.PretTransExceptionItem;
-import com.pret.open.entity.PretTransPlan;
-import com.pret.open.entity.PretVender;
+import com.pret.open.entity.*;
 import com.pret.open.entity.bo.PretTransExceptionBo;
 import com.pret.open.entity.vo.PretTransExceptionVo;
-import com.pret.open.repository.PretTransExceptionItemRepository;
-import com.pret.open.repository.PretTransExceptionRepository;
-import com.pret.open.repository.PretTransPlanRepository;
-import com.pret.open.repository.PretVenderRepository;
+import com.pret.open.repository.*;
 import com.pret.open.service.PretTransExceptionService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -40,6 +34,8 @@ public class PretTransExceptionController extends BaseManageController<PretTrans
     private PretTransExceptionItemRepository pretTransExceptionItemRepository;
     @Autowired
     private PretTransExceptionRepository pretTransExceptionRepository;
+    @Autowired
+    private PretTransOrderRepository pretTransOrderRepository;
 
     @GetMapping
     @Override()
@@ -89,19 +85,29 @@ public class PretTransExceptionController extends BaseManageController<PretTrans
     }
 
     @Log("审核")
-    @PostMapping("/auth/{id}/{type}")
-    public void auth(@PathVariable String id, @PathVariable Integer type) throws FebsException {
+    @PostMapping("/auth/{id}/{status}")
+    public void auth(@PathVariable String id, @PathVariable Integer status) throws FebsException {
         try {
             PretTransException pretTransException = this.service.findById(id).get();
-            pretTransException.setType(type);
+            pretTransException.setStatus(status);
             pretTransExceptionRepository.save(pretTransException);
 
-            if (type == ConstantEnum.ECheckStatus.通过.getLabel()) {
+            if (status == ConstantEnum.ECheckStatus.通过.getLabel()) {
                 PretTransPlan pretTransPlan = pretTransPlanRepository.findById(pretTransException.getTransPlanId()).get();
                 PretTransPlan newP = new PretTransPlan();
                 BeanUtilsExtended.copyProperties(newP, pretTransPlan);
                 newP.setType(ConstantEnum.EPretTransPlanType.退货运输.getLabel());
                 pretTransPlanRepository.save(newP);
+
+                List<PretTransOrder> transOrderList = pretTransOrderRepository.findByTransPlanIdAndS(id, ConstantEnum.S.N.getLabel());
+                if (transOrderList != null && transOrderList.size() > 0) {
+                    for (PretTransOrder pretTransOrder : transOrderList) {
+                        PretTransOrder transOrder = new PretTransOrder();
+                        BeanUtilsExtended.copyProperties(transOrder, pretTransOrder);
+                        transOrder.setType(ConstantEnum.EPretTransOrderType.返程配送单.getLabel());
+                        pretTransOrderRepository.save(transOrder);
+                    }
+                }
             }
 
 

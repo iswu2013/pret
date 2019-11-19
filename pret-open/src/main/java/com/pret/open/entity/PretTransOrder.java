@@ -1,6 +1,7 @@
 package com.pret.open.entity;
 
 import com.pret.common.VersionedAuditableIdEntity;
+import com.pret.common.constant.ConstantEnum;
 import com.pret.common.converter.TimeConverter;
 import com.wuwenze.poi.annotation.Excel;
 import com.wuwenze.poi.annotation.ExcelField;
@@ -37,6 +38,11 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
     public String getId() {
         return id;
     }
+
+    /**
+     * 0:非返程；1：返程配送单
+     */
+    private Integer type = ConstantEnum.EPretTransOrderType.非返程.getLabel();
 
     /**
      * 订单号
@@ -219,12 +225,17 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
     /**
      * 空转单标志0:非空转单  1:空转单
      */
-    private  Integer preOrderFlag;
+    private Integer preOrderFlag;
 
     /**
      * 销售备注
      */
     private String remark;
+
+    /**
+     * 储位
+     */
+    private String storageNumber;
 
     // setter and getter
 

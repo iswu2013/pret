@@ -68,9 +68,24 @@ public class PretMTransOrderBo {
     private String pickupFactoryCd;
 
     /**
+     * 起运地id
+     */
+    private String serviceRouteOriginId;
+
+    /**
      * 起运地名称
      */
     private String serviceRouteOriginName;
+
+    /**
+     * 销售备注
+     */
+    private String remark;
+
+    /**
+     * 储位
+     */
+    private String storageNumber;
 
     private String pretMTransOrderItemStr;
 }

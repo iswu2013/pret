@@ -73,6 +73,10 @@ public class PretServiceRouteOrigin extends VersionedAuditableIdEntity implement
 
     private String nowArea;
 
+    private String linkMan;
+
+    private String linkPhone;
+
     // setter and getter
 
     @Transient()

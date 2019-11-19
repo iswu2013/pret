@@ -949,4 +949,26 @@ public class ConstantEnum {
             this.label = label;
         }
     }
+
+    public enum EPretTransOrderType {
+        非返程(0),
+        返程配送单(1);
+        private int label;
+
+        EPretTransOrderType(int label) {
+            this.setLabel(label);
+        }
+
+        //省略getter、setter方法
+
+        public int getLabel() {
+            return label;
+        }
+
+        public void setLabel(int label) {
+            this.label = label;
+        }
+    }
+
+
 }

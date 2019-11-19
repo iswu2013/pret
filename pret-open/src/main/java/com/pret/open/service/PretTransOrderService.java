@@ -57,6 +57,8 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
     private PretServiceRouteItemRepository pretServiceRouteItemRepository;
     @Autowired
     private PretAddressService pretAddressService;
+    @Autowired
+    private PretServiceRouteOriginRepository pretServiceRouteOriginRepository;
 
     public void genPickUpPlan(PretPickUpPlanBo bo) {
         String[] idArr = bo.getIds().split(",");
@@ -131,6 +133,12 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
                 if (StringUtils.isEmpty(bo.getCustomerName())) {
                     pretTransOrder.setCustomerName(bo.getCustomerLinkName());
                 }
+
+                // 设置起运地详细地址
+                PretServiceRouteOrigin pretServiceRouteOrigin = pretServiceRouteOriginRepository.findById(bo.getServiceRouteOriginId()).get();
+                String detailAddr = pretAddressService.findAddressListByAddressId(pretServiceRouteOrigin.getAddressId()) + pretServiceRouteOrigin.getDetail();
+                pretTransOrder.setServiceRouteOriginName(pretServiceRouteOrigin.getName() + detailAddr);
+
                 BeanUtilsExtended.copyProperties(pretTransOrder, bo);
                 pretTransOrder.setCustomerDetailAddress(pretAddressService.getDetailByAddressId(bo.getAddressId()) + bo.getCustomerAddress());
                 this.repository.save(pretTransOrder);
