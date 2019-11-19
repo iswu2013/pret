@@ -7,6 +7,7 @@ package com.pret.common;
  *******************************************************************************/
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.pret.common.constant.ConstantEnum;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -43,7 +44,7 @@ public class AuditableEntity implements Serializable {
     /**
      * 状态
      */
-    private int s =1;
+    private int s = ConstantEnum.S.N.getLabel();
 
     @Column(nullable = true, columnDefinition = "bigint(20) DEFAULT 0")
     public long getCreateTimeLong() {
