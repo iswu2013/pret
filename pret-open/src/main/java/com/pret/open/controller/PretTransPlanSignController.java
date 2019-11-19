@@ -79,7 +79,7 @@ public class PretTransPlanSignController extends BaseManageController<PretTransP
     @PostMapping("/{ids}/{username}")
     public void sign(@PathVariable String ids,@PathVariable String username) throws FebsException {
         try {
-            this.service.sign(ids);
+            this.service.sign(ids,username);
         } catch (Exception e) {
             message = "签收失败";
             throw new FebsException(message);

@@ -100,6 +100,11 @@ public class PretTransException extends VersionedAuditableIdEntity implements Se
     @ExcelField(value = "拒收数量")
     private Integer rejectCount;
 
+    /**
+     * 处理状态
+     */
+    private Integer handleStatus;
+
     private PretVender pretVender;
 
     private PretTransPlan pretTransPlan;

@@ -970,5 +970,62 @@ public class ConstantEnum {
         }
     }
 
+    /* *
+     * 功能描述: 处理状态
+     * 〈〉
+     * @Param:
+            * @Return:
+            * @Author: wujingsong
+            * @Date: 2019/11/19  5:37 下午
+     */
+    public enum EHandleStatus {
+        待处理(0),
+        待支付赔款(1),
+        已付赔款(2),
+        已结案(3);
+        private int label;
 
+        EHandleStatus(int label) {
+            this.setLabel(label);
+        }
+
+        //省略getter、setter方法
+        public int getLabel() {
+            return label;
+        }
+
+        public void setLabel(int label) {
+            this.label = label;
+        }
+    }
+    
+    /* *
+     * 功能描述: 异常处理方式
+     * 〈〉
+     * @Param:
+            * @Return: 
+            * @Author: wujingsong
+            * @Date: 2019/11/19  5:47 下午
+     */
+    public enum EHandleStyle {
+        原路返回(0),
+        罚款(1),
+        其他(2);
+        private int label;
+
+        EHandleStyle(int label) {
+            this.setLabel(label);
+        }
+
+        //省略getter、setter方法
+        public int getLabel() {
+            return label;
+        }
+
+        public void setLabel(int label) {
+            this.label = label;
+        }
+    }
+
+    
 }

@@ -67,6 +67,11 @@ public class PretTransExceptionItem extends VersionedAuditableIdEntity implement
      */
     private String handleBy;
 
+    /**
+     * 拒收原因
+     */
+    private String reason;
+
     private PretTransOrder pretTransOrder;
 
     // setter and getter
