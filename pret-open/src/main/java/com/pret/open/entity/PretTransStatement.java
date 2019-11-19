@@ -107,6 +107,8 @@ public class PretTransStatement extends VersionedAuditableIdEntity implements Se
 
     private PretVender pretVender;
 
+    private PretCurrency pretCurrency;
+
     // setter and getter
 
     @Transient()
@@ -116,5 +118,14 @@ public class PretTransStatement extends VersionedAuditableIdEntity implements Se
 
     public void setPretVender(PretVender pretVender) {
         this.pretVender = pretVender;
+    }
+
+    @Transient()
+    public PretCurrency getPretCurrency() {
+        return pretCurrency;
+    }
+
+    public void setPretCurrency(PretCurrency pretCurrency) {
+        this.pretCurrency = pretCurrency;
     }
 }

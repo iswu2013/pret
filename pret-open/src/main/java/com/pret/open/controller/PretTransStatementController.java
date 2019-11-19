@@ -3,10 +3,12 @@ package com.pret.open.controller;
 import com.pret.api.rest.BaseManageController;
 import com.pret.common.annotation.Log;
 import com.pret.common.exception.FebsException;
+import com.pret.open.entity.PretCurrency;
 import com.pret.open.entity.PretTransStatement;
 import com.pret.open.entity.PretVender;
 import com.pret.open.entity.bo.PretTransStatementBo;
 import com.pret.open.entity.vo.PretTransStatementVo;
+import com.pret.open.repository.PretCurrencyRepository;
 import com.pret.open.repository.PretVenderRepository;
 import com.pret.open.service.PretTransStatementService;
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +32,8 @@ import java.util.Map;
 public class PretTransStatementController extends BaseManageController<PretTransStatementService, PretTransStatement, PretTransStatementVo> {
     @Autowired
     private PretVenderRepository pretVenderRepository;
+    @Autowired
+    private PretCurrencyRepository pretCurrencyRepository;
 
     @GetMapping
     @Override()
@@ -40,6 +44,11 @@ public class PretTransStatementController extends BaseManageController<PretTrans
                 PretVender pretVender = pretVenderRepository.findById(transStatement.getBillToId()).get();
                 transStatement.setPretVender(pretVender);
             }
+            if(!StringUtils.isEmpty(transStatement.getCurrencyId())) {
+                PretCurrency pretCurrency = pretCurrencyRepository.findById(transStatement.getCurrencyId()).get();
+                transStatement.setPretCurrency(pretCurrency);
+            }
+
         }
         Map<String, Object> rspData = new HashMap<>();
         rspData.put("rows", page.getContent());

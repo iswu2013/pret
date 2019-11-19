@@ -480,14 +480,14 @@ public class ConstantEnum {
         /**
          * 待确认
          */
-        待确认(0),
+        创建(0),
         /**
          * 已转U9
          */
-        已转U9(1);
+        供应商已确认(1);
         private int label;
 
-        private ETransStatementStatus(int label) {
+        ETransStatementStatus(int label) {
             this.setLabel(label);
         }
 

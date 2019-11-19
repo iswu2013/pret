@@ -88,7 +88,7 @@ public class PretTransStatementService extends BaseServiceImpl<PretTransStatemen
         try {
             transStatement.setPeriodFrom(DateUtils.parseDate(bo.getPeriodFromStr(), "yyyy-MM-dd"));
             transStatement.setPeriodTo(DateUtils.parseDate(bo.getPeriodToStr(), "yyyy-MM-dd"));
-            transStatement.setStatus(ConstantEnum.ETransStatementStatus.待确认.getLabel());
+            transStatement.setStatus(ConstantEnum.ETransStatementStatus.创建.getLabel());
             transStatement.setCheckDate(new Date());
             this.repository.save(transStatement);
         } catch (ParseException e) {
@@ -130,9 +130,8 @@ public class PretTransStatementService extends BaseServiceImpl<PretTransStatemen
         String[] idArr = ids.split(",");
         for (String id : idArr) {
             // 对接U9
-
             PretTransStatement transStatement = transStatementRepository.findById(id).get();
-            transStatement.setStatus(ConstantEnum.ETransStatementStatus.已转U9.getLabel());
+            transStatement.setStatus(ConstantEnum.ETransStatementStatus.供应商已确认.getLabel());
             transStatementRepository.save(transStatement);
 
             List<PretTransOrder> transOrderList = transOrderRepository.findByTransStatementId(id);
