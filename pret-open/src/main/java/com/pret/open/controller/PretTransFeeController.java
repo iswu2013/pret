@@ -6,9 +6,11 @@ import com.pret.common.constant.ConstantEnum;
 import com.pret.common.exception.FebsException;
 import com.pret.open.entity.PretCustomer;
 import com.pret.open.entity.PretTransFee;
+import com.pret.open.entity.PretTransPlan;
 import com.pret.open.entity.PretVender;
 import com.pret.open.entity.vo.PretTransFeeVo;
 import com.pret.open.repository.PretCustomerRepository;
+import com.pret.open.repository.PretTransPlanRepository;
 import com.pret.open.repository.PretVenderRepository;
 import com.pret.open.service.PretTransFeeService;
 import lombok.extern.slf4j.Slf4j;
@@ -32,16 +34,19 @@ public class PretTransFeeController extends BaseManageController<PretTransFeeSer
     private PretVenderRepository pretVenderRepository;
     @Autowired
     private PretCustomerRepository pretCustomerRepository;
+    @Autowired
+    private PretTransPlanRepository pretTransPlanRepository;
 
     @GetMapping
     @Override()
     public Map<String, Object> list(PretTransFeeVo request, PretTransFee t) {
-        List<Integer> statusList = new ArrayList<>();
-        statusList.add(ConstantEnum.EPretTransFeeStatus.已申报.getLabel());
-        statusList.add(ConstantEnum.EPretTransFeeStatus.通过.getLabel());
-        statusList.add(ConstantEnum.EPretTransFeeStatus.不通过.getLabel());
-        request.setIn$status(statusList);
-
+        if (request.isSearchStatus()) {
+            List<Integer> statusList = new ArrayList<>();
+            statusList.add(ConstantEnum.EPretTransFeeStatus.已申报.getLabel());
+            statusList.add(ConstantEnum.EPretTransFeeStatus.通过.getLabel());
+            statusList.add(ConstantEnum.EPretTransFeeStatus.不通过.getLabel());
+            request.setIn$status(statusList);
+        }
         Page<PretTransFee> page = this.service.page(request);
         for (PretTransFee transFee : page.getContent()) {
             if (!StringUtils.isEmpty(transFee.getVenderId())) {
@@ -52,6 +57,8 @@ public class PretTransFeeController extends BaseManageController<PretTransFeeSer
                 PretCustomer pretCustomer = pretCustomerRepository.findById(transFee.getCustomerId()).get();
                 transFee.setPretCustomer(pretCustomer);
             }
+            PretTransPlan pretTransPlan = pretTransPlanRepository.findById(transFee.getTransPlanId()).get();
+            transFee.setPretTransPlan(pretTransPlan);
         }
         Map<String, Object> rspData = new HashMap<>();
         rspData.put("rows", page.getContent());

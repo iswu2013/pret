@@ -141,6 +141,9 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
         transPlan.setVenderId(venderId);
         transPlan.setStatus(ConstantEnum.ETransPlanStatus.运输中.getValue());
         transPlan.setGoodsNum(count);
+        transPlan.setCustomerDetailAddress(transOrder.getCustomerDetailAddress());
+        transPlan.setServiceRouteOriginName(transOrder.getServiceRouteOriginName());
+        transPlan.setServiceRouteOriginAddress(transOrder.getServiceRouteOriginAddress());
         transPlan.setGw(cw);
         this.repository.save(transPlan);
 

@@ -1,13 +1,6 @@
 package com.pret.open.entity;
 
 import com.pret.common.VersionedAuditableIdEntity;
-
-import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
-import javax.persistence.Id;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pret.common.constant.ConstantEnum;
 import com.pret.common.converter.TimeConverter;
 import com.wuwenze.poi.annotation.Excel;
@@ -16,6 +9,10 @@ import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.List;
 
 /**
  * <p>Description: 运输计划</p>
@@ -216,6 +213,22 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
      */
     @ExcelField(value = "送达日期", writeConverter = TimeConverter.class)
     private Date deliveryDate;
+
+    /**
+     * 提货地
+     */
+    @ExcelField(value = "提货地")
+    private String serviceRouteOriginName;
+
+    /**
+     * 提货地址
+     */
+    private String serviceRouteOriginAddress;
+
+    /**
+     * 客户详细地址
+     */
+    private String customerDetailAddress;
 
     private PretVender pretVender;
 

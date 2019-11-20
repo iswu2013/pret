@@ -23,4 +23,5 @@ public class PretTransFeeVo extends PageFormVo implements Serializable {
     private String eq$transStatementId;
     private List<Integer> in$status;
     private String eq$pretCurrencyId;
+    private boolean searchStatus = false;
 }

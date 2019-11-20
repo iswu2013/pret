@@ -174,11 +174,11 @@ public class PretServiceRouteItemController extends BaseManageController<PretSer
      * @Author: wujingsong
      * @Date: 2019/11/11  10:06 下午
      */
-    @GetMapping(value = "/getByVenderIsNull/{venderId}")
-    public PretQuotationItemRVo getByVenderIsNull(@PathVariable String venderId) {
+    @GetMapping(value = "/getByVenderIsNull/{venderId}/{serviceRouteId}")
+    public PretQuotationItemRVo getByVenderIsNull(@PathVariable String venderId,@PathVariable String serviceRouteId) {
         PretQuotationItemRVo retVo = new PretQuotationItemRVo();
 
-        String where = " where 1=1 and (a.vender_id is NULL or a.vender_id = '" + venderId + "') and a.s = 1 order by service_route_origin_id Desc ";
+        String where = " where 1=1 and (a.vender_id is NULL or a.vender_id = '" + venderId + "') and a.service_route_id = '" + serviceRouteId + "' and a.s = 1 order by service_route_origin_id Desc ";
         String con = "SELECT a.id,a.code FROM pret_service_route_item a  " + where;
         StringBuffer querySql = new StringBuffer(con);
         Query query = em.createNativeQuery(querySql.toString());

@@ -90,6 +90,7 @@ public class PretTransStatementService extends BaseServiceImpl<PretTransStatemen
             transStatement.setPeriodTo(DateUtils.parseDate(bo.getPeriodToStr(), "yyyy-MM-dd"));
             transStatement.setStatus(ConstantEnum.ETransStatementStatus.创建.getLabel());
             transStatement.setCheckDate(new Date());
+            transStatement.setCurrencyId(bo.getCurrencyId());
             this.repository.save(transStatement);
         } catch (ParseException e) {
             e.printStackTrace();

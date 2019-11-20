@@ -128,6 +128,7 @@ public class PretTransFee extends VersionedAuditableIdEntity implements Serializ
         this.pretCustomer = pretCustomer;
     }
 
+    @Transient()
     public PretTransPlan getPretTransPlan() {
         return pretTransPlan;
     }

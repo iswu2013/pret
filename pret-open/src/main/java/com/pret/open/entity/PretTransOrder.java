@@ -86,13 +86,13 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
     private String serviceRouteOriginId;
 
     /**
-     * 起运地
+     * 提货地
      */
     @ExcelField(value = "起运地")
     private String serviceRouteOriginName;
 
     /**
-     * 起运地地址
+     * 提货地址
      */
     private String serviceRouteOriginAddress;
 

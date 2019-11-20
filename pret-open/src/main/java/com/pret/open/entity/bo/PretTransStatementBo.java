@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  * <p>Description: [pretmodel]</p>
@@ -46,15 +47,17 @@ public class PretTransStatementBo {
     /**
      * 费用总额
      */
-    private java.math.BigDecimal totalAmount;
+    private BigDecimal totalAmount;
     /**
      *
      */
-    private java.math.BigDecimal penIndAmount;
+    private BigDecimal penIndAmount;
     /**
      *
      */
     private Long realAmount;
+
+    private String currencyId;
 
     // setter and getter
 
