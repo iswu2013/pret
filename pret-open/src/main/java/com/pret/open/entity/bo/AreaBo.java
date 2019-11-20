@@ -17,11 +17,15 @@ public class AreaBo {
 
     private String label;
 
-    private Integer prescription;
+    private Float prescription;
 
     private String value;
 
     private String serviceRouteOriginId;
 
     private String province;
+
+    private Float lowerLimit;
+
+    private Float mileage;
 }

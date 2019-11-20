@@ -101,6 +101,8 @@ public class PretServiceRouteItemController extends BaseManageController<PretSer
                     areaBo.setValue(pretAddress.getId());
                     areaBo.setServiceRouteOriginId(item.getServiceRouteOriginId());
                     areaBo.setPrescription(item.getPrescription());
+                    areaBo.setLowerLimit(item.getLowerLimit());
+                    areaBo.setMileage(item.getMileage());
                     list.add(areaBo);
                 }
             }
@@ -175,7 +177,7 @@ public class PretServiceRouteItemController extends BaseManageController<PretSer
      * @Date: 2019/11/11  10:06 下午
      */
     @GetMapping(value = "/getByVenderIsNull/{venderId}/{serviceRouteId}")
-    public PretQuotationItemRVo getByVenderIsNull(@PathVariable String venderId,@PathVariable String serviceRouteId) {
+    public PretQuotationItemRVo getByVenderIsNull(@PathVariable String venderId, @PathVariable String serviceRouteId) {
         PretQuotationItemRVo retVo = new PretQuotationItemRVo();
 
         String where = " where 1=1 and (a.vender_id is NULL or a.vender_id = '" + venderId + "') and a.service_route_id = '" + serviceRouteId + "' and a.s = 1 order by service_route_origin_id Desc ";

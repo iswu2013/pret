@@ -79,7 +79,7 @@ public class PretServiceRouteItem extends VersionedAuditableIdEntity implements 
      * 时效(天)
      */
     @ExcelField(value = "时效")
-    private Integer prescription;
+    private Float prescription;
 
     /**
      * 里程

@@ -31,7 +31,7 @@ public class PretServiceRouteItemBo {
     /**
      * 时效(天)
      */
-    private Integer prescription;
+    private Float prescription;
 
     /**
      * 里程
