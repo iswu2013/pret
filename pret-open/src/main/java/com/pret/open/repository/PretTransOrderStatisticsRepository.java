@@ -1,7 +1,6 @@
 package com.pret.open.repository;
 
 import com.pret.common.repository.BaseRepository;
-import com.pret.open.entity.PretGoods;
 import com.pret.open.entity.PretTransOrderStatistics;
 
 /** 

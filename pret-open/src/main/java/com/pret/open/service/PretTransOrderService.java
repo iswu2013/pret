@@ -93,17 +93,10 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
 
         pretCustomerRepository.save(customer);
 
-        // 商品
-        PretGoods goods = new PretGoods();
-        goods.setUnit(res.getUnit());
-        goods.setProduct(res.getProduct());
-        goods.setPartNo(res.getPartNo());
-        goods.setBatchNo(res.getBatchNo());
-        pretGoodsRepository.save(goods);
-
         PretTransOrder transOrder = new PretTransOrder();
         transOrder.setCustomerId(customer.getId());
         transOrder.setCustomerId(customer.getId());
+        BeanUtilsExtended.copyProperties(transOrder, res);
         this.save(transOrder);
         retVo.setData(transOrder);
 
