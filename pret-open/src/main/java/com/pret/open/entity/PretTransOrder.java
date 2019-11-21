@@ -81,14 +81,14 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
     private String deliveryBillNumber;
 
     /**
-     * 起运地
+     * 提货地Id
      */
     private String serviceRouteOriginId;
 
     /**
      * 提货地
      */
-    @ExcelField(value = "起运地")
+    @ExcelField(value = "提货地")
     private String serviceRouteOriginName;
 
     /**
@@ -206,11 +206,6 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
      * 0重货1泡货
      */
     private Integer goodsType;
-
-    /**
-     * 计费区间id
-     */
-    private String billingIntervalItemId;
 
     /**
      * 空转单标志0:非空转单  1:空转单

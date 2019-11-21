@@ -30,6 +30,8 @@ public class ApiController extends BaseController {
          * 业务用户注册接口
          */
 //        UN_LOGIN_MAP.put(InterfaceConfig.HMallGoodsDetail,InterfaceConfig.HMallGoodsDetail);
+
+        UN_LOGIN_MAP.put(InterfaceConfig.H1000000, InterfaceConfig.H1000000);
     }
 
     @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST})

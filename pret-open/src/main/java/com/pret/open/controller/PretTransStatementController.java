@@ -7,10 +7,7 @@ import com.pret.common.exception.FebsException;
 import com.pret.open.entity.*;
 import com.pret.open.entity.bo.PretTransStatementBo;
 import com.pret.open.entity.vo.PretTransStatementVo;
-import com.pret.open.repository.PretCurrencyRepository;
-import com.pret.open.repository.PretTransFeeRepository;
-import com.pret.open.repository.PretTransPlanRepository;
-import com.pret.open.repository.PretVenderRepository;
+import com.pret.open.repository.*;
 import com.pret.open.service.PretTransStatementService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -40,6 +37,10 @@ public class PretTransStatementController extends BaseManageController<PretTrans
     private PretTransPlanRepository pretTransPlanRepository;
     @Autowired
     private PretTransFeeRepository pretTransFeeRepository;
+    @Autowired
+    private PretTransOrderRepository pretTransOrderRepository;
+    @Autowired
+    private PretCustomerRepository pretCustomerRepository;
 
     @GetMapping
     @Override()
@@ -78,8 +79,11 @@ public class PretTransStatementController extends BaseManageController<PretTrans
             }
 
             List<PretTransPlan> pretTransPlanList = pretTransPlanRepository.findByTransStatementIdAndS(item.getId(), ConstantEnum.S.N.getLabel());
+            for(PretTransPlan pretTransPlan:pretTransPlanList) {
+                PretCustomer pretCustomer = pretCustomerRepository.findById(pretTransPlan.getCustomerId()).get();
+                pretTransPlan.setPretCustomer(pretCustomer);
+            }
             item.setPretTransPlanList(pretTransPlanList);
-
 
             return item;
         } catch (Exception e) {
