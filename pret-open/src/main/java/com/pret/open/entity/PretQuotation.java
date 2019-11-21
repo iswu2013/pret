@@ -119,7 +119,10 @@ public class PretQuotation extends VersionedAuditableIdEntity implements Seriali
      */
     private PretVender pretVender;
 
-
+    /**
+     * 线路
+     */
+    private PretServiceRoute pretServiceRoute;
 
     // setter and getter
 
@@ -148,5 +151,14 @@ public class PretQuotation extends VersionedAuditableIdEntity implements Seriali
 
     public void setPretBillingInterval(PretBillingInterval pretBillingInterval) {
         this.pretBillingInterval = pretBillingInterval;
+    }
+
+    @Transient()
+    public PretServiceRoute getPretServiceRoute() {
+        return pretServiceRoute;
+    }
+
+    public void setPretServiceRoute(PretServiceRoute pretServiceRoute) {
+        this.pretServiceRoute = pretServiceRoute;
     }
 }

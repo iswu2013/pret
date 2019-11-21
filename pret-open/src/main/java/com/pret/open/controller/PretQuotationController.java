@@ -4,14 +4,12 @@ import com.pret.api.rest.BaseManageController;
 import com.pret.common.annotation.Log;
 import com.pret.common.constant.ConstantEnum;
 import com.pret.common.exception.FebsException;
-import com.pret.open.entity.PretBillingInterval;
-import com.pret.open.entity.PretQuotation;
-import com.pret.open.entity.PretQuotationItem;
-import com.pret.open.entity.PretVender;
+import com.pret.open.entity.*;
 import com.pret.open.entity.bo.PretQuotationBo;
 import com.pret.open.entity.vo.PretQuotationVo;
 import com.pret.open.repository.PretBillingIntervalRepository;
 import com.pret.open.repository.PretQuotationItemRepository;
+import com.pret.open.repository.PretServiceRouteRepository;
 import com.pret.open.repository.PretVenderRepository;
 import com.pret.open.service.PretQuotationService;
 import lombok.extern.slf4j.Slf4j;
@@ -45,6 +43,8 @@ public class PretQuotationController extends BaseManageController<PretQuotationS
     private PretVenderRepository pretVenderRepository;
     @Autowired
     private PretBillingIntervalRepository pretBillingIntervalRepository;
+    @Autowired
+    private PretServiceRouteRepository pretServiceRouteRepository;
 
     @GetMapping
     @Override()
@@ -58,6 +58,10 @@ public class PretQuotationController extends BaseManageController<PretQuotationS
             if (!StringUtils.isEmpty(pretQuotation.getBillingIntervalId())) {
                 PretBillingInterval pretBillingInterval = pretBillingIntervalRepository.findById(pretQuotation.getBillingIntervalId()).get();
                 pretQuotation.setPretBillingInterval(pretBillingInterval);
+            }
+            if (!StringUtils.isEmpty(pretQuotation.getServiceRouteId())) {
+                PretServiceRoute pretServiceRoute = pretServiceRouteRepository.findById(pretQuotation.getServiceRouteId()).get();
+                pretQuotation.setPretServiceRoute(pretServiceRoute);
             }
         }
         Map<String, Object> rspData = new HashMap<>();

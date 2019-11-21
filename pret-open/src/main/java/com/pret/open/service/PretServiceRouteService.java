@@ -64,7 +64,6 @@ public class PretServiceRouteService extends BaseServiceImpl<PretServiceRouteRep
             PretServiceRouteItem item = new PretServiceRouteItem();
             PretServiceRouteOrigin pretServiceRouteOrgin = pretServiceRouteOrginRepository.findById(itemBo.getServiceRouteOriginId()).get();
             item.setCode(pretServiceRouteOrgin.getCode());
-            item.setVenderId(bo.getVenderId());
             item.setAddressId(itemBo.getValue());
             item.setPrescription(itemBo.getPrescription());
             item.setLowerLimit(itemBo.getLowerLimit());
@@ -112,7 +111,6 @@ public class PretServiceRouteService extends BaseServiceImpl<PretServiceRouteRep
             PretServiceRouteItem item = new PretServiceRouteItem();
             PretServiceRouteOrigin pretServiceRouteOrgin = pretServiceRouteOrginRepository.findById(itemBo.getServiceRouteOriginId()).get();
             item.setCode(pretServiceRouteOrgin.getCode());
-            item.setVenderId(bo.getVenderId());
             item.setAddressId(itemBo.getValue());
             item.setOriginAddressId(pretServiceRouteOrgin.getAddressId());
             item.setPrescription(itemBo.getPrescription());

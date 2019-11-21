@@ -70,6 +70,7 @@ public class PretQuotationService extends BaseServiceImpl<PretQuotationRepositor
         try {
             pretQuotation.setPeriodFrom(DateUtils.parseDate(bo.getPeriodFromStr(), "yyyy-MM-dd"));
             pretQuotation.setPeriodTo(DateUtils.parseDate(bo.getPeriodToStr(), "yyyy-MM-dd"));
+            pretQuotation.setVenderId(bo.getVenderId());
         } catch (ParseException e) {
         }
         PretVender pretVender = pretVenderRepository.findById(bo.getVenderId()).get();

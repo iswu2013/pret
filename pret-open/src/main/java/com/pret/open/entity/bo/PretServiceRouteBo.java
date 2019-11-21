@@ -18,10 +18,5 @@ public class PretServiceRouteBo {
      */
     private String name;
 
-    /**
-     * 供应商id
-     */
-    private String venderId;
-
     private String serviceRouteItemStr;
 }

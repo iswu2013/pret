@@ -3,6 +3,8 @@ package com.pret.open.repository;
 import com.pret.common.repository.BaseRepository;
 import com.pret.open.entity.PretServiceRoute;
 
+import java.util.List;
+
 /** 
  * <p>Description: [pretRepository]</p>
  * Created on 2019年09月15日
@@ -11,4 +13,13 @@ import com.pret.open.entity.PretServiceRoute;
  * Copyright (c) 2019年 极客城堡
  */
 public interface PretServiceRouteRepository extends BaseRepository<PretServiceRoute>{
+    /* *
+     * 功能描述: <br>
+     * 〈〉
+     * @Param: [venderId]
+            * @Return: java.util.List<com.pret.open.entity.PretServiceRoute>
+            * @Author: wujingsong
+            * @Date: 2019/11/21  1:44 下午
+     */
+    List<PretServiceRoute> findByVenderIdOrVenderIdIsNull(String venderId);
 }

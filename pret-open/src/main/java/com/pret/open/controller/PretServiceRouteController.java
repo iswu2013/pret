@@ -7,11 +7,14 @@ import com.pret.common.exception.FebsException;
 import com.pret.open.entity.PretAddress;
 import com.pret.open.entity.PretServiceRoute;
 import com.pret.open.entity.PretServiceRouteItem;
+import com.pret.open.entity.PretVender;
 import com.pret.open.entity.bo.AreaBo;
 import com.pret.open.entity.bo.PretServiceRouteBo;
+import com.pret.open.entity.vo.PretServiceRouteItemVo;
 import com.pret.open.entity.vo.PretServiceRouteVo;
 import com.pret.open.repository.PretAddressRepository;
 import com.pret.open.repository.PretServiceRouteItemRepository;
+import com.pret.open.repository.PretServiceRouteRepository;
 import com.pret.open.service.PretServiceRouteService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -34,6 +37,8 @@ public class PretServiceRouteController extends BaseManageController<PretService
     private PretServiceRouteItemRepository pretServiceRouteItemRepository;
     @Autowired
     private PretAddressRepository pretAddressRepository;
+    @Autowired
+    private PretServiceRouteRepository pretServiceRouteRepository;
 
     @GetMapping
     @Override()
@@ -86,6 +91,11 @@ public class PretServiceRouteController extends BaseManageController<PretService
             message = "查看失败";
             throw new FebsException(message);
         }
+    }
+
+    @GetMapping(value = "/getByVenderIdOrVenderIdIsNull/{venderId}")
+    public List<PretServiceRoute> getByVenderIdOrVenderIdIsNull(@PathVariable String venderId) {
+        return pretServiceRouteRepository.findByVenderIdOrVenderIdIsNull(venderId);
     }
 
     @Log("生成服务线路")
