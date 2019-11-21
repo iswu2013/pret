@@ -55,7 +55,6 @@ public class PretTransStatementController extends BaseManageController<PretTrans
                 PretCurrency pretCurrency = pretCurrencyRepository.findById(transStatement.getCurrencyId()).get();
                 transStatement.setPretCurrency(pretCurrency);
             }
-
         }
         Map<String, Object> rspData = new HashMap<>();
         rspData.put("rows", page.getContent());

@@ -48,7 +48,6 @@ public class ScheduleService {
             pretTransOrder.setCustomerLinkPhone("1378777777" + i % 5);
             pretTransOrder.setDeliveryBillNumber("20191001" + i % 8);
             pretTransOrder.setDeliveryDate(new Date());
-            pretTransOrder.setOrderNo(Constants.df_yyyyMMddHHmmssSSS.format(new Date()));
             pretTransOrder.setTakeDeliveryDate(new Date());
             pretTransOrder.setServiceRouteOriginId("SH-JX");
             pretTransOrder.setTransMode("陆运");

@@ -4,17 +4,11 @@ import com.pret.api.rest.BaseManageController;
 import com.pret.common.annotation.Log;
 import com.pret.common.constant.ConstantEnum;
 import com.pret.common.exception.FebsException;
-import com.pret.open.entity.PretAddress;
-import com.pret.open.entity.PretServiceRouteItem;
-import com.pret.open.entity.PretServiceRouteOrigin;
-import com.pret.open.entity.PretVender;
+import com.pret.open.entity.*;
 import com.pret.open.entity.bo.AreaBo;
 import com.pret.open.entity.vo.PretQuotationItemRVo;
 import com.pret.open.entity.vo.PretServiceRouteItemVo;
-import com.pret.open.repository.PretAddressRepository;
-import com.pret.open.repository.PretServiceRouteItemRepository;
-import com.pret.open.repository.PretServiceRouteOriginRepository;
-import com.pret.open.repository.PretVenderRepository;
+import com.pret.open.repository.*;
 import com.pret.open.service.PretServiceRouteItemService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -44,6 +38,8 @@ public class PretServiceRouteItemController extends BaseManageController<PretSer
     private PretAddressRepository pretAddressRepository;
     @Autowired
     private PretVenderRepository pretVenderRepository;
+    @Autowired
+    private PretServiceRouteRepository pretServiceRouteRepository;
     @PersistenceContext
     private EntityManager em;
 
@@ -195,6 +191,48 @@ public class PretServiceRouteItemController extends BaseManageController<PretSer
             }
         }
         List<PretServiceRouteItem> serviceRouteItemList = pretServiceRouteItemRepository.findByIdIn(idList);
+        for (PretServiceRouteItem route : serviceRouteItemList) {
+            String startEndName = StringUtils.EMPTY;
+            PretServiceRouteOrigin pretServiceRouteOrgin = pretServiceRouteOrginRepository.findById(route.getServiceRouteOriginId()).get();
+            startEndName += pretServiceRouteOrgin.getName() + "-";
+            PretAddress pretAddress = pretAddressRepository.findById(route.getAddressId()).get();
+            if (pretAddress.getLevels() == ConstantEnum.AreaLevelEnum.区县.getLabel()) {
+                PretAddress address = pretAddressRepository.findById(pretAddress.getParentId()).get();
+                PretAddress a = pretAddressRepository.findById(address.getParentId()).get();
+                startEndName += a.getName() + address.getName() + pretAddress.getName();
+            } else if (pretAddress.getLevels() == ConstantEnum.AreaLevelEnum.市.getLabel()) {
+                PretAddress address = pretAddressRepository.findById(pretAddress.getParentId()).get();
+                startEndName += address.getName() + pretAddress.getName();
+            } else {
+                startEndName += pretAddress.getName();
+            }
+            route.setStartEndName(startEndName);
+        }
+
+        retVo.setPretServiceRouteItemList(serviceRouteItemList);
+        retVo.setPretVender(pretVenderRepository.findById(venderId).get());
+        return retVo;
+    }
+
+    /* *
+     * 功能描述: 根据线路查询明细
+     * 〈〉
+     * @Param: [serviceRouteId, venderId]
+     * @Return: com.pret.open.entity.vo.PretQuotationItemRVo
+     * @Author: wujingsong
+     * @Date: 2019/11/21  1:30 下午
+     */
+    @GetMapping(value = "/getByServiceRouteId/{serviceRouteId}/{venderId}")
+    public PretQuotationItemRVo getByServiceRouteId(@PathVariable String serviceRouteId, @PathVariable String venderId) throws FebsException {
+        PretQuotationItemRVo retVo = new PretQuotationItemRVo();
+        PretServiceRoute pretServiceRoute = pretServiceRouteRepository.findById(serviceRouteId).get();
+        if (!StringUtils.isEmpty(pretServiceRoute.getVenderId()) && !pretServiceRoute.getVenderId().equals(venderId)) {
+            message = "该线路已经被其他供应商绑定";
+            throw new FebsException(message);
+        }
+
+        List<PretServiceRouteItem> serviceRouteItemList = pretServiceRouteItemRepository.findByServiceRouteIdAndS(serviceRouteId, ConstantEnum.S.N.getLabel());
+
         for (PretServiceRouteItem route : serviceRouteItemList) {
             String startEndName = StringUtils.EMPTY;
             PretServiceRouteOrigin pretServiceRouteOrgin = pretServiceRouteOrginRepository.findById(route.getServiceRouteOriginId()).get();
