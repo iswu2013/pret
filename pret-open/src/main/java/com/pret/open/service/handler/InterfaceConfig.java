@@ -46,6 +46,11 @@ public class InterfaceConfig {
     public static final String H1000004 = "bindUser.do";
 
     /**
+     * 删除订单
+     */
+    public static final String H1000005 = "api.order.delete.do";
+
+    /**
      * 获取司机备货列表
      */
     public static final String H8000000 = "getPickupPlanList.get";

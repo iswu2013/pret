@@ -105,4 +105,14 @@ public interface PretTransOrderRepository extends BaseRepository<PretTransOrder>
      * @Date: 2019/11/9  9:38 下午
      */
     List<PretTransOrder> findByTransPlanIdAndStatusAndS(String transPlanId, Integer status, Integer s);
+
+    /* *
+     * 功能描述: 根据u9订单号删除
+     * 〈〉
+     * @Param: [sourceCode]
+            * @Return: com.pret.open.entity.PretTransOrder
+            * @Author: wujingsong
+            * @Date: 2019/11/21  12:01 下午
+     */
+    PretTransOrder findBySourceCode(String sourceCode);
 }

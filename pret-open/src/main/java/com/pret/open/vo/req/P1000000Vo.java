@@ -13,6 +13,7 @@ import lombok.Data;
  */
 @Data
 public class P1000000Vo extends ReqBody {
+    private String sourceCode;
     /**
      * 发货类型0正常发货，1库间调拨
      */

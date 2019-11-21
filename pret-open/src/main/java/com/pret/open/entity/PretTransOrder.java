@@ -48,7 +48,7 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
      * 订单号
      */
     @ExcelField(value = "订单号")
-    private String orderNo;
+    private String sourceCode;
 
     /**
      * 供应商id

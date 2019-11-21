@@ -20,6 +20,7 @@ import com.pret.open.repository.*;
 import com.pret.open.vo.req.*;
 import com.pret.api.service.impl.BaseServiceImpl;
 import com.pret.open.vo.res.PR1000000Vo;
+import com.pret.open.vo.res.PR8000004Vo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -227,5 +228,22 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
         pretTransOrder.setVenderId(venderId);
         pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.待提货.getLabel());
         this.repository.save(pretTransOrder);
+    }
+
+    /* *
+     * 功能描述: 删除订单
+     * 〈〉
+     * @Param: [res]
+     * @Return: com.pret.api.vo.ResBody
+     * @Author: wujingsong
+     * @Date: 2019/11/21  11:59 上午
+     */
+    public ResBody deleteOrder(P8000004Vo res) {
+        PR8000004Vo retVo = new PR8000004Vo();
+        
+        PretTransOrder pretTransOrder = this.repository.findBySourceCode(res.getSourceCode());
+        this.lDelete(pretTransOrder.getId());
+
+        return retVo;
     }
 }
