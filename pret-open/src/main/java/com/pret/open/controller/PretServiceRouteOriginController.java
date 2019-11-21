@@ -70,7 +70,7 @@ public class PretServiceRouteOriginController extends BaseManageController<PretS
     }
 
     @Log("新增起运地")
-    @PostMapping("/serviceRouteOrginAdd")
+    @PostMapping("/serviceRouteOriginAdd")
     public void serviceRouteOrginAdd(PretServiceRouteOrginBo bo) throws FebsException {
         try {
             this.service.serviceRouteOrginAdd(bo);

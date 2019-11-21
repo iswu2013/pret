@@ -31,6 +31,10 @@ public class PretServiceRouteOrginBo {
      */
     private String name;
 
+    private String linkMan;
+
+    private String linkPhone;
+
     /**
      * U9code
      */

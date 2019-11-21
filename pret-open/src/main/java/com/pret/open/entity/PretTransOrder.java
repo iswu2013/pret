@@ -210,7 +210,7 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
     /**
      * 空转单标志0:非空转单  1:空转单
      */
-    private Integer preOrderFlag;
+    private Integer preOrderFlag = 0;
 
     /**
      * 销售备注

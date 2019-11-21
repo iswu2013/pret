@@ -137,8 +137,9 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
                 // 设置起运地详细地址
                 PretServiceRouteOrigin pretServiceRouteOrigin = pretServiceRouteOriginRepository.findById(bo.getServiceRouteOriginId()).get();
                 pretTransOrder.setServiceRouteOriginName(pretServiceRouteOrigin.getName());
-                String detailAddr = pretAddressService.findAddressListByAddressId(pretServiceRouteOrigin.getAddressId()) + pretServiceRouteOrigin.getDetail();
+                String detailAddr = pretAddressService.getDetailByAddressId(pretServiceRouteOrigin.getAddressId()) + pretServiceRouteOrigin.getDetail();
                 pretTransOrder.setServiceRouteOriginAddress(detailAddr);
+                pretTransOrder.setServiceRouteOriginName(pretServiceRouteOrigin.getName());
 
                 BeanUtilsExtended.copyProperties(pretTransOrder, bo);
                 pretTransOrder.setCustomerDetailAddress(pretAddressService.getDetailByAddressId(bo.getAddressId()) + bo.getCustomerAddress());
@@ -240,7 +241,7 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
      */
     public ResBody deleteOrder(P8000004Vo res) {
         PR8000004Vo retVo = new PR8000004Vo();
-        
+
         PretTransOrder pretTransOrder = this.repository.findBySourceCode(res.getSourceCode());
         this.lDelete(pretTransOrder.getId());
 

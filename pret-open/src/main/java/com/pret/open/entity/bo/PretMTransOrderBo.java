@@ -70,12 +70,7 @@ public class PretMTransOrderBo {
     /**
      * 起运地id
      */
-    private String serviceRouteOriginId;
-
-    /**
-     * 起运地名称
-     */
-    private String serviceRouteOriginName;
+        private String serviceRouteOriginId;
 
     /**
      * 销售备注

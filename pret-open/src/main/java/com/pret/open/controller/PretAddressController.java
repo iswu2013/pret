@@ -128,7 +128,7 @@ public class PretAddressController extends BaseManageController<PretAddressServi
 
         List<LabelValue> labelValueList = new ArrayList<>();
         PretAddress pretAddress = pretAddressRepository.findById(id).get();
-        if (pretAddress.getName().equals(ConstantEnum.AddressEnum.全省.name()) && pretAddress.getLevels() == ConstantEnum.AreaLevelEnum.市.getLabel()) {
+        if ((pretAddress.getName().equals(ConstantEnum.AddressEnum.全省.name()) || pretAddress.getName().equals(ConstantEnum.AddressEnum.全市.name())) && pretAddress.getLevels() == ConstantEnum.AreaLevelEnum.市.getLabel()) {
             PretAddress address = pretAddressRepository.findById(pretAddress.getParentId()).get();
             LabelValue labelValue = new LabelValue();
             labelValue.setLabel(pretAddress.getName());
