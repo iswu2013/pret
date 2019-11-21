@@ -240,11 +240,6 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
     private PretVender pretVender;
 
     /**
-     * 商品
-     */
-    private PretGoods pretGoods;
-
-    /**
      * 客户
      */
     private PretCustomer pretCustomer;

@@ -34,8 +34,6 @@ public class PretTransPlanRefundSignController extends BaseManageController<Pret
     private PretTransOrderRepository pretTransOrderRepository;
     @Autowired
     private PretTransExceptionItemRepository pretTransExceptionItemRepository;
-    @Autowired
-    private PretGoodsRepository pretGoodsRepository;
 
     @GetMapping
     @Override()
@@ -74,7 +72,6 @@ public class PretTransPlanRefundSignController extends BaseManageController<Pret
             List<PretTransExceptionItem> pretTransExceptionItemList = pretTransExceptionItemRepository.findByTransPlanIdAndS(id, ConstantEnum.S.N.getLabel());
             for (PretTransExceptionItem pretTransExceptionItem : pretTransExceptionItemList) {
                 PretTransOrder pretTransOrder = pretTransOrderRepository.findById(pretTransExceptionItem.getTransOrderId()).get();
-                pretTransOrder.setPretGoods(pretGoodsRepository.findById(pretTransOrder.getGoodsId()).get());
                 pretTransExceptionItem.setPretTransOrder(pretTransOrder);
             }
             item.setPretTransExceptionItemList(pretTransExceptionItemList);

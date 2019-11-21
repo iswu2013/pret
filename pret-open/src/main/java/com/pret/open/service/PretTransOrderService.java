@@ -47,14 +47,6 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
     @Autowired
     private PretCustomerRepository pretCustomerRepository;
     @Autowired
-    private PretGoodsRepository pretGoodsRepository;
-    @Autowired
-    private PretBillingIntervalItemRepository pretBillingIntervalItemRepository;
-    @Autowired
-    private PretQuotationItemRepository pretQuotationItemRepository;
-    @Autowired
-    private PretAddressRepository pretAddressRepository;
-    @Autowired
     private PretServiceRouteItemRepository pretServiceRouteItemRepository;
     @Autowired
     private PretAddressService pretAddressService;

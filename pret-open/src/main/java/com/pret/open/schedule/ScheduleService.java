@@ -27,8 +27,6 @@ public class ScheduleService {
     @Autowired
     private PretVenderRepository pretVenderRepository;
     @Autowired
-    private PretGoodsRepository pretGoodsRepository;
-    @Autowired
     private PretAddressRepository pretAddressRepository;
     private boolean hasExecute = false;
 
@@ -55,15 +53,6 @@ public class ScheduleService {
             PretVender pretVender = pretVenderRepository.findTop1ByOrderByCreateTimeLongDesc();
             pretTransOrder.setVenderId(pretVender.getId());
             pretTransOrder.setGw(Float.valueOf((i % 7)));
-
-            PretGoods pretGoods = new PretGoods();
-            pretGoods.setBatchNo("B100");
-            pretGoods.setPartNo("P100");
-            pretGoods.setProduct("平板电脑");
-            pretGoods.setUnit(i % 2);
-            pretGoodsRepository.save(pretGoods);
-
-            pretTransOrder.setGoodsId(pretGoods.getId());
             pretTransOrder.setGoodsNum(i % 9);
 
             pretTransOrderRepository.save(pretTransOrder);

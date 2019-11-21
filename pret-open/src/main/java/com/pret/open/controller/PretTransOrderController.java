@@ -30,8 +30,6 @@ public class PretTransOrderController extends BaseManageController<PretTransOrde
     @Autowired
     private PretVenderRepository pretVenderRepository;
     @Autowired
-    private PretGoodsRepository pretGoodsRepository;
-    @Autowired
     private PretCustomerRepository pretCustomerRepository;
     @Autowired
     private PretTransOrderRepository pretTransOrderRepository;
@@ -137,13 +135,6 @@ public class PretTransOrderController extends BaseManageController<PretTransOrde
                 PretVender pretVender = pretVenderRepository.findTop1ByOrderByCreateTimeLongDesc();
                 pretTransOrder.setVenderId(pretVender.getId());
                 pretTransOrder.setGw(Float.valueOf((i % 7)));
-
-                PretGoods pretGoods = new PretGoods();
-                pretGoods.setBatchNo("B100");
-                pretGoods.setPartNo("P100");
-                pretGoods.setProduct("平板电脑");
-                pretGoods.setUnit(i % 2);
-                pretGoodsRepository.save(pretGoods);
 
                 pretTransOrder.setGoodsNum(i % 9);
 
