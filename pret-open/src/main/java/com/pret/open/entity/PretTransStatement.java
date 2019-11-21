@@ -5,6 +5,7 @@ import com.pret.common.VersionedAuditableIdEntity;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -109,6 +110,8 @@ public class PretTransStatement extends VersionedAuditableIdEntity implements Se
 
     private PretCurrency pretCurrency;
 
+    private List<PretTransPlan> pretTransPlanList;
+
     // setter and getter
 
     @Transient()
@@ -127,5 +130,14 @@ public class PretTransStatement extends VersionedAuditableIdEntity implements Se
 
     public void setPretCurrency(PretCurrency pretCurrency) {
         this.pretCurrency = pretCurrency;
+    }
+
+    @Transient()
+    public List<PretTransPlan> getPretTransPlanList() {
+        return pretTransPlanList;
+    }
+
+    public void setPretTransPlanList(List<PretTransPlan> pretTransPlanList) {
+        this.pretTransPlanList = pretTransPlanList;
     }
 }

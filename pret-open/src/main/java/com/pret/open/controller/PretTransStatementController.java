@@ -2,13 +2,14 @@ package com.pret.open.controller;
 
 import com.pret.api.rest.BaseManageController;
 import com.pret.common.annotation.Log;
+import com.pret.common.constant.ConstantEnum;
 import com.pret.common.exception.FebsException;
-import com.pret.open.entity.PretCurrency;
-import com.pret.open.entity.PretTransStatement;
-import com.pret.open.entity.PretVender;
+import com.pret.open.entity.*;
 import com.pret.open.entity.bo.PretTransStatementBo;
 import com.pret.open.entity.vo.PretTransStatementVo;
 import com.pret.open.repository.PretCurrencyRepository;
+import com.pret.open.repository.PretTransFeeRepository;
+import com.pret.open.repository.PretTransPlanRepository;
 import com.pret.open.repository.PretVenderRepository;
 import com.pret.open.service.PretTransStatementService;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -34,17 +36,21 @@ public class PretTransStatementController extends BaseManageController<PretTrans
     private PretVenderRepository pretVenderRepository;
     @Autowired
     private PretCurrencyRepository pretCurrencyRepository;
+    @Autowired
+    private PretTransPlanRepository pretTransPlanRepository;
+    @Autowired
+    private PretTransFeeRepository pretTransFeeRepository;
 
     @GetMapping
     @Override()
     public Map<String, Object> list(PretTransStatementVo request, PretTransStatement t) {
         Page<PretTransStatement> page = this.service.page(request);
         for (PretTransStatement transStatement : page.getContent()) {
-            if(!StringUtils.isEmpty(transStatement.getBillToId())) {
+            if (!StringUtils.isEmpty(transStatement.getBillToId())) {
                 PretVender pretVender = pretVenderRepository.findById(transStatement.getBillToId()).get();
                 transStatement.setPretVender(pretVender);
             }
-            if(!StringUtils.isEmpty(transStatement.getCurrencyId())) {
+            if (!StringUtils.isEmpty(transStatement.getCurrencyId())) {
                 PretCurrency pretCurrency = pretCurrencyRepository.findById(transStatement.getCurrencyId()).get();
                 transStatement.setPretCurrency(pretCurrency);
             }
@@ -62,6 +68,19 @@ public class PretTransStatementController extends BaseManageController<PretTrans
     public PretTransStatement view(@PathVariable String id) throws FebsException {
         try {
             PretTransStatement item = this.service.findById(id).get();
+            if (!StringUtils.isEmpty(item.getBillToId())) {
+                PretVender pretVender = pretVenderRepository.findById(item.getBillToId()).get();
+                item.setPretVender(pretVender);
+            }
+            if (!StringUtils.isEmpty(item.getCurrencyId())) {
+                PretCurrency pretCurrency = pretCurrencyRepository.findById(item.getCurrencyId()).get();
+                item.setPretCurrency(pretCurrency);
+            }
+
+            List<PretTransPlan> pretTransPlanList = pretTransPlanRepository.findByTransStatementIdAndS(item.getId(), ConstantEnum.S.N.getLabel());
+            item.setPretTransPlanList(pretTransPlanList);
+
+
             return item;
         } catch (Exception e) {
             message = "查看失败";

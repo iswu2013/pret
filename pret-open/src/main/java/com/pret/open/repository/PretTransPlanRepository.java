@@ -48,4 +48,14 @@ public interface PretTransPlanRepository extends BaseRepository<PretTransPlan> {
      * @Date: 2019/11/4  7:20 上午
      */
     long countByStatus(Integer status);
+
+    /* *
+     * 功能描述: 根据对账单Id和状态查询
+     * 〈〉
+     * @Param: [transStatementId, s]
+     * @Return: java.util.List<com.pret.open.entity.PretTransPlan>
+     * @Author: wujingsong
+     * @Date: 2019/11/20  5:31 下午
+     */
+    List<PretTransPlan> findByTransStatementIdAndS(String transStatementId, Integer s);
 }

@@ -230,6 +230,11 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
      */
     private String customerDetailAddress;
 
+    /**
+     * 对账单id
+     */
+    private String transStatementId;
+
     private PretVender pretVender;
 
     private PretCustomer pretCustomer;

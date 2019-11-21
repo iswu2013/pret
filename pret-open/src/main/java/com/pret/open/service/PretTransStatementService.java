@@ -105,11 +105,13 @@ public class PretTransStatementService extends BaseServiceImpl<PretTransStatemen
             totalAmount = totalAmount.add(transFee.getQuotation());
 
             PretTransPlan pretTransPlan = transPlanRepository.findById(transFee.getTransPlanId()).get();
+            pretTransPlan.setTransStatementId(transStatement.getId());
             List<PretTransOrder> pretTransOrderList = transOrderRepository.findByTransPlanIdAndS(pretTransPlan.getId(), ConstantEnum.S.N.getLabel());
             for (PretTransOrder pretTransOrder : pretTransOrderList) {
                 pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.已完成.getLabel());
                 transOrderRepository.save(pretTransOrder);
             }
+            transPlanRepository.save(pretTransPlan);
         }
 
         transStatement.setTotalAmount(totalAmount);
