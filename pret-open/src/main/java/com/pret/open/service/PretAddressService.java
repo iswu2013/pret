@@ -42,10 +42,19 @@ public class PretAddressService extends BaseServiceImpl<PretAddressRepository, P
         PretAddress pretAddress = this.repository.findById(addressId).get();
         if (pretAddress != null) {
             Optional<PretAddress> pretAddressOptional = this.repository.findById(pretAddress.getParentId());
+            // 找到全市
+            PretAddress address = this.repository.findByParentIdAndAdds(pretAddressOptional.get().getId(), 1);
+            if (address != null) {
+                addressIdList.add(address.getId());
+            }
             if (pretAddressOptional.isPresent()) {
                 addressIdList.add(pretAddressOptional.get().getId());
                 if (!StringUtils.isEmpty(pretAddressOptional.get().getParentId())) {
                     addressIdList.add(pretAddressOptional.get().getParentId());
+                    address = this.repository.findByParentIdAndAdds(pretAddressOptional.get().getParentId(), 1);
+                    if (address != null) {
+                        addressIdList.add(address.getId());
+                    }
                 }
             }
         }

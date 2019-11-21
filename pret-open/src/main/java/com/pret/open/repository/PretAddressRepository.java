@@ -74,4 +74,14 @@ public interface PretAddressRepository extends BaseRepository<PretAddress>{
             * @Date: 2019/10/26  11:50 下午
      */
     List<PretAddress> findByParentIdAndAddsAndS(String id,Integer adds, Integer s);
+
+    /* *
+     * 功能描述: 根据parentId和adds
+     * 〈〉
+     * @Param: [parentId, adds]
+            * @Return: com.pret.open.entity.PretAddress
+            * @Author: wujingsong
+            * @Date: 2019/11/21  5:32 下午
+     */
+    PretAddress findByParentIdAndAdds(String parentId,int adds);
 }

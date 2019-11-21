@@ -103,7 +103,6 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
 
         PretTransOrder transOrder = new PretTransOrder();
         transOrder.setCustomerId(customer.getId());
-        transOrder.setGoodsId(goods.getId());
         transOrder.setCustomerId(customer.getId());
         this.save(transOrder);
         retVo.setData(transOrder);
@@ -143,6 +142,7 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
 
                 BeanUtilsExtended.copyProperties(pretTransOrder, bo);
                 pretTransOrder.setCustomerDetailAddress(pretAddressService.getDetailByAddressId(bo.getAddressId()) + bo.getCustomerAddress());
+                BeanUtilsExtended.copyProperties(pretTransOrder, pretMTransOrderBo);
                 this.repository.save(pretTransOrder);
                 PretCustomer pretCustomer = pretCustomerRepository.findByLinkPhone(bo.getCustomerLinkPhone());
                 if (pretCustomer == null) {
@@ -154,18 +154,6 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
                     pretCustomerRepository.save(pretCustomer);
                 }
                 pretTransOrder.setCustomerId(pretCustomer.getId());
-
-                PretGoods pretGoods = pretGoodsRepository.findByPartNoAndBatchNoAndProduct(pretMTransOrderBo.getPartNo(), pretMTransOrderBo.getBatchNo(), pretMTransOrderBo.getProduct());
-                if (pretGoods == null) {
-                    pretGoods = new PretGoods();
-                    pretGoods.setBatchNo(pretMTransOrderBo.getBatchNo());
-                    pretGoods.setPartNo(pretMTransOrderBo.getPartNo());
-                    pretGoods.setProduct(pretMTransOrderBo.getProduct());
-                    pretGoods.setUnit(pretMTransOrderBo.getUnit());
-                    pretGoods.setWeight(pretMTransOrderBo.getWeight());
-                    pretGoodsRepository.save(pretGoods);
-                }
-                pretTransOrder.setGoodsId(pretGoods.getId());
                 // 是否存在同一客户，同一地址，同一送达日期的运输单
                 List<Integer> statusList = new ArrayList<>();
                 statusList.add(ConstantEnum.ETransOrderStatus.待分配.getLabel());
@@ -205,6 +193,7 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
                 if (isHeavyCargo && totalGw > item.getLowerLimit()) {
                     for (PretTransOrder pretTransOrder : pretTransOrderList) {
                         pretTransOrder.setVenderId(item.getVenderId());
+                        transOrder.setStatus(ConstantEnum.ETransOrderStatus.待提货.getLabel());
                     }
                     this.repository.saveAll(pretTransOrderList);
                 }

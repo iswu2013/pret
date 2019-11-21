@@ -47,10 +47,6 @@ public class PretTransOrderController extends BaseManageController<PretTransOrde
                 PretVender pretVender = pretVenderRepository.findById(route.getVenderId()).get();
                 route.setPretVender(pretVender);
             }
-            if (!StringUtils.isEmpty(route.getGoodsId())) {
-                PretGoods pretGoods = pretGoodsRepository.findById(route.getGoodsId()).get();
-                route.setPretGoods(pretGoods);
-            }
             if (!StringUtils.isEmpty(route.getCustomerId())) {
                 PretCustomer pretCustomer = pretCustomerRepository.findById(route.getCustomerId()).get();
                 route.setPretCustomer(pretCustomer);
@@ -149,7 +145,6 @@ public class PretTransOrderController extends BaseManageController<PretTransOrde
                 pretGoods.setUnit(i % 2);
                 pretGoodsRepository.save(pretGoods);
 
-                pretTransOrder.setGoodsId(pretGoods.getId());
                 pretTransOrder.setGoodsNum(i % 9);
 
                 pretTransOrderRepository.save(pretTransOrder);

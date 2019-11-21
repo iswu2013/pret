@@ -1,14 +1,6 @@
 package com.pret.open.entity.bo;
 
-import com.pret.common.VersionedAuditableIdEntity;
 import lombok.Data;
-import org.hibernate.annotations.GenericGenerator;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import java.io.Serializable;
 
 /**
  * <p>Description: [pretmodel]</p>

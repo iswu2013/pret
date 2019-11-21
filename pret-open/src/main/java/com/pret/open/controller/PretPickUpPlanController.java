@@ -4,13 +4,11 @@ import com.pret.api.rest.BaseManageController;
 import com.pret.common.annotation.Log;
 import com.pret.common.constant.ConstantEnum;
 import com.pret.common.exception.FebsException;
-import com.pret.open.entity.PretDriver;
-import com.pret.open.entity.PretPickUpPlan;
-import com.pret.open.entity.PretTransOrder;
-import com.pret.open.entity.PretVender;
+import com.pret.open.entity.*;
 import com.pret.open.entity.bo.PretPickUpPlanBo;
 import com.pret.open.entity.vo.PretPickUpPlanVo;
 import com.pret.open.repository.PretDriverRepository;
+import com.pret.open.repository.PretServiceRouteOriginRepository;
 import com.pret.open.repository.PretTransOrderRepository;
 import com.pret.open.repository.PretVenderRepository;
 import com.pret.open.service.PretPickUpPlanService;
@@ -36,6 +34,8 @@ public class PretPickUpPlanController extends BaseManageController<PretPickUpPla
     private PretVenderRepository pretVenderRepository;
     @Autowired
     private PretDriverRepository pretDriverRepository;
+    @Autowired
+    private PretServiceRouteOriginRepository pretServiceRouteOriginRepository;
 
     @GetMapping
     @Override()
@@ -51,6 +51,10 @@ public class PretPickUpPlanController extends BaseManageController<PretPickUpPla
             if (!StringUtils.isEmpty(pickUpPlan.getDriverId())) {
                 PretDriver pretDriver = pretDriverRepository.findById(pickUpPlan.getDriverId()).get();
                 pickUpPlan.setPretDriver(pretDriver);
+            }
+            if (!StringUtils.isEmpty(pickUpPlan.getServiceRouteOriginId())) {
+                PretServiceRouteOrigin pretServiceRouteOrigin = pretServiceRouteOriginRepository.findById(pickUpPlan.getServiceRouteOriginId()).get();
+                pickUpPlan.setPretServiceRouteOrigin(pretServiceRouteOrigin);
             }
         }
         Map<String, Object> rspData = new HashMap<>();

@@ -79,7 +79,6 @@ public class PretServiceRouteOrigin extends VersionedAuditableIdEntity implement
 
     // setter and getter
 
-    @Transient()
     public String getFullAddress() {
         return fullAddress;
     }

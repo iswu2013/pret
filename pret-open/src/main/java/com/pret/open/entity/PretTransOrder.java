@@ -138,10 +138,34 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
     private String customerLinkPhone;
 
     /**
-     * 商品id
+     * 料号
      */
-    @ExcelField(value = "商品id")
-    private String goodsId;
+    @ExcelField(value = "料号")
+    private String partNo;
+
+    /**
+     * 批号
+     */
+    @ExcelField(value = "批号")
+    private String batchNo;
+
+    /**
+     * 品名
+     */
+    @ExcelField(value = "品名")
+    private String product;
+
+    /**
+     * 商品重量
+     */
+    @ExcelField(value = "商品重量")
+    private Float gw;
+
+    /**
+     * 单位(1吨，2公斤)
+     */
+    @ExcelField(value = "单位", writeConverterExp = "1=吨,2=公斤")
+    private int unit;
 
     /**
      * 提货计划id
@@ -160,18 +184,6 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
      */
     @ExcelField(value = "对账单id")
     private String transStatementId;
-
-    /**
-     * 商品重量
-     */
-    @ExcelField(value = "商品重量")
-    private Float gw;
-
-    /**
-     * 单位(1吨，2公斤)
-     */
-    @ExcelField(value = "单位", writeConverterExp = "1=吨,2=公斤")
-    private int unit;
 
     /**
      * 立方体积
@@ -240,15 +252,6 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
     private PretServiceRouteOrigin pretServiceRouteOrigin;
 
     // setter and getter
-
-    @Transient()
-    public PretGoods getPretGoods() {
-        return pretGoods;
-    }
-
-    public void setPretGoods(PretGoods pretGoods) {
-        this.pretGoods = pretGoods;
-    }
 
     @Transient()
     public PretCustomer getPretCustomer() {

@@ -98,6 +98,7 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
         pretPickUpPlan.setDriverId(pretDriver.getId());
         this.repository.save(pretPickUpPlan);
         String venderId = StringUtils.EMPTY;
+        String serviceRouteOriginId = StringUtils.EMPTY;
         for (String id : idArr) {
             PretTransOrder pretTransOrder = transOrderRepository.findById(id).get();
             pretTransOrder.setPickUpPlanId(pretPickUpPlan.getId());
@@ -106,9 +107,13 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
             if (StringUtils.isEmpty(venderId)) {
                 venderId = pretTransOrder.getVenderId();
             }
+            if (StringUtils.isEmpty(serviceRouteOriginId)) {
+                serviceRouteOriginId = pretTransOrder.getServiceRouteOriginId();
+            }
         }
 
         pretPickUpPlan.setVenderId(venderId);
+        pretPickUpPlan.setServiceRouteOriginId(serviceRouteOriginId);
 
         // 生成二维码
         QRCodeWriter qrCodeWriter = new QRCodeWriter();

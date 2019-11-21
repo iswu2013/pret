@@ -6,6 +6,7 @@ import com.pret.open.entity.bo.PretServiceRouteOrginBo;
 import com.pret.open.entity.vo.PretServiceRouteOrginVo;
 import com.pret.open.repository.PretServiceRouteOriginRepository;
 import com.pret.api.service.impl.BaseServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -21,6 +22,9 @@ import javax.transaction.Transactional;
 @Service
 @Transactional(rollbackOn = Exception.class)
 public class PretServiceRouteOriginService extends BaseServiceImpl<PretServiceRouteOriginRepository, PretServiceRouteOrigin, PretServiceRouteOrginVo> {
+    @Autowired
+    private PretAddressService pretAddressService;
+
     /* *
      * 功能描述: 新增起运地
      * 〈〉
@@ -32,6 +36,7 @@ public class PretServiceRouteOriginService extends BaseServiceImpl<PretServiceRo
     public void serviceRouteOrginAdd(PretServiceRouteOrginBo bo) {
         PretServiceRouteOrigin item = new PretServiceRouteOrigin();
         BeanUtilsExtended.copyProperties(item, bo);
+        item.setFullAddress(pretAddressService.getDetailByAddressId(item.getAddressId()) + item.getDetail());
         this.repository.save(item);
     }
 }

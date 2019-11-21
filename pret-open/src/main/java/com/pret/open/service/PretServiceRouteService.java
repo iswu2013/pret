@@ -118,6 +118,7 @@ public class PretServiceRouteService extends BaseServiceImpl<PretServiceRouteRep
             item.setServiceRouteOriginId(itemBo.getServiceRouteOriginId());
             item.setLowerLimit(itemBo.getLowerLimit());
             item.setMileage(itemBo.getMileage());
+            item.setVenderId(pretServiceRoute.getVenderId());
             pretServiceRouteItemRepository.save(item);
         }
         this.repository.save(pretServiceRoute);

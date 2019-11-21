@@ -111,6 +111,11 @@ public class PretPickUpPlan extends VersionedAuditableIdEntity implements Serial
     private String qrcodePath;
 
     /**
+     * 提货地Id
+     */
+    private String serviceRouteOriginId;
+
+    /**
      * 运输任务单
      */
     private List<PretTransOrder> transOrderList;
@@ -124,6 +129,8 @@ public class PretPickUpPlan extends VersionedAuditableIdEntity implements Serial
      * 司机
      */
     private PretDriver pretDriver;
+
+    private PretServiceRouteOrigin pretServiceRouteOrigin;
 
     // setter and getter
 
@@ -152,5 +159,14 @@ public class PretPickUpPlan extends VersionedAuditableIdEntity implements Serial
 
     public void setPretDriver(PretDriver pretDriver) {
         this.pretDriver = pretDriver;
+    }
+
+    @Transient()
+    public PretServiceRouteOrigin getPretServiceRouteOrigin() {
+        return pretServiceRouteOrigin;
+    }
+
+    public void setPretServiceRouteOrigin(PretServiceRouteOrigin pretServiceRouteOrigin) {
+        this.pretServiceRouteOrigin = pretServiceRouteOrigin;
     }
 }
