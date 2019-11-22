@@ -13,6 +13,8 @@ import com.pret.common.util.BeanUtilsExtended;
 import com.pret.common.util.NoUtil;
 import com.pret.common.util.StringUtil;
 import com.pret.open.entity.*;
+import com.pret.open.entity.bo.PretTransOrderSignBo;
+import com.pret.open.entity.bo.PretTransPlanSignBo;
 import com.pret.open.entity.vo.PretTransFeeVo;
 import com.pret.open.repository.*;
 import com.pret.open.vo.req.*;
@@ -99,8 +101,8 @@ public class PretTransFeeService extends BaseServiceImpl<PretTransFeeRepository,
      * @Author: wujingsong
      * @Date: 2019/11/19  5:57 下午
      */
-    public void calFee(String ids, String username) throws FebsException {
-        String[] idArr = ids.split(",");
+    public void calFee(PretTransPlanSignBo bo) throws FebsException {
+        String[] idArr = bo.getIds().split(",");
         boolean first = true;
         int sn = 0;
         int count = 0;
@@ -108,16 +110,14 @@ public class PretTransFeeService extends BaseServiceImpl<PretTransFeeRepository,
         for (String id : idArr) {
             PretTransPlan pretTransPlan = pretTransPlanRepository.findById(id).get();
             pretTransPlan.setStatus(ConstantEnum.ETransPlanStatus.已签收.getValue());
-            pretTransPlan.setSignUsername(username);
-            pretTransPlan.setSignDatetime(new Date());
+            pretTransPlan.setSignUsername(bo.getUsername());
+            pretTransPlan.setSignDatetime(bo.getSignDatetime());
             pretTransPlanRepository.save(pretTransPlan);
 
             PretTransException pretTransException = null;
             if (!StringUtils.isEmpty(pretTransPlan.getTransExceptionId())) {
                 pretTransException = pretTransExceptionRepository.findById(pretTransPlan.getTransExceptionId()).get();
             }
-
-
             if (pretTransPlan.getType() == ConstantEnum.EPretTransPlanType.正常运输.getLabel() || (pretTransException != null && pretTransException.getHandleStyle() == ConstantEnum.EHandleStyle.原路返回.getLabel())) {
                 List<PretTransOrder> pretTransOrderList = pretTransOrderRepository.findByTransPlanIdAndS(id, ConstantEnum.S.N.getLabel());
                 if (pretTransOrderList != null && pretTransOrderList.size() > 0) {
@@ -126,9 +126,9 @@ public class PretTransFeeService extends BaseServiceImpl<PretTransFeeRepository,
                         pretTransOrderRepository.save(pretTransOrder);
                         count += pretTransOrder.getGoodsNum();
                         if (pretTransOrder.getUnit() == ConstantEnum.EUnit.公斤.getLabel()) {
-                            totalGw += pretTransOrder.getGw() * pretTransOrder.getGoodsNum();
+                            totalGw += pretTransOrder.getGw();
                         } else {
-                            totalGw += pretTransOrder.getGw() * pretTransOrder.getGoodsNum() * 1000;
+                            totalGw += pretTransOrder.getGw() * 1000;
                         }
                     }
                 }

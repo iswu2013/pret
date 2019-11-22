@@ -12,7 +12,9 @@ import com.pret.common.util.SfUtil;
 import com.pret.common.util.StringUtil;
 import com.pret.open.config.Sender;
 import com.pret.open.entity.*;
+import com.pret.open.entity.bo.PretTransOrderSignBo;
 import com.pret.open.entity.bo.PretTransPlanBo;
+import com.pret.open.entity.bo.PretTransPlanSignBo;
 import com.pret.open.entity.bo.PretTransPlanStartShipmentConfirmBo;
 import com.pret.open.entity.vo.PretTransPlanVo;
 import com.pret.open.repository.*;
@@ -173,8 +175,8 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
      * @Author: wujingsong
      * @Date: 2019/10/4  3:16 下午
      */
-    public void sign(String ids, String username) throws FebsException {
-        transFeeService.calFee(ids, username);
+    public void sign(PretTransPlanSignBo bo) throws FebsException {
+        transFeeService.calFee(bo);
     }
 
     /* *
@@ -185,8 +187,8 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
      * @Author: wujingsong
      * @Date: 2019/11/18  5:15 下午
      */
-    public void signRefund(String ids, String username) throws FebsException {
-        transFeeService.calFee(ids, username);
+    public void signRefund(PretTransPlanSignBo bo) throws FebsException {
+        transFeeService.calFee(bo);
     }
 
     /* *

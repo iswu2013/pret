@@ -166,9 +166,9 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
         String venderId = StringUtils.EMPTY;
         for (PretTransOrder pretTransOrder : pretTransOrderList) {
             if (pretTransOrder.getUnit() == ConstantEnum.EUnit.公斤.getLabel()) {
-                totalGw += pretTransOrder.getGw() * pretTransOrder.getGoodsNum();
+                totalGw += pretTransOrder.getGw();
             } else {
-                totalGw += pretTransOrder.getGw() * pretTransOrder.getGoodsNum() * 1000;
+                totalGw += pretTransOrder.getGw() * 1000;
             }
             venderId = pretTransOrder.getVenderId();
         }

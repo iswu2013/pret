@@ -234,6 +234,12 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
      */
     private String storageNumber;
 
+    private Float signCount = 0.0f;
+
+    private Float rejectCount = 0.0f;
+
+    private String rejectReason;
+
     /**
      * 供应商
      */
@@ -273,5 +279,32 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
 
     public void setPretVender(PretVender pretVender) {
         this.pretVender = pretVender;
+    }
+
+    @Transient()
+    public Float getSignCount() {
+        return signCount;
+    }
+
+    public void setSignCount(Float signCount) {
+        this.signCount = signCount;
+    }
+
+    @Transient()
+    public Float getRejectCount() {
+        return rejectCount;
+    }
+
+    public void setRejectCount(Float rejectCount) {
+        this.rejectCount = rejectCount;
+    }
+
+    @Transient()
+    public String getRejectReason() {
+        return rejectReason;
+    }
+
+    public void setRejectReason(String rejectReason) {
+        this.rejectReason = rejectReason;
     }
 }
