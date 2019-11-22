@@ -13,6 +13,7 @@ import com.pret.common.util.StringUtil;
 import com.pret.open.config.Sender;
 import com.pret.open.entity.*;
 import com.pret.open.entity.bo.PretTransPlanBo;
+import com.pret.open.entity.bo.PretTransPlanStartShipmentConfirmBo;
 import com.pret.open.entity.vo.PretTransPlanVo;
 import com.pret.open.repository.*;
 import com.pret.open.vo.req.*;
@@ -270,5 +271,22 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
             } catch (Exception e) {
             }
         }
+    }
+
+    /* *
+     * 功能描述: 起运确认
+     * 〈〉
+     * @Param: [bo]
+     * @Return: void
+     * @Author: wujingsong
+     * @Date: 2019/11/22  3:07 下午
+     */
+    public void pretStartShipmentConfirm(PretTransPlanStartShipmentConfirmBo bo) {
+        PretTransPlan pretTransPlan = this.repository.findById(bo.getId()).get();
+
+        pretTransPlan.setPreDeliveryDate(bo.getPreDeliveryDate());
+        pretTransPlan.setTransDatetime(bo.getTransDatetime());
+
+        this.repository.save(pretTransPlan);
     }
 }

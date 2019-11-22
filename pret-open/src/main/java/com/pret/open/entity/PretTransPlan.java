@@ -231,6 +231,8 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
 
     private PretServiceRouteOrigin pretServiceRouteOrigin;
 
+    private List<PretTransOrder> pretTransOrderList;
+
     // setter and getter
 
     @Transient()
@@ -276,5 +278,14 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
 
     public void setPretServiceRouteOrigin(PretServiceRouteOrigin pretServiceRouteOrigin) {
         this.pretServiceRouteOrigin = pretServiceRouteOrigin;
+    }
+
+    @Transient()
+    public List<PretTransOrder> getPretTransOrderList() {
+        return pretTransOrderList;
+    }
+
+    public void setPretTransOrderList(List<PretTransOrder> pretTransOrderList) {
+        this.pretTransOrderList = pretTransOrderList;
     }
 }

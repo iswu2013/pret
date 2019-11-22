@@ -265,4 +265,13 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
     public void setPretServiceRouteOrigin(PretServiceRouteOrigin pretServiceRouteOrigin) {
         this.pretServiceRouteOrigin = pretServiceRouteOrigin;
     }
+
+    @Transient()
+    public PretVender getPretVender() {
+        return pretVender;
+    }
+
+    public void setPretVender(PretVender pretVender) {
+        this.pretVender = pretVender;
+    }
 }

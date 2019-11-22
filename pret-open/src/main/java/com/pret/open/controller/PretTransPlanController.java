@@ -2,9 +2,11 @@ package com.pret.open.controller;
 
 import com.pret.api.rest.BaseManageController;
 import com.pret.common.annotation.Log;
+import com.pret.common.constant.ConstantEnum;
 import com.pret.common.exception.FebsException;
 import com.pret.open.entity.*;
 import com.pret.open.entity.bo.PretTransPlanBo;
+import com.pret.open.entity.bo.PretTransPlanStartShipmentConfirmBo;
 import com.pret.open.entity.vo.PretTransPlanVo;
 import com.pret.open.repository.*;
 import com.pret.open.service.PretTransPlanService;
@@ -16,6 +18,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -68,6 +71,8 @@ public class PretTransPlanController extends BaseManageController<PretTransPlanS
     public PretTransPlan view(@PathVariable String id) throws FebsException {
         try {
             PretTransPlan item = this.service.findById(id).get();
+            List<PretTransOrder> pretTransOrderList = pretTransOrderRepository.findByTransPlanIdAndS(item.getId(), ConstantEnum.S.N.getLabel());
+            item.setPretTransOrderList(pretTransOrderList);
             return item;
         } catch (Exception e) {
             message = "查看失败";
@@ -80,6 +85,17 @@ public class PretTransPlanController extends BaseManageController<PretTransPlanS
     public void pretTransPlanAdd(PretTransPlanBo bo) throws FebsException {
         try {
             this.service.pretTransPlanAdd(bo);
+        } catch (Exception e) {
+            message = "生成运输计划失败";
+            throw new FebsException(message);
+        }
+    }
+
+    @Log("起运确认")
+    @PostMapping("/pretStartShipmentConfirm")
+    public void pretStartShipmentConfirm(PretTransPlanStartShipmentConfirmBo bo) throws FebsException {
+        try {
+            this.service.pretStartShipmentConfirm(bo);
         } catch (Exception e) {
             message = "生成运输计划失败";
             throw new FebsException(message);
