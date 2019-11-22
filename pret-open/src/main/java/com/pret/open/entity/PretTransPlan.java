@@ -62,37 +62,15 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
     private String customerId;
 
     /**
-     * 预计提货日期
+     * 起运日期
      */
-    @ExcelField(value = "预计提货时间", writeConverter = TimeConverter.class)
+    @ExcelField(value = "起运日期", writeConverter = TimeConverter.class)
     private Date transDatetime;
 
     /**
      * 原始运输计划id,针对异常退货
      */
     private String originId;
-
-    /**
-     * 起运地id
-     */
-    private String orgId;
-
-    /**
-     * 起运地
-     */
-    @ExcelField(value = "起运地")
-    private String orgAddress;
-
-    /**
-     * 目的地id
-     */
-    private String destId;
-
-    /**
-     * 目的地
-     */
-    @ExcelField(value = "目的地")
-    private String destAddress;
 
     /**
      * 司机id
@@ -104,31 +82,25 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
      * 商品重量
      */
     @ExcelField(value = "商品重量")
-    private Integer gw;
-
-    /**
-     * 单位(1吨，2公斤)
-     */
-    @ExcelField(value = "单位", writeConverterExp = "1=吨,2=公斤")
-    private int unit;
+    private Float gw;
 
     /**
      * 立方体积
      */
     @ExcelField(value = "立方体积")
-    private float cbm;
+    private Float cbm;
 
     /**
-     * 货物件数
+     * 商品数量
      */
-    @ExcelField(value = "货物件数")
-    private int goodsNum;
+    @ExcelField(value = "商品数量")
+    private Integer goodsNum;
 
     /**
      *
      */
     @ExcelField(value = "实际数量")
-    private Integer realNum;
+    private Float realNum;
 
     /**
      * 线路明细id
@@ -214,6 +186,9 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
     @ExcelField(value = "送达日期", writeConverter = TimeConverter.class)
     private Date deliveryDate;
 
+    @ExcelField(value = "预计送达日期", writeConverter = TimeConverter.class)
+    private Date preDeliveryDate;
+
     /**
      * 提货地
      */
@@ -224,6 +199,11 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
      * 提货地址
      */
     private String serviceRouteOriginAddress;
+
+    /**
+     * 提货地Id
+     */
+    private String serviceRouteOriginId;
 
     /**
      * 客户详细地址
@@ -240,11 +220,6 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
     private PretCustomer pretCustomer;
 
     /**
-     * 从运输任务单中获取一些信息
-     */
-    private PretTransOrder pretTransOrder;
-
-    /**
      * 司机信息
      */
     private PretDriver pretDriver;
@@ -253,6 +228,8 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
      * 异常明细
      */
     private List<PretTransExceptionItem> pretTransExceptionItemList;
+
+    private PretServiceRouteOrigin pretServiceRouteOrigin;
 
     // setter and getter
 
@@ -275,15 +252,6 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
     }
 
     @Transient()
-    public PretTransOrder getPretTransOrder() {
-        return pretTransOrder;
-    }
-
-    public void setPretTransOrder(PretTransOrder pretTransOrder) {
-        this.pretTransOrder = pretTransOrder;
-    }
-
-    @Transient()
     public PretDriver getPretDriver() {
         return pretDriver;
     }
@@ -299,5 +267,14 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
 
     public void setPretTransExceptionItemList(List<PretTransExceptionItem> pretTransExceptionItemList) {
         this.pretTransExceptionItemList = pretTransExceptionItemList;
+    }
+
+    @Transient()
+    public PretServiceRouteOrigin getPretServiceRouteOrigin() {
+        return pretServiceRouteOrigin;
+    }
+
+    public void setPretServiceRouteOrigin(PretServiceRouteOrigin pretServiceRouteOrigin) {
+        this.pretServiceRouteOrigin = pretServiceRouteOrigin;
     }
 }

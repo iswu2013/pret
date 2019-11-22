@@ -117,8 +117,8 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
         PretTransOrder transOrder = null;
         String venderId = StringUtils.EMPTY;
         int count = 0;
-        int gw = 0;
-        int cw = 0;
+        Float gw = 0.0f;
+        Float cw = 0.0f;
 
         for (String id : idArr) {
             PretTransOrder pretTransOrder = transOrderRepository.findById(id).get();
@@ -140,8 +140,10 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
         transPlan.setGoodsNum(count);
         transPlan.setCustomerDetailAddress(transOrder.getCustomerDetailAddress());
         transPlan.setServiceRouteOriginName(transOrder.getServiceRouteOriginName());
+        transPlan.setServiceRouteOriginId(transOrder.getServiceRouteOriginId());
         transPlan.setServiceRouteOriginAddress(transOrder.getServiceRouteOriginAddress());
         transPlan.setGw(cw);
+        transPlan.setDeliveryDate(transOrder.getDeliveryDate());
         this.repository.save(transPlan);
 
         // 设置提货计划状态
@@ -234,7 +236,7 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
         map.put("d_company", pretCustomer.getName());
         map.put("d_contact", pretCustomer.getLinkName());
         map.put("d_tel", pretCustomer.getLinkPhone());
-        map.put("d_address", pretTransPlan.getDestAddress());
+        map.put("d_address", pretTransPlan.getCustomerDetailAddress());
         if (!StringUtils.isEmpty(pretTransPlan.getMailno())) {
             hasGet = true;
         }

@@ -53,8 +53,6 @@ public class PretTransPlanSignController extends BaseManageController<PretTransP
                 PretDriver pretDriver = pretDriverRepository.findById(transPlan.getDriverId()).get();
                 transPlan.setPretDriver(pretDriver);
             }
-            PretTransOrder pretTransOrder = pretTransOrderRepository.findTop1ByTransPlanId(transPlan.getId());
-            transPlan.setPretTransOrder(pretTransOrder);
         }
         Map<String, Object> rspData = new HashMap<>();
         rspData.put("rows", page.getContent());

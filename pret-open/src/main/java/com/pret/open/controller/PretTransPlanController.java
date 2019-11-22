@@ -6,10 +6,7 @@ import com.pret.common.exception.FebsException;
 import com.pret.open.entity.*;
 import com.pret.open.entity.bo.PretTransPlanBo;
 import com.pret.open.entity.vo.PretTransPlanVo;
-import com.pret.open.repository.PretCustomerRepository;
-import com.pret.open.repository.PretDriverRepository;
-import com.pret.open.repository.PretTransOrderRepository;
-import com.pret.open.repository.PretVenderRepository;
+import com.pret.open.repository.*;
 import com.pret.open.service.PretTransPlanService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -34,6 +31,8 @@ public class PretTransPlanController extends BaseManageController<PretTransPlanS
     private PretDriverRepository pretDriverRepository;
     @Autowired
     private PretTransOrderRepository pretTransOrderRepository;
+    @Autowired
+    private PretServiceRouteOriginRepository pretServiceRouteOriginRepository;
 
     @GetMapping
     @Override()
@@ -52,8 +51,10 @@ public class PretTransPlanController extends BaseManageController<PretTransPlanS
                 PretDriver pretDriver = pretDriverRepository.findById(transPlan.getDriverId()).get();
                 transPlan.setPretDriver(pretDriver);
             }
-            PretTransOrder pretTransOrder = pretTransOrderRepository.findTop1ByTransPlanId(transPlan.getId());
-            transPlan.setPretTransOrder(pretTransOrder);
+            if (!StringUtils.isEmpty(transPlan.getServiceRouteOriginId())) {
+                PretServiceRouteOrigin pretServiceRouteOrigin = pretServiceRouteOriginRepository.findById(transPlan.getServiceRouteOriginId()).get();
+                transPlan.setPretServiceRouteOrigin(pretServiceRouteOrigin);
+            }
         }
         Map<String, Object> rspData = new HashMap<>();
         rspData.put("rows", page.getContent());
