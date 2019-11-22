@@ -1,6 +1,5 @@
 package com.pret.open.service;
 
-import java.math.BigDecimal;
 import java.util.*;
 
 import com.pret.api.vo.ResBody;
@@ -14,7 +13,6 @@ import com.pret.common.util.StringUtil;
 import com.pret.open.config.Sender;
 import com.pret.open.entity.*;
 import com.pret.open.entity.bo.PretTransPlanBo;
-import com.pret.open.entity.vo.PretPickUpPlanVo;
 import com.pret.open.entity.vo.PretTransPlanVo;
 import com.pret.open.repository.*;
 import com.pret.open.vo.req.*;
@@ -29,7 +27,6 @@ import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -91,13 +88,13 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
             if (StringUtils.isEmpty(tail)) {
                 PretTransPlan firstOrder = this.repository.findTop1ByCreateTimeLongBetweenOrderByCreateTimeLongDesc(date.getTime(), endDate.getTime());
                 if (firstOrder != null) {
-                    String str = StringUtil.disposeFrontZero(firstOrder.getNo().substring(19));
+                    String str = StringUtil.disposeFrontZero(firstOrder.getNo().substring(12));
                     int intStr = Integer.parseInt(str) + 1;
-                    tail = StringUtil.addFrontZero(String.valueOf(intStr), 6);
+                    tail = StringUtil.addFrontZero(String.valueOf(intStr), 4);
                 } else {
                     tail = Constants.TAIL;
                 }
-                transPlan.setNo(NoUtil.genNo(ConstantEnum.NoTypeEnum.YS.name()) + tail);
+                transPlan.setNo(NoUtil.genNo(ConstantEnum.NoTypeEnum.T.name()) + tail);
             }
         }
         this.repository.save(transPlan);

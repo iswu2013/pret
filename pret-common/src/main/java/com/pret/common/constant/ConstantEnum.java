@@ -408,7 +408,7 @@ public class ConstantEnum {
         /**
          * 运输计划
          */
-        YS(1),
+        T(1),
         /**
          * 运输费用
          */
