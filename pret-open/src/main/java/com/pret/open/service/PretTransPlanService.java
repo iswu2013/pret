@@ -157,6 +157,8 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
             } else {
                 pretPickUpPlan.setStatus(ConstantEnum.EPretPickUpPlanStatus.已完成.getLabel());
             }
+            pretPickUpPlan.setEndTime(new Date());
+            pretPickUpPlanRepository.save(pretPickUpPlan);
         }
 
         // 生产顺丰单号

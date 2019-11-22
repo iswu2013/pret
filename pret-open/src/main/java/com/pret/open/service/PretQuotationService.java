@@ -49,6 +49,8 @@ public class PretQuotationService extends BaseServiceImpl<PretQuotationRepositor
     private PretServiceRouteItemRepository pretServiceRouteItemRepository;
     @Autowired
     private PretVenderRepository pretVenderRepository;
+    @Autowired
+    private PretServiceRouteRepository pretServiceRouteRepository;
 
 
     /* *
@@ -77,6 +79,11 @@ public class PretQuotationService extends BaseServiceImpl<PretQuotationRepositor
         pretVender.setPretQuotationItemStr(bo.getPretQuotationItemStr());
         pretVenderRepository.save(pretVender);
         this.repository.save(pretQuotation);
+
+        PretServiceRoute pretServiceRoute = pretServiceRouteRepository.findById(bo.getServiceRouteId()).get();
+        pretServiceRoute.setVenderId(bo.getVenderId());
+        pretServiceRouteRepository.save(pretServiceRoute);
+
         this.editQuotion(bo, pretQuotation);
     }
 

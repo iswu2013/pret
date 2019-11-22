@@ -116,6 +116,19 @@ public class PretPickUpPlan extends VersionedAuditableIdEntity implements Serial
     private String serviceRouteOriginId;
 
     /**
+     * 司机姓名
+     */
+    private String name;
+    /**
+     * 司机电话
+     */
+    private String phone;
+    /**
+     * 车牌号
+     */
+    private String carNumber;
+
+    /**
      * 运输任务单
      */
     private List<PretTransOrder> transOrderList;

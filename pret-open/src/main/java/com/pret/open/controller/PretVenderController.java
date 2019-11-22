@@ -81,7 +81,7 @@ public class PretVenderController extends BaseManageController<PretVenderService
     public Map<String, Object> getByWithoutServiceRoute() {
         Query query;
         StringBuffer querySql;
-        String where = " where 1=1 and id not in (select distinct vender_id from pret_service_route_item b where b.vender_id is not null  ) and a.s=1 ";
+        String where = " where 1=1 and id not in (select distinct vender_id from pret_service_route b where b.vender_id is not null and b.s=1 ) and a.s=1 ";
         String con = "SELECT id,code FROM pret_vender a  " + where;
         querySql = new StringBuffer(con);
         query = em.createNativeQuery(querySql.toString());

@@ -1,5 +1,6 @@
 package com.pret.open.service;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
@@ -23,6 +24,7 @@ import com.pret.open.entity.PretDriver;
 import com.pret.open.entity.PretPickUpPlan;
 import com.pret.open.entity.PretTransOrder;
 import com.pret.open.entity.bo.PretPickUpPlanBo;
+import com.pret.open.entity.bo.PretPickUpPlanModifyDriverBo;
 import com.pret.open.entity.bo.PretTransPlanBo;
 import com.pret.open.entity.vo.PretPickUpPlanVo;
 import com.pret.open.repository.PretDriverRepository;
@@ -37,6 +39,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import javax.swing.filechooser.FileSystemView;
 import javax.transaction.Transactional;
 
 /**
@@ -88,9 +91,13 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
      * @Date: 2019/10/4  2:03 下午
      */
     public void genPickUpPlan(PretPickUpPlanBo bo) {
-        PretDriver pretDriver = new PretDriver();
-        BeanUtilsExtended.copyProperties(pretDriver, bo);
-        driverRepository.save(pretDriver);
+        PretDriver pretDriver = driverRepository.findByCarNumberAndPhoneAndS(bo.getCarNumber(), bo.getPhone(), ConstantEnum.S.N.getLabel());
+        if (pretDriver == null) {
+            pretDriver = new PretDriver();
+            BeanUtilsExtended.copyProperties(pretDriver, bo);
+            driverRepository.save(pretDriver);
+        }
+
 
         String[] idArr = bo.getIds().split(",");
         PretPickUpPlan pretPickUpPlan = this.genDefaultPretPickUpPlan(null, null);
@@ -122,7 +129,11 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
         String p = Constants.dfyyyyMMdd.format(new Date()) + "/" + ConstantEnum.NoTypeEnum.QR.name() + uuid + ".png";
         try {
             BitMatrix bitMatrix = qrCodeWriter.encode(qrcode, BarcodeFormat.QR_CODE, Constants.QR_WIDTH, Constants.QR_HEIGHT);
-            String fullPath = Constants.QR_ROOT_PATH + p;
+            File desktopDir = FileSystemView.getFileSystemView().getHomeDirectory();
+            String outRoot = desktopDir.getAbsolutePath() + "/Desktop/qr/";
+
+//            String fullPath = Constants.QR_ROOT_PATH + p;
+            String fullPath = outRoot + p;
             Path path = FileSystems.getDefault().getPath(fullPath);
             MatrixToImageWriter.writeToPath(bitMatrix, "PNG", path);
         } catch (Exception e) {
@@ -261,5 +272,28 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
             pickUpPlan.setStatus(ConstantEnum.EPretPickUpPlanStatus.已取消.getLabel());
             this.repository.save(pickUpPlan);
         }
+    }
+
+    /* *
+     * 功能描述: 修改提货计划
+     * 〈〉
+     * @Param: [bo]
+     * @Return: void
+     * @Author: wujingsong
+     * @Date: 2019/11/22  7:06 上午
+     */
+    public void pretModifyDriver(PretPickUpPlanModifyDriverBo bo) {
+        PretDriver pretDriver = driverRepository.findByCarNumberAndPhoneAndS(bo.getCarNumber(), bo.getPhone(), ConstantEnum.S.N.getLabel());
+        if (pretDriver == null) {
+            pretDriver = new PretDriver();
+            BeanUtilsExtended.copyProperties(pretDriver, bo);
+            driverRepository.save(pretDriver);
+        }
+
+        PretPickUpPlan pretPickUpPlan = this.repository.findById(bo.getId()).get();
+        pretPickUpPlan.setDriverId(pretDriver.getId());
+        BeanUtilsExtended.copyProperties(pretPickUpPlan, bo);
+
+        this.repository.save(pretPickUpPlan);
     }
 }

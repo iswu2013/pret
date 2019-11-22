@@ -6,6 +6,7 @@ import com.pret.common.constant.ConstantEnum;
 import com.pret.common.exception.FebsException;
 import com.pret.open.entity.*;
 import com.pret.open.entity.bo.PretPickUpPlanBo;
+import com.pret.open.entity.bo.PretPickUpPlanModifyDriverBo;
 import com.pret.open.entity.vo.PretPickUpPlanVo;
 import com.pret.open.repository.PretDriverRepository;
 import com.pret.open.repository.PretServiceRouteOriginRepository;
@@ -96,6 +97,17 @@ public class PretPickUpPlanController extends BaseManageController<PretPickUpPla
             this.service.pretPickUpPlanCancel(ids);
         } catch (Exception e) {
             message = "删除失败";
+            throw new FebsException(message);
+        }
+    }
+
+    @Log("修改提货司机")
+        @PostMapping("/pretModifyDriver")
+    public void pretModifyDriver(PretPickUpPlanModifyDriverBo bo) throws FebsException {
+        try {
+            this.service.pretModifyDriver(bo);
+        } catch (Exception e) {
+            message = "修改司机失败";
             throw new FebsException(message);
         }
     }

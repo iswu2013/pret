@@ -31,7 +31,7 @@ public class PretQuotationBo {
     /**
      * 线路明细id
      */
-    private String serviceRouteItemId;
+    private String serviceRouteId;
 
     /**
      * 报价开始日期
