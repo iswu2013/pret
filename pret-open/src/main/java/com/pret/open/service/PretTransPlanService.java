@@ -2,7 +2,9 @@ package com.pret.open.service;
 
 import java.util.*;
 
+import com.google.common.reflect.TypeToken;
 import com.pret.api.vo.ResBody;
+import com.pret.common.constant.CommonConstants;
 import com.pret.common.constant.ConstantEnum;
 import com.pret.common.constant.Constants;
 import com.pret.common.exception.FebsException;
@@ -12,10 +14,7 @@ import com.pret.common.util.SfUtil;
 import com.pret.common.util.StringUtil;
 import com.pret.open.config.Sender;
 import com.pret.open.entity.*;
-import com.pret.open.entity.bo.PretTransOrderSignBo;
-import com.pret.open.entity.bo.PretTransPlanBo;
-import com.pret.open.entity.bo.PretTransPlanSignBo;
-import com.pret.open.entity.bo.PretTransPlanStartShipmentConfirmBo;
+import com.pret.open.entity.bo.*;
 import com.pret.open.entity.vo.PretTransPlanVo;
 import com.pret.open.repository.*;
 import com.pret.open.vo.req.*;
@@ -69,6 +68,11 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
     private PretFeeTypeRepository pretFeeTypeRepository;
     @Autowired
     private PretPickUpPlanRepository pretPickUpPlanRepository;
+    @Autowired
+    private PretTransExceptionRepository pretTransExceptionRepository;
+    @Autowired
+    private PretTransExceptionItemRepository pretTransExceptionItemRepository;
+
     @Value("${sf.url}")
     private String sfUrl;
 
@@ -176,7 +180,37 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
      * @Date: 2019/10/4  3:16 下午
      */
     public void sign(PretTransPlanSignBo bo) throws FebsException {
+        // 计算费用
         transFeeService.calFee(bo);
+
+        // 异常单生成
+        if (bo.isHasException()) {
+            PretTransPlan pretTransPlan = this.repository.findById(bo.getId()).get();
+            PretTransException pretTransException = new PretTransException();
+            pretTransException.setVenderId(pretTransPlan.getVenderId());
+            pretTransException.setTransPlanId(bo.getId());
+            pretTransExceptionRepository.save(pretTransException);
+            Float count = 0.0f;
+            List<PretTransOrderSignBo> list = CommonConstants.GSON.fromJson(bo.getPretTransOrderSignBoStr(),
+                    new TypeToken<List<PretTransOrderSignBo>>() {
+                    }.getType());
+            for (PretTransOrderSignBo signBo : list) {
+                if (signBo.getRejectCount() > 0) {
+                    count += signBo.getRejectCount();
+
+                    PretTransExceptionItem item = new PretTransExceptionItem();
+                    item.setTransOrderId(signBo.getId());
+                    item.setTransExceptionId(pretTransException.getId());
+                    item.setTransPlanId(bo.getId());
+                    item.setCount(signBo.getRejectCount());
+                    item.setReason(signBo.getRejectReason());
+
+                    pretTransExceptionItemRepository.save(item);
+                }
+            }
+            pretTransException.setRejectCount(count);
+            pretTransExceptionRepository.save(pretTransException);
+        }
     }
 
     /* *

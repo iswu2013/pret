@@ -412,7 +412,7 @@ public class ConstantEnum {
         /**
          * 运输费用
          */
-        TF(2),
+        R(2),
         /**
          * 异常单
          */

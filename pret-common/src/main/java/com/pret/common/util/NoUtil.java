@@ -22,8 +22,8 @@ public class NoUtil {
         } else if(type.equals(ConstantEnum.NoTypeEnum.T.name())) {
 
             return ConstantEnum.NoTypeEnum.T.name().concat(dateStr);
-        }else if(type.equals(ConstantEnum.NoTypeEnum.TF.name())) {
-            return ConstantEnum.NoTypeEnum.TF.name().concat(dateStr);
+        }else if(type.equals(ConstantEnum.NoTypeEnum.R.name())) {
+            return ConstantEnum.NoTypeEnum.R.name().concat(dateStr);
         }else if(type.equals(ConstantEnum.NoTypeEnum.YC.name())) {
             return ConstantEnum.NoTypeEnum.YC.name().concat(dateStr);
         }

@@ -108,6 +108,8 @@ public class PretTransFee extends VersionedAuditableIdEntity implements Serializ
 
     private PretTransPlan pretTransPlan;
 
+    private PretServiceRouteOrigin pretServiceRouteOrigin;
+
     // setter and getter
 
     @Transient()
@@ -135,5 +137,14 @@ public class PretTransFee extends VersionedAuditableIdEntity implements Serializ
 
     public void setPretTransPlan(PretTransPlan pretTransPlan) {
         this.pretTransPlan = pretTransPlan;
+    }
+
+    @Transient()
+    public PretServiceRouteOrigin getPretServiceRouteOrigin() {
+        return pretServiceRouteOrigin;
+    }
+
+    public void setPretServiceRouteOrigin(PretServiceRouteOrigin pretServiceRouteOrigin) {
+        this.pretServiceRouteOrigin = pretServiceRouteOrigin;
     }
 }

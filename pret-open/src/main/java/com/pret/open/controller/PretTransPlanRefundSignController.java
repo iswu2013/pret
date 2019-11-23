@@ -5,6 +5,7 @@ import com.pret.common.annotation.Log;
 import com.pret.common.constant.ConstantEnum;
 import com.pret.common.exception.FebsException;
 import com.pret.open.entity.*;
+import com.pret.open.entity.bo.PretTransPlanSignBo;
 import com.pret.open.entity.vo.PretTransPlanVo;
 import com.pret.open.repository.*;
 import com.pret.open.service.PretTransPlanService;
@@ -81,10 +82,10 @@ public class PretTransPlanRefundSignController extends BaseManageController<Pret
     }
 
     @Log("签收")
-    @PostMapping("/{ids}/{username}")
-    public void sign(@PathVariable String ids, @PathVariable String username) throws FebsException {
+    @PostMapping("/sign")
+    public void sign(PretTransPlanSignBo bo) throws FebsException {
         try {
-            this.service.signRefund(ids, username);
+            this.service.signRefund(bo);
         } catch (Exception e) {
             message = "签收失败";
             throw new FebsException(message);

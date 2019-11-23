@@ -98,7 +98,7 @@ public class PretTransException extends VersionedAuditableIdEntity implements Se
      *
      */
     @ExcelField(value = "拒收数量")
-    private Integer rejectCount;
+    private Float rejectCount;
 
     /**
      * 处理状态

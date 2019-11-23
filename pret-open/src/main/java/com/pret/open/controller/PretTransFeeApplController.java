@@ -3,11 +3,11 @@ package com.pret.open.controller;
 import com.pret.api.rest.BaseManageController;
 import com.pret.common.annotation.Log;
 import com.pret.common.exception.FebsException;
-import com.pret.open.entity.PretCustomer;
-import com.pret.open.entity.PretTransFee;
-import com.pret.open.entity.PretVender;
+import com.pret.open.entity.*;
 import com.pret.open.entity.vo.PretTransFeeVo;
 import com.pret.open.repository.PretCustomerRepository;
+import com.pret.open.repository.PretServiceRouteOriginRepository;
+import com.pret.open.repository.PretTransPlanRepository;
 import com.pret.open.repository.PretVenderRepository;
 import com.pret.open.service.PretTransFeeService;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +29,10 @@ public class PretTransFeeApplController extends BaseManageController<PretTransFe
     private PretVenderRepository pretVenderRepository;
     @Autowired
     private PretCustomerRepository pretCustomerRepository;
+    @Autowired
+    private PretTransPlanRepository pretTransPlanRepository;
+    @Autowired
+    private PretServiceRouteOriginRepository pretServiceRouteOriginRepository;
 
     @GetMapping
     @Override()
@@ -42,6 +46,15 @@ public class PretTransFeeApplController extends BaseManageController<PretTransFe
             if (!StringUtils.isEmpty(transFee.getCustomerId())) {
                 PretCustomer pretCustomer = pretCustomerRepository.findById(transFee.getCustomerId()).get();
                 transFee.setPretCustomer(pretCustomer);
+            }
+            if (!StringUtils.isEmpty(transFee.getTransPlanId())) {
+                PretTransPlan pretTransPlan = pretTransPlanRepository.findById(transFee.getTransPlanId()).get();
+                transFee.setPretTransPlan(pretTransPlan);
+
+                if (!StringUtils.isEmpty(pretTransPlan.getServiceRouteOriginId())) {
+                    PretServiceRouteOrigin pretServiceRouteOrigin = pretServiceRouteOriginRepository.findById(pretTransPlan.getServiceRouteOriginId()).get();
+                    transFee.setPretServiceRouteOrigin(pretServiceRouteOrigin);
+                }
             }
         }
         Map<String, Object> rspData = new HashMap<>();

@@ -60,7 +60,7 @@ public class PretTransExceptionItem extends VersionedAuditableIdEntity implement
     /**
      * 异常数量
      */
-    private Integer count;
+    private Float count;
 
     /**
      * 处理人
