@@ -57,7 +57,7 @@ public class PretTransFeeService extends BaseServiceImpl<PretTransFeeRepository,
             if (StringUtils.isEmpty(tail)) {
                 PretTransFee firstOrder = this.repository.findTop1ByCreateTimeLongBetweenOrderByCreateTimeLongDesc(date.getTime(), endDate.getTime());
                 if (firstOrder != null) {
-                    String str = StringUtil.disposeFrontZero(firstOrder.getNo().substring(12));
+                    String str = StringUtil.disposeFrontZero(firstOrder.getNo().substring(7));
                     int intStr = Integer.parseInt(str) + 1;
                     tail = StringUtil.addFrontZero(String.valueOf(intStr), 4);
                 } else {
@@ -100,9 +100,7 @@ public class PretTransFeeService extends BaseServiceImpl<PretTransFeeRepository,
         String id = bo.getId();
         boolean first = true;
         int sn = 0;
-        int count = 0;
         Float totalGw = 0.0f;
-
         PretTransPlan pretTransPlan = pretTransPlanRepository.findById(id).get();
         pretTransPlan.setStatus(ConstantEnum.ETransPlanStatus.已签收.getValue());
         pretTransPlan.setSignUsername(bo.getUsername());
@@ -119,7 +117,6 @@ public class PretTransFeeService extends BaseServiceImpl<PretTransFeeRepository,
                 for (PretTransOrder pretTransOrder : pretTransOrderList) {
                     pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.已签收.getLabel());
                     pretTransOrderRepository.save(pretTransOrder);
-                    count += pretTransOrder.getGoodsNum();
                     if (pretTransOrder.getUnit() == ConstantEnum.EUnit.公斤.getLabel()) {
                         totalGw += pretTransOrder.getGw();
                     } else {
@@ -134,7 +131,7 @@ public class PretTransFeeService extends BaseServiceImpl<PretTransFeeRepository,
                 PretTransFee pretTransFee;
                 if (first) {
                     pretTransFee = this.genDefaultPretTransFee(null, null);
-                    sn = Integer.parseInt(pretTransFee.getNo().substring(12));
+                    sn = Integer.parseInt(pretTransFee.getNo().substring(7));
                 } else {
                     sn++;
                     // 生成费用
@@ -164,9 +161,9 @@ public class PretTransFeeService extends BaseServiceImpl<PretTransFeeRepository,
                     }
                 }
 
-                pretTransFee.setQuotationCount(count);
+                pretTransFee.setQuotationCount(totalGw);
                 pretTransFee.setStatus(ConstantEnum.EPretTransFeeStatus.待申报.getLabel());
-                pretTransFee.setUnitPrice(pretTransFee.getQuotation().divide(new BigDecimal(count)));
+                pretTransFee.setUnitPrice(pretTransFee.getQuotation().divide(new BigDecimal(totalGw)));
                 this.repository.save(pretTransFee);
             }
 

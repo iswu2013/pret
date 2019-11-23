@@ -77,7 +77,7 @@ public class PretTransFee extends VersionedAuditableIdEntity implements Serializ
      * 计费数量
      */
     @ExcelField(value = "计费数量")
-    private Integer quotationCount;
+    private Float quotationCount;
 
     /**
      * 单价
