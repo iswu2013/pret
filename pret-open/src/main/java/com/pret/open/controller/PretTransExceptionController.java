@@ -36,6 +36,8 @@ public class PretTransExceptionController extends BaseManageController<PretTrans
     private PretTransExceptionRepository pretTransExceptionRepository;
     @Autowired
     private PretTransOrderRepository pretTransOrderRepository;
+    @Autowired
+    private PretTransExceptionHandleRecordRepository pretTransExceptionHandleRecordRepository;
 
     @GetMapping
     @Override()
@@ -65,6 +67,9 @@ public class PretTransExceptionController extends BaseManageController<PretTrans
             PretTransException item = this.service.findById(id).get();
             List<PretTransExceptionItem> itemList = pretTransExceptionItemRepository.findByTransExceptionId(item.getId());
             item.setPretTransExceptionItemList(itemList);
+
+            List<PretTransExceptionHandleRecord> pretTransExceptionHandleRecordList = pretTransExceptionHandleRecordRepository.findByExceptionIdAndS(id, ConstantEnum.S.N.getLabel());
+            item.setPretTransExceptionHandleRecordList(pretTransExceptionHandleRecordList);
 
             return item;
         } catch (Exception e) {
@@ -113,6 +118,46 @@ public class PretTransExceptionController extends BaseManageController<PretTrans
 
         } catch (Exception e) {
             message = "生成异常单失败";
+            throw new FebsException(message);
+        }
+    }
+
+    @Log("生成返程配送任务单")
+    @PostMapping("/genRPretTransException")
+    public void genRPretTransException(PretTransExceptionBo bo) throws FebsException {
+        try {
+            this.service.genPretTransException(bo);
+        } catch (Exception e) {
+            message = "生成异常单失败";
+            throw new FebsException(message);
+        }
+    }
+
+    @Log("结案")
+    @PostMapping("/closeCase/{id}")
+    public void closeCase(@PathVariable String id) throws FebsException {
+        try {
+            PretTransException pretTransException = this.service.findById(id).get();
+            if (pretTransException.getIsReturnStatus() == 1 && pretTransException.getReturnStatus() == 2) {
+                message = "货物未退回，无法结案";
+                throw new FebsException(message);
+            } else if (pretTransException.getReturnFeeStatus() == 1 && pretTransException.getCompensationStatus() == 2) {
+                message = "赔偿金未支付，无法结案";
+                throw new FebsException(message);
+            }
+            this.service.closeCase(id);
+        } catch (Exception e) {
+            throw new FebsException(message);
+        }
+    }
+
+    @Log("赔款单上传")
+    @PostMapping("/indemnityAccount/{id}/{images}/{handleUserId}/{handleUserName}")
+    public void indemnityAccount(@PathVariable String id, @PathVariable String images, @PathVariable String handleUserId, @PathVariable String handleUserName) throws FebsException {
+        try {
+            this.service.indemnityAccount(id, images, handleUserId, handleUserName);
+        } catch (Exception e) {
+            message = "赔款单上传失败";
             throw new FebsException(message);
         }
     }

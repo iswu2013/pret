@@ -416,7 +416,7 @@ public class ConstantEnum {
         /**
          * 异常单
          */
-        YC(3),
+        EX(3),
         /**
          * 二维码
          */
@@ -922,13 +922,14 @@ public class ConstantEnum {
             this.label = label;
         }
     }
+
     /* *
      * 功能描述: 数据来源
      * 〈〉
      * @Param:
-            * @Return: 
-            * @Author: wujingsong
-            * @Date: 2019/11/18  8:25 下午
+     * @Return:
+     * @Author: wujingsong
+     * @Date: 2019/11/18  8:25 下午
      */
     public enum EDataSource {
         U9(1),
@@ -974,9 +975,9 @@ public class ConstantEnum {
      * 功能描述: 处理状态
      * 〈〉
      * @Param:
-            * @Return:
-            * @Author: wujingsong
-            * @Date: 2019/11/19  5:37 下午
+     * @Return:
+     * @Author: wujingsong
+     * @Date: 2019/11/19  5:37 下午
      */
     public enum EHandleStatus {
         待处理(0),
@@ -998,14 +999,37 @@ public class ConstantEnum {
             this.label = label;
         }
     }
-    
+
+    public enum EHandleDescription {
+        自动结案(0),
+        退货签收(1),
+        赔款到账(2),
+        微信截图(3),
+        现场照片(4),
+        责任认定(5);
+        private int label;
+
+        EHandleDescription(int label) {
+            this.setLabel(label);
+        }
+
+        //省略getter、setter方法
+        public int getLabel() {
+            return label;
+        }
+
+        public void setLabel(int label) {
+            this.label = label;
+        }
+    }
+
     /* *
      * 功能描述: 异常处理方式
      * 〈〉
      * @Param:
-            * @Return: 
-            * @Author: wujingsong
-            * @Date: 2019/11/19  5:47 下午
+     * @Return:
+     * @Author: wujingsong
+     * @Date: 2019/11/19  5:47 下午
      */
     public enum EHandleStyle {
         原路返回(0),
@@ -1027,5 +1051,56 @@ public class ConstantEnum {
         }
     }
 
-    
+    /* *
+     * 功能描述: <br>
+     * 〈〉
+     * @Param:
+     * @Return:
+     * @Author: wujingsong
+     * @Date: 2019/11/23  2:07 下午
+     */
+    public enum ETransExceptionStatus {
+        待认定(0),
+        已认定(1),
+        处理中(2),
+        已结案(3);
+        private int label;
+
+        private ETransExceptionStatus(int label) {
+            this.setLabel(label);
+        }
+
+        //省略getter、setter方法
+
+        public int getLabel() {
+            return label;
+        }
+
+        public void setLabel(int label) {
+            this.label = label;
+        }
+    }
+
+    /**
+     * 处理类型
+     */
+    public enum EHandleType {
+        货主(1),
+        物流(2);
+        private int label;
+
+        EHandleType(int label) {
+            this.setLabel(label);
+        }
+
+        //省略getter、setter方法
+
+        public int getLabel() {
+            return label;
+        }
+
+        public void setLabel(int label) {
+            this.label = label;
+        }
+    }
 }

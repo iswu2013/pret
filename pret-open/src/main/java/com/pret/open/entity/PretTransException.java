@@ -10,6 +10,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -53,16 +54,10 @@ public class PretTransException extends VersionedAuditableIdEntity implements Se
     private String transPlanId;
 
     /**
-     * 异常类别0
-     */
-    @ExcelField(value = "异常类别")
-    private Integer type;
-
-    /**
      * 状态0待审核1通过2不通过
      */
-    @ExcelField(value = "货物类型", writeConverterExp = "0=待审核,1=通过,2=不通过")
-    private Integer status = ConstantEnum.ECheckStatus.待审核.getLabel();
+    @ExcelField(value = "状态", writeConverterExp = "0=待认定,1=已认定,2=处理中,3=已结案")
+    private Integer status = ConstantEnum.ETransExceptionStatus.待认定.getLabel();
 
     /**
      * 处理方式
@@ -71,9 +66,14 @@ public class PretTransException extends VersionedAuditableIdEntity implements Se
     private Integer handleStyle;
 
     /**
-     * 责任方0物流1货主2客户
+     * 处理状态0未处理1已处理
      */
-    @ExcelField(value = "责任方", writeConverterExp = "0=物流,1=货主,2=客户")
+    private Integer handleStatus = 0;
+
+    /**
+     * 责任方0物流1客户2工厂
+     */
+    @ExcelField(value = "责任方", writeConverterExp = "0=物流,1=客户,2=工厂")
     private Integer responsibleParty;
 
     /**
@@ -81,12 +81,6 @@ public class PretTransException extends VersionedAuditableIdEntity implements Se
      */
     @ExcelField(value = "处理时间", writeConverter = TimeConverter.class)
     private Date handleTime;
-
-    /**
-     * 处理人
-     */
-    @ExcelField(value = "处理人")
-    private String handleBy;
 
     /**
      * 物流供应商
@@ -101,9 +95,79 @@ public class PretTransException extends VersionedAuditableIdEntity implements Se
     private Float rejectCount;
 
     /**
-     * 处理状态
+     * 是否运回0无1是2否
      */
-    private Integer handleStatus;
+    private Integer isReturnStatus = 0;
+
+    /**
+     * 退回状态，0无1已退回2未退回
+     */
+    private Integer returnStatus = 0;
+
+    /**
+     * 退回运输单号
+     */
+    private String transNo;
+
+    /**
+     * 是否结退回运费0无1是2否
+     */
+    private Integer returnFeeStatus;
+
+    /**
+     * 退回地址
+     */
+    private String returnAddress;
+
+    /**
+     * 返回至1提货工厂2其他地址
+     */
+    private String returnType;
+
+    /**
+     * 联系人
+     */
+    private String linkName;
+
+    /**
+     * 联系电话
+     */
+    private String linkPhone;
+
+    /**
+     * 赔偿金额
+     */
+    private BigDecimal compensation;
+
+    /**
+     * 退回地址
+     */
+    private String addressId;
+
+    /**
+     * 退回地址详情
+     */
+    private String addressDetail;
+
+    /**
+     * 赔款状态0无1已赔款2未赔款
+     */
+    private Integer compensationStatus = 0;
+
+    /**
+     * 异常关闭日期
+     */
+    private long closeTime;
+
+    /**
+     * 客户id
+     */
+    private String customerId;
+
+    /**
+     * 客户
+     */
+    private PretCustomer pretCustomer;
 
     private PretVender pretVender;
 
@@ -112,6 +176,8 @@ public class PretTransException extends VersionedAuditableIdEntity implements Se
     private PretTransOrder pretTransOrder;
 
     private List<PretTransExceptionItem> pretTransExceptionItemList;
+
+    private List<PretTransExceptionHandleRecord> pretTransExceptionHandleRecordList;
 
     // setter and getter
 
@@ -149,5 +215,23 @@ public class PretTransException extends VersionedAuditableIdEntity implements Se
 
     public void setPretTransExceptionItemList(List<PretTransExceptionItem> pretTransExceptionItemList) {
         this.pretTransExceptionItemList = pretTransExceptionItemList;
+    }
+
+    @Transient()
+    public PretCustomer getPretCustomer() {
+        return pretCustomer;
+    }
+
+    public void setPretCustomer(PretCustomer pretCustomer) {
+        this.pretCustomer = pretCustomer;
+    }
+
+    @Transient()
+    public List<PretTransExceptionHandleRecord> getPretTransExceptionHandleRecordList() {
+        return pretTransExceptionHandleRecordList;
+    }
+
+    public void setPretTransExceptionHandleRecordList(List<PretTransExceptionHandleRecord> pretTransExceptionHandleRecordList) {
+        this.pretTransExceptionHandleRecordList = pretTransExceptionHandleRecordList;
     }
 }

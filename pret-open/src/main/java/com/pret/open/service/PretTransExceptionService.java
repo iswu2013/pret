@@ -5,31 +5,27 @@ import java.util.Date;
 import java.util.List;
 
 import com.google.common.reflect.TypeToken;
-import com.pret.api.vo.ResBody;
 import com.pret.common.constant.CommonConstants;
 import com.pret.common.constant.ConstantEnum;
 import com.pret.common.constant.Constants;
 import com.pret.common.util.BeanUtilsExtended;
 import com.pret.common.util.NoUtil;
 import com.pret.common.util.StringUtil;
-import com.pret.open.entity.PretPickUpPlan;
 import com.pret.open.entity.PretTransException;
+import com.pret.open.entity.PretTransExceptionHandleRecord;
 import com.pret.open.entity.PretTransExceptionItem;
 import com.pret.open.entity.PretTransPlan;
-import com.pret.open.entity.bo.PretPickUpPlanBo;
-import com.pret.open.entity.bo.PretServiceRouteItemBo;
 import com.pret.open.entity.bo.PretTransExceptionBo;
 import com.pret.open.entity.bo.PretTransExceptionItemBo;
 import com.pret.open.entity.vo.PretTransExceptionVo;
+import com.pret.open.repository.PretTransExceptionHandleRecordRepository;
 import com.pret.open.repository.PretTransExceptionItemRepository;
 import com.pret.open.repository.PretTransPlanRepository;
-import com.pret.open.vo.req.*;
 import com.pret.open.repository.PretTransExceptionRepository;
 import com.pret.api.service.impl.BaseServiceImpl;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -49,6 +45,8 @@ public class PretTransExceptionService extends BaseServiceImpl<PretTransExceptio
     private PretTransPlanRepository transPlanRepository;
     @Autowired
     private PretTransExceptionItemRepository pretTransExceptionItemRepository;
+    @Autowired
+    private PretTransExceptionHandleRecordRepository pretTransExceptionHandleRecordRepository;
 
     /* *
      * 功能描述: 生成默认异常单
@@ -69,13 +67,13 @@ public class PretTransExceptionService extends BaseServiceImpl<PretTransExceptio
             if (StringUtils.isEmpty(tail)) {
                 PretTransException firstOrder = this.repository.findTop1ByCreateTimeLongBetweenOrderByCreateTimeLongDesc(date.getTime(), endDate.getTime());
                 if (firstOrder != null) {
-                    String str = StringUtil.disposeFrontZero(firstOrder.getNo().substring(19));
+                    String str = StringUtil.disposeFrontZero(firstOrder.getNo().substring(6));
                     int intStr = Integer.parseInt(str) + 1;
-                    tail = StringUtil.addFrontZero(String.valueOf(intStr), 6);
+                    tail = StringUtil.addFrontZero(String.valueOf(intStr), 4);
                 } else {
                     tail = Constants.TAIL;
                 }
-                transException.setNo(NoUtil.genNo(ConstantEnum.NoTypeEnum.TH.name()) + tail);
+                transException.setNo(NoUtil.genNo(ConstantEnum.NoTypeEnum.EX.name()) + tail);
             }
         }
 
@@ -111,5 +109,40 @@ public class PretTransExceptionService extends BaseServiceImpl<PretTransExceptio
                 pretTransExceptionItemRepository.save(pretTransExceptionItem);
             }
         }
+    }
+
+    /* *
+     * 功能描述: 结案
+     * 〈〉
+     * @Param: [id]
+     * @Return: void
+     * @Author: wujingsong
+     * @Date: 2019/11/24  5:56 下午
+     */
+    public void closeCase(String id) {
+        PretTransException exception = this.repository.findById(id).get();
+        exception.setStatus(ConstantEnum.EHandleStatus.已结案.getLabel());
+        this.repository.save(exception);
+    }
+
+    /* *
+     * 功能描述: 赔款到账
+     * 〈〉
+     * @Param: [id]
+     * @Return: void
+     * @Author: wujingsong
+     * @Date: 2019/11/25  3:59 上午
+     */
+    public void indemnityAccount(String id, String images, String handleUserId, String handleUserName) {
+        PretTransExceptionHandleRecord record = new PretTransExceptionHandleRecord();
+        record.setDescription(ConstantEnum.EHandleDescription.赔款到账.name());
+        record.setExceptionId(id);
+        record.setImages(images);
+        record.setHandleUserId(handleUserId);
+        record.setHandleUserName(handleUserName);
+        record.setType(ConstantEnum.EHandleType.货主.getLabel());
+
+
+        pretTransExceptionHandleRecordRepository.save(record);
     }
 }
