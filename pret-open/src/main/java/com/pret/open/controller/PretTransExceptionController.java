@@ -78,17 +78,6 @@ public class PretTransExceptionController extends BaseManageController<PretTrans
         }
     }
 
-    @Log("生成异常单")
-    @PostMapping("/genPretTransException")
-    public void genPretTransException(PretTransExceptionBo bo) throws FebsException {
-        try {
-            this.service.genPretTransException(bo);
-        } catch (Exception e) {
-            message = "生成异常单失败";
-            throw new FebsException(message);
-        }
-    }
-
     @Log("审核")
     @PostMapping("/auth/{id}/{status}")
     public void auth(@PathVariable String id, @PathVariable Integer status) throws FebsException {
@@ -122,11 +111,22 @@ public class PretTransExceptionController extends BaseManageController<PretTrans
         }
     }
 
-    @Log("生成返程配送任务单")
-    @PostMapping("/genRPretTransException")
-    public void genRPretTransException(PretTransExceptionBo bo) throws FebsException {
+    @Log("处理")
+    @PostMapping("/handle")
+    public void handle(PretTransExceptionBo bo) throws FebsException {
         try {
-            this.service.genPretTransException(bo);
+            this.service.handle(bo);
+        } catch (Exception e) {
+            throw new FebsException(message);
+        }
+    }
+
+    @Log("生成返程配送任务单")
+    @PostMapping("/genRTransPlan/{id}")
+    public void genRTransPlan(@PathVariable String id) throws FebsException {
+        try {
+            PretTransException pretTransException = this.service.findById(id).get();
+            this.service.genRTransPlan(pretTransException);
         } catch (Exception e) {
             message = "生成异常单失败";
             throw new FebsException(message);

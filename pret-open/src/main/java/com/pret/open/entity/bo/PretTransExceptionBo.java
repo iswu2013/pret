@@ -1,6 +1,9 @@
 package com.pret.open.entity.bo;
 
 import com.pret.common.VersionedAuditableIdEntity;
+import com.pret.common.constant.ConstantEnum;
+import com.pret.common.converter.TimeConverter;
+import com.wuwenze.poi.annotation.ExcelField;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -9,6 +12,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * <p>Description: [pretmodel]</p>
@@ -20,25 +25,61 @@ import java.io.Serializable;
  */
 @Data
 public class PretTransExceptionBo {
-    /**
-     * 运输计划id
-     */
-    private String transPlanId;
+    private String id;
+
 
     /**
-     * 处理方式
+     * 责任方0物流1客户2工厂
      */
-    private Integer handleStyle;
-
-    /**
-     * 责任方0物流1货主2客户
-     */
+    @ExcelField(value = "责任方", writeConverterExp = "0=物流,1=客户,2=工厂")
     private Integer responsibleParty;
 
+
     /**
-     * 异常明细
+     * 是否运回0无1是2否
      */
-    private String transExceptionStr;
+    private Integer isReturnStatus = 0;
+
+    /**
+     * 是否结退回运费0无1是2否
+     */
+    private Integer returnFeeStatus;
+
+    /**
+     * 退回地址
+     */
+    private String returnAddress;
+
+    /**
+     * 返回至1提货工厂2其他地址
+     */
+    private String returnType;
+
+    /**
+     * 联系人
+     */
+    private String linkName;
+
+    /**
+     * 联系电话
+     */
+    private String linkPhone;
+
+    /**
+     * 赔偿金额
+     */
+    private BigDecimal compensation;
+
+    /**
+     * 退回地址
+     */
+    private String addressId;
+
+    /**
+     * 退回地址详情
+     */
+    private String addressDetail;
+
 
     // setter and getter
 }
