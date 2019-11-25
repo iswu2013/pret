@@ -6,11 +6,9 @@ import com.wuwenze.poi.annotation.ExcelField;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  * <p>Description: 物流供应商</p>
@@ -78,5 +76,38 @@ public class PretVender extends VersionedAuditableIdEntity implements Serializab
      */
     private String pretQuotationItemStr;
 
+    private BigDecimal unitPrice;
+
+    private BigDecimal feight;
+
+    private Float prescription;
+
     // setter and getter
+
+    @Transient()
+    public BigDecimal getUnitPrice() {
+        return unitPrice;
+    }
+
+    public void setUnitPrice(BigDecimal unitPrice) {
+        this.unitPrice = unitPrice;
+    }
+
+    @Transient()
+    public BigDecimal getFeight() {
+        return feight;
+    }
+
+    public void setFeight(BigDecimal feight) {
+        this.feight = feight;
+    }
+
+    @Transient()
+    public Float getPrescription() {
+        return prescription;
+    }
+
+    public void setPrescription(Float prescription) {
+        this.prescription = prescription;
+    }
 }

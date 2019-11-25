@@ -20,6 +20,7 @@ import com.pret.api.service.impl.BaseServiceImpl;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -149,6 +150,15 @@ public class PretTransExceptionService extends BaseServiceImpl<PretTransExceptio
             exception.setReturnAddress(address + bo.getAddressDetail());
         }
         exception.setStatus(ConstantEnum.ETransExceptionStatus.已认定.getLabel());
+
+        PretTransExceptionHandleRecord pretTransExceptionHandleRecord = new PretTransExceptionHandleRecord();
+        BeanUtilsExtended.copyProperties(pretTransExceptionHandleRecord, bo);
+        pretTransExceptionHandleRecord.setType(ConstantEnum.EHandleType.货主.getLabel());
+        pretTransExceptionHandleRecord.setDescription(ConstantEnum.EHandleDescription.责任认定.name());
+        pretTransExceptionHandleRecord.setHandleUserName(bo.getHandleUserName());
+        pretTransExceptionHandleRecord.setHandleUserId(bo.getHandleUserId());
+        pretTransExceptionHandleRecord.setExceptionId(bo.getId());
+        pretTransExceptionHandleRecordRepository.save(pretTransExceptionHandleRecord);
         this.repository.save(exception);
     }
 }

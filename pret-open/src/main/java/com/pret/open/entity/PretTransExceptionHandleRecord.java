@@ -66,7 +66,7 @@ public class PretTransExceptionHandleRecord extends VersionedAuditableIdEntity i
     private String handleUserName;
 
     /**
-     * 角色类型
+     * 角色类型1货主2物流
      */
     private Integer type;
 

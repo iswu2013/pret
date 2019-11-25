@@ -80,6 +80,10 @@ public class PretTransExceptionBo {
      */
     private String addressDetail;
 
+    private String handleUserName;
+
+    private String handleUserId;
+
 
     // setter and getter
 }

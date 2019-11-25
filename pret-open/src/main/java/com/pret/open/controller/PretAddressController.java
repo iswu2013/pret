@@ -4,9 +4,11 @@ import com.pret.api.rest.BaseManageController;
 import com.pret.api.vo.LabelValue;
 import com.pret.common.constant.ConstantEnum;
 import com.pret.common.msg.ListRestResponse;
+import com.pret.common.util.StringUtil;
 import com.pret.open.entity.PretAddress;
 import com.pret.open.entity.bo.PretAddressBo;
 import com.pret.open.entity.vo.PretAddressVo;
+import com.pret.open.entity.vo.PretRAddressVo;
 import com.pret.open.repository.PretAddressRepository;
 import com.pret.open.service.PretAddressService;
 import lombok.extern.slf4j.Slf4j;
@@ -155,5 +157,24 @@ public class PretAddressController extends BaseManageController<PretAddressServi
         retVo.setResult(labelValueList);
 
         return retVo;
+    }
+
+    @RequestMapping(value = "/getByAddressIds/{ids}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<PretRAddressVo> getByAddressIds(@PathVariable String ids) {
+        List<PretRAddressVo> voList = new ArrayList<>();
+        List<String> idList = StringUtil.idsStr2ListString(ids);
+        for (String id : idList) {
+            PretRAddressVo item = new PretRAddressVo();
+            PretAddress pretAddress = pretAddressRepository.findById(id).get();
+            item.setArea(pretAddress.getId());
+            pretAddress = pretAddressRepository.findById(pretAddress.getParentId()).get();
+            item.setCity(pretAddress.getId());
+            item.setProvince(pretAddress.getParentId());
+
+            voList.add(item);
+        }
+        
+        return voList;
     }
 }

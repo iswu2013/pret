@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -40,6 +41,10 @@ public class PretServiceRouteItemController extends BaseManageController<PretSer
     private PretVenderRepository pretVenderRepository;
     @Autowired
     private PretServiceRouteRepository pretServiceRouteRepository;
+    @Autowired
+    private PretQuotationItemRepository pretQuotationItemRepository;
+    @Autowired
+    private PretBillingIntervalItemRepository pretBillingIntervalItemRepository;
     @PersistenceContext
     private EntityManager em;
 
@@ -147,17 +152,30 @@ public class PretServiceRouteItemController extends BaseManageController<PretSer
     public List<PretVender> getItemList(PretServiceRouteItemVo request) {
         List<PretVender> pretVenderList = new ArrayList<>();
         Iterable<PretServiceRouteItem> serviceRouteItemList = this.service.page(request).getContent();
+        List<String> idList = new ArrayList<>();
         for (PretServiceRouteItem item : serviceRouteItemList) {
             if (!StringUtils.isEmpty(item.getVenderId())) {
                 PretVender pretVender = pretVenderRepository.findById(item.getVenderId()).get();
-                if (pretVender.getType() > 0) {
-                    if (pretVender.getType() == request.getType()) {
-                        pretVenderList.add(pretVender);
+                if (!idList.contains(item.getId())) {
+                    List<PretQuotationItem> pretQuotationItemList = pretQuotationItemRepository.findByVenderIdAndS(item.getVenderId(), ConstantEnum.S.N.getLabel());
+                    PretQuotationItem quotationItem = null;
+                    for (PretQuotationItem pretQuotationItem : pretQuotationItemList) {
+                        PretBillingIntervalItem pretBillingIntervalItem = pretBillingIntervalItemRepository.findById(pretQuotationItem.getBillingIntervalItemId()).get();
+                        if (request.getGw() > pretBillingIntervalItem.getKstart() && request.getGw() < pretBillingIntervalItem.getKend()) {
+                            quotationItem = pretQuotationItem;
+                            break;
+                        }
                     }
-                } else {
-                    pretVenderList.add(pretVender);
-                }
+                    if (quotationItem != null) {
+                        PretServiceRouteItem pretServiceRouteItem = pretServiceRouteItemRepository.findById(quotationItem.getServiceRouteItemId()).get();
+                        pretVender.setPrescription(pretServiceRouteItem.getPrescription());
+                        pretVender.setFeight(quotationItem.getQuotation().multiply(new BigDecimal(request.getGw())));
+                        pretVender.setUnitPrice(quotationItem.getQuotation());
+                    }
 
+                    pretVenderList.add(pretVender);
+                    idList.add(item.getId());
+                }
             }
         }
 

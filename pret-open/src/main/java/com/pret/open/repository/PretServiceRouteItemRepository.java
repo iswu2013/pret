@@ -1,6 +1,7 @@
 package com.pret.open.repository;
 
 import com.pret.common.repository.BaseRepository;
+import com.pret.open.entity.PretQuotationItem;
 import com.pret.open.entity.PretServiceRouteItem;
 
 import java.util.List;
@@ -94,4 +95,14 @@ public interface PretServiceRouteItemRepository extends BaseRepository<PretServi
      * @Date: 2019/11/12  2:22 上午
      */
     List<PretServiceRouteItem> findByIdIn(List<String> idList);
+
+    /* *
+     * 功能描述: 根据供应商和状态查询
+     * 〈〉
+     * @Param: [venderId, s]
+     * @Return: java.util.List<com.pret.open.entity.PretServiceRouteItem>
+     * @Author: wujingsong
+     * @Date: 2019/11/25  2:29 下午
+     */
+    List<PretServiceRouteItem> findByVenderIdAndS(String venderId, Integer s);
 }

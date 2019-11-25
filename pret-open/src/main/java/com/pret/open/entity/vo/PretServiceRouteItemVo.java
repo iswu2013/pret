@@ -25,4 +25,8 @@ public class PretServiceRouteItemVo extends PageFormVo implements Serializable {
      * 供应商类别
      */
     private Integer type;
+    /**
+     * 总重量
+     */
+    private Float gw;
 }

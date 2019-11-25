@@ -5,6 +5,7 @@ import com.pret.common.annotation.Log;
 import com.pret.common.constant.ConstantEnum;
 import com.pret.common.constant.Constants;
 import com.pret.common.exception.FebsException;
+import com.pret.common.util.SortConditionUtil;
 import com.pret.open.entity.*;
 import com.pret.open.entity.bo.PretMTransOrderBo;
 import com.pret.open.entity.vo.PretTransOrderVo;
@@ -39,6 +40,7 @@ public class PretTransOrderController extends BaseManageController<PretTransOrde
     @GetMapping
     @Override()
     public Map<String, Object> list(PretTransOrderVo request, PretTransOrder t) {
+        request.setSortConditions(SortConditionUtil.build("desc", "lastModifiedDate"));
         Page<PretTransOrder> page = this.service.page(request);
         for (PretTransOrder route : page.getContent()) {
             if (!StringUtils.isEmpty(route.getVenderId())) {
