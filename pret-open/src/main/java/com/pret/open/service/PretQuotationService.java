@@ -82,9 +82,10 @@ public class PretQuotationService extends BaseServiceImpl<PretQuotationRepositor
 
         PretServiceRoute pretServiceRoute = pretServiceRouteRepository.findById(bo.getServiceRouteId()).get();
         pretServiceRoute.setVenderId(bo.getVenderId());
+        pretServiceRoute.setVenderType(pretVender.getType());
         pretServiceRouteRepository.save(pretServiceRoute);
 
-        this.editQuotion(bo, pretQuotation);
+        this.editQuotion(bo, pretQuotation, pretVender);
     }
 
     /* *
@@ -116,7 +117,7 @@ public class PretQuotationService extends BaseServiceImpl<PretQuotationRepositor
             }
             this.pretQuotationItemRepository.saveAll(pretQuotationItemList);
         }
-        this.editQuotion(bo, pretQuotation);
+        this.editQuotion(bo, pretQuotation, pretVender);
     }
 
     /* *
@@ -127,7 +128,7 @@ public class PretQuotationService extends BaseServiceImpl<PretQuotationRepositor
      * @Author: wujingsong
      * @Date: 2019/11/1  4:16 下午
      */
-    private void editQuotion(PretQuotationBo bo, PretQuotation pretQuotation) {
+    private void editQuotion(PretQuotationBo bo, PretQuotation pretQuotation, PretVender pretVender) {
         JSONArray json = JSONArray.parseArray(bo.getPretQuotationItemStr());
         List<String> serviceRouteIdList = new ArrayList<>();
         for (int i = 0; i < json.size(); i++) {
@@ -137,6 +138,7 @@ public class PretQuotationService extends BaseServiceImpl<PretQuotationRepositor
             String id = jsonObject.get("id").toString();
             PretServiceRouteItem pretServiceRouteItem = pretServiceRouteItemRepository.findById(id).get();
             pretServiceRouteItem.setVenderId(bo.getVenderId());
+            pretServiceRouteItem.setVenderType(pretVender.getType());
             pretServiceRouteItemRepository.save(pretServiceRouteItem);
             JSONArray pretFeeTypeDataSource0 = JSONArray.parseArray(jsonObject.get("pretFeeTypeDataSource0").toString());
             for (int j = 0; j < pretFeeTypeDataSource0.size(); j++) {

@@ -146,7 +146,7 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
                 List<PretTransOrder> pretTransOrderList = this.repository.findByCustomerIdAndAddressIdAndCustomerAddressAndDeliveryDateAndStatusIn(pretCustomer.getId(), bo.getAddressId(), bo.getCustomerAddress(), bo.getDeliveryDate(), statusList);
 
                 List<String> pretAddressList = pretAddressService.findAddressListByAddressId(bo.getAddressId());
-                List<PretServiceRouteItem> pretServiceRouteItemList = pretServiceRouteItemRepository.findByCodeAndAddressIdInAndS(bo.getPickupFactoryCd(), pretAddressList, ConstantEnum.S.N.getLabel());
+                List<PretServiceRouteItem> pretServiceRouteItemList = pretServiceRouteItemRepository.findByCodeAndVenderTypeAndAddressIdInAndS(bo.getPickupFactoryCd(), ConstantEnum.EVenderType.三方.getLabel(), pretAddressList, ConstantEnum.S.N.getLabel());
                 this.calBillingInterval(pretTransOrderList, pretTransOrder, true, pretServiceRouteItemList);
 
             }

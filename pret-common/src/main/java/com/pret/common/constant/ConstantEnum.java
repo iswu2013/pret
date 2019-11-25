@@ -1103,4 +1103,30 @@ public class ConstantEnum {
             this.label = label;
         }
     }
+
+    /* *
+     * 功能描述: <br>
+     * 〈〉
+     * @Param:
+     * @Return:
+     * @Author: wujingsong
+     * @Date: 2019/11/26  12:55 上午
+     */
+    public enum EVenderType {
+        三方(0),
+        快递(1);
+        private int label;
+        EVenderType(int label) {
+            this.setLabel(label);
+        }
+
+        //省略getter、setter方法
+        public int getLabel() {
+            return label;
+        }
+
+        public void setLabel(int label) {
+            this.label = label;
+        }
+    }
 }

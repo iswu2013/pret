@@ -58,6 +58,11 @@ public class PretServiceRoute extends VersionedAuditableIdEntity implements Seri
     private String venderId;
 
     /**
+     *  供应商类别
+     */
+    private Integer venderType;
+
+    /**
      * 线路明细
      */
     private List<PretServiceRouteItem> pretServiceRouteItemList;

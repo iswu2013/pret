@@ -104,6 +104,11 @@ public class PretServiceRouteItem extends VersionedAuditableIdEntity implements 
      */
     private PretVender pretVender;
 
+    /**
+     *  供应商类别
+     */
+    private Integer venderType;
+
     // setter and getter
 
     @Transient()

@@ -69,7 +69,7 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
             if (StringUtils.isEmpty(tail)) {
                 PretPickUpPlan firstOrder = this.repository.findTop1ByCreateTimeLongBetweenOrderByCreateTimeLongDesc(date.getTime(), endDate.getTime());
                 if (firstOrder != null) {
-                    String str = StringUtil.disposeFrontZero(firstOrder.getNo().substring(19));
+                    String str = StringUtil.disposeFrontZero(firstOrder.getNo().substring(12));
                     int intStr = Integer.parseInt(str) + 1;
                     tail = StringUtil.addFrontZero(String.valueOf(intStr), 6);
                 } else {

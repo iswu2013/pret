@@ -66,6 +66,17 @@ public interface PretServiceRouteItemRepository extends BaseRepository<PretServi
      */
     List<PretServiceRouteItem> findByCodeAndAddressIdInAndS(String code, List<String> addressIdList, Integer s);
 
+
+    /* *
+     * 功能描述: 根据code,venderType，addressId和状态查询
+     * 〈〉
+     * @Param: [code, venderType, addressIdList, s]
+     * @Return: java.util.List<com.pret.open.entity.PretServiceRouteItem>
+     * @Author: wujingsong
+     * @Date: 2019/11/26  1:25 上午
+     */
+    List<PretServiceRouteItem> findByCodeAndVenderTypeAndAddressIdInAndS(String code, Integer venderType, List<String> addressIdList, Integer s);
+
     /* *
      * 功能描述: 查找没有关联的线路
      * 〈〉
