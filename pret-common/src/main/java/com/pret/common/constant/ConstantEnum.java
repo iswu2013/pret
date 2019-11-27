@@ -1149,4 +1149,34 @@ public class ConstantEnum {
             this.label = label;
         }
     }
+
+    /* *
+     * 功能描述: 赔款状态
+     * 〈〉
+     * @Param:
+     * @Return:
+     * @Author: wujingsong
+     * @Date: 2019/11/27  10:36 上午
+     */
+    public enum ECompensationStatus {
+        无赔款(0),
+        已赔款(1),
+        未赔款(2);
+        private int label;
+
+        ECompensationStatus(int label) {
+            this.setLabel(label);
+        }
+
+        //省略getter、setter方法
+        public int getLabel() {
+            return label;
+        }
+
+        public void setLabel(int label) {
+            this.label = label;
+        }
+    }
+
+
 }

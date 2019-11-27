@@ -167,6 +167,9 @@ public class PretTransExceptionService extends BaseServiceImpl<PretTransExceptio
             PretTransPlan pretTransPlan = pretTransPlanRepository.findById(exception.getTransPlanId()).get();
             PretServiceRouteOrigin pretServiceRouteOrigin = pretServiceRouteOriginRepository.findById(pretTransPlan.getServiceRouteOriginId()).get();
             exception.setReturnAddress(pretServiceRouteOrigin.getFullAddress());
+            exception.setTransNo(pretTransPlan.getNo());
+            exception.setLinkName(pretServiceRouteOrigin.getLinkMan());
+            exception.setLinkPhone(pretServiceRouteOrigin.getLinkPhone());
         } else if (bo.getReturnType() != null && bo.getReturnType() == ConstantEnum.EReturnType.提货工厂.getLabel()) {
             if (!StringUtils.isEmpty(bo.getAddressId())) {
                 String address = pretAddressService.getDetailByAddressId(bo.getAddressId());
@@ -174,6 +177,9 @@ public class PretTransExceptionService extends BaseServiceImpl<PretTransExceptio
             }
         }
         exception.setStatus(ConstantEnum.ETransExceptionStatus.已认定.getLabel());
+        if (exception.getCompensation() != null && exception.getCompensation().doubleValue() > 0) {
+            exception.setCompensationStatus(ConstantEnum.ECompensationStatus.未赔款.getLabel());
+        }
 
         PretTransExceptionHandleRecord pretTransExceptionHandleRecord = new PretTransExceptionHandleRecord();
         BeanUtilsExtended.copyProperties(pretTransExceptionHandleRecord, bo);

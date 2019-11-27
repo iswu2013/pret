@@ -105,24 +105,14 @@ public class PretTransException extends VersionedAuditableIdEntity implements Se
     private Integer returnStatus = 0;
 
     /**
-     * 退回运输单号
+     * 返回至1提货工厂2其他地址
      */
-    private String transNo;
-
-    /**
-     * 是否结退回运费0无1是2否
-     */
-    private Integer returnFeeStatus;
+    private Integer returnType;
 
     /**
      * 退回地址
      */
     private String returnAddress;
-
-    /**
-     * 返回至1提货工厂2其他地址
-     */
-    private String returnType;
 
     /**
      * 联系人
@@ -135,11 +125,6 @@ public class PretTransException extends VersionedAuditableIdEntity implements Se
     private String linkPhone;
 
     /**
-     * 赔偿金额
-     */
-    private BigDecimal compensation;
-
-    /**
      * 退回地址
      */
     private String addressId;
@@ -150,9 +135,24 @@ public class PretTransException extends VersionedAuditableIdEntity implements Se
     private String addressDetail;
 
     /**
+     * 退回运输单号
+     */
+    private String transNo;
+
+    /**
+     * 是否结退回运费0无1是2否
+     */
+    private Integer returnFeeStatus;
+
+    /**
+     * 赔偿金额
+     */
+    private BigDecimal compensation;
+
+    /**
      * 赔款状态0无1已赔款2未赔款
      */
-    private Integer compensationStatus = 0;
+    private Integer compensationStatus = ConstantEnum.ECompensationStatus.无赔款.getLabel();
 
     /**
      * 异常关闭日期
