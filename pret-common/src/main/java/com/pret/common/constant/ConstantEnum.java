@@ -1116,7 +1116,27 @@ public class ConstantEnum {
         三方(0),
         快递(1);
         private int label;
+
         EVenderType(int label) {
+            this.setLabel(label);
+        }
+
+        //省略getter、setter方法
+        public int getLabel() {
+            return label;
+        }
+
+        public void setLabel(int label) {
+            this.label = label;
+        }
+    }
+
+    public enum EReturnType {
+        提货工厂(1),
+        其他(1);
+        private int label;
+
+        EReturnType(int label) {
             this.setLabel(label);
         }
 

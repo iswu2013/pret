@@ -95,6 +95,15 @@ public interface PretTransOrderRepository extends BaseRepository<PretTransOrder>
      */
     List<PretTransOrder> findByCustomerIdAndAddressIdAndCustomerAddressAndDeliveryDateAndStatusIn(String customerId, String addressId, String customerAddress, Date deliveryDate, List<Integer> statusList);
 
+    /* *
+     * 功能描述: 根据用户，地址和送达日期以及状态查找
+     * 〈〉
+     * @Param: [customerId, addressId, customerAddress, start, end, statusList]
+     * @Return: java.util.List<com.pret.open.entity.PretTransOrder>
+     * @Author: wujingsong
+     * @Date: 2019/11/27  6:32 上午
+     */
+    List<PretTransOrder> findByCustomerIdAndAddressIdAndCustomerAddressAndDeliveryDateBetweenAndStatusIn(String customerId, String addressId, String customerAddress, Date start, Date end, List<Integer> statusList);
 
     /* *
      * 功能描述: 根据提货计划，状态查找
@@ -110,9 +119,9 @@ public interface PretTransOrderRepository extends BaseRepository<PretTransOrder>
      * 功能描述: 根据u9订单号删除
      * 〈〉
      * @Param: [sourceCode]
-            * @Return: com.pret.open.entity.PretTransOrder
-            * @Author: wujingsong
-            * @Date: 2019/11/21  12:01 下午
+     * @Return: com.pret.open.entity.PretTransOrder
+     * @Author: wujingsong
+     * @Date: 2019/11/21  12:01 下午
      */
     PretTransOrder findBySourceCode(String sourceCode);
 }

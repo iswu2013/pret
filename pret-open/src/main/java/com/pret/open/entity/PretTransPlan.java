@@ -215,6 +215,11 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
      */
     private String transStatementId;
 
+    /**
+     * 是否结算
+     */
+    private Integer settle = 1;
+
     private PretVender pretVender;
 
     private PretCustomer pretCustomer;

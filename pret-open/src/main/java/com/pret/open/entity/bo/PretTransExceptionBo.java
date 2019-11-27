@@ -53,7 +53,7 @@ public class PretTransExceptionBo {
     /**
      * 返回至1提货工厂2其他地址
      */
-    private String returnType;
+    private Integer returnType;
 
     /**
      * 联系人

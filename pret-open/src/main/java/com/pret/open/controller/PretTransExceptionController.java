@@ -121,6 +121,16 @@ public class PretTransExceptionController extends BaseManageController<PretTrans
         }
     }
 
+    @Log("更新")
+    @PostMapping("/updateException")
+    public void updateException(PretTransExceptionBo bo) throws FebsException {
+        try {
+            this.service.handle(bo);
+        } catch (Exception e) {
+            throw new FebsException(message);
+        }
+    }
+
     @Log("生成返程配送任务单")
     @PostMapping("/genRTransPlan/{id}")
     public void genRTransPlan(@PathVariable String id) throws FebsException {

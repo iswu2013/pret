@@ -60,8 +60,10 @@ public class PretQuotationController extends BaseManageController<PretQuotationS
                 pretQuotation.setPretBillingInterval(pretBillingInterval);
             }
             if (!StringUtils.isEmpty(pretQuotation.getServiceRouteId())) {
-                PretServiceRoute pretServiceRoute = pretServiceRouteRepository.findById(pretQuotation.getServiceRouteId()).get();
-                pretQuotation.setPretServiceRoute(pretServiceRoute);
+                Optional<PretServiceRoute> pretServiceRouteOptional = pretServiceRouteRepository.findById(pretQuotation.getServiceRouteId());
+                if (pretServiceRouteOptional.isPresent()) {
+                    pretQuotation.setPretServiceRoute(pretServiceRouteOptional.get());
+                }
             }
         }
         Map<String, Object> rspData = new HashMap<>();

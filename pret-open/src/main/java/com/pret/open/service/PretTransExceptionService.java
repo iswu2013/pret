@@ -46,6 +46,12 @@ public class PretTransExceptionService extends BaseServiceImpl<PretTransExceptio
     private PretTransOrderRepository pretTransOrderRepository;
     @Autowired
     private PretAddressService pretAddressService;
+    @Autowired
+    private PretTransPlanRepository pretTransPlanRepository;
+    @Autowired
+    private PretServiceRouteOriginRepository pretServiceRouteOriginRepository;
+    @Autowired
+    private PretTransPlanService pretTransPlanService;
 
     /* *
      * 功能描述: 生成默认异常单
@@ -90,6 +96,7 @@ public class PretTransExceptionService extends BaseServiceImpl<PretTransExceptio
     public void closeCase(String id) {
         PretTransException exception = this.repository.findById(id).get();
         exception.setStatus(ConstantEnum.EHandleStatus.已结案.getLabel());
+        exception.setCloseTime(new Date().getTime());
         this.repository.save(exception);
     }
 
@@ -124,14 +131,25 @@ public class PretTransExceptionService extends BaseServiceImpl<PretTransExceptio
      */
     public void genRTransPlan(PretTransException pretTransException) {
         List<PretTransExceptionItem> pretTransExceptionItemList = pretTransExceptionItemRepository.findByTransExceptionId(pretTransException.getId());
+        PretTransPlan pretTransPlan = pretTransPlanService.genDefaultPretTransPlan(null, null);
+        pretTransPlan.setCustomerId(pretTransException.getCustomerId());
+        pretTransPlan.setServiceRouteOriginAddress(pretTransException.getAddressDetail());
+        pretTransPlan.setCustomerDetailAddress(pretTransException.getReturnAddress());
+        pretTransPlan.setType(ConstantEnum.EPretTransPlanType.退货运输.getLabel());
+        pretTransPlanRepository.save(pretTransPlan);
+
         for (PretTransExceptionItem pretTransExceptionItem : pretTransExceptionItemList) {
             PretTransOrder pretTransOrder = new PretTransOrder();
             PretTransOrder old = pretTransOrderRepository.findById(pretTransExceptionItem.getTransOrderId()).get();
             BeanUtilsExtended.copyProperties(pretTransOrder, old);
             pretTransOrder.setCustomerDetailAddress(old.getServiceRouteOriginAddress());
             pretTransOrder.setServiceRouteOriginAddress(old.getCustomerDetailAddress());
-
+            pretTransOrder.setTransPlanId(pretTransPlan.getId());
+            pretTransOrderRepository.save(pretTransOrder);
         }
+        pretTransException.setIsReturnStatus(1);
+        pretTransException.setReturnStatus(2);
+        this.repository.save(pretTransException);
     }
 
     /* *
@@ -145,9 +163,15 @@ public class PretTransExceptionService extends BaseServiceImpl<PretTransExceptio
     public void handle(PretTransExceptionBo bo) {
         PretTransException exception = this.repository.findById(bo.getId()).get();
         BeanUtilsExtended.copyProperties(exception, bo);
-        if (!StringUtils.isEmpty(bo.getAddressId())) {
-            String address = pretAddressService.getDetailByAddressId(bo.getAddressId());
-            exception.setReturnAddress(address + bo.getAddressDetail());
+        if (bo.getReturnType() != null && bo.getReturnType() == ConstantEnum.EReturnType.提货工厂.getLabel()) {
+            PretTransPlan pretTransPlan = pretTransPlanRepository.findById(exception.getTransPlanId()).get();
+            PretServiceRouteOrigin pretServiceRouteOrigin = pretServiceRouteOriginRepository.findById(pretTransPlan.getServiceRouteOriginId()).get();
+            exception.setReturnAddress(pretServiceRouteOrigin.getFullAddress());
+        } else if (bo.getReturnType() != null && bo.getReturnType() == ConstantEnum.EReturnType.提货工厂.getLabel()) {
+            if (!StringUtils.isEmpty(bo.getAddressId())) {
+                String address = pretAddressService.getDetailByAddressId(bo.getAddressId());
+                exception.setReturnAddress(address + bo.getAddressDetail());
+            }
         }
         exception.setStatus(ConstantEnum.ETransExceptionStatus.已认定.getLabel());
 
@@ -160,5 +184,17 @@ public class PretTransExceptionService extends BaseServiceImpl<PretTransExceptio
         pretTransExceptionHandleRecord.setExceptionId(bo.getId());
         pretTransExceptionHandleRecordRepository.save(pretTransExceptionHandleRecord);
         this.repository.save(exception);
+    }
+
+    /* *
+     * 功能描述: 更新异常
+     * 〈〉
+     * @Param: [pretTransExceptionHandleRecord]
+     * @Return: void
+     * @Author: wujingsong
+     * @Date: 2019/11/27  8:04 上午
+     */
+    public void updateException(PretTransExceptionHandleRecord pretTransExceptionHandleRecord) {
+        pretTransExceptionHandleRecordRepository.save(pretTransExceptionHandleRecord);
     }
 }

@@ -1,8 +1,6 @@
 package com.pret.open.service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import com.google.common.reflect.TypeToken;
 import com.pret.api.vo.ResBody;
@@ -22,6 +20,7 @@ import com.pret.api.service.impl.BaseServiceImpl;
 import com.pret.open.vo.res.PR1000000Vo;
 import com.pret.open.vo.res.PR8000004Vo;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
@@ -143,7 +142,9 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
                 List<Integer> statusList = new ArrayList<>();
                 statusList.add(ConstantEnum.ETransOrderStatus.待分配.getLabel());
                 statusList.add(ConstantEnum.ETransOrderStatus.待提货.getLabel());
-                List<PretTransOrder> pretTransOrderList = this.repository.findByCustomerIdAndAddressIdAndCustomerAddressAndDeliveryDateAndStatusIn(pretCustomer.getId(), bo.getAddressId(), bo.getCustomerAddress(), bo.getDeliveryDate(), statusList);
+                Date date = DateUtils.truncate(new Date(), Calendar.DATE);
+                Date endDate = DateUtils.addDays(date, 1);
+                List<PretTransOrder> pretTransOrderList = this.repository.findByCustomerIdAndAddressIdAndCustomerAddressAndDeliveryDateBetweenAndStatusIn(pretCustomer.getId(), bo.getAddressId(), bo.getCustomerAddress(), date, endDate, statusList);
 
                 List<String> pretAddressList = pretAddressService.findAddressListByAddressId(bo.getAddressId());
                 List<PretServiceRouteItem> pretServiceRouteItemList = pretServiceRouteItemRepository.findByCodeAndVenderTypeAndAddressIdInAndS(bo.getPickupFactoryCd(), ConstantEnum.EVenderType.三方.getLabel(), pretAddressList, ConstantEnum.S.N.getLabel());

@@ -72,6 +72,8 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
     private PretTransExceptionRepository pretTransExceptionRepository;
     @Autowired
     private PretTransExceptionItemRepository pretTransExceptionItemRepository;
+    @Autowired
+    private PretTransExceptionService pretTransExceptionService;
 
     @Value("${sf.url}")
     private String sfUrl;
@@ -186,7 +188,7 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
         // 异常单生成
         if (bo.isHasException()) {
             PretTransPlan pretTransPlan = this.repository.findById(bo.getId()).get();
-            PretTransException pretTransException = new PretTransException();
+            PretTransException pretTransException = pretTransExceptionService.genDefaultPretTransException(null,null);
             pretTransException.setVenderId(pretTransPlan.getVenderId());
             pretTransException.setTransPlanId(bo.getId());
             pretTransExceptionRepository.save(pretTransException);
