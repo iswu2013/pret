@@ -43,13 +43,13 @@ public class PretTransFeeItem extends VersionedAuditableIdEntity implements Seri
     /**
      * 供应商id
      */
-    @ExcelField(value = "总金额")
+    @ExcelField(value = "供应商")
     private String venderId;
 
     /**
      * 运输单费用id
      */
-    @ExcelField(value = "总金额")
+    @ExcelField(value = "运输单费用")
     private String transFeeId;
 
     /**
@@ -74,7 +74,7 @@ public class PretTransFeeItem extends VersionedAuditableIdEntity implements Seri
      * 单价
      */
     @ExcelField(value = "总金额")
-    private java.math.BigDecimal unitPrice;
+    private BigDecimal unitPrice;
 
     /**
      * 金额

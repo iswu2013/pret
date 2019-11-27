@@ -85,6 +85,10 @@ public class PretTransFeeService extends BaseServiceImpl<PretTransFeeRepository,
             PretTransFee transFee = this.repository.findById(id).get();
             transFee.setStatus(ConstantEnum.EPretTransFeeStatus.已申报.getLabel());
             this.repository.save(transFee);
+
+            PretTransPlan pretTransPlan = pretTransPlanRepository.findById(transFee.getTransPlanId()).get();
+            pretTransPlan.setStatus(ConstantEnum.ETransPlanStatus.费用已申报.getValue());
+            pretTransPlanRepository.save(pretTransPlan);
         }
     }
 
@@ -111,17 +115,15 @@ public class PretTransFeeService extends BaseServiceImpl<PretTransFeeRepository,
         if (!StringUtils.isEmpty(pretTransPlan.getTransExceptionId())) {
             pretTransException = pretTransExceptionRepository.findById(pretTransPlan.getTransExceptionId()).get();
         }
-        if (pretTransPlan.getType() == ConstantEnum.EPretTransPlanType.正常运输.getLabel() || (pretTransException != null && pretTransException.getHandleStyle() == ConstantEnum.EHandleStyle.原路返回.getLabel())) {
-            List<PretTransOrder> pretTransOrderList = pretTransOrderRepository.findByTransPlanIdAndS(id, ConstantEnum.S.N.getLabel());
-            if (pretTransOrderList != null && pretTransOrderList.size() > 0) {
-                for (PretTransOrder pretTransOrder : pretTransOrderList) {
-                    pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.签收.getLabel());
-                    pretTransOrderRepository.save(pretTransOrder);
-                    if (pretTransOrder.getUnit() == ConstantEnum.EUnit.公斤.getLabel()) {
-                        totalGw += pretTransOrder.getGw();
-                    } else {
-                        totalGw += pretTransOrder.getGw() * 1000;
-                    }
+        List<PretTransOrder> pretTransOrderList = pretTransOrderRepository.findByTransPlanIdAndS(id, ConstantEnum.S.N.getLabel());
+        if (pretTransOrderList != null && pretTransOrderList.size() > 0) {
+            for (PretTransOrder pretTransOrder : pretTransOrderList) {
+                pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.签收.getLabel());
+                pretTransOrderRepository.save(pretTransOrder);
+                if (pretTransOrder.getUnit() == ConstantEnum.EUnit.公斤.getLabel()) {
+                    totalGw += pretTransOrder.getGw();
+                } else {
+                    totalGw += pretTransOrder.getGw() * 1000;
                 }
             }
 

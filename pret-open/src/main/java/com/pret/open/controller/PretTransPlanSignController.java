@@ -35,6 +35,8 @@ public class PretTransPlanSignController extends BaseManageController<PretTransP
     private PretDriverRepository pretDriverRepository;
     @Autowired
     private PretTransOrderRepository pretTransOrderRepository;
+    @Autowired
+    private PretTransPlanService pretTransPlanService;
 
     @GetMapping
     @Override()
@@ -82,6 +84,16 @@ public class PretTransPlanSignController extends BaseManageController<PretTransP
         } catch (Exception e) {
             message = "签收失败";
             throw new FebsException(message);
+        }
+    }
+    
+    @Log("检查异常")
+    @PostMapping("/checkException/{transFeeIds}")
+    public void checkException(@PathVariable String transFeeIds) throws FebsException {
+        try {
+            pretTransPlanService.checkException(transFeeIds);
+        } catch (Exception e) {
+            throw new FebsException(e.getMessage());
         }
     }
 }

@@ -31,7 +31,7 @@ public class PretTransStatementCController extends BaseManageController<PretTran
     public Map<String, Object> list(PretTransStatementVo request, PretTransStatement t) {
         Page<PretTransStatement> page = this.service.page(request);
         for (PretTransStatement transStatement : page.getContent()) {
-            if(!StringUtils.isEmpty(transStatement.getBillToId())) {
+            if (!StringUtils.isEmpty(transStatement.getBillToId())) {
                 PretVender pretVender = pretVenderRepository.findById(transStatement.getBillToId()).get();
                 transStatement.setPretVender(pretVender);
             }

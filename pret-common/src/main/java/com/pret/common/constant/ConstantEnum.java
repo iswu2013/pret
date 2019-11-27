@@ -383,7 +383,7 @@ public class ConstantEnum {
      * @Date: 2019/9/20  8:40 下午
      */
     public enum ETransPlanStatus {
-        运输中(0), 已签收(1), 退款(2), 已取消(4), 已完成(5);
+        运输中(0), 已签收(1), 费用已申报(2), 已取消(3), 已完成(4);
 
         private ETransPlanStatus(int value) {
             this.value = value;

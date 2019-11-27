@@ -64,6 +64,8 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
     private PretTransExceptionItemRepository pretTransExceptionItemRepository;
     @Autowired
     private PretTransExceptionService pretTransExceptionService;
+    @Autowired
+    private PretTransFeeRepository pretTransFeeRepository;
 
     @Value("${sf.url}")
     private String sfUrl;
@@ -318,5 +320,33 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
         pretTransOrderRepository.saveAll(pretTransOrderList);
 
         this.repository.save(pretTransPlan);
+    }
+
+    /* *
+     * 功能描述: 检查是否有异常
+     * 〈〉
+     * @Param: [transFeeIds]
+     * @Return: void
+     * @Author: wujingsong
+     * @Date: 2019/11/27  11:52 下午
+     */
+    public void checkException(String transFeeIds) throws FebsException {
+        List<String> idList = StringUtil.idsStr2ListString(transFeeIds);
+        List<PretTransFee> pretTransFeeList = pretTransFeeRepository.findByIdIn(idList);
+        String message = StringUtils.EMPTY;
+
+        for (PretTransFee pretTransFee : pretTransFeeList) {
+            PretTransPlan pretTransPlan = this.repository.findById(pretTransFee.getTransPlanId()).get();
+            if (!StringUtils.isEmpty(pretTransPlan.getTransExceptionId())) {
+                PretTransException pretTransException = pretTransExceptionRepository.findById(pretTransPlan.getServiceRouteOriginId()).get();
+                if (pretTransException.getStatus() == ConstantEnum.ETransExceptionStatus.已结案.getLabel()) {
+                    message += pretTransFee.getNo() + "存在未结案的异常;";
+                }
+            }
+        }
+
+        if (!StringUtils.isEmpty(message)) {
+            throw new FebsException(message);
+        }
     }
 }
