@@ -59,5 +59,10 @@ public class PretCustomer extends VersionedAuditableIdEntity implements Serializ
     @ExcelField(value = "openid")
     private String openid;
 
+    /**
+     * 客户编码
+     */
+    private String code;
+
     // setter and getter
 }

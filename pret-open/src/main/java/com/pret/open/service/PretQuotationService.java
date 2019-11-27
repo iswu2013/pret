@@ -132,7 +132,6 @@ public class PretQuotationService extends BaseServiceImpl<PretQuotationRepositor
         JSONArray json = JSONArray.parseArray(bo.getPretQuotationItemStr());
         List<String> serviceRouteIdList = new ArrayList<>();
         for (int i = 0; i < json.size(); i++) {
-            String serviceRouteId = StringUtils.EMPTY;
             // 线路明细
             JSONObject jsonObject = json.getJSONObject(i);
             String id = jsonObject.get("id").toString();
@@ -160,10 +159,6 @@ public class PretQuotationService extends BaseServiceImpl<PretQuotationRepositor
                         item.setServiceRouteId(pretServiceRouteItem.getServiceRouteId());
                         item.setServiceRouteOriginId(pretServiceRouteItem.getServiceRouteOriginId());
                         pretQuotationItemRepository.save(item);
-
-
-                        serviceRouteId = pretServiceRouteItem.getServiceRouteId();
-
                     }
                 }
             }
@@ -187,18 +182,11 @@ public class PretQuotationService extends BaseServiceImpl<PretQuotationRepositor
                         item.setServiceRouteId(pretServiceRouteItem.getServiceRouteId());
                         item.setServiceRouteOriginId(pretServiceRouteItem.getServiceRouteOriginId());
                         pretQuotationItemRepository.save(item);
-
-
-                        serviceRouteId = pretServiceRouteItem.getServiceRouteId();
                     }
                 }
             }
-
-            if (!serviceRouteIdList.contains(serviceRouteId)) {
-                serviceRouteIdList.add(serviceRouteId);
-            }
         }
-        pretQuotation.setServiceRouteId(Joiner.on(",").join(serviceRouteIdList));
+        pretQuotation.setServiceRouteId(bo.getServiceRouteId());
         this.repository.save(pretQuotation);
     }
 

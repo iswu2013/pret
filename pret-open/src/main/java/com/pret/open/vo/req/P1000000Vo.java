@@ -13,9 +13,18 @@ import lombok.Data;
  */
 @Data
 public class P1000000Vo extends ReqBody {
-    private String sourceCode;
     /**
-     * 发货类型0正常发货，1库间调拨
+     * U9或OA唯一码
+     */
+    private String sourceCode;
+
+    /**
+     * 储位号
+     */
+    private String storageNumber;
+
+    /**
+     * 发货类型0正常发货，1库间调拨，2退货
      */
     private Integer transType;
 
@@ -138,7 +147,7 @@ public class P1000000Vo extends ReqBody {
     /**
      * 重量
      */
-    private String gw;
+    private Float gw;
 
     /**
      * 单位(1吨，2公斤)
@@ -161,7 +170,7 @@ public class P1000000Vo extends ReqBody {
     private String remark;
 
     /**
-     * 来源：0，U9,1，OA
+     * 来源：1U9,2OA
      */
     private int dataSource;
 

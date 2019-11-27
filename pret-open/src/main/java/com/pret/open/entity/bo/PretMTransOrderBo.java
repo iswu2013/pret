@@ -33,10 +33,9 @@ public class PretMTransOrderBo {
     private String deliveryBillNumber;
 
     /**
-     * 送达客户id
+     * 客户编码
      */
-    @ExcelField(value = "送达客户id")
-    private String customerId;
+    private String custCd;
 
     /**
      * 客户名称
@@ -70,7 +69,7 @@ public class PretMTransOrderBo {
     /**
      * 起运地id
      */
-        private String serviceRouteOriginId;
+    private String serviceRouteOriginId;
 
     /**
      * 销售备注
@@ -81,6 +80,8 @@ public class PretMTransOrderBo {
      * 储位
      */
     private String storageNumber;
+
+    private String transModeNm;
 
     private String pretMTransOrderItemStr;
 }

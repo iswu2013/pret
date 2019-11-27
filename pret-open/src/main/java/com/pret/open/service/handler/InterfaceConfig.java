@@ -80,6 +80,8 @@ public class InterfaceConfig {
         JOP_HANDLER.put(H1000001, "h1000001");
         JOP_HANDLER.put(H1000002, "h1000002");
         JOP_HANDLER.put(H1000003, "h1000003");
+        JOP_HANDLER.put(H1000004, "h1000004");
+        JOP_HANDLER.put(H1000005, "h1000005");
         JOP_HANDLER.put(H8000000, "h8000000");
         JOP_HANDLER.put(H8000001, "h8000001");
         JOP_HANDLER.put(H8000002, "h8000002");
@@ -92,6 +94,8 @@ public class InterfaceConfig {
         JOP_VO.put(H1000001, P1000001Vo.class);
         JOP_VO.put(H1000002, P1000002Vo.class);
         JOP_VO.put(H1000003, P1000003Vo.class);
+        JOP_VO.put(H1000004, P1000004Vo.class);
+        JOP_VO.put(H1000005, P1000005Vo.class);
         JOP_VO.put(H8000000, P8000000Vo.class);
         JOP_VO.put(H8000001, P8000001Vo.class);
         JOP_VO.put(H8000002, P8000002Vo.class);

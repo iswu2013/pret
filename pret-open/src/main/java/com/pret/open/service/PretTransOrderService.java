@@ -1,13 +1,17 @@
 package com.pret.open.service;
 
+import java.text.ParseException;
 import java.util.*;
 
 import com.google.common.reflect.TypeToken;
 import com.pret.api.vo.ResBody;
 import com.pret.common.constant.CommonConstants;
 import com.pret.common.constant.ConstantEnum;
+import com.pret.common.constant.Constants;
+import com.pret.common.exception.BusinessException;
 import com.pret.common.util.BeanUtilsExtended;
 import com.pret.common.util.StringUtil;
+import com.pret.open.constant.OpenBEEnum;
 import com.pret.open.entity.*;
 import com.pret.open.entity.bo.AddressBo;
 import com.pret.open.entity.bo.PretMTransOrderBo;
@@ -19,6 +23,7 @@ import com.pret.open.vo.req.*;
 import com.pret.api.service.impl.BaseServiceImpl;
 import com.pret.open.vo.res.PR1000000Vo;
 import com.pret.open.vo.res.PR8000004Vo;
+import com.pret.open.vo.res.PR8000005Vo;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +56,8 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
     private PretAddressService pretAddressService;
     @Autowired
     private PretServiceRouteOriginRepository pretServiceRouteOriginRepository;
+    @Autowired
+    private PretAddressRepository pretAddressRepository;
 
     public void genPickUpPlan(PretPickUpPlanBo bo) {
         String[] idArr = bo.getIds().split(",");
@@ -77,21 +84,45 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
         PR1000000Vo retVo = new PR1000000Vo();
 
         // 客户
-        PretCustomer customer = new PretCustomer();
-        customer.setLinkPhone(res.getCustTel());
-        customer.setLinkName(res.getCustAttn());
-        customer.setName(res.getCustName());
+        PretMTransOrderBo bo = new PretMTransOrderBo();
+        PretAddress pretAddress = pretAddressRepository.findByValueAndS(res.getDestAreaCd(), ConstantEnum.S.N.getLabel());
+        bo.setAddressId(pretAddress.getId());
+        bo.setCustomerAddress(res.getCustAddr());
+        bo.setCustCd(res.getCustCd());
+        bo.setCustomerLinkName(res.getCustAttn());
+        bo.setCustomerLinkPhone(res.getCustTel());
+        bo.setCustomerName(res.getCustName());
+        bo.setDeliveryBillNumber(res.getDlvOrdNo());
+        try {
+            bo.setDeliveryDate(DateUtils.parseDate(res.getReqDlvDatetime(), "yyyy-MM-dd HH:mm:ss"));
+            bo.setTakeDeliveryDate(DateUtils.parseDate(res.getReqPickupDatetime(), "yyyy-MM-dd HH:mm:ss"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        bo.setPickupFactoryCd(res.getPickupFactoryCd());
+        bo.setRemark(res.getRemark());
+        PretServiceRouteOrigin pretServiceRouteOrigin = pretServiceRouteOriginRepository.findByCodeAndS(res.getPickupFactoryCd(), ConstantEnum.S.N.getLabel());
+        if (pretServiceRouteOrigin != null) {
+            bo.setServiceRouteOriginId(pretServiceRouteOrigin.getId());
+        } else {
+            throw new BusinessException(OpenBEEnum.E90000001.name(), OpenBEEnum.E90000001.getMsg());
+        }
 
-        pretCustomerRepository.save(customer);
+        bo.setStorageNumber(res.getStorageNumber());
+        bo.setTransMode(res.getTransModeCd());
+        bo.setTransModeNm(res.getTranModeNm());
 
-        PretTransOrder transOrder = new PretTransOrder();
-        transOrder.setCustomerId(customer.getId());
-        transOrder.setCustomerId(customer.getId());
-        BeanUtilsExtended.copyProperties(transOrder, res);
-        this.save(transOrder);
-        retVo.setData(transOrder);
+        PretMTransOrderItemBo bo2 = new PretMTransOrderItemBo();
+        bo2.setBatchNo(res.getBatchNo());
+        bo2.setCbm(res.getCbm());
+        bo2.setGoodsNum(res.getGoodsNum());
+        bo2.setPartNo(res.getPartNo());
+        bo2.setProduct(res.getProduct());
+        bo2.setUnit(res.getUnit());
+        bo2.setWeight(res.getGw());
+        bo2.setGoodsType(ConstantEnum.EGoodsType.重货.getLabel());
 
-
+        this.pretTransOrderAdd(bo, bo2);
         return retVo;
     }
 
@@ -103,10 +134,14 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
      * @Author: wujingsong
      * @Date: 2019/11/7  10:34 上午
      */
-    public void pretTransOrderAdd(PretMTransOrderBo bo) {
+    public void pretTransOrderAdd(PretMTransOrderBo bo, PretMTransOrderItemBo bo2) {
         List<PretMTransOrderItemBo> list = CommonConstants.GSON.fromJson(bo.getPretMTransOrderItemStr(),
                 new TypeToken<List<PretMTransOrderItemBo>>() {
                 }.getType());
+        if (bo != null) {
+            list = new ArrayList<>();
+            list.add(bo2);
+        }
         if (list != null && list.size() > 0) {
             for (PretMTransOrderItemBo pretMTransOrderBo : list) {
                 PretTransOrder pretTransOrder = new PretTransOrder();
@@ -128,7 +163,7 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
                 pretTransOrder.setCustomerDetailAddress(pretAddressService.getDetailByAddressId(bo.getAddressId()) + bo.getCustomerAddress());
                 BeanUtilsExtended.copyProperties(pretTransOrder, pretMTransOrderBo);
                 this.repository.save(pretTransOrder);
-                PretCustomer pretCustomer = pretCustomerRepository.findByLinkPhone(bo.getCustomerLinkPhone());
+                PretCustomer pretCustomer = pretCustomerRepository.findByCode(bo.getCustCd());
                 if (pretCustomer == null) {
                     pretCustomer = new PretCustomer();
                     BeanUtilsExtended.copyProperties(pretCustomer, bo);
@@ -215,8 +250,8 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
      * @Author: wujingsong
      * @Date: 2019/11/21  11:59 上午
      */
-    public ResBody deleteOrder(P8000004Vo res) {
-        PR8000004Vo retVo = new PR8000004Vo();
+    public ResBody deleteOrder(P1000005Vo res) {
+        PR8000005Vo retVo = new PR8000005Vo();
 
         PretTransOrder pretTransOrder = this.repository.findBySourceCode(res.getSourceCode());
         this.lDelete(pretTransOrder.getId());

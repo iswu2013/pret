@@ -108,16 +108,17 @@ public class PretTransExceptionService extends BaseServiceImpl<PretTransExceptio
      * @Author: wujingsong
      * @Date: 2019/11/25  3:59 上午
      */
-    public void indemnityAccount(String id, String images, String handleUserId, String handleUserName) {
-        PretTransExceptionHandleRecord record = new PretTransExceptionHandleRecord();
+    public void indemnityAccount(PretTransExceptionHandleRecord record) {
+        PretTransException pretTransException = this.repository.findById(record.getExceptionId()).get();
+        PretTransPlan pretTransPlan = pretTransPlanRepository.findById(pretTransException.getTransPlanId()).get();
+        if (pretTransPlan.getStatus() == ConstantEnum.ETransPlanStatus.已签收.getValue()) {
+            pretTransException.setStatus(ConstantEnum.ETransExceptionStatus.已结案.getLabel());
+            pretTransException.setCloseTime(new Date().getTime());
+        }
+        pretTransException.setCompensationStatus(ConstantEnum.ECompensationStatus.已赔款.getLabel());
+        this.repository.save(pretTransException);
         record.setDescription(ConstantEnum.EHandleDescription.赔款到账.name());
-        record.setExceptionId(id);
-        record.setImages(images);
-        record.setHandleUserId(handleUserId);
-        record.setHandleUserName(handleUserName);
         record.setType(ConstantEnum.EHandleType.货主.getLabel());
-
-
         pretTransExceptionHandleRecordRepository.save(record);
     }
 

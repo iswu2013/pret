@@ -63,6 +63,11 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
     private String transMode;
 
     /**
+     * 运输方式名称
+     */
+    private String transModeNm;
+
+    /**
      * 提货日期
      */
     @ExcelField(value = "提货日期", writeConverter = TimeConverter.class)

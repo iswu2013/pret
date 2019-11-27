@@ -162,10 +162,10 @@ public class PretTransExceptionController extends BaseManageController<PretTrans
     }
 
     @Log("赔款单上传")
-    @PostMapping("/indemnityAccount/{id}/{images}/{handleUserId}/{handleUserName}")
-    public void indemnityAccount(@PathVariable String id, @PathVariable String images, @PathVariable String handleUserId, @PathVariable String handleUserName) throws FebsException {
+    @PostMapping("/indemnityAccount")
+    public void indemnityAccount(PretTransExceptionHandleRecord bo) throws FebsException {
         try {
-            this.service.indemnityAccount(id, images, handleUserId, handleUserName);
+            this.service.indemnityAccount(bo);
         } catch (Exception e) {
             message = "赔款单上传失败";
             throw new FebsException(message);
