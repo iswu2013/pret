@@ -138,7 +138,7 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
         List<PretMTransOrderItemBo> list = CommonConstants.GSON.fromJson(bo.getPretMTransOrderItemStr(),
                 new TypeToken<List<PretMTransOrderItemBo>>() {
                 }.getType());
-        if (bo != null) {
+        if (bo2 != null) {
             list = new ArrayList<>();
             list.add(bo2);
         }
@@ -170,6 +170,7 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
                     pretCustomer.setName(bo.getCustomerName());
                     pretCustomer.setLinkName(bo.getCustomerLinkName());
                     pretCustomer.setLinkPhone(bo.getCustomerLinkPhone());
+                    pretCustomer.setCode(bo.getCustCd());
                     pretCustomerRepository.save(pretCustomer);
                 }
                 pretTransOrder.setCustomerId(pretCustomer.getId());
@@ -177,7 +178,7 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
                 List<Integer> statusList = new ArrayList<>();
                 statusList.add(ConstantEnum.ETransOrderStatus.待分配.getLabel());
                 statusList.add(ConstantEnum.ETransOrderStatus.待提货.getLabel());
-                Date date = DateUtils.truncate(new Date(), Calendar.DATE);
+                Date date = DateUtils.truncate(bo.getDeliveryDate(), Calendar.DATE);
                 Date endDate = DateUtils.addDays(date, 1);
                 List<PretTransOrder> pretTransOrderList = this.repository.findByCustomerIdAndAddressIdAndCustomerAddressAndDeliveryDateBetweenAndStatusInAndS(pretCustomer.getId(), bo.getAddressId(), bo.getCustomerAddress(), date, endDate, statusList, ConstantEnum.S.N.getLabel());
 
@@ -215,8 +216,9 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
                 if (isHeavyCargo && totalGw > lowLimit) {
                     for (PretTransOrder pretTransOrder : pretTransOrderList) {
                         pretTransOrder.setVenderId(item.getVenderId());
-                        transOrder.setStatus(ConstantEnum.ETransOrderStatus.待提货.getLabel());
+                        pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.待提货.getLabel());
                     }
+                    transOrder.setStatus(ConstantEnum.ETransOrderStatus.待提货.getLabel());
                     this.repository.saveAll(pretTransOrderList);
                 }
             }

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -16,6 +17,7 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import com.pret.api.vo.ResBody;
 import com.pret.common.constant.ConstantEnum;
 import com.pret.common.constant.Constants;
+import com.pret.common.exception.FebsException;
 import com.pret.common.util.BeanUtilsExtended;
 import com.pret.common.util.NoUtil;
 import com.pret.common.util.StringUtil;
@@ -90,7 +92,7 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
      * @Author: wujingsong
      * @Date: 2019/10/4  2:03 下午
      */
-    public void genPickUpPlan(PretPickUpPlanBo bo) {
+    public void genPickUpPlan(PretPickUpPlanBo bo) throws FebsException {
         PretDriver pretDriver = driverRepository.findByCarNumberAndPhoneAndS(bo.getCarNumber(), bo.getPhone(), ConstantEnum.S.N.getLabel());
         if (pretDriver == null) {
             pretDriver = new PretDriver();
@@ -126,21 +128,18 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
         QRCodeWriter qrCodeWriter = new QRCodeWriter();
         String uuid = UUID.randomUUID().toString().replace("-", "");
         String qrcode = ConstantEnum.NoTypeEnum.QR.name() + uuid;
-        String p = Constants.dfyyyyMMdd.format(new Date()) + "/" + ConstantEnum.NoTypeEnum.QR.name() + uuid + ".png";
+        String p = Constants.dfyyyyMMdd.format(new Date()) + "\\" + ConstantEnum.NoTypeEnum.QR.name() + uuid + ".png";
+        String urlP = Constants.dfyyyyMMdd.format(new Date()) + "/" + ConstantEnum.NoTypeEnum.QR.name() + uuid + ".png";
         try {
             BitMatrix bitMatrix = qrCodeWriter.encode(qrcode, BarcodeFormat.QR_CODE, Constants.QR_WIDTH, Constants.QR_HEIGHT);
-            File desktopDir = FileSystemView.getFileSystemView().getHomeDirectory();
-            String outRoot = desktopDir.getAbsolutePath() + "/Desktop/qr/";
-
-//            String fullPath = Constants.QR_ROOT_PATH + p;
-            String fullPath = outRoot + p;
-            Path path = FileSystems.getDefault().getPath(fullPath);
-            MatrixToImageWriter.writeToPath(bitMatrix, "PNG", path);
+            String fullPath = Constants.QR_ROOT_PATH + p;
+            MatrixToImageWriter.writeToPath(bitMatrix, "PNG", Paths.get(fullPath));
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new FebsException(e.getMessage());
         }
         pretPickUpPlan.setQrcode(qrcode);
         pretPickUpPlan.setQrcodePath(p);
+        pretPickUpPlan.setQrcodeUrl(Constants.QR_ROOT_URL + urlP);
         this.repository.save(pretPickUpPlan);
     }
 

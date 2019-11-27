@@ -45,27 +45,17 @@ import javax.transaction.Transactional;
 @Transactional(rollbackOn = Exception.class)
 public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepository, PretTransPlan, PretTransPlanVo> {
     @Autowired
-    private PretTransOrderRepository transOrderRepository;
+    private PretTransOrderRepository pretTransOrderRepository;
     @Autowired
-    private PretTransPlanRepository transPlanRepository;
+    private PretTransPlanRepository pretTransPlanRepository;
     @Autowired
-    private PretTransFeeRepository transFeeRepository;
-    @Autowired
-    private PretTransFeeService transFeeService;
-    @Autowired
-    private PretCustomerRepository customerRepository;
+    private PretTransFeeService pretTransFeeService;
     @Autowired
     private PretTransTrajectoryRepository transTrajectoryRepository;
     @Autowired
     private Sender sender;
     @Autowired
     private PretCustomerRepository pretCustomerRepository;
-    @Autowired
-    private PretQuotationItemRepository pretQuotationItemRepository;
-    @Autowired
-    private PretBillingIntervalItemRepository pretBillingIntervalItemRepository;
-    @Autowired
-    private PretFeeTypeRepository pretFeeTypeRepository;
     @Autowired
     private PretPickUpPlanRepository pretPickUpPlanRepository;
     @Autowired
@@ -127,21 +117,18 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
         String venderId = StringUtils.EMPTY;
         int count = 0;
         Float gw = 0.0f;
-        Float cw = 0.0f;
-
         for (String id : idArr) {
-            PretTransOrder pretTransOrder = transOrderRepository.findById(id).get();
+            PretTransOrder pretTransOrder = pretTransOrderRepository.findById(id).get();
             pretTransOrder.setTransPlanId(transPlan.getId());
             pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.完成提货.getLabel());
-            transOrderRepository.save(pretTransOrder);
+            pretTransOrderRepository.save(pretTransOrder);
             if (transOrder == null) {
                 transOrder = pretTransOrder;
             }
             if (StringUtils.isEmpty(venderId)) {
                 venderId = pretTransOrder.getVenderId();
             }
-            count += pretTransOrder.getGw();
-            cw += pretTransOrder.getGw();
+            gw += pretTransOrder.getGw();
         }
         transPlan.setCustomerId(transOrder.getCustomerId());
         transPlan.setVenderId(venderId);
@@ -151,7 +138,7 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
         transPlan.setServiceRouteOriginName(transOrder.getServiceRouteOriginName());
         transPlan.setServiceRouteOriginId(transOrder.getServiceRouteOriginId());
         transPlan.setServiceRouteOriginAddress(transOrder.getServiceRouteOriginAddress());
-        transPlan.setGw(cw);
+        transPlan.setGw(gw);
         transPlan.setDeliveryDate(transOrder.getDeliveryDate());
         this.repository.save(transPlan);
 
@@ -159,7 +146,7 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
         String[] pickUpArr = bo.getPickUpIds().split(",");
         for (String pickUp : pickUpArr) {
             PretPickUpPlan pretPickUpPlan = pretPickUpPlanRepository.findById(pickUp).get();
-            List<PretTransOrder> transOrderList = transOrderRepository.findByTransPlanIdAndStatusAndS(pickUp, ConstantEnum.ETransOrderStatus.完成提货.getLabel(), ConstantEnum.S.N.getLabel());
+            List<PretTransOrder> transOrderList = pretTransOrderRepository.findByTransPlanIdAndStatusAndS(pickUp, ConstantEnum.ETransOrderStatus.完成提货.getLabel(), ConstantEnum.S.N.getLabel());
             if (transOrderList != null && transOrderList.size() > 0) {
                 pretPickUpPlan.setStatus(ConstantEnum.EPretPickUpPlanStatus.部分完成.getLabel());
             } else {
@@ -183,7 +170,7 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
      */
     public void sign(PretTransPlanSignBo bo) throws FebsException {
         // 计算费用
-        transFeeService.calFee(bo);
+        pretTransFeeService.calFee(bo);
 
         // 异常单生成
         if (bo.isHasException()) {
@@ -224,7 +211,7 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
      * @Date: 2019/11/18  5:15 下午
      */
     public void signRefund(PretTransPlanSignBo bo) throws FebsException {
-        transFeeService.calFee(bo);
+        pretTransFeeService.calFee(bo);
     }
 
     /* *
@@ -238,7 +225,7 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
     public ResBody getTransPanList(P8000002Vo res) {
         PR8000002Vo retVo = new PR8000002Vo();
 
-        PretCustomer customer = customerRepository.findByOpenidAndS(res.getOpenid(), ConstantEnum.S.N.getLabel());
+        PretCustomer customer = pretCustomerRepository.findByOpenidAndS(res.getOpenid(), ConstantEnum.S.N.getLabel());
         PretTransPlanVo vo = new PretTransPlanVo();
         vo.setEq$customerId(customer.getId());
         List<PretTransPlan> list = this.page(vo).getContent();
@@ -258,7 +245,7 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
     public ResBody getTransPlanDetail(P8000003Vo res) {
         PR8000003Vo retVo = new PR8000003Vo();
 
-        PretTransPlan transPlan = transPlanRepository.findById(res.getId()).get();
+        PretTransPlan transPlan = pretTransPlanRepository.findById(res.getId()).get();
         retVo.setData(transPlan);
 
         List<PretTransTrajectory> list = transTrajectoryRepository.findByTransPlanIdAndS(transPlan.getId(), ConstantEnum.S.N.getLabel());
@@ -324,11 +311,11 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
 
         pretTransPlan.setPreDeliveryDate(bo.getPreDeliveryDate());
         pretTransPlan.setTransDatetime(bo.getTransDatetime());
-        List<PretTransOrder> pretTransOrderList = transOrderRepository.findByTransPlanIdAndS(bo.getId(), ConstantEnum.S.N.getLabel());
+        List<PretTransOrder> pretTransOrderList = pretTransOrderRepository.findByTransPlanIdAndS(bo.getId(), ConstantEnum.S.N.getLabel());
         for (PretTransOrder order : pretTransOrderList) {
             order.setStatus(ConstantEnum.ETransOrderStatus.起运.getLabel());
         }
-        transOrderRepository.saveAll(pretTransOrderList);
+        pretTransOrderRepository.saveAll(pretTransOrderList);
 
         this.repository.save(pretTransPlan);
     }

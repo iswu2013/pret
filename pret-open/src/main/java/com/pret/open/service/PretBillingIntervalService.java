@@ -7,13 +7,11 @@ import com.pret.common.constant.ConstantEnum;
 import com.pret.common.util.BeanUtilsExtended;
 import com.pret.open.entity.PretBillingInterval;
 import com.pret.open.entity.PretBillingIntervalItem;
-import com.pret.open.entity.PretServiceRoute;
 import com.pret.open.entity.bo.PretBillingIntervalBo;
 import com.pret.open.entity.bo.PretBillingIntervalItemBo;
 import com.pret.open.entity.vo.PretBillingIntervalVo;
 import com.pret.open.repository.PretBillingIntervalItemRepository;
 import com.pret.open.repository.PretBillingIntervalRepository;
-import com.pret.open.repository.PretServiceRouteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,9 +31,6 @@ import java.util.List;
 public class PretBillingIntervalService extends BaseServiceImpl<PretBillingIntervalRepository, PretBillingInterval, PretBillingIntervalVo> {
     @Autowired
     private PretBillingIntervalItemRepository pretBillingIntervalItemRepository;
-    @Autowired
-    private PretServiceRouteRepository pretServiceRouteRepository;
-
 
     /* *
      * 功能描述: 生成计费区间

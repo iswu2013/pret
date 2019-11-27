@@ -37,8 +37,6 @@ import javax.transaction.Transactional;
 @Transactional(rollbackOn = Exception.class)
 public class PretTransExceptionService extends BaseServiceImpl<PretTransExceptionRepository, PretTransException, PretTransExceptionVo> {
     @Autowired
-    private PretTransPlanRepository transPlanRepository;
-    @Autowired
     private PretTransExceptionItemRepository pretTransExceptionItemRepository;
     @Autowired
     private PretTransExceptionHandleRecordRepository pretTransExceptionHandleRecordRepository;

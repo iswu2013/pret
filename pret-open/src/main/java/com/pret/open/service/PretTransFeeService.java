@@ -163,7 +163,7 @@ public class PretTransFeeService extends BaseServiceImpl<PretTransFeeRepository,
 
                 pretTransFee.setQuotationCount(totalGw);
                 pretTransFee.setStatus(ConstantEnum.EPretTransFeeStatus.待申报.getLabel());
-                pretTransFee.setUnitPrice(pretTransFee.getQuotation().divide(new BigDecimal(totalGw)));
+                pretTransFee.setUnitPrice(pretTransFee.getQuotation().divide(new BigDecimal(totalGw), 2, BigDecimal.ROUND_HALF_UP));
                 this.repository.save(pretTransFee);
             }
 

@@ -1,9 +1,7 @@
 package com.pret.open.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.google.common.reflect.TypeToken;
+import com.pret.api.service.impl.BaseServiceImpl;
 import com.pret.common.constant.CommonConstants;
 import com.pret.common.constant.ConstantEnum;
 import com.pret.common.util.BeanUtilsExtended;
@@ -13,15 +11,15 @@ import com.pret.open.entity.PretServiceRouteOrigin;
 import com.pret.open.entity.bo.PretServiceRouteBo;
 import com.pret.open.entity.bo.PretServiceRouteItemBo;
 import com.pret.open.entity.vo.PretServiceRouteVo;
-import com.pret.open.repository.PretAddressRepository;
 import com.pret.open.repository.PretServiceRouteItemRepository;
 import com.pret.open.repository.PretServiceRouteOriginRepository;
 import com.pret.open.repository.PretServiceRouteRepository;
-import com.pret.api.service.impl.BaseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Description: [pret服务]
@@ -34,8 +32,6 @@ import javax.transaction.Transactional;
 @Service
 @Transactional(rollbackOn = Exception.class)
 public class PretServiceRouteService extends BaseServiceImpl<PretServiceRouteRepository, PretServiceRoute, PretServiceRouteVo> {
-    @Autowired
-    private PretAddressRepository pretAddressRepository;
     @Autowired
     private PretServiceRouteItemRepository pretServiceRouteItemRepository;
     @Autowired

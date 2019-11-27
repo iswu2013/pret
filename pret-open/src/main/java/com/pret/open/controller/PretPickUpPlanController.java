@@ -85,8 +85,7 @@ public class PretPickUpPlanController extends BaseManageController<PretPickUpPla
         try {
             this.service.genPickUpPlan(bo);
         } catch (Exception e) {
-            message = "生成提货失败";
-            throw new FebsException(message);
+            throw new FebsException(e.getMessage());
         }
     }
 

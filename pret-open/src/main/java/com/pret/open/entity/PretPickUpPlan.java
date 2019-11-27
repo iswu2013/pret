@@ -111,6 +111,11 @@ public class PretPickUpPlan extends VersionedAuditableIdEntity implements Serial
     private String qrcodePath;
 
     /**
+     * 二维码访问地址
+     */
+    private String qrcodeUrl;
+
+    /**
      * 提货地Id
      */
     private String serviceRouteOriginId;
