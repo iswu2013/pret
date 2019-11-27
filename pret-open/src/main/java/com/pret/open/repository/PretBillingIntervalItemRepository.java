@@ -34,14 +34,4 @@ public interface PretBillingIntervalItemRepository extends BaseRepository<PretBi
      * @Date: 2019/11/8  9:06 上午
      */
     List<PretBillingIntervalItem> findByBillingIntervalIdAndTypeAndS(String billingIntervalId, Integer type, Integer s);
-
-    /* *
-     * 功能描述: 根据区间查找
-     * 〈〉
-     * @Param: [kStart, kEnd]
-            * @Return: com.pret.open.entity.PretBillingIntervalItem
-            * @Author: wujingsong
-            * @Date: 2019/11/9  11:45 上午
-     */
-    PretBillingIntervalItem findByKstartLessThanEqualAndKendGreaterThanEqualAndS(Float kStart, Float kEnd,Integer s);
 }

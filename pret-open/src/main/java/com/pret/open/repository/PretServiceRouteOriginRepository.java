@@ -15,16 +15,6 @@ import java.util.List;
  */
 public interface PretServiceRouteOriginRepository extends BaseRepository<PretServiceRouteOrigin> {
     /* *
-     * 功能描述: 根据id查询
-     * 〈〉
-     * @Param: [idList]
-     * @Return: java.util.List<com.pret.open.entity.PretServiceRouteOrgin>
-     * @Author: wujingsong
-     * @Date: 2019/10/18  1:13 下午
-     */
-    List<PretServiceRouteOrigin> findByIdIn(List<String> idList);
-
-    /* *
      * 功能描述: 根据code查询
      * 〈〉
      * @Param: [code, s]

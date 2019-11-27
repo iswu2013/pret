@@ -94,7 +94,7 @@ public class PretTransOrderController extends BaseManageController<PretTransOrde
     @PostMapping("/pretTransOrderAdd")
     public void pretTransOrderAdd(PretMTransOrderBo bo) throws FebsException {
         try {
-            this.service.pretTransOrderAdd(bo);
+            this.service.pretTransOrderAdd(bo, null);
         } catch (Exception e) {
             message = "生成运输计划失败";
             throw new FebsException(message);
@@ -134,7 +134,7 @@ public class PretTransOrderController extends BaseManageController<PretTransOrde
                 pretTransOrder.setServiceRouteOriginId("SH-JX");
                 pretTransOrder.setTransMode("陆运");
 
-                PretVender pretVender = pretVenderRepository.findTop1ByOrderByCreateTimeLongDesc();
+                PretVender pretVender = new PretVender();
                 pretTransOrder.setVenderId(pretVender.getId());
                 pretTransOrder.setGw(Float.valueOf((i % 7)));
 

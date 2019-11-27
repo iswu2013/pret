@@ -115,7 +115,7 @@ public class PretTransFeeService extends BaseServiceImpl<PretTransFeeRepository,
             List<PretTransOrder> pretTransOrderList = pretTransOrderRepository.findByTransPlanIdAndS(id, ConstantEnum.S.N.getLabel());
             if (pretTransOrderList != null && pretTransOrderList.size() > 0) {
                 for (PretTransOrder pretTransOrder : pretTransOrderList) {
-                    pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.已签收.getLabel());
+                    pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.签收.getLabel());
                     pretTransOrderRepository.save(pretTransOrder);
                     if (pretTransOrder.getUnit() == ConstantEnum.EUnit.公斤.getLabel()) {
                         totalGw += pretTransOrder.getGw();

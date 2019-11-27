@@ -52,7 +52,7 @@ public class UserService extends BaseServiceImpl<UserRepository, User, UserVo> {
                 throw new BusinessException(OpenBEEnum.E90000003.name(), OpenBEEnum.E90000003.getMsg());
             }
         } else if (res.getType() == ConstantEnum.EUserType.客户.getLabel()) {
-            PretCustomer pretCustomer = pretCustomerRepository.findByLinkPhone(res.getPhone());
+            PretCustomer pretCustomer = pretCustomerRepository.findByLinkPhoneAndS(res.getPhone(), ConstantEnum.S.N.getLabel());
             if (pretCustomer != null) {
                 pretCustomer.setOpenid(res.getOpenid());
                 pretCustomerRepository.save(pretCustomer);

@@ -110,7 +110,7 @@ public class PretQuotationService extends BaseServiceImpl<PretQuotationRepositor
         this.repository.save(pretQuotation);
 
         // 删除之前的报价明细
-        List<PretQuotationItem> pretQuotationItemList = pretQuotationItemRepository.findByQuotationId(bo.getId());
+        List<PretQuotationItem> pretQuotationItemList = pretQuotationItemRepository.findByQuotationIdAndS(bo.getId(), ConstantEnum.S.N.getLabel());
         if (pretQuotationItemList != null && pretQuotationItemList.size() > 0) {
             for (PretQuotationItem item : pretQuotationItemList) {
                 item.setS(ConstantEnum.S.D.getLabel());

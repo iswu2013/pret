@@ -208,7 +208,7 @@ public class PretServiceRouteItemController extends BaseManageController<PretSer
                 idList.add(id);
             }
         }
-        List<PretServiceRouteItem> serviceRouteItemList = pretServiceRouteItemRepository.findByIdIn(idList);
+        List<PretServiceRouteItem> serviceRouteItemList = pretServiceRouteItemRepository.findByIdInAndS(idList, ConstantEnum.S.N.getLabel());
         for (PretServiceRouteItem route : serviceRouteItemList) {
             String startEndName = StringUtils.EMPTY;
             PretServiceRouteOrigin pretServiceRouteOrgin = pretServiceRouteOrginRepository.findById(route.getServiceRouteOriginId()).get();

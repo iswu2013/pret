@@ -131,7 +131,7 @@ public class PretTransExceptionService extends BaseServiceImpl<PretTransExceptio
      * @Date: 2019/11/25  5:10 上午
      */
     public void genRTransPlan(PretTransException pretTransException) {
-        List<PretTransExceptionItem> pretTransExceptionItemList = pretTransExceptionItemRepository.findByTransExceptionId(pretTransException.getId());
+        List<PretTransExceptionItem> pretTransExceptionItemList = pretTransExceptionItemRepository.findByTransExceptionIdAndS(pretTransException.getId(), ConstantEnum.S.N.getLabel());
         PretTransPlan pretTransPlan = pretTransPlanService.genDefaultPretTransPlan(null, null);
         pretTransPlan.setCustomerId(pretTransException.getCustomerId());
         pretTransPlan.setServiceRouteOriginAddress(pretTransException.getAddressDetail());

@@ -65,7 +65,7 @@ public class PretTransExceptionController extends BaseManageController<PretTrans
     public PretTransException view(@PathVariable String id) throws FebsException {
         try {
             PretTransException item = this.service.findById(id).get();
-            List<PretTransExceptionItem> itemList = pretTransExceptionItemRepository.findByTransExceptionId(item.getId());
+            List<PretTransExceptionItem> itemList = pretTransExceptionItemRepository.findByTransExceptionIdAndS(item.getId(), ConstantEnum.S.N.getLabel());
             item.setPretTransExceptionItemList(itemList);
 
             List<PretTransExceptionHandleRecord> pretTransExceptionHandleRecordList = pretTransExceptionHandleRecordRepository.findByExceptionIdAndS(id, ConstantEnum.S.N.getLabel());

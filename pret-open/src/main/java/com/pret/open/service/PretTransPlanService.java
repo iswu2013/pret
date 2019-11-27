@@ -132,7 +132,7 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
         for (String id : idArr) {
             PretTransOrder pretTransOrder = transOrderRepository.findById(id).get();
             pretTransOrder.setTransPlanId(transPlan.getId());
-            pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.运输中.getLabel());
+            pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.完成提货.getLabel());
             transOrderRepository.save(pretTransOrder);
             if (transOrder == null) {
                 transOrder = pretTransOrder;
@@ -159,7 +159,7 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
         String[] pickUpArr = bo.getPickUpIds().split(",");
         for (String pickUp : pickUpArr) {
             PretPickUpPlan pretPickUpPlan = pretPickUpPlanRepository.findById(pickUp).get();
-            List<PretTransOrder> transOrderList = transOrderRepository.findByTransPlanIdAndStatusAndS(pickUp, ConstantEnum.ETransOrderStatus.提货中.getLabel(), ConstantEnum.S.N.getLabel());
+            List<PretTransOrder> transOrderList = transOrderRepository.findByTransPlanIdAndStatusAndS(pickUp, ConstantEnum.ETransOrderStatus.完成提货.getLabel(), ConstantEnum.S.N.getLabel());
             if (transOrderList != null && transOrderList.size() > 0) {
                 pretPickUpPlan.setStatus(ConstantEnum.EPretPickUpPlanStatus.部分完成.getLabel());
             } else {
@@ -188,7 +188,7 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
         // 异常单生成
         if (bo.isHasException()) {
             PretTransPlan pretTransPlan = this.repository.findById(bo.getId()).get();
-            PretTransException pretTransException = pretTransExceptionService.genDefaultPretTransException(null,null);
+            PretTransException pretTransException = pretTransExceptionService.genDefaultPretTransException(null, null);
             pretTransException.setVenderId(pretTransPlan.getVenderId());
             pretTransException.setTransPlanId(bo.getId());
             pretTransExceptionRepository.save(pretTransException);
@@ -238,7 +238,7 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
     public ResBody getTransPanList(P8000002Vo res) {
         PR8000002Vo retVo = new PR8000002Vo();
 
-        PretCustomer customer = customerRepository.findByOpenid(res.getOpenid());
+        PretCustomer customer = customerRepository.findByOpenidAndS(res.getOpenid(), ConstantEnum.S.N.getLabel());
         PretTransPlanVo vo = new PretTransPlanVo();
         vo.setEq$customerId(customer.getId());
         List<PretTransPlan> list = this.page(vo).getContent();
@@ -324,6 +324,11 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
 
         pretTransPlan.setPreDeliveryDate(bo.getPreDeliveryDate());
         pretTransPlan.setTransDatetime(bo.getTransDatetime());
+        List<PretTransOrder> pretTransOrderList = transOrderRepository.findByTransPlanIdAndS(bo.getId(), ConstantEnum.S.N.getLabel());
+        for (PretTransOrder order : pretTransOrderList) {
+            order.setStatus(ConstantEnum.ETransOrderStatus.起运.getLabel());
+        }
+        transOrderRepository.saveAll(pretTransOrderList);
 
         this.repository.save(pretTransPlan);
     }

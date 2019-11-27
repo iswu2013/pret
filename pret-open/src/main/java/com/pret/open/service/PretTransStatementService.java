@@ -106,11 +106,6 @@ public class PretTransStatementService extends BaseServiceImpl<PretTransStatemen
 
             PretTransPlan pretTransPlan = transPlanRepository.findById(transFee.getTransPlanId()).get();
             pretTransPlan.setTransStatementId(transStatement.getId());
-            List<PretTransOrder> pretTransOrderList = transOrderRepository.findByTransPlanIdAndS(pretTransPlan.getId(), ConstantEnum.S.N.getLabel());
-            for (PretTransOrder pretTransOrder : pretTransOrderList) {
-                pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.已完成.getLabel());
-                transOrderRepository.save(pretTransOrder);
-            }
             transPlanRepository.save(pretTransPlan);
         }
 
@@ -136,14 +131,6 @@ public class PretTransStatementService extends BaseServiceImpl<PretTransStatemen
             PretTransStatement transStatement = transStatementRepository.findById(id).get();
             transStatement.setStatus(ConstantEnum.ETransStatementStatus.供应商已确认.getLabel());
             transStatementRepository.save(transStatement);
-
-            List<PretTransOrder> transOrderList = transOrderRepository.findByTransStatementId(id);
-            if (transOrderList != null && transOrderList.size() > 0) {
-                for (PretTransOrder pretTransOrder : transOrderList) {
-                    pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.已完成.getLabel());
-                    transOrderRepository.save(pretTransOrder);
-                }
-            }
         }
     }
 }

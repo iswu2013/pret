@@ -20,7 +20,7 @@ public interface PretCustomerRepository extends BaseRepository<PretCustomer> {
      * @Author: wujingsong
      * @Date: 2019/10/18  10:45 下午
      */
-    PretCustomer findByOpenid(String openid);
+    PretCustomer findByOpenidAndS(String openid, Integer s);
 
     /* *
      * 功能描述: <br>
@@ -30,7 +30,7 @@ public interface PretCustomerRepository extends BaseRepository<PretCustomer> {
      * @Author: wujingsong
      * @Date: 2019/10/19  9:58 下午
      */
-    PretCustomer findByLinkPhone(String linkPhone);
+    PretCustomer findByLinkPhoneAndS(String linkPhone, Integer s);
 
     /* *
      * 功能描述: 根据Code查找
@@ -40,5 +40,5 @@ public interface PretCustomerRepository extends BaseRepository<PretCustomer> {
      * @Author: wujingsong
      * @Date: 2019/11/27  11:43 上午
      */
-    PretCustomer findByCode(String code);
+    PretCustomer findByCodeAndS(String code, Integer s);
 }

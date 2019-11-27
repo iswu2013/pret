@@ -22,27 +22,8 @@ public interface PretQuotationItemRepository extends BaseRepository<PretQuotatio
      * @Author: wujingsong
      * @Date: 2019/10/24  10:57 上午
      */
-    List<PretQuotationItem> findByQuotationId(String quotationId);
+    List<PretQuotationItem> findByQuotationIdAndS(String quotationId, Integer s);
 
-    /* *
-     * 功能描述: 根据状态查询
-     * 〈〉
-     * @Param: [s]
-     * @Return: java.util.List<com.pret.open.entity.PretQuotationItem>
-     * @Author: wujingsong
-     * @Date: 2019/11/7  1:48 下午
-     */
-    List<PretQuotationItem> findByS(Integer s);
-
-    /* *
-     * 功能描述: 根据code,addressId查找
-     * 〈〉
-     * @Param: [code, addressId, s]
-     * @Return: java.util.List<com.pret.open.entity.PretQuotationItem>
-     * @Author: wujingsong
-     * @Date: 2019/11/7  1:54 下午
-     */
-    List<PretQuotationItem> findByCodeAndAddressIdAndS(String code, String addressId, Integer s);
 
     /* *
      * 功能描述: 根据服务线路明细查找
@@ -63,14 +44,4 @@ public interface PretQuotationItemRepository extends BaseRepository<PretQuotatio
      * @Date: 2019/11/9  8:36 上午
      */
     List<PretQuotationItem> findByVenderIdAndS(String venderId, Integer s);
-
-    /* *
-     * 功能描述: 根据计费区间查找
-     * 〈〉
-     * @Param: [billingIntervalItemId]
-     * @Return: com.pret.open.entity.PretQuotationItem
-     * @Author: wujingsong
-     * @Date: 2019/11/9  11:37 上午
-     */
-    List<PretQuotationItem> findByBillingIntervalItemId(String billingIntervalItemId);
 }

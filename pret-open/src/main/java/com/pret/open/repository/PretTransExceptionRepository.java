@@ -28,16 +28,6 @@ public interface PretTransExceptionRepository extends BaseRepository<PretTransEx
     PretTransException findTop1ByCreateTimeLongBetweenOrderByCreateTimeLongDesc(long time, long time1);
 
     /* *
-     * 功能描述: 根据状态查找
-     * 〈〉
-     * @Param: [status]
-     * @Return: java.util.List<com.pret.open.entity.PretTransException>
-     * @Author: wujingsong
-     * @Date: 2019/11/4  7:20 上午
-     */
-    List<PretTransException> findByStatus(Integer status);
-
-    /* *
      * 功能描述: 获取最前面的5个
      * 〈〉
      * @Param: [status]
@@ -45,7 +35,7 @@ public interface PretTransExceptionRepository extends BaseRepository<PretTransEx
      * @Author: wujingsong
      * @Date: 2019/11/4  7:30 上午
      */
-    List<PretTransException> findTop5ByStatus(Integer status);
+    List<PretTransException> findTop5ByStatusAndS(Integer status,Integer s);
 
     /* *
      * 功能描述: 根据状态统计数量
@@ -55,5 +45,5 @@ public interface PretTransExceptionRepository extends BaseRepository<PretTransEx
      * @Author: wujingsong
      * @Date: 2019/11/4  7:20 上午
      */
-    long countByStatus(Integer status);
+    long countByStatusAndS(Integer status,Integer s);
 }

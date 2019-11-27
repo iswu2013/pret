@@ -105,7 +105,7 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
         if (pretServiceRouteOrigin != null) {
             bo.setServiceRouteOriginId(pretServiceRouteOrigin.getId());
         } else {
-            throw new BusinessException(OpenBEEnum.E90000001.name(), OpenBEEnum.E90000001.getMsg());
+            throw new BusinessException(OpenBEEnum.E90000002.name(), OpenBEEnum.E90000002.getMsg());
         }
 
         bo.setStorageNumber(res.getStorageNumber());
@@ -163,7 +163,7 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
                 pretTransOrder.setCustomerDetailAddress(pretAddressService.getDetailByAddressId(bo.getAddressId()) + bo.getCustomerAddress());
                 BeanUtilsExtended.copyProperties(pretTransOrder, pretMTransOrderBo);
                 this.repository.save(pretTransOrder);
-                PretCustomer pretCustomer = pretCustomerRepository.findByCode(bo.getCustCd());
+                PretCustomer pretCustomer = pretCustomerRepository.findByCodeAndS(bo.getCustCd(), ConstantEnum.S.N.getLabel());
                 if (pretCustomer == null) {
                     pretCustomer = new PretCustomer();
                     BeanUtilsExtended.copyProperties(pretCustomer, bo);
@@ -179,7 +179,7 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
                 statusList.add(ConstantEnum.ETransOrderStatus.待提货.getLabel());
                 Date date = DateUtils.truncate(new Date(), Calendar.DATE);
                 Date endDate = DateUtils.addDays(date, 1);
-                List<PretTransOrder> pretTransOrderList = this.repository.findByCustomerIdAndAddressIdAndCustomerAddressAndDeliveryDateBetweenAndStatusIn(pretCustomer.getId(), bo.getAddressId(), bo.getCustomerAddress(), date, endDate, statusList);
+                List<PretTransOrder> pretTransOrderList = this.repository.findByCustomerIdAndAddressIdAndCustomerAddressAndDeliveryDateBetweenAndStatusInAndS(pretCustomer.getId(), bo.getAddressId(), bo.getCustomerAddress(), date, endDate, statusList, ConstantEnum.S.N.getLabel());
 
                 List<String> pretAddressList = pretAddressService.findAddressListByAddressId(bo.getAddressId());
                 List<PretServiceRouteItem> pretServiceRouteItemList = pretServiceRouteItemRepository.findByCodeAndVenderTypeAndAddressIdInAndS(bo.getPickupFactoryCd(), ConstantEnum.EVenderType.三方.getLabel(), pretAddressList, ConstantEnum.S.N.getLabel());
@@ -253,7 +253,7 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
     public ResBody deleteOrder(P1000005Vo res) {
         PR8000005Vo retVo = new PR8000005Vo();
 
-        PretTransOrder pretTransOrder = this.repository.findBySourceCode(res.getSourceCode());
+        PretTransOrder pretTransOrder = this.repository.findBySourceCodeAndS(res.getSourceCode(), ConstantEnum.S.N.getLabel());
         this.lDelete(pretTransOrder.getId());
 
         return retVo;

@@ -43,7 +43,7 @@ public class PretPickUpPlanController extends BaseManageController<PretPickUpPla
     public Map<String, Object> list(PretPickUpPlanVo request, PretPickUpPlan t) {
         Page<PretPickUpPlan> page = this.service.page(request);
         for (PretPickUpPlan pickUpPlan : page.getContent()) {
-            List<PretTransOrder> transOrderList = pretTransOrderRepository.findByPickUpPlanId(pickUpPlan.getId());
+            List<PretTransOrder> transOrderList = pretTransOrderRepository.findByPickUpPlanIdAndS(pickUpPlan.getId(), ConstantEnum.S.N.getLabel());
             pickUpPlan.setTransOrderList(transOrderList);
             if (!StringUtils.isEmpty(pickUpPlan.getVenderId())) {
                 PretVender pretVender = pretVenderRepository.findById(pickUpPlan.getVenderId()).get();
@@ -102,7 +102,7 @@ public class PretPickUpPlanController extends BaseManageController<PretPickUpPla
     }
 
     @Log("修改提货司机")
-        @PostMapping("/pretModifyDriver")
+    @PostMapping("/pretModifyDriver")
     public void pretModifyDriver(PretPickUpPlanModifyDriverBo bo) throws FebsException {
         try {
             this.service.pretModifyDriver(bo);

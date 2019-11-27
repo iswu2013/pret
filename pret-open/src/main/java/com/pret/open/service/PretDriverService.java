@@ -3,6 +3,7 @@ package com.pret.open.service;
 import java.util.List;
 
 import com.pret.api.vo.ResBody;
+import com.pret.common.constant.ConstantEnum;
 import com.pret.common.util.BeanUtilsExtended;
 import com.pret.open.entity.PretDriver;
 import com.pret.open.entity.vo.PretDriverVo;
@@ -36,7 +37,7 @@ public class PretDriverService extends BaseServiceImpl<PretDriverRepository, Pre
      */
     public ResBody getDriverDetail(P8000004Vo res) {
         PR8000004Vo retVo = new PR8000004Vo();
-        PretDriver pretDriver = this.repository.findByOpenid(res.getOpenid());
+        PretDriver pretDriver = this.repository.findByOpenidAndS(res.getOpenid(), ConstantEnum.S.N.getLabel());
         retVo.setData(pretDriver);
 
         return retVo;

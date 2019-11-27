@@ -50,7 +50,7 @@ public class ScheduleService {
             pretTransOrder.setServiceRouteOriginId("SH-JX");
             pretTransOrder.setTransMode("陆运");
 
-            PretVender pretVender = pretVenderRepository.findTop1ByOrderByCreateTimeLongDesc();
+            PretVender pretVender = new PretVender();
             pretTransOrder.setVenderId(pretVender.getId());
             pretTransOrder.setGw(Float.valueOf((i % 7)));
             pretTransOrder.setGoodsNum(i % 9);

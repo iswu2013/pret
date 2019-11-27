@@ -847,13 +847,12 @@ public class ConstantEnum {
      * @Date: 2019/10/27  5:37 下午
      */
     public enum ETransOrderStatus {
-        待分配(0),
-        待提货(1),
-        已提货(2),
-        运输中(3),
-        已签收(4),
-        已完成(5),
-        提货中(6);
+        待分配(1),
+        待提货(2),
+        计划提货(3),
+        完成提货(4),
+        起运(5),
+        签收(6);
         private int label;
 
         ETransOrderStatus(int label) {

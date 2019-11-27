@@ -12,16 +12,6 @@ import com.pret.open.entity.PretVender;
  * Copyright (c) 2019年 极客城堡
  */
 public interface PretVenderRepository extends BaseRepository<PretVender> {
-    /* *
-     * 功能描述: 查找最前面的10个供应商
-     * 〈〉
-     * @Param: []
-     * @Return: com.pret.open.entity.PretVender
-     * @Author: wujingsong
-     * @Date: 2019/11/14  1:08 下午
-     */
-    PretVender findTop1ByOrderByCreateTimeLongDesc();
-
     /**
      * 根据code查询供应商
      *

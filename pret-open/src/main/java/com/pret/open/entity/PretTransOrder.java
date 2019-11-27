@@ -205,8 +205,8 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
     /**
      * 状态
      */
-    @ExcelField(value = "状态", writeConverterExp = "0=待分配,1=待提货,2=已提货,3=运输中,4=已签收,5=已完成")
-    private int status;
+    @ExcelField(value = "状态", writeConverterExp = "1=待分配,2=待提货,3=计划提货,4=完成提货,5=起运,6=签收")
+    private int status = ConstantEnum.ETransOrderStatus.待分配.getLabel();
 
     /**
      * 提货工厂code

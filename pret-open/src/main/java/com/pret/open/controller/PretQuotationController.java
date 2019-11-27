@@ -78,7 +78,7 @@ public class PretQuotationController extends BaseManageController<PretQuotationS
     public PretQuotation view(@PathVariable String id) throws FebsException {
         try {
             PretQuotation item = this.service.findById(id).get();
-            List<PretQuotationItem> pretQuotationItemList = pretQuotationItemRepository.findByQuotationId(item.getId());
+            List<PretQuotationItem> pretQuotationItemList = pretQuotationItemRepository.findByQuotationIdAndS(item.getId(), ConstantEnum.S.N.getLabel());
             item.setPretQuotationItemList(pretQuotationItemList);
             return item;
         } catch (Exception e) {
@@ -94,7 +94,7 @@ public class PretQuotationController extends BaseManageController<PretQuotationS
             String[] idArr = ids.split(",");
             for (String id : idArr) {
                 this.service.lDelete(id);
-                List<PretQuotationItem> pretQuotationItemList = pretQuotationItemRepository.findByQuotationId(id);
+                List<PretQuotationItem> pretQuotationItemList = pretQuotationItemRepository.findByQuotationIdAndS(id, ConstantEnum.S.N.getLabel());
                 for (PretQuotationItem pretQuotationItem : pretQuotationItemList) {
                     pretQuotationItem.setS(ConstantEnum.S.D.getLabel());
                 }

@@ -109,7 +109,7 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
         for (String id : idArr) {
             PretTransOrder pretTransOrder = transOrderRepository.findById(id).get();
             pretTransOrder.setPickUpPlanId(pretPickUpPlan.getId());
-            pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.提货中.getLabel());
+            pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.计划提货.getLabel());
             transOrderRepository.save(pretTransOrder);
             if (StringUtils.isEmpty(venderId)) {
                 venderId = pretTransOrder.getVenderId();
@@ -155,7 +155,7 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
     public ResBody getPickupPlanList(P8000000Vo res) {
         PR8000000Vo retVo = new PR8000000Vo();
 
-        PretDriver pretDriver = driverRepository.findByOpenid(res.getUserInfo().getOpenid());
+        PretDriver pretDriver = driverRepository.findByOpenidAndS(res.getUserInfo().getOpenid(), ConstantEnum.S.N.getLabel());
         PretPickUpPlanVo vo = new PretPickUpPlanVo();
         vo.setEq$status(res.getStatus());
         vo.setEq$driverId(pretDriver.getId());
@@ -214,9 +214,9 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
     public ResBody inFactory(P1000002Vo res) {
         PR1000002Vo retVo = new PR1000002Vo();
 
-        PretDriver driver = driverRepository.findByOpenid(res.getOpenid());
+        PretDriver driver = driverRepository.findByOpenidAndS(res.getOpenid(), ConstantEnum.S.N.getLabel());
 
-        List<PretPickUpPlan> pretPickUpPlanList = this.repository.findByDriverIdAndStartTimeIsNull(driver.getId());
+        List<PretPickUpPlan> pretPickUpPlanList = this.repository.findByDriverIdAndSAndStartTimeIsNull(driver.getId(), ConstantEnum.S.N.getLabel());
         Date date = new Date();
         for (PretPickUpPlan pretPickUpPlan : pretPickUpPlanList) {
             pretPickUpPlan.setStartTime(date);
@@ -237,9 +237,9 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
     public ResBody outFactory(P1000003Vo res) {
         PR1000003Vo retVo = new PR1000003Vo();
 
-        PretDriver driver = driverRepository.findByOpenid(res.getOpenid());
+        PretDriver driver = driverRepository.findByOpenidAndS(res.getOpenid(), ConstantEnum.S.N.getLabel());
 
-        List<PretPickUpPlan> pretPickUpPlanList = this.repository.findByDriverIdAndStartTimeIsNotNullAndEndTimeIsNull(driver.getId());
+        List<PretPickUpPlan> pretPickUpPlanList = this.repository.findByDriverIdAndSAndStartTimeIsNotNullAndEndTimeIsNull(driver.getId(), ConstantEnum.S.N.getLabel());
         Date date = new Date();
         for (PretPickUpPlan pretPickUpPlan : pretPickUpPlanList) {
             pretPickUpPlan.setEndTime(date);
@@ -248,7 +248,7 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
             List<PretTransOrder> pretTransOrderList = transOrderRepository.findByTransPlanIdAndS(pretPickUpPlan.getId(), ConstantEnum.S.N.getLabel());
             if (pretPickUpPlanList != null && pretPickUpPlanList.size() > 0) {
                 for (PretTransOrder pretTransOrder : pretTransOrderList) {
-                    pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.已提货.getLabel());
+                    pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.完成提货.getLabel());
                     transOrderRepository.save(pretTransOrder);
                 }
             }

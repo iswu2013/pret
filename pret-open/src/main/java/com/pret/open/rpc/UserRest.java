@@ -58,13 +58,13 @@ public class UserRest implements IUserService {
                 typeUserInfo.setUserInfo(userInfo);
                 has = true;
             } else if (typeUserInfo.getType() == ConstantEnum.EUserType.客户.getLabel()) {
-                PretCustomer pretCustomer = pretCustomerRepository.findByOpenid(typeUserInfo.getOpenid());
+                PretCustomer pretCustomer = pretCustomerRepository.findByOpenidAndS(typeUserInfo.getOpenid(), ConstantEnum.S.N.getLabel());
                 CustomerInfo customerInfo = new CustomerInfo();
                 BeanUtilsExtended.copyProperties(customerInfo, pretCustomer);
                 typeUserInfo.setCustomerInfo(customerInfo);
                 has = true;
             } else if (typeUserInfo.getType() == ConstantEnum.EUserType.司机.getLabel()) {
-                PretDriver pretDriver = pretDriverRepository.findByOpenid(typeUserInfo.getOpenid());
+                PretDriver pretDriver = pretDriverRepository.findByOpenidAndS(typeUserInfo.getOpenid(), ConstantEnum.S.N.getLabel());
                 DriverInfo driverInfo = new DriverInfo();
                 BeanUtilsExtended.copyProperties(driverInfo, pretDriver);
                 typeUserInfo.setDriverInfo(driverInfo);
@@ -88,7 +88,7 @@ public class UserRest implements IUserService {
                 typeUserInfo.setType(type);
                 has = true;
             } else {
-                PretCustomer pretCustomer = pretCustomerRepository.findByOpenid(typeUserInfo.getOpenid());
+                PretCustomer pretCustomer = pretCustomerRepository.findByOpenidAndS(typeUserInfo.getOpenid(), ConstantEnum.S.N.getLabel());
                 if (pretCustomer != null) {
                     CustomerInfo customerInfo = new CustomerInfo();
                     BeanUtilsExtended.copyProperties(customerInfo, pretCustomer);
@@ -96,7 +96,7 @@ public class UserRest implements IUserService {
                     typeUserInfo.setType(ConstantEnum.ERoleCode.Customer.getLabel());
                     has = true;
                 }
-                PretDriver pretDriver = pretDriverRepository.findByOpenid(typeUserInfo.getOpenid());
+                PretDriver pretDriver = pretDriverRepository.findByOpenidAndS(typeUserInfo.getOpenid(), ConstantEnum.S.N.getLabel());
                 if (pretDriver != null) {
                     DriverInfo driverInfo = new DriverInfo();
                     BeanUtilsExtended.copyProperties(driverInfo, pretDriver);

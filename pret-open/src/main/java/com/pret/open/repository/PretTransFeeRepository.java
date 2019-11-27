@@ -23,14 +23,4 @@ public interface PretTransFeeRepository extends BaseRepository<PretTransFee> {
      * @Date: 2019/10/4  5:17 下午
      */
     PretTransFee findTop1ByCreateTimeLongBetweenOrderByCreateTimeLongDesc(long time, long time1);
-
-    /* *
-     * 功能描述: 根据对账单和状态查找
-     * 〈〉
-     * @Param: [transStatementId, s]
-     * @Return: java.util.List<com.pret.open.entity.PretTransFee>
-     * @Author: wujingsong
-     * @Date: 2019/11/20  5:23 下午
-     */
-    List<PretTransFee> findByTransStatementIdAndS(String transStatementId, Integer s);
 }
