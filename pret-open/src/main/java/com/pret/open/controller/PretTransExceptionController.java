@@ -123,9 +123,9 @@ public class PretTransExceptionController extends BaseManageController<PretTrans
 
     @Log("更新")
     @PostMapping("/updateException")
-    public void updateException(PretTransExceptionBo bo) throws FebsException {
+    public void updateException(PretTransExceptionHandleRecord bo) throws FebsException {
         try {
-            this.service.handle(bo);
+            this.service.updateException(bo);
         } catch (Exception e) {
             throw new FebsException(message);
         }
