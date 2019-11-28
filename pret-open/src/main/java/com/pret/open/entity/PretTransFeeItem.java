@@ -39,7 +39,6 @@ public class PretTransFeeItem extends VersionedAuditableIdEntity implements Seri
     public String getId() {
         return id;
     }
-
     /**
      * 供应商id
      */
@@ -53,33 +52,21 @@ public class PretTransFeeItem extends VersionedAuditableIdEntity implements Seri
     private String transFeeId;
 
     /**
-     * 1运费2罚款3赔款
+     * 费用类别
      */
     @ExcelField(value = "状态", writeConverterExp = "1=运费,2=罚款,3=赔款")
-    private Integer type;
-
-    /**
-     * 运输计划id
-     */
-    @ExcelField(value = "总金额")
-    private String transPlanId;
-
-    /**
-     * 计费数量
-     */
-    @ExcelField(value = "总金额")
-    private Integer quotationCount;
+    private String feeTypeId;
 
     /**
      * 单价
      */
-    @ExcelField(value = "总金额")
+    @ExcelField(value = "单价")
     private BigDecimal unitPrice;
 
     /**
      * 金额
      */
-    @ExcelField(value = "总金额")
+    @ExcelField(value = "金额")
     private BigDecimal quotation;
 
     /**

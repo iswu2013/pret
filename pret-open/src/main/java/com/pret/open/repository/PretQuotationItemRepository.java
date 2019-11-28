@@ -44,4 +44,14 @@ public interface PretQuotationItemRepository extends BaseRepository<PretQuotatio
      * @Date: 2019/11/9  8:36 上午
      */
     List<PretQuotationItem> findByVenderIdAndS(String venderId, Integer s);
+
+    /* *
+     * 功能描述: 根据供应商，服务线路id和状态查询
+     * 〈〉
+     * @Param: [venderId, serviceRouteItemId, s]
+     * @Return: java.util.List<com.pret.open.entity.PretQuotationItem>
+     * @Author: wujingsong
+     * @Date: 2019/11/28  9:42 上午
+     */
+    List<PretQuotationItem> findByVenderIdAndServiceRouteItemIdAndS(String venderId, String serviceRouteItemId, Integer s);
 }
