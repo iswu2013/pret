@@ -4,14 +4,9 @@ import com.pret.api.rest.BaseManageController;
 import com.pret.common.annotation.Log;
 import com.pret.common.constant.ConstantEnum;
 import com.pret.common.exception.FebsException;
-import com.pret.open.entity.PretCustomer;
-import com.pret.open.entity.PretTransFee;
-import com.pret.open.entity.PretTransPlan;
-import com.pret.open.entity.PretVender;
+import com.pret.open.entity.*;
 import com.pret.open.entity.vo.PretTransFeeVo;
-import com.pret.open.repository.PretCustomerRepository;
-import com.pret.open.repository.PretTransPlanRepository;
-import com.pret.open.repository.PretVenderRepository;
+import com.pret.open.repository.*;
 import com.pret.open.service.PretTransFeeService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -36,6 +31,10 @@ public class PretTransFeeController extends BaseManageController<PretTransFeeSer
     private PretCustomerRepository pretCustomerRepository;
     @Autowired
     private PretTransPlanRepository pretTransPlanRepository;
+    @Autowired
+    private PretTransFeeItemRepository pretTransFeeItemRepository;
+    @Autowired
+    private PretFeeTypeRepository pretFeeTypeRepository;
 
     @GetMapping
     @Override()
@@ -72,6 +71,12 @@ public class PretTransFeeController extends BaseManageController<PretTransFeeSer
     public PretTransFee view(@PathVariable String id) throws FebsException {
         try {
             PretTransFee item = this.service.findById(id).get();
+            List<PretTransFeeItem> pretTransFeeItemList = pretTransFeeItemRepository.findByTransFeeIdAndS(item.getId(), ConstantEnum.S.N.getLabel());
+            for (PretTransFeeItem pretTransFeeItem : pretTransFeeItemList) {
+                PretFeeType pretFeeType = pretFeeTypeRepository.findById(pretTransFeeItem.getFeeTypeId()).get();
+                pretTransFeeItem.setPretFeeType(pretFeeType);
+            }
+            item.setPretTransFeeItemList(pretTransFeeItemList);
             return item;
         } catch (Exception e) {
             message = "查看失败";

@@ -6,10 +6,7 @@ import com.wuwenze.poi.annotation.ExcelField;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
@@ -78,5 +75,19 @@ public class PretTransFeeItem extends VersionedAuditableIdEntity implements Seri
      */
     private String createBy;
 
+    private Float quotationCount;
+
+    private PretFeeType pretFeeType;
+
     // setter and getter
+
+
+    @Transient()
+    public PretFeeType getPretFeeType() {
+        return pretFeeType;
+    }
+
+    public void setPretFeeType(PretFeeType pretFeeType) {
+        this.pretFeeType = pretFeeType;
+    }
 }

@@ -44,6 +44,4 @@ public interface PretServiceRouteItemRepository extends BaseRepository<PretServi
      * @Date: 2019/11/12  2:22 上午
      */
     List<PretServiceRouteItem> findByIdInAndS(List<String> idList, Integer s);
-
-    PretServiceRouteItem findByVenderIdAnd(List<String> idList, Integer s);
 }

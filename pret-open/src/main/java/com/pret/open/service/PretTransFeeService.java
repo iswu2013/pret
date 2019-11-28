@@ -141,21 +141,21 @@ public class PretTransFeeService extends BaseServiceImpl<PretTransFeeRepository,
                 if (pretBillingIntervalItem.getUnit() == ConstantEnum.EUnit.公斤.getLabel()) {
                     PretFeeType pretFeeType = pretFeeTypeRepository.findById(pretQuotationItem.getFeeTypeId()).get();
                     if (pretFeeType.getType() == ConstantEnum.ECostType.量.getLabel()) {
-                        pretTransFee.setQuotation(pretQuotationItem.getQuotation().multiply(new BigDecimal(totalGw)).setScale(2, BigDecimal.ROUND_HALF_UP));
-                        pretTransFee.setQuotationCount(totalGw);
+                        pretTransFeeItem.setQuotation(pretQuotationItem.getQuotation().multiply(new BigDecimal(totalGw)).setScale(2, BigDecimal.ROUND_HALF_UP));
+                        pretTransFeeItem.setQuotationCount(totalGw);
                     } else {
-                        pretTransFee.setQuotation(pretQuotationItem.getQuotation());
-                        pretTransFee.setQuotationCount(1f);
+                        pretTransFeeItem.setQuotation(pretQuotationItem.getQuotation());
+                        pretTransFeeItem.setQuotationCount(1f);
                     }
                 } else {
                     PretFeeType pretFeeType = pretFeeTypeRepository.findById(pretQuotationItem.getFeeTypeId()).get();
                     if (pretFeeType.getType() == ConstantEnum.ECostType.量.getLabel()) {
-                        pretTransFee.setQuotationCount(totalGw);
+                        pretTransFeeItem.setQuotationCount(totalGw);
                         BigDecimal tun = new BigDecimal(totalGw).divide(new BigDecimal(10000)).setScale(2, BigDecimal.ROUND_HALF_UP);
-                        pretTransFee.setQuotation(pretQuotationItem.getQuotation().multiply(tun).setScale(2, BigDecimal.ROUND_HALF_UP));
+                        pretTransFeeItem.setQuotation(pretQuotationItem.getQuotation().multiply(tun).setScale(2, BigDecimal.ROUND_HALF_UP));
                     } else {
-                        pretTransFee.setQuotation(pretQuotationItem.getQuotation());
-                        pretTransFee.setQuotationCount(1f);
+                        pretTransFeeItem.setQuotation(pretQuotationItem.getQuotation());
+                        pretTransFeeItem.setQuotationCount(1f);
                     }
                 }
                 pretTransFeeItem.setFeeTypeId(pretQuotationItem.getFeeTypeId());

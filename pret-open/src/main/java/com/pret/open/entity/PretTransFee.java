@@ -9,6 +9,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * <p>Description: 运输费用</p>
@@ -110,6 +111,8 @@ public class PretTransFee extends VersionedAuditableIdEntity implements Serializ
 
     private PretServiceRouteOrigin pretServiceRouteOrigin;
 
+    private List<PretTransFeeItem> pretTransFeeItemList;
+
     // setter and getter
 
     @Transient()
@@ -146,5 +149,14 @@ public class PretTransFee extends VersionedAuditableIdEntity implements Serializ
 
     public void setPretServiceRouteOrigin(PretServiceRouteOrigin pretServiceRouteOrigin) {
         this.pretServiceRouteOrigin = pretServiceRouteOrigin;
+    }
+
+    @Transient()
+    public List<PretTransFeeItem> getPretTransFeeItemList() {
+        return pretTransFeeItemList;
+    }
+
+    public void setPretTransFeeItemList(List<PretTransFeeItem> pretTransFeeItemList) {
+        this.pretTransFeeItemList = pretTransFeeItemList;
     }
 }
