@@ -245,6 +245,8 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
 
     private String rejectReason;
 
+    private String serviceRouteItemId;
+
     /**
      * 供应商
      */

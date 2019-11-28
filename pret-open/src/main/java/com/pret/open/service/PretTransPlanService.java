@@ -140,6 +140,7 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
         transPlan.setServiceRouteOriginName(transOrder.getServiceRouteOriginName());
         transPlan.setServiceRouteOriginId(transOrder.getServiceRouteOriginId());
         transPlan.setServiceRouteOriginAddress(transOrder.getServiceRouteOriginAddress());
+        transPlan.setServiceRouteItemId(transOrder.getServiceRouteItemId());
         transPlan.setGw(gw);
         transPlan.setDeliveryDate(transOrder.getDeliveryDate());
         this.repository.save(transPlan);

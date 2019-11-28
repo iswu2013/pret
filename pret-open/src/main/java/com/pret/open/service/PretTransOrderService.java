@@ -217,7 +217,9 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
                     for (PretTransOrder pretTransOrder : pretTransOrderList) {
                         pretTransOrder.setVenderId(item.getVenderId());
                         pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.待提货.getLabel());
+                        pretTransOrder.setServiceRouteItemId(item.getId());
                     }
+                    transOrder.setServiceRouteItemId(item.getId());
                     transOrder.setStatus(ConstantEnum.ETransOrderStatus.待提货.getLabel());
                     this.repository.saveAll(pretTransOrderList);
                 }
