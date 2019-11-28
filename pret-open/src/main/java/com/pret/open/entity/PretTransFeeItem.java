@@ -1,6 +1,7 @@
 package com.pret.open.entity;
 
 import com.pret.common.VersionedAuditableIdEntity;
+import com.pret.common.constant.ConstantEnum;
 import com.wuwenze.poi.annotation.Excel;
 import com.wuwenze.poi.annotation.ExcelField;
 import lombok.Data;
@@ -36,6 +37,7 @@ public class PretTransFeeItem extends VersionedAuditableIdEntity implements Seri
     public String getId() {
         return id;
     }
+
     /**
      * 供应商id
      */
@@ -76,6 +78,11 @@ public class PretTransFeeItem extends VersionedAuditableIdEntity implements Seri
     private String createBy;
 
     private Float quotationCount;
+
+    /**
+     * 计费类别0自动计费1手动计费
+     */
+    private Integer calType = ConstantEnum.ECalType.自动计费.getLabel();
 
     private PretFeeType pretFeeType;
 

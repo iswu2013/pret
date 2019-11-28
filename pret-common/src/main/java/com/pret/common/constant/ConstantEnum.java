@@ -1177,5 +1177,32 @@ public class ConstantEnum {
         }
     }
 
+    /* *
+     * 功能描述: 计费类别
+     * 〈〉
+     * @Param:
+     * @Return:
+     * @Author: wujingsong
+     * @Date: 2019/11/28  10:04 下午
+     */
+    public enum ECalType {
+        自动计费(0),
+        手动计费(1);
+        private int label;
+
+        ECalType(int label) {
+            this.setLabel(label);
+        }
+
+        //省略getter、setter方法
+        public int getLabel() {
+            return label;
+        }
+
+        public void setLabel(int label) {
+            this.label = label;
+        }
+    }
+
 
 }
