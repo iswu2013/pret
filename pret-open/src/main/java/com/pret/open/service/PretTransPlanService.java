@@ -112,55 +112,72 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
      * @Date: 2019/10/4  2:01 下午
      */
     public void pretTransPlanAdd(PretTransPlanBo bo) {
-        String[] idArr = bo.getIds().split(",");
-        PretTransPlan transPlan = this.genDefaultPretTransPlan(null, null);
-        BeanUtilsExtended.copyProperties(transPlan, bo);
-        PretTransOrder transOrder = null;
-        String venderId = StringUtils.EMPTY;
-        int count = 0;
-        Float gw = 0.0f;
-        for (String id : idArr) {
+        List<String> idList = StringUtil.idsStr2ListString(bo.getIds());
+
+        // 将配送任务单分组
+        Map<String, List<PretTransOrder>> map = new HashMap<>();
+        for (String id : idList) {
             PretTransOrder pretTransOrder = pretTransOrderRepository.findById(id).get();
-            pretTransOrder.setTransPlanId(transPlan.getId());
-            pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.完成提货.getLabel());
-            pretTransOrderRepository.save(pretTransOrder);
-            if (transOrder == null) {
-                transOrder = pretTransOrder;
-            }
-            if (StringUtils.isEmpty(venderId)) {
-                venderId = pretTransOrder.getVenderId();
-            }
-            gw += pretTransOrder.getGw();
-        }
-        transPlan.setCustomerId(transOrder.getCustomerId());
-        transPlan.setVenderId(venderId);
-        transPlan.setStatus(ConstantEnum.ETransPlanStatus.运输中.getValue());
-        transPlan.setGoodsNum(count);
-        transPlan.setCustomerDetailAddress(transOrder.getCustomerDetailAddress());
-        transPlan.setServiceRouteOriginName(transOrder.getServiceRouteOriginName());
-        transPlan.setServiceRouteOriginId(transOrder.getServiceRouteOriginId());
-        transPlan.setServiceRouteOriginAddress(transOrder.getServiceRouteOriginAddress());
-        transPlan.setServiceRouteItemId(transOrder.getServiceRouteItemId());
-        transPlan.setGw(gw);
-        transPlan.setDeliveryDate(transOrder.getDeliveryDate());
-        this.repository.save(transPlan);
-
-        // 设置提货计划状态
-        String[] pickUpArr = bo.getPickUpIds().split(",");
-        for (String pickUp : pickUpArr) {
-            PretPickUpPlan pretPickUpPlan = pretPickUpPlanRepository.findById(pickUp).get();
-            List<PretTransOrder> transOrderList = pretTransOrderRepository.findByTransPlanIdAndStatusAndS(pickUp, ConstantEnum.ETransOrderStatus.完成提货.getLabel(), ConstantEnum.S.N.getLabel());
-            if (transOrderList != null && transOrderList.size() > 0) {
-                pretPickUpPlan.setStatus(ConstantEnum.EPretPickUpPlanStatus.部分完成.getLabel());
+            String dateStr = Constants.dfyyyyMMdd.format(pretTransOrder.getDeliveryDate());
+            String key = pretTransOrder.getServiceRouteOriginId() + pretTransOrder.getCustomerDetailAddress() + dateStr;
+            if (map.containsKey(key)) {
+                map.get(key).add(pretTransOrder);
             } else {
-                pretPickUpPlan.setStatus(ConstantEnum.EPretPickUpPlanStatus.已完成.getLabel());
+                List<PretTransOrder> transOrderList = new ArrayList<>();
+                transOrderList.add(pretTransOrder);
+                map.put(key, transOrderList);
             }
-            pretPickUpPlan.setEndTime(new Date());
-            pretPickUpPlanRepository.save(pretPickUpPlan);
         }
 
-        // 生产顺丰单号
-        this.genSfMailno(transPlan);
+        for (Map.Entry<String, List<PretTransOrder>> item : map.entrySet()) {
+            PretTransPlan transPlan = this.genDefaultPretTransPlan(null, null);
+            BeanUtilsExtended.copyProperties(transPlan, bo);
+            PretTransOrder transOrder = null;
+            String venderId = StringUtils.EMPTY;
+            int count = 0;
+            Float gw = 0.0f;
+            for (PretTransOrder pretTransOrder : item.getValue()) {
+                pretTransOrder.setTransPlanId(transPlan.getId());
+                pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.完成提货.getLabel());
+                pretTransOrderRepository.save(pretTransOrder);
+                if (transOrder == null) {
+                    transOrder = pretTransOrder;
+                }
+                if (StringUtils.isEmpty(venderId)) {
+                    venderId = pretTransOrder.getVenderId();
+                }
+                gw += pretTransOrder.getGw();
+            }
+            transPlan.setCustomerId(transOrder.getCustomerId());
+            transPlan.setVenderId(venderId);
+            transPlan.setStatus(ConstantEnum.ETransPlanStatus.运输中.getValue());
+            transPlan.setGoodsNum(count);
+            transPlan.setCustomerDetailAddress(transOrder.getCustomerDetailAddress());
+            transPlan.setServiceRouteOriginName(transOrder.getServiceRouteOriginName());
+            transPlan.setServiceRouteOriginId(transOrder.getServiceRouteOriginId());
+            transPlan.setServiceRouteOriginAddress(transOrder.getServiceRouteOriginAddress());
+            transPlan.setServiceRouteItemId(transOrder.getServiceRouteItemId());
+            transPlan.setGw(gw);
+            transPlan.setDeliveryDate(transOrder.getDeliveryDate());
+            this.repository.save(transPlan);
+
+            // 设置提货计划状态
+            String[] pickUpArr = bo.getPickUpIds().split(",");
+            for (String pickUp : pickUpArr) {
+                PretPickUpPlan pretPickUpPlan = pretPickUpPlanRepository.findById(pickUp).get();
+                List<PretTransOrder> transOrderList = pretTransOrderRepository.findByTransPlanIdAndStatusAndS(pickUp, ConstantEnum.ETransOrderStatus.完成提货.getLabel(), ConstantEnum.S.N.getLabel());
+                if (transOrderList != null && transOrderList.size() > 0) {
+                    pretPickUpPlan.setStatus(ConstantEnum.EPretPickUpPlanStatus.部分完成.getLabel());
+                } else {
+                    pretPickUpPlan.setStatus(ConstantEnum.EPretPickUpPlanStatus.已完成.getLabel());
+                }
+                pretPickUpPlan.setEndTime(new Date());
+                pretPickUpPlanRepository.save(pretPickUpPlan);
+            }
+
+            // 生产顺丰单号
+            this.genSfMailno(transPlan);
+        }
     }
 
     /* *
