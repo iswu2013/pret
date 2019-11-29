@@ -189,9 +189,6 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
      * @Date: 2019/10/4  3:16 下午
      */
     public void sign(PretTransPlanSignBo bo) throws FebsException {
-        // 计算费用
-        pretTransFeeService.calFee(bo);
-
         // 异常单生成
         if (bo.isHasException()) {
             PretTransPlan pretTransPlan = this.repository.findById(bo.getId()).get();
@@ -219,7 +216,14 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
             }
             pretTransException.setRejectCount(count);
             pretTransExceptionRepository.save(pretTransException);
+            pretTransPlan.setTransExceptionId(pretTransException.getId());
+            pretTransPlanRepository.save(pretTransPlan);
         }
+
+        // 计算费用
+        pretTransFeeService.calFee(bo);
+
+
     }
 
     /* *
@@ -356,8 +360,8 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
         for (PretTransFee pretTransFee : pretTransFeeList) {
             PretTransPlan pretTransPlan = this.repository.findById(pretTransFee.getTransPlanId()).get();
             if (!StringUtils.isEmpty(pretTransPlan.getTransExceptionId())) {
-                PretTransException pretTransException = pretTransExceptionRepository.findById(pretTransPlan.getServiceRouteOriginId()).get();
-                if (pretTransException.getStatus() == ConstantEnum.ETransExceptionStatus.已结案.getLabel()) {
+                PretTransException pretTransException = pretTransExceptionRepository.findById(pretTransPlan.getTransExceptionId()).get();
+                if (pretTransException.getStatus() != ConstantEnum.ETransExceptionStatus.已结案.getLabel()) {
                     message += pretTransFee.getNo() + "存在未结案的异常;";
                 }
             }

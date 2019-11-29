@@ -112,6 +112,8 @@ public class PretTransStatement extends VersionedAuditableIdEntity implements Se
 
     private List<PretTransPlan> pretTransPlanList;
 
+    private List<PretTransFeeItem> pretTransFeeItemList;
+
     // setter and getter
 
     @Transient()
@@ -139,5 +141,14 @@ public class PretTransStatement extends VersionedAuditableIdEntity implements Se
 
     public void setPretTransPlanList(List<PretTransPlan> pretTransPlanList) {
         this.pretTransPlanList = pretTransPlanList;
+    }
+
+    @Transient()
+    public List<PretTransFeeItem> getPretTransFeeItemList() {
+        return pretTransFeeItemList;
+    }
+
+    public void setPretTransFeeItemList(List<PretTransFeeItem> pretTransFeeItemList) {
+        this.pretTransFeeItemList = pretTransFeeItemList;
     }
 }

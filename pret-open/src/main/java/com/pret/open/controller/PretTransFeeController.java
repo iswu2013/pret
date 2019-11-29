@@ -5,6 +5,8 @@ import com.pret.common.annotation.Log;
 import com.pret.common.constant.ConstantEnum;
 import com.pret.common.exception.FebsException;
 import com.pret.open.entity.*;
+import com.pret.open.entity.bo.PretTransFeeBo;
+import com.pret.open.entity.bo.PretTransPlanSignBo;
 import com.pret.open.entity.vo.PretTransFeeVo;
 import com.pret.open.repository.*;
 import com.pret.open.service.PretTransFeeService;
@@ -81,6 +83,16 @@ public class PretTransFeeController extends BaseManageController<PretTransFeeSer
         } catch (Exception e) {
             message = "查看失败";
             throw new FebsException(message);
+        }
+    }
+
+    @Log("编辑费用")
+    @PostMapping("/editTransFee")
+    public void editTransFee(PretTransFeeBo bo) throws FebsException {
+        try {
+            this.service.editTransFee(bo);
+        } catch (Exception e) {
+            throw new FebsException(e.getMessage());
         }
     }
 

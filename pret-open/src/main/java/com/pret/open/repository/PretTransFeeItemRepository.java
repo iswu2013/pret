@@ -22,4 +22,14 @@ public interface PretTransFeeItemRepository extends BaseRepository<PretTransFeeI
             * @Date: 2019/11/28  8:54 下午
      */
     List<PretTransFeeItem> findByTransFeeIdAndS(String transFeeId,Integer s);
+    
+    /* *
+     * 功能描述: <br>
+     * 〈〉
+     * @Param: [calType, idList, s]
+            * @Return: java.util.List<com.pret.open.entity.PretTransFeeItem>
+            * @Author: wujingsong
+            * @Date: 2019/11/29  5:47 上午
+     */
+    List<PretTransFeeItem> findByCalTypeAndIdNotInAndS(Integer calType,List<String> idList,Integer s);
 }
