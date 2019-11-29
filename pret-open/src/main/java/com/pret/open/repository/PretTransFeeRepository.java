@@ -33,4 +33,14 @@ public interface PretTransFeeRepository extends BaseRepository<PretTransFee> {
      * @Date: 2019/11/27  11:58 下午
      */
     List<PretTransFee> findByIdIn(List<String> idList);
+
+    /* *
+     * 功能描述: <br>
+     * 〈〉
+     * @Param: [statementId, s]
+            * @Return: java.util.List<com.pret.open.entity.PretTransFee>
+            * @Author: wujingsong
+            * @Date: 2019/11/29  9:21 上午
+     */
+    List<PretTransFee> findByTransStatementIdAndS(String statementId,Integer s);
 }

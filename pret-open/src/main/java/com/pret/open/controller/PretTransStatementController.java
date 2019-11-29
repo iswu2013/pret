@@ -77,12 +77,14 @@ public class PretTransStatementController extends BaseManageController<PretTrans
                 item.setPretCurrency(pretCurrency);
             }
 
-            List<PretTransPlan> pretTransPlanList = pretTransPlanRepository.findByTransStatementIdAndS(item.getId(), ConstantEnum.S.N.getLabel());
-            for(PretTransPlan pretTransPlan:pretTransPlanList) {
-                PretCustomer pretCustomer = pretCustomerRepository.findById(pretTransPlan.getCustomerId()).get();
-                pretTransPlan.setPretCustomer(pretCustomer);
-            }
-            item.setPretTransPlanList(pretTransPlanList);
+//            List<PretTransPlan> pretTransPlanList = pretTransPlanRepository.findByTransStatementIdAndS(item.getId(), ConstantEnum.S.N.getLabel());
+//            for(PretTransPlan pretTransPlan:pretTransPlanList) {
+//                PretCustomer pretCustomer = pretCustomerRepository.findById(pretTransPlan.getCustomerId()).get();
+//                pretTransPlan.setPretCustomer(pretCustomer);
+//            }
+//            item.setPretTransPlanList(pretTransPlanList);
+            List<PretTransFee> pretTransFeeList = pretTransFeeRepository.findByTransStatementIdAndS(id, ConstantEnum.S.N.getLabel());
+            item.setPretTransFeeList(pretTransFeeList);
 
             return item;
         } catch (Exception e) {
