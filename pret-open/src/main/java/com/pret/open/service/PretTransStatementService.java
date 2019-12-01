@@ -48,6 +48,10 @@ public class PretTransStatementService extends BaseServiceImpl<PretTransStatemen
     private PretTransOrderRepository transOrderRepository;
     @Autowired
     private PretTransPlanRepository transPlanRepository;
+    @Autowired
+    private PretTransFeeRepository pretTransFeeRepository;
+    @Autowired
+    private PretTransPlanRepository pretTransPlanRepository;
 
     public PretTransStatement genDefaultPretPickUpPlan(String no, String tail) {
         Date date = DateUtils.truncate(new Date(), Calendar.DATE);
@@ -132,5 +136,44 @@ public class PretTransStatementService extends BaseServiceImpl<PretTransStatemen
             transStatement.setStatus(ConstantEnum.ETransStatementStatus.供应商已确认.getLabel());
             transStatementRepository.save(transStatement);
         }
+    }
+
+    /* *
+     * 功能描述: 编辑对账作业
+     * 〈〉
+     * @Param: [bo]
+     * @Return: void
+     * @Author: wujingsong
+     * @Date: 2019/11/29  10:36 上午
+     */
+    public void editTransStatement(PretTransStatementBo bo) {
+        PretTransStatement transStatement = this.repository.findById(bo.getId()).get();
+
+        List<PretTransFee> pretTransFeeList = pretTransFeeRepository.findByTransStatementIdAndS(transStatement.getId(), ConstantEnum.S.N.getLabel());
+        for (PretTransFee transFee : pretTransFeeList) {
+            transFee.setTransStatementId(null);
+            pretTransFeeRepository.save(transFee);
+            PretTransPlan pretTransPlan = transPlanRepository.findById(transFee.getTransPlanId()).get();
+            pretTransPlan.setTransStatementId(null);
+            pretTransPlanRepository.save(pretTransPlan);
+        }
+
+        String[] idArr = bo.getIds().split(",");
+        BigDecimal totalAmount = BigDecimal.ZERO;
+        for (String id : idArr) {
+            PretTransFee transFee = transFeeRepository.findById(id).get();
+            transFee.setTransStatementId(transStatement.getId());
+            transFee.setStatus(ConstantEnum.EPretTransFeeStatus.通过.getLabel());
+            transFeeRepository.save(transFee);
+            totalAmount = totalAmount.add(transFee.getQuotation());
+
+            PretTransPlan pretTransPlan = transPlanRepository.findById(transFee.getTransPlanId()).get();
+            pretTransPlan.setTransStatementId(transStatement.getId());
+            transPlanRepository.save(pretTransPlan);
+        }
+
+        transStatement.setTotalAmount(totalAmount);
+        transStatement.setRealAmount(totalAmount);
+        this.repository.save(transStatement);
     }
 }

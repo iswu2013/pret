@@ -7,13 +7,10 @@ import com.google.common.reflect.TypeToken;
 import com.pret.api.vo.ResBody;
 import com.pret.common.constant.CommonConstants;
 import com.pret.common.constant.ConstantEnum;
-import com.pret.common.constant.Constants;
 import com.pret.common.exception.BusinessException;
 import com.pret.common.util.BeanUtilsExtended;
-import com.pret.common.util.StringUtil;
 import com.pret.open.constant.OpenBEEnum;
 import com.pret.open.entity.*;
-import com.pret.open.entity.bo.AddressBo;
 import com.pret.open.entity.bo.PretMTransOrderBo;
 import com.pret.open.entity.bo.PretMTransOrderItemBo;
 import com.pret.open.entity.bo.PretPickUpPlanBo;
@@ -22,13 +19,10 @@ import com.pret.open.repository.*;
 import com.pret.open.vo.req.*;
 import com.pret.api.service.impl.BaseServiceImpl;
 import com.pret.open.vo.res.PR1000000Vo;
-import com.pret.open.vo.res.PR8000004Vo;
-import com.pret.open.vo.res.PR8000005Vo;
+import com.pret.open.vo.res.PR1000006Vo;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -255,7 +249,7 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
      * @Date: 2019/11/21  11:59 上午
      */
     public ResBody deleteOrder(P1000005Vo res) {
-        PR8000005Vo retVo = new PR8000005Vo();
+        PR1000006Vo retVo = new PR1000006Vo();
 
         PretTransOrder pretTransOrder = this.repository.findBySourceCodeAndS(res.getSourceCode(), ConstantEnum.S.N.getLabel());
         this.lDelete(pretTransOrder.getId());

@@ -18,7 +18,7 @@ import java.util.List;
  * Copyright (c) 2019年 极客城堡
  */
 @Entity
-@Table(name = "pret_address")
+@Table(name = "pret_addresss")
 @Excel("地址")
 @Data
 public class PretAddress extends VersionedAuditableIdEntity implements Serializable {
@@ -35,6 +35,8 @@ public class PretAddress extends VersionedAuditableIdEntity implements Serializa
     public String getId() {
         return id;
     }
+
+    private String ids;
 
     /**
      * 地址名称

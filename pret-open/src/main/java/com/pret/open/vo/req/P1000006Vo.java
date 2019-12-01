@@ -4,7 +4,7 @@ import com.pret.api.vo.ReqBody;
 import lombok.Data;
 
 /**
- * Description: 获取司机详情
+ * Description: 删除订单
  * Created on 2019年09月15日
  *
  * @author <a href="mailto: 1037216275@qq.com">wujinsong</a>
@@ -12,6 +12,8 @@ import lombok.Data;
  * Copyright (c) 2019年 极客城堡
  */
 @Data
-public class P8000005Vo extends ReqBody {
-    private String code;
+public class P1000006Vo extends ReqBody {
+    private String sessionKey;
+    private String encrypdata;
+    private String ivdata;
 }

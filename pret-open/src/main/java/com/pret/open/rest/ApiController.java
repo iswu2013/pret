@@ -32,6 +32,8 @@ public class ApiController extends BaseController {
 //        UN_LOGIN_MAP.put(InterfaceConfig.HMallGoodsDetail,InterfaceConfig.HMallGoodsDetail);
 
         UN_LOGIN_MAP.put(InterfaceConfig.H1000000, InterfaceConfig.H1000000);
+        UN_LOGIN_MAP.put(InterfaceConfig.H1000006, InterfaceConfig.H1000006);
+        UN_LOGIN_MAP.put(InterfaceConfig.H8000005, InterfaceConfig.H8000005);
     }
 
     @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST})

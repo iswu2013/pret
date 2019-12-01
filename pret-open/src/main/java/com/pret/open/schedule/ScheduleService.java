@@ -29,6 +29,18 @@ public class ScheduleService {
     @Autowired
     private PretAddressRepository pretAddressRepository;
     private boolean hasExecute = false;
+    @Autowired
+    private PretBaseProvinceRepository pretBaseProvinceRepository;
+    @Autowired
+    private PretBaseProvinceTrlRepository pretBaseProvinceTrlRepository;
+    @Autowired
+    private PretBaseCityRepository pretBaseCityRepository;
+    @Autowired
+    private PretBaseCityTrlRepository pretBaseCityTrlRepository;
+    @Autowired
+    private PretBaseCountyRepository pretBaseCountyRepository;
+    @Autowired
+    private PretBaseCountyTrlRepository pretBaseCountyTrlRepository;
 
     //@Scheduled(cron = "0 */5 * * * ?")
     public void autoDeleteLunch() {
@@ -60,7 +72,7 @@ public class ScheduleService {
     }
 
     // 加上全省全市
-//    @Scheduled(cron = "0 */1 * * * ?")
+    //@Scheduled(cron = "0 */1 * * * ?")
     public void autoAddPretAddress() {
         if (!hasExecute) {
             this.hasExecute = true;
@@ -89,6 +101,59 @@ public class ScheduleService {
 
                 pretAddressRepository.save(address);
             }
+        }
+    }
+
+    //@Scheduled(cron = "0 */1 * * * ?")
+    public void getAdderss() {
+        try {
+            if (!hasExecute) {
+                this.hasExecute = true;
+                List<PretBaseProvince> pretBaseProvinceList = pretBaseProvinceRepository.findByCountry("1000703050000023");
+                for (PretBaseProvince pretBaseProvince : pretBaseProvinceList) {
+                    PretBaseProvinceTrl pretBaseProvinceTrl = pretBaseProvinceTrlRepository.findByIdAndSysmiflag(pretBaseProvince.getId(), "zh-CN");
+                    PretAddress pretAddress = new PretAddress();
+                    pretAddress.setValue(pretBaseProvince.getCode());
+                    pretAddress.setId(pretBaseProvince.getId());
+                    pretAddress.setIds(pretBaseProvince.getId());
+                    pretAddress.setName(pretBaseProvinceTrl.getName());
+                    pretAddress.setLevels(ConstantEnum.AreaLevelEnum.省.getLabel());
+                    pretAddress.setAdds(0);
+                    pretAddressRepository.save(pretAddress);
+
+                    List<PretBaseCity> pretBaseCityList = pretBaseCityRepository.findByProvince(pretBaseProvince.getId());
+                    for (PretBaseCity pretBaseCity : pretBaseCityList) {
+                        PretBaseCityTrl pretBaseCityTrl = pretBaseCityTrlRepository.findByIdAndSysmiflag(pretBaseCity.getId(), "zh-CN");
+                        pretAddress = new PretAddress();
+                        pretAddress.setValue(pretBaseCity.getCode());
+                        pretAddress.setId(pretBaseCity.getId());
+                        pretAddress.setIds(pretBaseCity.getId());
+                        pretAddress.setName(pretBaseCityTrl.getName());
+                        pretAddress.setLevels(ConstantEnum.AreaLevelEnum.市.getLabel());
+                        pretAddress.setParentName(pretBaseProvinceTrl.getName());
+                        pretAddress.setParentId(pretBaseProvinceTrl.getId());
+                        pretAddress.setAdds(0);
+                        pretAddressRepository.save(pretAddress);
+
+                        List<PretBaseCounty> pretBaseCountyList = pretBaseCountyRepository.findByCity(pretBaseCity.getId());
+                        for (PretBaseCounty pretBaseCounty : pretBaseCountyList) {
+                            PretBaseCountyTrl pretBaseCountyTrl = pretBaseCountyTrlRepository.findByIdAndSysmiflag(pretBaseCounty.getId(), "zh-CN");
+                            pretAddress = new PretAddress();
+                            pretAddress.setValue(pretBaseCounty.getCode());
+                            pretAddress.setId(pretBaseCounty.getId());
+                            pretAddress.setIds(pretBaseCounty.getId());
+                            pretAddress.setName(pretBaseCountyTrl.getName());
+                            pretAddress.setLevels(ConstantEnum.AreaLevelEnum.区县.getLabel());
+                            pretAddress.setParentName(pretBaseCityTrl.getName());
+                            pretAddress.setParentId(pretBaseCityTrl.getId());
+                            pretAddress.setAdds(0);
+                            pretAddressRepository.save(pretAddress);
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 }

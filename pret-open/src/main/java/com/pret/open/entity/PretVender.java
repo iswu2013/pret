@@ -74,6 +74,7 @@ public class PretVender extends VersionedAuditableIdEntity implements Serializab
     /**
      * 价格明细配置
      */
+    @Column(length = 8255)
     private String pretQuotationItemStr;
 
     private BigDecimal unitPrice;

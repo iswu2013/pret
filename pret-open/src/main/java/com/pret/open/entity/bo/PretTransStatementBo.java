@@ -22,6 +22,13 @@ import java.math.BigDecimal;
  */
 @Data
 public class PretTransStatementBo {
+    /**
+     * 对账单id
+     */
+    private String id;
+    /**
+     * 运输费用id
+     */
     private String ids;
 
     /**

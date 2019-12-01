@@ -125,21 +125,25 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
         pretPickUpPlan.setServiceRouteOriginId(serviceRouteOriginId);
 
         // 生成二维码
-        QRCodeWriter qrCodeWriter = new QRCodeWriter();
-        String uuid = UUID.randomUUID().toString().replace("-", "");
-        String qrcode = ConstantEnum.NoTypeEnum.QR.name() + uuid;
-        String p = Constants.dfyyyyMMdd.format(new Date()) + "\\" + ConstantEnum.NoTypeEnum.QR.name() + uuid + ".png";
-        String urlP = Constants.dfyyyyMMdd.format(new Date()) + "/" + ConstantEnum.NoTypeEnum.QR.name() + uuid + ".png";
         try {
-            BitMatrix bitMatrix = qrCodeWriter.encode(qrcode, BarcodeFormat.QR_CODE, Constants.QR_WIDTH, Constants.QR_HEIGHT);
-            String fullPath = Constants.QR_ROOT_PATH + p;
-            MatrixToImageWriter.writeToPath(bitMatrix, "PNG", Paths.get(fullPath));
+            QRCodeWriter qrCodeWriter = new QRCodeWriter();
+            String uuid = UUID.randomUUID().toString().replace("-", "");
+            String qrcode = ConstantEnum.NoTypeEnum.QR.name() + uuid;
+            String p = Constants.dfyyyyMMdd.format(new Date()) + "\\" + ConstantEnum.NoTypeEnum.QR.name() + uuid + ".png";
+            String urlP = Constants.dfyyyyMMdd.format(new Date()) + "/" + ConstantEnum.NoTypeEnum.QR.name() + uuid + ".png";
+            try {
+                BitMatrix bitMatrix = qrCodeWriter.encode(qrcode, BarcodeFormat.QR_CODE, Constants.QR_WIDTH, Constants.QR_HEIGHT);
+                String fullPath = Constants.QR_ROOT_PATH + p;
+                MatrixToImageWriter.writeToPath(bitMatrix, "PNG", Paths.get(fullPath));
+            } catch (Exception e) {
+                throw new FebsException(e.getMessage());
+            }
+            pretPickUpPlan.setQrcode(qrcode);
+            pretPickUpPlan.setQrcodePath(p);
+            pretPickUpPlan.setQrcodeUrl(Constants.QR_ROOT_URL + urlP);
         } catch (Exception e) {
-            throw new FebsException(e.getMessage());
         }
-        pretPickUpPlan.setQrcode(qrcode);
-        pretPickUpPlan.setQrcodePath(p);
-        pretPickUpPlan.setQrcodeUrl(Constants.QR_ROOT_URL + urlP);
+
         this.repository.save(pretPickUpPlan);
     }
 

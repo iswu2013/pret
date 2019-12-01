@@ -104,6 +104,17 @@ public class PretTransStatementController extends BaseManageController<PretTrans
         }
     }
 
+    @Log("编辑对账作业")
+    @PostMapping("/editTransStatement")
+    public void editTransStatement(PretTransStatementBo bo) throws FebsException {
+        try {
+            this.service.editTransStatement(bo);
+        } catch (Exception e) {
+            message = "编辑对账作业失败";
+            throw new FebsException(message);
+        }
+    }
+
     @InitBinder
     protected void dateBinder(WebDataBinder binder) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
