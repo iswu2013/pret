@@ -46,7 +46,7 @@ public class User implements Serializable {
     @TableId(value = "id", type = IdType.UUID)
     private String id;
 
-    @Size(min = 4, max = 10, message = "{range}")
+    @Size(min = 4, max = 20, message = "{range}")
     @ExcelField(value = "用户名")
     private String username;
 

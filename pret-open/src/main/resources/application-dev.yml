@@ -80,6 +80,13 @@ wx:
         secret: 41c30ad3020cd82a6ea67353f144abf6
         token: xpx
         aesKey: x5BIUL0nSaR77Wv3YYfR8Bvh5tqjiAuoI3PTKAIqoZE
+  miniapp:
+    configs:
+      - appid: 323
+        secret: 544
+        token: 54354
+        aesKey: 65655
+        msgDataFormat: JSON
 sender:
   name: \u5E2D\u4E39
   phone: 18916528900

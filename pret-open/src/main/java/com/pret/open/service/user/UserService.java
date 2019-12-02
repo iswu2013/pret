@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.UUID;
 
 /**
  * Description: [t服务]
@@ -43,10 +44,11 @@ public class UserService extends BaseServiceImpl<UserRepository, User, UserVo> {
     public ResBody bindUser(P1000004Vo res) {
         PR1000004Vo retVo = new PR1000004Vo();
 
+        User user = this.repository.findByMobileAndUserTypeAndS(res.getPhone(), res.getType(), ConstantEnum.S.N.getLabel());
         if (res.getType() == ConstantEnum.EUserType.理货员.getLabel()) {
-            User user = this.repository.findByMobile(res.getPhone());
             if (user != null) {
-                user.setOpenid(res.getOpenid());
+                user.setOpenid(res.getOpenId());
+                user.setBinding(ConstantEnum.YesOrNo.是.getLabel());
                 this.repository.save(user);
             } else {
                 throw new BusinessException(OpenBEEnum.E90000003.name(), OpenBEEnum.E90000003.getMsg());
@@ -54,28 +56,35 @@ public class UserService extends BaseServiceImpl<UserRepository, User, UserVo> {
         } else if (res.getType() == ConstantEnum.EUserType.客户.getLabel()) {
             PretCustomer pretCustomer = pretCustomerRepository.findByLinkPhoneAndS(res.getPhone(), ConstantEnum.S.N.getLabel());
             if (pretCustomer != null) {
-                pretCustomer.setOpenid(res.getOpenid());
+                pretCustomer.setOpenid(res.getOpenId());
                 pretCustomerRepository.save(pretCustomer);
             } else {
                 throw new BusinessException(OpenBEEnum.E90000003.name(), OpenBEEnum.E90000003.getMsg());
             }
         } else if (res.getType() == ConstantEnum.EUserType.业务员.getLabel()) {
-            User user = this.repository.findByMobile(res.getPhone());
             if (user != null) {
-                user.setOpenid(res.getOpenid());
+                user.setOpenid(res.getOpenId());
+                user.setBinding(ConstantEnum.YesOrNo.是.getLabel());
                 this.repository.save(user);
             } else {
                 throw new BusinessException(OpenBEEnum.E90000003.name(), OpenBEEnum.E90000003.getMsg());
             }
         } else if (res.getType() == ConstantEnum.EUserType.门卫.getLabel()) {
-            User user = this.repository.findByMobile(res.getPhone());
             if (user != null) {
-                user.setOpenid(res.getOpenid());
+                user.setOpenid(res.getOpenId());
+                user.setBinding(ConstantEnum.YesOrNo.是.getLabel());
                 this.repository.save(user);
             } else {
                 throw new BusinessException(OpenBEEnum.E90000003.name(), OpenBEEnum.E90000003.getMsg());
             }
         }
+        user.setToken(UUID.randomUUID().toString().replace("-", ""));
+        retVo.setData(user);
+        retVo.setOpenId(user.getOpenid());
+        retVo.setToken(user.getToken());
+        retVo.setSessionKey(user.getSessionKey());
+        retVo.setUser(user);
+        this.repository.save(user);
 
         return retVo;
     }

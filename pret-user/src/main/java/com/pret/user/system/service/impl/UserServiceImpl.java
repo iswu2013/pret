@@ -10,6 +10,7 @@ import com.pret.common.domain.QueryRequest;
 import com.pret.common.utils.MD5Util;
 import com.pret.user.common.service.CacheService;
 import com.pret.user.common.utils.SortUtil;
+import com.pret.user.system.dao.RoleMapper;
 import com.pret.user.system.dao.UserMapper;
 import com.pret.user.system.dao.UserRoleMapper;
 import com.pret.user.system.domain.User;

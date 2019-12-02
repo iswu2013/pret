@@ -99,6 +99,11 @@ public class User extends VersionedAuditableIdEntity implements Serializable {
     private Integer userType;
 
     /**
+     * 是否已经绑定0否1是
+     */
+    private Integer binding;
+
+    /**
      * 父用户
      */
     private String parentId;
@@ -107,6 +112,13 @@ public class User extends VersionedAuditableIdEntity implements Serializable {
      * 供应商id
      */
     private String venderId;
+
+    /**
+     * token
+     */
+    private String token;
+
+    private String sessionKey;
 
     // setter and getter
 }

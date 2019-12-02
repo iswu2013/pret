@@ -79,7 +79,14 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
 
         // 客户
         PretMTransOrderBo bo = new PretMTransOrderBo();
-        PretAddress pretAddress = pretAddressRepository.findByValueAndS(res.getDestAreaCd(), ConstantEnum.S.N.getLabel());
+        PretAddress pretAddress = null;
+        if (!StringUtils.isEmpty(res.getDestAreaCd())) {
+            pretAddress = pretAddressRepository.findByValueAndLevelsAndS(res.getDestAreaCd(), ConstantEnum.AreaLevelEnum.区县.getLabel(), ConstantEnum.S.N.getLabel());
+        } else if (!StringUtils.isEmpty(res.getDestCityCd())) {
+            pretAddress = pretAddressRepository.findByValueAndLevelsAndS(res.getDestCityCd(), ConstantEnum.AreaLevelEnum.市.getLabel(), ConstantEnum.S.N.getLabel());
+        } else if (!StringUtils.isEmpty(res.getDestProvinceCd())) {
+            pretAddress = pretAddressRepository.findByValueAndLevelsAndS(res.getDestProvinceCd(), ConstantEnum.AreaLevelEnum.省.getLabel(), ConstantEnum.S.N.getLabel());
+        }
         bo.setAddressId(pretAddress.getId());
         bo.setCustomerAddress(res.getCustAddr());
         bo.setCustCd(res.getCustCd());
@@ -99,7 +106,22 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
         if (pretServiceRouteOrigin != null) {
             bo.setServiceRouteOriginId(pretServiceRouteOrigin.getId());
         } else {
-            throw new BusinessException(OpenBEEnum.E90000002.name(), OpenBEEnum.E90000002.getMsg());
+            PretAddress address = null;
+            if (!StringUtils.isEmpty(res.getOrgAreaCd())) {
+                address = pretAddressRepository.findByValueAndLevelsAndS(res.getOrgAreaCd(), ConstantEnum.AreaLevelEnum.区县.getLabel(), ConstantEnum.S.N.getLabel());
+            } else if (!StringUtils.isEmpty(res.getOrgCityCd())) {
+                address = pretAddressRepository.findByValueAndLevelsAndS(res.getOrgCityCd(), ConstantEnum.AreaLevelEnum.市.getLabel(), ConstantEnum.S.N.getLabel());
+            } else if (!StringUtils.isEmpty(res.getOrgProvinceCd())) {
+                address = pretAddressRepository.findByValueAndLevelsAndS(res.getOrgProvinceCd(), ConstantEnum.AreaLevelEnum.省.getLabel(), ConstantEnum.S.N.getLabel());
+            }
+
+            String fullAddress = pretAddressService.getDetailByAddressId(address.getId());
+            pretServiceRouteOrigin = new PretServiceRouteOrigin();
+            pretServiceRouteOrigin.setCode(res.getPickupFactoryCd());
+            pretServiceRouteOrigin.setAddressId(address.getId());
+            pretServiceRouteOrigin.setFullAddress(fullAddress);
+            pretServiceRouteOriginRepository.save(pretServiceRouteOrigin);
+            bo.setServiceRouteOriginId(pretServiceRouteOrigin.getId());
         }
 
         bo.setStorageNumber(res.getStorageNumber());

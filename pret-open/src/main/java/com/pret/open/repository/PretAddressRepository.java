@@ -86,12 +86,13 @@ public interface PretAddressRepository extends BaseRepository<PretAddress> {
      */
     PretAddress findByParentIdAndAdds(String parentId, int adds);
 
-    /**
-     * 根据value查找
-     *
-     * @param value
-     * @param adds
-     * @return
+    /* *
+     * 功能描述: <br>
+     * 〈〉
+     * @Param: [value, lavels, adds]
+            * @Return: com.pret.open.entity.PretAddress
+            * @Author: wujingsong
+            * @Date: 2019/12/2  11:12 上午
      */
-    PretAddress findByValueAndS(String value, int adds);
+    PretAddress findByValueAndLevelsAndS(String value, Integer lavels, int adds);
 }

@@ -25,12 +25,20 @@ import com.pret.common.util.UUIDUtils;
 import com.pret.open.entity.PretDriver;
 import com.pret.open.entity.PretPickUpPlan;
 import com.pret.open.entity.PretTransOrder;
+import com.pret.open.entity.PretVender;
 import com.pret.open.entity.bo.PretPickUpPlanBo;
 import com.pret.open.entity.bo.PretPickUpPlanModifyDriverBo;
 import com.pret.open.entity.bo.PretTransPlanBo;
+import com.pret.open.entity.user.Role;
+import com.pret.open.entity.user.User;
+import com.pret.open.entity.user.UserRole;
 import com.pret.open.entity.vo.PretPickUpPlanVo;
 import com.pret.open.repository.PretDriverRepository;
 import com.pret.open.repository.PretTransOrderRepository;
+import com.pret.open.repository.PretVenderRepository;
+import com.pret.open.repository.user.RoleRepository;
+import com.pret.open.repository.user.UserRepository;
+import com.pret.open.repository.user.UserRoleRepository;
 import com.pret.open.vo.req.*;
 import com.pret.open.repository.PretPickUpPlanRepository;
 import com.pret.api.service.impl.BaseServiceImpl;
@@ -59,6 +67,18 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
     private PretTransOrderRepository transOrderRepository;
     @Autowired
     private PretDriverRepository driverRepository;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private UserRoleRepository userRoleRepository;
+    @Autowired
+    private RoleRepository roleRepository;
+    @Autowired
+    private PretVenderRepository pretVenderRepository;
+    @Autowired
+    private PretDriverRepository pretDriverRepository;
+    @Autowired
+    private PretTransOrderRepository pretTransOrderRepository;
 
     public PretPickUpPlan genDefaultPretPickUpPlan(String no, String tail) {
         Date date = DateUtils.truncate(new Date(), Calendar.DATE);
@@ -123,6 +143,17 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
 
         pretPickUpPlan.setVenderId(venderId);
         pretPickUpPlan.setServiceRouteOriginId(serviceRouteOriginId);
+
+//        Role role = roleRepository.findByCode(ConstantEnum.ERoleCode.Tallylerk.name());
+//        List<UserRole> userRoleList = userRoleRepository.findByRoleIdAndS(role.getId(), ConstantEnum.S.N.getLabel());
+//        if (userRoleList != null && userRoleList.size() > 0) {
+//
+//        }
+
+        List<User> userList = userRepository.findByUserTypeAndS(ConstantEnum.EUserType.理货员.getLabel(), ConstantEnum.S.N.getLabel());
+        if (userList != null && userList.size() > 0) {
+            pretPickUpPlan.setTallyClerkId(userList.get(0).getId());
+        }
 
         // 生成二维码
         try {
@@ -298,5 +329,59 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
         BeanUtilsExtended.copyProperties(pretPickUpPlan, bo);
 
         this.repository.save(pretPickUpPlan);
+    }
+
+    /* *
+     * 功能描述: 获取理货员备货列表
+     * 〈〉
+     * @Param: [res]
+     * @Return: com.pret.api.vo.ResBody
+     * @Author: wujingsong
+     * @Date: 2019/12/1  11:17 下午
+     */
+    public ResBody getPickupPlanListByTallyClerk(P8000006Vo res) {
+        PR8000006Vo retVo = new PR8000006Vo();
+        User user = userRepository.findByOpenidAndUserTypeAndS(res.getUserInfo().getOpenid(), ConstantEnum.EUserType.理货员.getLabel(), ConstantEnum.S.N.getLabel());
+        PretPickUpPlanVo vo = new PretPickUpPlanVo();
+        vo.setEq$status(res.getStatus());
+        vo.setEq$tallyClerkId(user.getId());
+        List<PretPickUpPlan> list = this.page(vo).getContent();
+        for (PretPickUpPlan pretPickUpPlan : list) {
+            if (!StringUtils.isEmpty(pretPickUpPlan.getVenderId())) {
+                PretVender pretVender = pretVenderRepository.findById(pretPickUpPlan.getVenderId()).get();
+                pretPickUpPlan.setPretVender(pretVender);
+            }
+        }
+        retVo.setData(list);
+
+        return retVo;
+    }
+
+    /* *
+     * 功能描述: 获取待备货详情
+     * 〈〉
+     * @Param: [res]
+     * @Return: com.pret.api.vo.ResBody
+     * @Author: wujingsong
+     * @Date: 2019/10/18  10:06 下午
+     */
+    public ResBody getPickupPlanDetailByTallyClerk(P8000007Vo res) {
+        PR8000007Vo retVo = new PR8000007Vo();
+
+        PretPickUpPlan pretPickUpPlan = this.repository.findById(res.getId()).get();
+        retVo.setData(pretPickUpPlan);
+        if (!StringUtils.isEmpty(pretPickUpPlan.getVenderId())) {
+            PretVender pretVender = pretVenderRepository.findById(pretPickUpPlan.getVenderId()).get();
+            pretPickUpPlan.setPretVender(pretVender);
+        }
+        if (!StringUtils.isEmpty(pretPickUpPlan.getDriverId())) {
+            PretDriver pretDriver = pretDriverRepository.findById(pretPickUpPlan.getDriverId()).get();
+            pretPickUpPlan.setPretDriver(pretDriver);
+        }
+        List<PretTransOrder> pretTransOrderList = pretTransOrderRepository.findByTransPlanIdAndS(res.getId(), ConstantEnum.S.N.getLabel());
+        pretPickUpPlan.setTransOrderList(pretTransOrderList);
+
+
+        return retVo;
     }
 }

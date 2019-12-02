@@ -1,6 +1,7 @@
 package com.pret.open.vo.req;
 
 import com.pret.api.vo.ReqBody;
+import com.wuwenze.poi.annotation.ExcelField;
 import lombok.Data;
 
 /**
@@ -95,7 +96,7 @@ public class P1000000Vo extends ReqBody {
     /**
      * 客户代码
      */
-    private String  custCd;
+    private String custCd;
 
     /**
      * 客户名称

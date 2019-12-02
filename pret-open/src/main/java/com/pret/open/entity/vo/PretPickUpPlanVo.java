@@ -9,13 +9,15 @@ import java.util.Date;
 /**
  * <p>Description: [pretmodel]</p>
  * Created on 2019年09月15日
- * @author  <a href="mailto: 1037216275@qq.com">wujinsong</a>
- * @version 1.0 
+ *
+ * @author <a href="mailto: 1037216275@qq.com">wujinsong</a>
+ * @version 1.0
  * Copyright (c) 2019年 极客城堡
  */
 @Data
-public class PretPickUpPlanVo extends PageFormVo implements Serializable{
+public class PretPickUpPlanVo extends PageFormVo implements Serializable {
     private String eq$venderId;
+    private String eq$tallyClerkId;
     private long bw$createTimeLong;
     private long createTimeLongEnd;
     private int eq$status = -1;

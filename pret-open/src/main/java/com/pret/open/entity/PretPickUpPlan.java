@@ -89,6 +89,11 @@ public class PretPickUpPlan extends VersionedAuditableIdEntity implements Serial
     private Integer status = ConstantEnum.EPretPickUpPlanStatus.待提货.getLabel();
 
     /**
+     * 备货状态
+     */
+    private Integer stockUpStatus = ConstantEnum.EPretPickUpPlantockUpStatus.待备货.getLabel();
+
+    /**
      * 实际提货时间
      */
     @ExcelField(value = "实际提货时间", writeConverter = TimeConverter.class)
@@ -132,6 +137,10 @@ public class PretPickUpPlan extends VersionedAuditableIdEntity implements Serial
      * 车牌号
      */
     private String carNumber;
+    /**
+     * 理货员id
+     */
+    private String tallyClerkId;
 
     /**
      * 运输任务单

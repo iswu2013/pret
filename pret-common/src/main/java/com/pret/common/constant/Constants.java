@@ -385,7 +385,7 @@ public class Constants {
     /**
      * 二维码地址
      */
-    public static final String QR_ROOT_PATH = "C:\\Software\\nginx-1.15.2\\nginx-1.15.2\\html\\images\\";
+    public static final String QR_ROOT_PATH = "C:\\services\\html\\";
 
     public static final String QR_ROOT_URL = "http://139.9.130.188/images/";
 }

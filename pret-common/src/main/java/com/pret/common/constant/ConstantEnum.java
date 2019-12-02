@@ -555,6 +555,34 @@ public class ConstantEnum {
     }
 
     /* *
+     * 功能描述: 备货状态
+     * 〈〉
+     * @Param:
+            * @Return:
+            * @Author: wujingsong
+            * @Date: 2019/12/2  10:17 上午
+     */
+    public enum EPretPickUpPlantockUpStatus {
+        待备货(1),
+        已备货(2);
+        private int label;
+
+        EPretPickUpPlantockUpStatus(int label) {
+            this.setLabel(label);
+        }
+
+        //省略getter、setter方法
+
+        public int getLabel() {
+            return label;
+        }
+
+        public void setLabel(int label) {
+            this.label = label;
+        }
+    }
+
+    /* *
      * 功能描述: 异常状态
      * 〈〉
      * @Param:
@@ -1204,5 +1232,30 @@ public class ConstantEnum {
         }
     }
 
+    /* *
+     * 功能描述: 是否绑定
+     * 〈〉
+     * @Param:
+     * @Return:
+     * @Author: wujingsong
+     * @Date: 2019/12/1  11:44 上午
+     */
+    public enum YesOrNo {
+        否(0),
+        是(1);
+        private int label;
 
+        YesOrNo(int label) {
+            this.setLabel(label);
+        }
+
+        //省略getter、setter方法
+        public int getLabel() {
+            return label;
+        }
+
+        public void setLabel(int label) {
+            this.label = label;
+        }
+    }
 }

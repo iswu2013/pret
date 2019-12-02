@@ -85,6 +85,16 @@ public class InterfaceConfig {
      */
     public static final String H8000005 = "getOpenid.get";
 
+    /**
+     * 获取理货员备货列表
+     */
+    public static final String H8000006 = "getPickupPlanListByTallyClerk.get";
+
+    /**
+     * 获取理货员待备货详情
+     */
+    public static final String H8000007 = "getPickupPlanDetailByTallyClerk.get";
+
     static {
         JOP_HANDLER.put(H1000000, "h1000000");
         JOP_HANDLER.put(H1000001, "h1000001");
@@ -99,6 +109,8 @@ public class InterfaceConfig {
         JOP_HANDLER.put(H8000003, "h8000003");
         JOP_HANDLER.put(H8000004, "h8000004");
         JOP_HANDLER.put(H8000005, "h8000005");
+        JOP_HANDLER.put(H8000006, "h8000006");
+        JOP_HANDLER.put(H8000007, "h8000007");
     }
 
     static {
@@ -115,5 +127,7 @@ public class InterfaceConfig {
         JOP_VO.put(H8000003, P8000003Vo.class);
         JOP_VO.put(H8000004, P8000004Vo.class);
         JOP_VO.put(H8000005, P8000005Vo.class);
+        JOP_VO.put(H8000006, P8000006Vo.class);
+        JOP_VO.put(H8000007, P8000007Vo.class);
     }
 }

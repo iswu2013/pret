@@ -7,16 +7,20 @@ import com.pret.api.vo.ReqBody;
 import com.pret.api.vo.ResBody;
 import com.pret.common.utils.AESUtils;
 import com.pret.common.utils.HttpUtil;
+import com.pret.open.entity.user.User;
+import com.pret.open.repository.user.UserRepository;
 import com.pret.open.vo.req.P1000006Vo;
 import com.pret.open.vo.req.P8000005Vo;
 import com.pret.open.vo.res.PR1000006Vo;
 import com.pret.open.vo.res.PR8000005Vo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.io.IOException;
+import java.util.UUID;
 
 /**
  * Description: 获取openid
@@ -31,6 +35,8 @@ import java.io.IOException;
 public class H8000005 extends BaseContext implements JopHandler {
     private static final Logger LOGGER = LoggerFactory.getLogger(H8000005.class);
     private static final String TAG = "H1000000";
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public ResBody handle(ReqBody requestBody) {
@@ -58,6 +64,14 @@ public class H8000005 extends BaseContext implements JopHandler {
         String openid = jsonObject.get("openid").toString();
         retVo.setOpenId(openid);
         retVo.setSessionKey(jsonObject.get("session_key").toString());
+
+        User user = userRepository.findByOpenid(openid);
+        if (user != null) {
+            retVo.setUser(user);
+            user.setToken(UUID.randomUUID().toString().replace("-", ""));
+            user.setSessionKey(retVo.getSessionKey());
+            userRepository.save(user);
+        }
 
         return retVo;
     }

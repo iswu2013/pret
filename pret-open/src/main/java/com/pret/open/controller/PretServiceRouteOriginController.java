@@ -2,12 +2,14 @@ package com.pret.open.controller;
 
 import com.pret.api.rest.BaseManageController;
 import com.pret.common.annotation.Log;
+import com.pret.common.constant.ConstantEnum;
 import com.pret.common.exception.FebsException;
 import com.pret.open.entity.PretAddress;
 import com.pret.open.entity.PretServiceRouteOrigin;
 import com.pret.open.entity.bo.PretServiceRouteOrginBo;
 import com.pret.open.entity.vo.PretServiceRouteOrginVo;
 import com.pret.open.repository.PretAddressRepository;
+import com.pret.open.service.PretAddressService;
 import com.pret.open.service.PretServiceRouteOriginService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -26,6 +28,8 @@ import java.util.Map;
 public class PretServiceRouteOriginController extends BaseManageController<PretServiceRouteOriginService, PretServiceRouteOrigin, PretServiceRouteOrginVo> {
     @Autowired
     private PretAddressRepository pretAddressRepository;
+    @Autowired
+    private PretAddressService pretAddressService;
 
     @GetMapping
     @Override()
@@ -33,11 +37,9 @@ public class PretServiceRouteOriginController extends BaseManageController<PretS
         Page<PretServiceRouteOrigin> page = this.service.page(request);
         for (PretServiceRouteOrigin pretServiceRouteOrgin : page.getContent()) {
             if (!StringUtils.isEmpty(pretServiceRouteOrgin.getAddressId())) {
-                PretAddress area = pretAddressRepository.findById(pretServiceRouteOrgin.getAddressId()).get();
-                PretAddress city = pretAddressRepository.findById(area.getParentId()).get();
-                PretAddress province = pretAddressRepository.findById(city.getParentId()).get();
-
-                pretServiceRouteOrgin.setFullAddress(province.getName() + city.getName() + area.getName() + pretServiceRouteOrgin.getDetail());
+                String address = pretAddressService.getDetailByAddressId(pretServiceRouteOrgin.getAddressId());
+                pretServiceRouteOrgin.setFullAddress(address + (pretServiceRouteOrgin.getDetail() == null ? "" :
+                        pretServiceRouteOrgin.getDetail()));
             }
 
         }
@@ -55,12 +57,37 @@ public class PretServiceRouteOriginController extends BaseManageController<PretS
             PretServiceRouteOrigin item = this.service.findById(id).get();
             if (!StringUtils.isEmpty(item.getAddressId())) {
                 PretAddress area = pretAddressRepository.findById(item.getAddressId()).get();
-                item.setNowArea(area.getId());
-                PretAddress city = pretAddressRepository.findById(area.getParentId()).get();
-                item.setNowCity(city.getId());
-                PretAddress province = pretAddressRepository.findById(city.getParentId()).get();
-                item.setNowProvince(province.getId());
-                item.setFullAddress(province.getName() + city.getName() + area.getName() + item.getDetail());
+                if (area.getLevels() == ConstantEnum.AreaLevelEnum.区县.getLabel()) {
+                    item.setNowArea(area.getId());
+                } else if (area.getLevels() == ConstantEnum.AreaLevelEnum.市.getLabel()) {
+                    item.setNowCity(area.getId());
+                } else if (area.getLevels() == ConstantEnum.AreaLevelEnum.省.getLabel()) {
+                    item.setNowProvince(area.getId());
+                }
+
+                if (!StringUtils.isEmpty(area.getParentId())) {
+                    PretAddress city = pretAddressRepository.findById(area.getParentId()).get();
+                    if (city.getLevels() == ConstantEnum.AreaLevelEnum.区县.getLabel()) {
+                        item.setNowArea(city.getId());
+                    } else if (city.getLevels() == ConstantEnum.AreaLevelEnum.市.getLabel()) {
+                        item.setNowCity(city.getId());
+                    } else if (city.getLevels() == ConstantEnum.AreaLevelEnum.省.getLabel()) {
+                        item.setNowProvince(city.getId());
+                    }
+
+                    if (!StringUtils.isEmpty(city.getParentId())) {
+                        PretAddress province = pretAddressRepository.findById(city.getParentId()).get();
+                        if (province.getLevels() == ConstantEnum.AreaLevelEnum.区县.getLabel()) {
+                            item.setNowArea(province.getId());
+                        } else if (province.getLevels() == ConstantEnum.AreaLevelEnum.市.getLabel()) {
+                            item.setNowCity(province.getId());
+                        } else if (province.getLevels() == ConstantEnum.AreaLevelEnum.省.getLabel()) {
+                            item.setNowProvince(province.getId());
+                        }
+                    }
+                }
+
+                item.setFullAddress(pretAddressService.getDetailByAddressId(item.getAddressId()) + item.getDetail());
             }
             return item;
         } catch (Exception e) {
