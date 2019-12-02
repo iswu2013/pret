@@ -360,7 +360,7 @@ public class Constants {
 
     public static final String APP_SECRET = "pretterp91209";
 
-    public static final String TAIL = "000001";
+    public static final String TAIL = "0001";
 
     /**
      * 默认昵称
