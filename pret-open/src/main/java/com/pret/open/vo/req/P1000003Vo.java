@@ -14,5 +14,5 @@ import lombok.Data;
  */
 @Data
 public class P1000003Vo extends ReqBody {
-    private String openid;
+    private String id;
 }

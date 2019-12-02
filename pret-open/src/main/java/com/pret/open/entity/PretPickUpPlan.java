@@ -143,6 +143,11 @@ public class PretPickUpPlan extends VersionedAuditableIdEntity implements Serial
     private String tallyClerkId;
 
     /**
+     * 进出厂状态0待进厂1已进厂2已出厂
+     */
+    private Integer inOutStatus = ConstantEnum.EInOutStatus.待进厂.getLabel();
+
+    /**
      * 运输任务单
      */
     private List<PretTransOrder> transOrderList;

@@ -1,7 +1,10 @@
 package com.pret.api.info;
 
+import lombok.Data;
+
 import java.util.Date;
 
+@Data
 public class UserInfo extends BaseInfo {
     private String id;
 
@@ -16,7 +19,7 @@ public class UserInfo extends BaseInfo {
     /**
      * 部门ID
      */
-    private Long deptId;
+    private String deptId;
     /**
      * 邮箱
      */
@@ -32,15 +35,15 @@ public class UserInfo extends BaseInfo {
     /**
      * 创建时间
      */
-    private java.util.Date createTime;
+    private Date createTime;
     /**
      * 修改时间
      */
-    private java.util.Date modifyTime;
+    private Date modifyTime;
     /**
      * 最近访问时间
      */
-    private java.util.Date lastLoginTime;
+    private Date lastLoginTime;
     /**
      * 性别 0男 1女 2保密
      */
@@ -59,115 +62,30 @@ public class UserInfo extends BaseInfo {
      */
     private String openid;
 
-    public String getId() {
-        return id;
-    }
+    /**
+     * 用户类型
+     */
+    private Integer userType;
 
-    public void setId(String id) {
-        this.id = id;
-    }
+    /**
+     * 是否已经绑定0否1是
+     */
+    private Integer binding;
 
-    public String getUsername() {
-        return username;
-    }
+    /**
+     * 父用户
+     */
+    private String parentId;
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+    /**
+     * 供应商id
+     */
+    private String venderId;
 
-    public String getPassword() {
-        return password;
-    }
+    /**
+     * token
+     */
+    private String token;
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Long getDeptId() {
-        return deptId;
-    }
-
-    public void setDeptId(Long deptId) {
-        this.deptId = deptId;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getMobile() {
-        return mobile;
-    }
-
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getModifyTime() {
-        return modifyTime;
-    }
-
-    public void setModifyTime(Date modifyTime) {
-        this.modifyTime = modifyTime;
-    }
-
-    public Date getLastLoginTime() {
-        return lastLoginTime;
-    }
-
-    public void setLastLoginTime(Date lastLoginTime) {
-        this.lastLoginTime = lastLoginTime;
-    }
-
-    public String getSsex() {
-        return ssex;
-    }
-
-    public void setSsex(String ssex) {
-        this.ssex = ssex;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getAvatar() {
-        return avatar;
-    }
-
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
-    }
-
-    public String getOpenid() {
-        return openid;
-    }
-
-    public void setOpenid(String openid) {
-        this.openid = openid;
-    }
+    private String sessionKey;
 }

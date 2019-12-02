@@ -120,5 +120,7 @@ public class User extends VersionedAuditableIdEntity implements Serializable {
 
     private String sessionKey;
 
+    private String u9code;
+
     // setter and getter
 }

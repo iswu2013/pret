@@ -558,9 +558,9 @@ public class ConstantEnum {
      * 功能描述: 备货状态
      * 〈〉
      * @Param:
-            * @Return:
-            * @Author: wujingsong
-            * @Date: 2019/12/2  10:17 上午
+     * @Return:
+     * @Author: wujingsong
+     * @Date: 2019/12/2  10:17 上午
      */
     public enum EPretPickUpPlantockUpStatus {
         待备货(1),
@@ -1258,4 +1258,34 @@ public class ConstantEnum {
             this.label = label;
         }
     }
+
+    /* *
+     * 功能描述: 进出厂状态
+     * 〈〉
+     * @Param:
+     * @Return:
+     * @Author: wujingsong
+     * @Date: 2019/12/2  5:23 下午
+     */
+    public enum EInOutStatus {
+        待进厂(0),
+        已进厂(1),
+        已出厂(2);
+        private int label;
+
+        EInOutStatus(int label) {
+            this.setLabel(label);
+        }
+
+        //省略getter、setter方法
+        public int getLabel() {
+            return label;
+        }
+
+        public void setLabel(int label) {
+            this.label = label;
+        }
+    }
+
+
 }

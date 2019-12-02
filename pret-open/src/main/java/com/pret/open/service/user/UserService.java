@@ -12,7 +12,10 @@ import com.pret.open.entity.vo.user.UserVo;
 import com.pret.open.repository.PretCustomerRepository;
 import com.pret.open.repository.user.UserRepository;
 import com.pret.open.vo.req.P1000004Vo;
+import com.pret.open.vo.req.P1000007Vo;
 import com.pret.open.vo.res.PR1000004Vo;
+import com.pret.open.vo.res.PR1000007Vo;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,11 +47,12 @@ public class UserService extends BaseServiceImpl<UserRepository, User, UserVo> {
     public ResBody bindUser(P1000004Vo res) {
         PR1000004Vo retVo = new PR1000004Vo();
 
-        User user = this.repository.findByMobileAndUserTypeAndS(res.getPhone(), res.getType(), ConstantEnum.S.N.getLabel());
+        User user = this.repository.findByMobileAndS(res.getPhone(), ConstantEnum.S.N.getLabel());
         if (res.getType() == ConstantEnum.EUserType.理货员.getLabel()) {
             if (user != null) {
                 user.setOpenid(res.getOpenId());
                 user.setBinding(ConstantEnum.YesOrNo.是.getLabel());
+                user.setUserType(res.getType());
                 this.repository.save(user);
             } else {
                 throw new BusinessException(OpenBEEnum.E90000003.name(), OpenBEEnum.E90000003.getMsg());
@@ -57,6 +61,7 @@ public class UserService extends BaseServiceImpl<UserRepository, User, UserVo> {
             PretCustomer pretCustomer = pretCustomerRepository.findByLinkPhoneAndS(res.getPhone(), ConstantEnum.S.N.getLabel());
             if (pretCustomer != null) {
                 pretCustomer.setOpenid(res.getOpenId());
+                user.setUserType(res.getType());
                 pretCustomerRepository.save(pretCustomer);
             } else {
                 throw new BusinessException(OpenBEEnum.E90000003.name(), OpenBEEnum.E90000003.getMsg());
@@ -65,14 +70,27 @@ public class UserService extends BaseServiceImpl<UserRepository, User, UserVo> {
             if (user != null) {
                 user.setOpenid(res.getOpenId());
                 user.setBinding(ConstantEnum.YesOrNo.是.getLabel());
+                user.setUserType(res.getType());
+                if (StringUtils.isEmpty(user.getU9code())) {
+                    retVo.setHasU9code(0);
+                } else {
+                    retVo.setHasU9code(1);
+                }
+
                 this.repository.save(user);
             } else {
-                throw new BusinessException(OpenBEEnum.E90000003.name(), OpenBEEnum.E90000003.getMsg());
+                user = new User();
+                retVo.setHasU9code(1);
+                user.setOpenid(res.getOpenId());
+                user.setBinding(ConstantEnum.YesOrNo.是.getLabel());
+                user.setUserType(res.getType());
+                this.repository.save(user);
             }
         } else if (res.getType() == ConstantEnum.EUserType.门卫.getLabel()) {
             if (user != null) {
                 user.setOpenid(res.getOpenId());
                 user.setBinding(ConstantEnum.YesOrNo.是.getLabel());
+                user.setUserType(res.getType());
                 this.repository.save(user);
             } else {
                 throw new BusinessException(OpenBEEnum.E90000003.name(), OpenBEEnum.E90000003.getMsg());
@@ -84,6 +102,23 @@ public class UserService extends BaseServiceImpl<UserRepository, User, UserVo> {
         retVo.setToken(user.getToken());
         retVo.setSessionKey(user.getSessionKey());
         retVo.setUser(user);
+        this.repository.save(user);
+
+        return retVo;
+    }
+
+    /* *
+     * 功能描述: <br>
+     * 〈〉
+     * @Param: [res]
+     * @Return: com.pret.api.vo.ResBody
+     * @Author: wujingsong
+     * @Date: 2019/12/2  11:31 下午
+     */
+    public ResBody inputU9Code(P1000007Vo res) {
+        PR1000007Vo retVo = new PR1000007Vo();
+        User user = this.repository.findById(res.getId()).get();
+        user.setU9code(res.getU9code());
         this.repository.save(user);
 
         return retVo;

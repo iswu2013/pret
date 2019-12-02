@@ -75,4 +75,6 @@ public interface UserRepository extends BaseRepository<User> {
      * @Date: 2019/12/2  7:02 上午
      */
     User findByOpenidAndUserTypeAndS(String openid, Integer userType, Integer s);
+
+    User findByMobileAndS(String mobile, Integer s);
 }

@@ -19,5 +19,9 @@ public class PR1000004Vo extends ResBody {
     private String unionId;
     private String token;
     private User user;
+    /**
+     * 是否有u9code,0没有1有
+     */
+    private Integer hasU9code;
 
 }

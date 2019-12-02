@@ -229,7 +229,7 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
         if (StringUtils.isEmpty(venderId)) {
             for (PretServiceRouteItem item : pretServiceRouteItemList) {
                 Float lowLimit = item.getLowerLimit() == null ? 0 : item.getLowerLimit();
-                if (isHeavyCargo && totalGw > lowLimit) {
+                if (isHeavyCargo && totalGw >= lowLimit) {
                     for (PretTransOrder pretTransOrder : pretTransOrderList) {
                         pretTransOrder.setVenderId(item.getVenderId());
                         pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.待提货.getLabel());
