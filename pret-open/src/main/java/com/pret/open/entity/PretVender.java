@@ -83,6 +83,11 @@ public class PretVender extends VersionedAuditableIdEntity implements Serializab
 
     private Float prescription;
 
+    /**
+     * 理货员，支持多个
+     */
+    private String tallyClerkId;
+
     // setter and getter
 
     @Transient()
