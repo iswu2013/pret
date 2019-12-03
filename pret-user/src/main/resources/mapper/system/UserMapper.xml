@@ -13,6 +13,7 @@
         <result column="SSEX" jdbcType="CHAR" property="ssex"/>
         <result column="AVATAR" jdbcType="VARCHAR" property="avatar"/>
         <result column="DESCRIPTION" jdbcType="VARCHAR" property="description"/>
+        <result column="NAME" jdbcType="VARCHAR" property="name"/>
     </resultMap>
 
     <select id="findUserDetail" resultType="user" parameterType="user">
@@ -28,6 +29,7 @@
         d.dept_name deptName,
         u.AVATAR,
         u.DESCRIPTION,
+        u.NAME,
         u.LAST_LOGIN_TIME lastLoginTime,
         GROUP_CONCAT(r.id) roleId,
         GROUP_CONCAT(r.ROLE_NAME) roleName
@@ -70,6 +72,7 @@
         u.AVATAR,
         u.user_type userType,
         u.DESCRIPTION,
+        u.NAME,
         u.vender_id venderId,
         u.LAST_LOGIN_TIME lastLoginTime,
         GROUP_CONCAT(r.id) roleId,
