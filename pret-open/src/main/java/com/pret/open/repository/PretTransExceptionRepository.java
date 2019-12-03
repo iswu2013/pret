@@ -35,7 +35,7 @@ public interface PretTransExceptionRepository extends BaseRepository<PretTransEx
      * @Author: wujingsong
      * @Date: 2019/11/4  7:30 上午
      */
-    List<PretTransException> findTop5ByStatusAndS(Integer status,Integer s);
+    List<PretTransException> findTop5ByStatusAndS(Integer status, Integer s);
 
     /* *
      * 功能描述: 根据状态统计数量
@@ -45,5 +45,15 @@ public interface PretTransExceptionRepository extends BaseRepository<PretTransEx
      * @Author: wujingsong
      * @Date: 2019/11/4  7:20 上午
      */
-    long countByStatusAndS(Integer status,Integer s);
+    long countByStatusAndS(Integer status, Integer s);
+
+    /* *
+     * 功能描述: 根据venderId和状态查询
+     * 〈〉
+     * @Param: [venderId, status, s]
+     * @Return: long
+     * @Author: wujingsong
+     * @Date: 2019/12/3  3:51 下午
+     */
+    long countByVenderIdAndStatusAndS(String venderId, Integer status, Integer s);
 }

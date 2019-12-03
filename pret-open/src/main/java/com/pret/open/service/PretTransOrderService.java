@@ -9,6 +9,7 @@ import com.pret.common.constant.CommonConstants;
 import com.pret.common.constant.ConstantEnum;
 import com.pret.common.exception.BusinessException;
 import com.pret.common.util.BeanUtilsExtended;
+import com.pret.common.util.DateUtil;
 import com.pret.open.constant.OpenBEEnum;
 import com.pret.open.entity.*;
 import com.pret.open.entity.bo.PretMTransOrderBo;
@@ -52,6 +53,8 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
     private PretServiceRouteOriginRepository pretServiceRouteOriginRepository;
     @Autowired
     private PretAddressRepository pretAddressRepository;
+    @Autowired
+    private PretTransOrderStatisticsRepository pretTransOrderStatisticsRepository;
 
     public void genPickUpPlan(PretPickUpPlanBo bo) {
         String[] idArr = bo.getIds().split(",");
@@ -200,6 +203,8 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
                 List<PretTransOrder> pretTransOrderList = this.repository.findByAddressIdInAndDeliveryDateBetweenAndStatusInAndS(pretAddressList, date, endDate, statusList, ConstantEnum.S.N.getLabel());
                 List<PretServiceRouteItem> pretServiceRouteItemList = pretServiceRouteItemRepository.findByCodeAndVenderTypeAndAddressIdInAndS(bo.getPickupFactoryCd(), ConstantEnum.EVenderType.三方.getLabel(), pretAddressList, ConstantEnum.S.N.getLabel());
                 this.calBillingInterval(pretTransOrderList, pretTransOrder, true, pretServiceRouteItemList);
+                // 统计平台
+                this.pretTransOrderStatistics(ConstantEnum.ETransOrderStatisticsUserType.平台.getLabel(), null);
 
             }
         }
@@ -233,6 +238,7 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
                         pretTransOrder.setVenderId(item.getVenderId());
                         pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.待提货.getLabel());
                         pretTransOrder.setServiceRouteItemId(item.getId());
+                        this.pretTransOrderStatistics(ConstantEnum.ETransOrderStatisticsUserType.物流供应商.getLabel(), venderId);
                     }
                     transOrder.setServiceRouteItemId(item.getId());
                     transOrder.setStatus(ConstantEnum.ETransOrderStatus.待提货.getLabel());
@@ -243,6 +249,7 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
             transOrder.setStatus(ConstantEnum.ETransOrderStatus.待提货.getLabel());
             transOrder.setVenderId(venderId);
             this.repository.save(transOrder);
+            this.pretTransOrderStatistics(ConstantEnum.ETransOrderStatisticsUserType.物流供应商.getLabel(), venderId);
         }
     }
 
@@ -276,5 +283,55 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
         this.lDelete(pretTransOrder.getId());
 
         return retVo;
+    }
+
+    /* *
+     * 功能描述: 订单统计数据添加
+     * 〈〉
+     * @Param: []
+     * @Return: void
+     * @Author: wujingsong
+     * @Date: 2019/12/3  1:24 下午
+     */
+    public void pretTransOrderStatistics(Integer userType, String venderId) {
+        Date start = DateUtils.truncate(new Date(), Calendar.DATE);
+        Date dateEnd = DateUtils.addDays(start, 1);
+
+        // 日统计
+        this.doStat(userType, ConstantEnum.EDateType.日.getLabel(), venderId, start, dateEnd);
+        // 周统计
+        start = DateUtil.getBeginDayOfWeek();
+        this.doStat(userType, ConstantEnum.EDateType.周.getLabel(), venderId, start, dateEnd);
+        // 月统计
+        start = DateUtil.getBeginDayOfMonth();
+        this.doStat(userType, ConstantEnum.EDateType.月.getLabel(), venderId, start, dateEnd);
+        // 年
+        start = DateUtil.getBeginDayOfMonth();
+        this.doStat(userType, ConstantEnum.EDateType.年.getLabel(), venderId, start, dateEnd);
+    }
+
+    protected void doStat(Integer userType, Integer dateType, String venderId, Date start, Date dateEnd) {
+        List<PretTransOrderStatistics> pretTransOrderStatisticsList;
+        if (userType == ConstantEnum.ETransOrderStatisticsUserType.平台.getLabel()) {
+            pretTransOrderStatisticsList = pretTransOrderStatisticsRepository.findByUserTypeAndDateTypeAndCreateTimeLongBetween(userType, dateType, start.getTime(), dateEnd.getTime());
+        } else {
+            pretTransOrderStatisticsList = pretTransOrderStatisticsRepository.findByUserTypeAndUserIdAndDateTypeAndCreateTimeLongBetween(userType, venderId, dateType, start.getTime(), dateEnd.getTime());
+        }
+        PretTransOrderStatistics pretTransOrderStatistics;
+        if (pretTransOrderStatisticsList != null && pretTransOrderStatisticsList.size() == 1) {
+            pretTransOrderStatistics = pretTransOrderStatisticsList.get(0);
+            pretTransOrderStatistics.setCount(pretTransOrderStatistics.getCount() + 1);
+            pretTransOrderStatisticsRepository.save(pretTransOrderStatistics);
+        } else {
+            pretTransOrderStatistics = new PretTransOrderStatistics();
+            pretTransOrderStatistics.setUserType(userType);
+            pretTransOrderStatistics.setDateType(dateType);
+            if (!StringUtils.isEmpty(venderId)) {
+                pretTransOrderStatistics.setUserId(venderId);
+            }
+            pretTransOrderStatistics.setCount(1);
+            pretTransOrderStatisticsRepository.save(pretTransOrderStatistics);
+        }
+        pretTransOrderStatisticsRepository.save(pretTransOrderStatistics);
     }
 }

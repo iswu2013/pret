@@ -27,7 +27,7 @@ public interface PretTransPlanRepository extends BaseRepository<PretTransPlan> {
      * @Author: wujingsong
      * @Date: 2019/11/4  7:20 上午
      */
-    List<PretTransPlan> findByStatusAndS(Integer status,Integer s);
+    List<PretTransPlan> findByStatusAndS(Integer status, Integer s);
 
     /* *
      * 功能描述: 获取最前面的5个
@@ -37,7 +37,7 @@ public interface PretTransPlanRepository extends BaseRepository<PretTransPlan> {
      * @Author: wujingsong
      * @Date: 2019/11/4  7:30 上午
      */
-    List<PretTransPlan> findTop5ByStatusAndS(Integer status,Integer s);
+    List<PretTransPlan> findTop5ByStatusAndS(Integer status, Integer s);
 
     /* *
      * 功能描述: 根据状态统计数量
@@ -47,7 +47,17 @@ public interface PretTransPlanRepository extends BaseRepository<PretTransPlan> {
      * @Author: wujingsong
      * @Date: 2019/11/4  7:20 上午
      */
-    long countByStatusAndS(Integer status,Integer s);
+    long countByStatusAndS(Integer status, Integer s);
+
+    /* *
+     * 功能描述: 根据venderId和状态查询
+     * 〈〉
+     * @Param: [venderId, status, s]
+     * @Return: long
+     * @Author: wujingsong
+     * @Date: 2019/12/3  3:52 下午
+     */
+    long countByVenderIdAndStatusAndS(String venderId, Integer status, Integer s);
 
     /* *
      * 功能描述: 根据对账单Id和状态查询

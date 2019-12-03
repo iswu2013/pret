@@ -1,6 +1,7 @@
 package com.pret.open.entity;
 
 import com.pret.common.VersionedAuditableIdEntity;
+import com.pret.common.constant.ConstantEnum;
 import com.wuwenze.poi.annotation.Excel;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
@@ -39,9 +40,9 @@ public class PretTransOrderStatistics extends VersionedAuditableIdEntity impleme
     }
 
     /**
-     * 统计类别
+     * 统计类别(0平台1供应商)
      */
-    private int userType;
+    private int userType = ConstantEnum.ETransOrderStatisticsUserType.平台.getLabel();
 
     /**
      * 平台为空，物流供应商取值
