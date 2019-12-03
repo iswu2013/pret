@@ -21,7 +21,7 @@ import java.io.Serializable;
  * Copyright (c) 2019年 极客城堡
  */
 @Entity
-@Table(name = "pret_fee_type")
+@Table(name = "pret_service_route_origin_user")
 @Excel("费用类型")
 @Data
 public class PretServiceRouteOriginUser extends VersionedAuditableIdEntity implements Serializable {

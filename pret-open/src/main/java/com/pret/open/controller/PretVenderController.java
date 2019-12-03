@@ -30,6 +30,7 @@ import com.pret.open.service.PretVenderService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -140,6 +141,7 @@ public class PretVenderController extends BaseManageController<PretVenderService
      */
     @Log("新建物流供应商")
     @PostMapping("/pretVenderAdd")
+    @Transactional()
     public void pretVenderAdd(PretVender vender) throws FebsException {
         try {
             PretVender pretVender = pretVenderRepository.findByCodeAndS(vender.getCode(), ConstantEnum.S.N.getLabel());

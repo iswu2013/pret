@@ -15,15 +15,15 @@ import java.util.Date;
  * Copyright (c) 2019年 极客城堡
  */
 @Data
-public class PretPickUpPlanVo extends PageFormVo implements Serializable {
+public class PretTransOrderGroupVo extends PageFormVo implements Serializable {
     private String eq$venderId;
-    private String eq$tallyClerkId;
     private long bw$createTimeLong;
     private long createTimeLongEnd;
-    private int eq$status = -1;
-    private String eq$driverId;
-    private Date bw$pickUpTime;
-    private Date pickUpTimeEnd;
     private String eq$pickupFactoryCd;
-    private int eq$stockUpStatus = -1;
+    private Date bw$takeDeliveryDate;
+    private Date takeDeliveryDateEnd;
+    private Date bw$deliveryDate;
+    private Date deliveryDateEnd;
+    private String l$deliveryBillNumber;
+    private int eq$status;
 }

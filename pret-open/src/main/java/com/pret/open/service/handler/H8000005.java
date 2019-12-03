@@ -44,9 +44,9 @@ public class H8000005 extends BaseContext implements JopHandler {
         P8000005Vo res = (P8000005Vo) requestBody;
         PR8000005Vo retVo = new PR8000005Vo();
         // 微信小程序ID
-        String appid = "wx85f3ec1c95c4f6c9";
+        String appid = "wxa470663bb75476a1";
         // 微信小程序秘钥
-        String secret = "68af143806c17516d7ea465abd88806d";
+        String secret = "06efcbabef8295944c78ce00a7bfa101";
 
         // 根据小程序穿过来的code想这个url发送请求
         String url = "https://api.weixin.qq.com/sns/jscode2session?appid=" + appid + "&secret=" + secret + "&js_code=" + res.getCode() + "&grant_type=authorization_code";

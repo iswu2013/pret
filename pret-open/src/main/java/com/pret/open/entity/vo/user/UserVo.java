@@ -17,4 +17,5 @@ import java.io.Serializable;
 public class UserVo extends PageFormVo implements Serializable {
     private String ll$namell$username;
     private int eq$userType = -1;
+    private String eq$id;
 }
