@@ -1,19 +1,25 @@
 package com.pret.open.controller;
 
+import com.google.common.reflect.TypeToken;
 import com.pret.api.rest.BaseManageController;
 import com.pret.common.annotation.Log;
+import com.pret.common.constant.CommonConstants;
 import com.pret.common.constant.ConstantEnum;
 import com.pret.common.exception.FebsException;
+import com.pret.common.util.BeanUtilsExtended;
 import com.pret.common.util.StringUtil;
 import com.pret.common.utils.MD5Util;
+import com.pret.open.entity.PretServiceRouteOriginUser;
 import com.pret.open.entity.PretTransOrder;
 import com.pret.open.entity.PretVender;
+import com.pret.open.entity.bo.PretMTransOrderItemBo;
 import com.pret.open.entity.bo.PretServiceRouteBo;
 import com.pret.open.entity.user.Role;
 import com.pret.open.entity.user.User;
 import com.pret.open.entity.user.UserConfig;
 import com.pret.open.entity.user.UserRole;
 import com.pret.open.entity.vo.PretVenderVo;
+import com.pret.open.repository.PretServiceRouteOriginUserRepository;
 import com.pret.open.repository.PretTransOrderRepository;
 import com.pret.open.repository.PretVenderRepository;
 import com.pret.open.repository.user.RoleRepository;
@@ -22,6 +28,7 @@ import com.pret.open.repository.user.UserRepository;
 import com.pret.open.repository.user.UserRoleRepository;
 import com.pret.open.service.PretVenderService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -52,6 +59,8 @@ public class PretVenderController extends BaseManageController<PretVenderService
     private UserConfigRepository userConfigRepository;
     @Autowired
     private PretTransOrderRepository pretTransOrderRepository;
+    @Autowired
+    private PretServiceRouteOriginUserRepository pretServiceRouteOriginUserRepository;
     @PersistenceContext
     private EntityManager em;
 
@@ -61,6 +70,8 @@ public class PretVenderController extends BaseManageController<PretVenderService
     public PretVender view(@PathVariable String id) throws FebsException {
         try {
             PretVender item = this.service.findById(id).get();
+            List<PretServiceRouteOriginUser> pretServiceRouteOriginUserList = pretServiceRouteOriginUserRepository.findByVenderIdAndS(item.getId(), ConstantEnum.S.N.getLabel());
+            item.setServiceRouteOriginUserDataSource(pretServiceRouteOriginUserList);
             return item;
         } catch (Exception e) {
             message = "查看失败";
@@ -143,6 +154,19 @@ public class PretVenderController extends BaseManageController<PretVenderService
             }
             this.pretVenderRepository.save(vender);
 
+            if (!StringUtils.isEmpty(vender.getTallyClerkStr())) {
+                List<PretServiceRouteOriginUser> list = CommonConstants.GSON.fromJson(vender.getTallyClerkStr(),
+                        new TypeToken<List<PretServiceRouteOriginUser>>() {
+                        }.getType());
+                if (list != null && list.size() > 0) {
+                    for (PretServiceRouteOriginUser pretServiceRouteOriginUser : list) {
+                        pretServiceRouteOriginUser.setVenderId(vender.getId());
+                        pretServiceRouteOriginUserRepository.save(pretServiceRouteOriginUser);
+                    }
+                }
+            }
+
+
             User user = new User();
             user.setUsername(vender.getLinkPhone());
             user.setMobile(vender.getLinkPhone());
@@ -168,6 +192,38 @@ public class PretVenderController extends BaseManageController<PretVenderService
             userConfig.setTheme(UserConfig.DEFAULT_THEME);
             userConfig.setMultiPage(UserConfig.DEFAULT_MULTIPAGE);
             userConfigRepository.save(userConfig);
+
+        } catch (Exception e) {
+            throw new FebsException(e.getMessage());
+        }
+    }
+
+    @Log("编辑物流供应商")
+    @PostMapping("/pretVenderEdit")
+    public void pretVenderEdit(PretVender vender) throws FebsException {
+        try {
+            PretVender pretVender = pretVenderRepository.findById(vender.getId()).get();
+            BeanUtilsExtended.copyProperties(pretVender, vender);
+            this.pretVenderRepository.save(pretVender);
+
+            List<PretServiceRouteOriginUser> pretServiceRouteOriginUserList = pretServiceRouteOriginUserRepository.findByVenderIdAndS(vender.getId(), ConstantEnum.S.N.getLabel());
+            if (pretServiceRouteOriginUserList != null && pretServiceRouteOriginUserList.size() > 0) {
+                for (PretServiceRouteOriginUser pretServiceRouteOriginUser : pretServiceRouteOriginUserList) {
+                    this.service.lDelete(pretServiceRouteOriginUser.getId());
+                }
+            }
+
+            if (!StringUtils.isEmpty(vender.getTallyClerkStr())) {
+                List<PretServiceRouteOriginUser> list = CommonConstants.GSON.fromJson(vender.getTallyClerkStr(),
+                        new TypeToken<List<PretServiceRouteOriginUser>>() {
+                        }.getType());
+                if (list != null && list.size() > 0) {
+                    for (PretServiceRouteOriginUser pretServiceRouteOriginUser : list) {
+                        pretServiceRouteOriginUser.setVenderId(vender.getId());
+                        pretServiceRouteOriginUserRepository.save(pretServiceRouteOriginUser);
+                    }
+                }
+            }
 
         } catch (Exception e) {
             throw new FebsException(e.getMessage());

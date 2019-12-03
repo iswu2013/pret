@@ -9,6 +9,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * <p>Description: 物流供应商</p>
@@ -88,6 +89,13 @@ public class PretVender extends VersionedAuditableIdEntity implements Serializab
      */
     private String tallyClerkId;
 
+    /**
+     * 理货员信息
+     */
+    private String tallyClerkStr;
+
+    private List<PretServiceRouteOriginUser> serviceRouteOriginUserDataSource;
+
     // setter and getter
 
     @Transient()
@@ -115,5 +123,23 @@ public class PretVender extends VersionedAuditableIdEntity implements Serializab
 
     public void setPrescription(Float prescription) {
         this.prescription = prescription;
+    }
+
+    @Transient()
+    public String getTallyClerkStr() {
+        return tallyClerkStr;
+    }
+
+    public void setTallyClerkStr(String tallyClerkStr) {
+        this.tallyClerkStr = tallyClerkStr;
+    }
+
+    @Transient()
+    public List<PretServiceRouteOriginUser> getServiceRouteOriginUserDataSource() {
+        return serviceRouteOriginUserDataSource;
+    }
+
+    public void setServiceRouteOriginUserDataSource(List<PretServiceRouteOriginUser> serviceRouteOriginUserDataSource) {
+        this.serviceRouteOriginUserDataSource = serviceRouteOriginUserDataSource;
     }
 }
