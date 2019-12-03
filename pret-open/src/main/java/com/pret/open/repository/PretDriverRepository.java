@@ -20,7 +20,7 @@ public interface PretDriverRepository extends BaseRepository<PretDriver> {
      * @Author: wujingsong
      * @Date: 2019/10/18  9:56 下午
      */
-    PretDriver findByOpenidAndS(String openid,Integer s);
+    PretDriver findByOpenidAndS(String openid, Integer s);
 
     /* *
      * 功能描述: 根据车牌号和手机号码查找
@@ -31,4 +31,14 @@ public interface PretDriverRepository extends BaseRepository<PretDriver> {
      * @Date: 2019/11/22  6:55 上午
      */
     PretDriver findByCarNumberAndPhoneAndS(String cardNumber, String phone, Integer s);
+
+    /* *
+     * 功能描述: 根据手机号码查找
+     * 〈〉
+     * @Param: [phone, s]
+     * @Return: com.pret.open.entity.PretDriver
+     * @Author: wujingsong
+     * @Date: 2019/12/3  7:40 上午
+     */
+    PretDriver findByPhoneAndS(String phone, Integer s);
 }

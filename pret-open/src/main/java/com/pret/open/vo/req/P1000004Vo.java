@@ -1,6 +1,5 @@
 package com.pret.open.vo.req;
 
-import com.pret.api.vo.PageFormVo;
 import com.pret.api.vo.ReqBody;
 import lombok.Data;
 

@@ -18,5 +18,7 @@ import java.util.Date;
 public class P8000000Vo extends ReqBody {
     private String openid;
 
-    private int status;
+    private int status = -1;
+
+    private int stockUpStatus = -1;
 }

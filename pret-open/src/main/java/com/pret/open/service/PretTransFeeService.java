@@ -156,7 +156,7 @@ public class PretTransFeeService extends BaseServiceImpl<PretTransFeeRepository,
                     PretFeeType pretFeeType = pretFeeTypeRepository.findById(pretQuotationItem.getFeeTypeId()).get();
                     if (pretFeeType.getType() == ConstantEnum.ECostType.量.getLabel()) {
                         pretTransFeeItem.setQuotationCount(totalGw);
-                        BigDecimal tun = new BigDecimal(totalGw).divide(new BigDecimal(10000)).setScale(2, BigDecimal.ROUND_HALF_UP);
+                        BigDecimal tun = new BigDecimal(totalGw).multiply(new BigDecimal(10000)).setScale(2, BigDecimal.ROUND_HALF_UP);
                         pretTransFeeItem.setQuotation(pretQuotationItem.getQuotation().multiply(tun).setScale(2, BigDecimal.ROUND_HALF_UP));
                         pretTransFeeItem.setUnitPrice(pretTransFeeItem.getQuotation().divide(new BigDecimal(totalGw)).setScale(2, BigDecimal.ROUND_HALF_UP));
                         quotation = quotation.add(pretQuotationItem.getQuotation());

@@ -1,6 +1,7 @@
 package com.pret.open.service;
 
 import com.pret.api.vo.ResBody;
+import com.pret.common.constant.ConstantEnum;
 import com.pret.common.util.BeanUtilsExtended;
 import com.pret.open.entity.PretAddress;
 import com.pret.open.entity.PretTransOrder;
@@ -54,6 +55,39 @@ public class PretAddressService extends BaseServiceImpl<PretAddressRepository, P
                     address = this.repository.findByParentIdAndAdds(pretAddressOptional.get().getParentId(), 1);
                     if (address != null) {
                         addressIdList.add(address.getId());
+                    }
+                }
+            }
+        }
+
+        return addressIdList;
+    }
+
+    public List<String> findAddressListByAddressIdAdd(String addressId) {
+        List<String> addressIdList = new ArrayList<>();
+        addressIdList.add(addressId);
+        PretAddress pretAddress = this.repository.findById(addressId).get();
+        if (!StringUtils.isEmpty(pretAddress.getParentId())) {
+            pretAddress = this.repository.findById(pretAddress.getParentId()).get();
+            addressId = pretAddress.getId();
+            if (!StringUtils.isEmpty(pretAddress.getParentId())) {
+                pretAddress = this.repository.findById(pretAddress.getParentId()).get();
+                addressId = pretAddress.getId();
+            }
+        }
+
+        List<PretAddress> pretAddressList = this.repository.findByParentIdAndS(addressId, ConstantEnum.S.N.getLabel());
+        if (pretAddressList != null && pretAddressList.size() > 0) {
+            for (PretAddress address : pretAddressList) {
+                if (!addressIdList.contains(address.getId())) {
+                    addressIdList.add(address.getId());
+                    pretAddressList = this.repository.findByParentIdAndS(address.getId(), ConstantEnum.S.N.getLabel());
+                    if (pretAddressList != null && pretAddressList.size() > 0) {
+                        for (PretAddress addr : pretAddressList) {
+                            if (!addressIdList.contains(addr.getId())) {
+                                addressIdList.add(addr.getId());
+                            }
+                        }
                     }
                 }
             }

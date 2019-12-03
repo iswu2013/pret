@@ -7,9 +7,11 @@ import com.pret.common.constant.ConstantEnum;
 import com.pret.common.exception.BusinessException;
 import com.pret.open.constant.OpenBEEnum;
 import com.pret.open.entity.PretCustomer;
+import com.pret.open.entity.PretDriver;
 import com.pret.open.entity.user.User;
 import com.pret.open.entity.vo.user.UserVo;
 import com.pret.open.repository.PretCustomerRepository;
+import com.pret.open.repository.PretDriverRepository;
 import com.pret.open.repository.user.UserRepository;
 import com.pret.open.vo.req.P1000004Vo;
 import com.pret.open.vo.req.P1000007Vo;
@@ -35,6 +37,8 @@ import java.util.UUID;
 public class UserService extends BaseServiceImpl<UserRepository, User, UserVo> {
     @Autowired
     private PretCustomerRepository pretCustomerRepository;
+    @Autowired
+    private PretDriverRepository pretDriverRepository;
 
     /* *
      * 功能描述: 绑定用户
@@ -54,15 +58,6 @@ public class UserService extends BaseServiceImpl<UserRepository, User, UserVo> {
                 user.setBinding(ConstantEnum.YesOrNo.是.getLabel());
                 user.setUserType(res.getType());
                 this.repository.save(user);
-            } else {
-                throw new BusinessException(OpenBEEnum.E90000003.name(), OpenBEEnum.E90000003.getMsg());
-            }
-        } else if (res.getType() == ConstantEnum.EUserType.客户.getLabel()) {
-            PretCustomer pretCustomer = pretCustomerRepository.findByLinkPhoneAndS(res.getPhone(), ConstantEnum.S.N.getLabel());
-            if (pretCustomer != null) {
-                pretCustomer.setOpenid(res.getOpenId());
-                user.setUserType(res.getType());
-                pretCustomerRepository.save(pretCustomer);
             } else {
                 throw new BusinessException(OpenBEEnum.E90000003.name(), OpenBEEnum.E90000003.getMsg());
             }
@@ -95,6 +90,18 @@ public class UserService extends BaseServiceImpl<UserRepository, User, UserVo> {
             } else {
                 throw new BusinessException(OpenBEEnum.E90000003.name(), OpenBEEnum.E90000003.getMsg());
             }
+        } else if (res.getType() == ConstantEnum.EUserType.客户.getLabel()) {
+            PretCustomer pretCustomer = pretCustomerRepository.findByLinkPhoneAndS(res.getPhone(), ConstantEnum.S.N.getLabel());
+            if (pretCustomer != null) {
+                pretCustomer.setOpenid(res.getOpenId());
+                pretCustomerRepository.save(pretCustomer);
+            } else {
+                throw new BusinessException(OpenBEEnum.E90000003.name(), OpenBEEnum.E90000003.getMsg());
+            }
+        } else if (res.getType() == ConstantEnum.EUserType.司机.getLabel()) {
+            PretDriver pretDriver = pretDriverRepository.findByPhoneAndS(res.getPhone(), ConstantEnum.S.N.getLabel());
+            pretDriver.setOpenid(res.getOpenId());
+            pretDriverRepository.save(pretDriver);
         }
         user.setToken(UUID.randomUUID().toString().replace("-", ""));
         retVo.setData(user);

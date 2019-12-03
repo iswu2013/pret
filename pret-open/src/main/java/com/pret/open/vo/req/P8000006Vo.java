@@ -14,4 +14,5 @@ import lombok.Data;
 @Data
 public class P8000006Vo extends ReqBody {
     private int status = -1;
+    private int stockUpStatus = -1;
 }

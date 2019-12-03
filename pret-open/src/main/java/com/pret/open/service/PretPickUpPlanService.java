@@ -192,6 +192,7 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
         PretDriver pretDriver = driverRepository.findByOpenidAndS(res.getUserInfo().getOpenid(), ConstantEnum.S.N.getLabel());
         PretPickUpPlanVo vo = new PretPickUpPlanVo();
         vo.setEq$status(res.getStatus());
+        vo.setEq$stockUpStatus(res.getStockUpStatus());
         vo.setEq$driverId(pretDriver.getId());
         List<PretPickUpPlan> list = this.page(vo).getContent();
         retVo.setData(list);
@@ -336,6 +337,7 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
         PretPickUpPlanVo vo = new PretPickUpPlanVo();
         vo.setEq$status(res.getStatus());
         vo.setEq$tallyClerkId(user.getId());
+        vo.setEq$stockUpStatus(res.getStockUpStatus());
         List<PretPickUpPlan> list = this.page(vo).getContent();
         for (PretPickUpPlan pretPickUpPlan : list) {
             if (!StringUtils.isEmpty(pretPickUpPlan.getVenderId())) {
@@ -349,7 +351,7 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
     }
 
     /* *
-     * 功能描述: 获取待备货详情
+     * 功能描述: 获取理货员待备货详情
      * 〈〉
      * @Param: [res]
      * @Return: com.pret.api.vo.ResBody

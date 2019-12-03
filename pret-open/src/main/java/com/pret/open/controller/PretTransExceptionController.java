@@ -86,7 +86,7 @@ public class PretTransExceptionController extends BaseManageController<PretTrans
             pretTransException.setStatus(status);
             pretTransExceptionRepository.save(pretTransException);
 
-            if (status == ConstantEnum.ECheckStatus.通过.getLabel()) {
+            /*if (status == ConstantEnum.ECheckStatus.通过.getLabel()) {
                 PretTransPlan pretTransPlan = pretTransPlanRepository.findById(pretTransException.getTransPlanId()).get();
                 PretTransPlan newP = new PretTransPlan();
                 BeanUtilsExtended.copyProperties(newP, pretTransPlan);
@@ -102,7 +102,7 @@ public class PretTransExceptionController extends BaseManageController<PretTrans
                         pretTransOrderRepository.save(transOrder);
                     }
                 }
-            }
+            }*/
 
 
         } catch (Exception e) {

@@ -196,9 +196,8 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
                 statusList.add(ConstantEnum.ETransOrderStatus.待提货.getLabel());
                 Date date = DateUtils.truncate(bo.getDeliveryDate(), Calendar.DATE);
                 Date endDate = DateUtils.addDays(date, 1);
-                List<PretTransOrder> pretTransOrderList = this.repository.findByAddressIdAndCustomerAddressAndDeliveryDateBetweenAndStatusInAndS(bo.getAddressId(), bo.getCustomerAddress(), date, endDate, statusList, ConstantEnum.S.N.getLabel());
-
-                List<String> pretAddressList = pretAddressService.findAddressListByAddressId(bo.getAddressId());
+                List<String> pretAddressList = pretAddressService.findAddressListByAddressIdAdd(bo.getAddressId());
+                List<PretTransOrder> pretTransOrderList = this.repository.findByAddressIdInAndDeliveryDateBetweenAndStatusInAndS(pretAddressList, date, endDate, statusList, ConstantEnum.S.N.getLabel());
                 List<PretServiceRouteItem> pretServiceRouteItemList = pretServiceRouteItemRepository.findByCodeAndVenderTypeAndAddressIdInAndS(bo.getPickupFactoryCd(), ConstantEnum.EVenderType.三方.getLabel(), pretAddressList, ConstantEnum.S.N.getLabel());
                 this.calBillingInterval(pretTransOrderList, pretTransOrder, true, pretServiceRouteItemList);
 

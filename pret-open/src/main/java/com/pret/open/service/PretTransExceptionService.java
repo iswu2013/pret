@@ -144,6 +144,7 @@ public class PretTransExceptionService extends BaseServiceImpl<PretTransExceptio
             pretTransOrder.setCustomerDetailAddress(old.getServiceRouteOriginAddress());
             pretTransOrder.setServiceRouteOriginAddress(old.getCustomerDetailAddress());
             pretTransOrder.setTransPlanId(pretTransPlan.getId());
+            pretTransOrder.setType(ConstantEnum.EPretTransOrderType.返程配送单.getLabel());
             pretTransOrderRepository.save(pretTransOrder);
         }
         pretTransException.setIsReturnStatus(1);
