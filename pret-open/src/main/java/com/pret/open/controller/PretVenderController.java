@@ -130,14 +130,14 @@ public class PretVenderController extends BaseManageController<PretVenderService
             for (String item : idList) {
                 PretTransOrderGroup pretTransOrderGroup = pretTransOrderGroupRepository.findById(item).get();
                 pretTransOrderGroup.setVenderId(id);
-                pretTransOrderGroup.setStatus(ConstantEnum.ETransOrderStatus.待提货.getLabel());
+                pretTransOrderGroup.setStatus(ConstantEnum.ETransOrderStatus.已分配.getLabel());
                 pretTransOrderGroupRepository.save(pretTransOrderGroup);
                 List<PretTransOrder> pretTransOrderList = pretTransOrderRepository.findByTransOrderGroupIdAndS(item, ConstantEnum.S.N.getLabel());
                 if (pretTransOrderList != null && pretTransOrderList.size() > 0) {
                     for (PretTransOrder pretTransOrder : pretTransOrderList) {
                         pretTransOrder.setTransOrderGroupId(item);
                         pretTransOrder.setVenderId(id);
-                        pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.待提货.getLabel());
+                        pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.已分配.getLabel());
                         pretTransOrderRepository.save(pretTransOrder);
 
                         pretTransOrderService.pretTransOrderStatistics(ConstantEnum.ETransOrderStatisticsUserType.物流供应商.getLabel(), pretTransOrder.getVenderId());

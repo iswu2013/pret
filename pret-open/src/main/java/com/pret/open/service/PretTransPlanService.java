@@ -148,7 +148,7 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
                 if (StringUtils.isEmpty(venderId)) {
                     venderId = pretTransOrder.getVenderId();
                 }
-                gw += pretTransOrder.getGw();
+                gw += pretTransOrder.getKilo();
             }
             transPlan.setCustomerId(transOrder.getCustomerId());
             transPlan.setVenderId(venderId);
@@ -336,6 +336,7 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
 
         pretTransPlan.setPreDeliveryDate(bo.getPreDeliveryDate());
         pretTransPlan.setTransDatetime(bo.getTransDatetime());
+        pretTransPlan.setStatus(ConstantEnum.ETransPlanStatus.已起运.getValue());
         List<PretTransOrder> pretTransOrderList = pretTransOrderRepository.findByTransPlanIdAndS(bo.getId(), ConstantEnum.S.N.getLabel());
         String groupId = StringUtils.EMPTY;
         for (PretTransOrder order : pretTransOrderList) {

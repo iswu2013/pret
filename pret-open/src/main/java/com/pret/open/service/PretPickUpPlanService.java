@@ -279,9 +279,16 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
     public void pretPickUpPlanCancel(String ids) {
         List<String> idList = StringUtil.idsStr2ListString(ids);
         for (String id : idList) {
-            PretPickUpPlan pickUpPlan = this.repository.findById(id).get();
-            pickUpPlan.setStatus(ConstantEnum.EPretPickUpPlanStatus.已取消.getLabel());
-            this.repository.save(pickUpPlan);
+            this.lDelete(id);
+
+            List<PretTransOrder> pretTransOrderList = pretTransOrderRepository.findByPickUpPlanIdAndS(id, ConstantEnum.S.N.getLabel());
+            if (pretTransOrderList != null && pretTransOrderList.size() > 0) {
+                for (PretTransOrder pretTransOrder : pretTransOrderList) {
+                    pretTransOrder.setPickUpPlanId(null);
+                    pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.已分配.getLabel());
+                    pretTransOrderRepository.save(pretTransOrder);
+                }
+            }
         }
     }
 

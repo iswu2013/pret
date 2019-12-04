@@ -9,10 +9,7 @@ import com.pret.open.entity.*;
 import com.pret.open.entity.bo.PretPickUpPlanBo;
 import com.pret.open.entity.bo.PretPickUpPlanModifyDriverBo;
 import com.pret.open.entity.vo.PretPickUpPlanVo;
-import com.pret.open.repository.PretDriverRepository;
-import com.pret.open.repository.PretServiceRouteOriginRepository;
-import com.pret.open.repository.PretTransOrderRepository;
-import com.pret.open.repository.PretVenderRepository;
+import com.pret.open.repository.*;
 import com.pret.open.service.PretPickUpPlanService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -46,6 +43,8 @@ public class PretPickUpPlanController extends BaseManageController<PretPickUpPla
     private PretDriverRepository pretDriverRepository;
     @Autowired
     private PretServiceRouteOriginRepository pretServiceRouteOriginRepository;
+    @Autowired
+    private PretCustomerRepository pretCustomerRepository;
 
     @GetMapping
     @Override()
@@ -79,7 +78,11 @@ public class PretPickUpPlanController extends BaseManageController<PretPickUpPla
     public PretPickUpPlan view(@PathVariable String id) throws FebsException {
         try {
             PretPickUpPlan item = this.service.findById(id).get();
-            List<PretTransOrder> pretTransOrderList = pretTransOrderRepository.findByTransPlanIdAndS(item.getId(), ConstantEnum.S.N.getLabel());
+            List<PretTransOrder> pretTransOrderList = pretTransOrderRepository.findByPickUpPlanIdAndS(item.getId(), ConstantEnum.S.N.getLabel());
+            for (PretTransOrder pretTransOrder : pretTransOrderList) {
+                PretCustomer pretCustomer = pretCustomerRepository.findById(pretTransOrder.getCustomerId()).get();
+                pretTransOrder.setPretCustomer(pretCustomer);
+            }
             item.setTransOrderList(pretTransOrderList);
             return item;
         } catch (Exception e) {
@@ -131,9 +134,9 @@ public class PretPickUpPlanController extends BaseManageController<PretPickUpPla
     @RequestMapping(value = "/downEwm/{id}")
     @ResponseBody
     public ResponseEntity<InputStreamResource> downEwm(@PathVariable String id) throws IOException {
-        String fileName = "model.zip";
         try {
             PretPickUpPlan pretPickUpPlan = this.service.findById(id).get();
+            String fileName = pretPickUpPlan.getQrcode() + ".png";
             String fullPath = Constants.QR_ROOT_PATH + pretPickUpPlan.getQrcodePath();
             HttpHeaders headers = new HttpHeaders();
             headers.setContentDispositionFormData("attachment", new String(fileName.getBytes("gb2312"), "iso-8859-1"));// new String("线上消费记录".getBytes("GBK"),"iso-8859-1")
