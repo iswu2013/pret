@@ -140,7 +140,7 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
             Float gw = 0.0f;
             for (PretTransOrder pretTransOrder : item.getValue()) {
                 pretTransOrder.setTransPlanId(transPlan.getId());
-                pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.完成提货.getLabel());
+                pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.待起运.getLabel());
                 pretTransOrderRepository.save(pretTransOrder);
                 if (transOrder == null) {
                     transOrder = pretTransOrder;
@@ -152,7 +152,7 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
             }
             transPlan.setCustomerId(transOrder.getCustomerId());
             transPlan.setVenderId(venderId);
-            transPlan.setStatus(ConstantEnum.ETransPlanStatus.运输中.getValue());
+            transPlan.setStatus(ConstantEnum.ETransPlanStatus.待起运.getValue());
             transPlan.setGoodsNum(count);
             transPlan.setCustomerDetailAddress(transOrder.getCustomerDetailAddress());
             transPlan.setServiceRouteOriginName(transOrder.getServiceRouteOriginName());
@@ -164,19 +164,14 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
             this.repository.save(transPlan);
 
             PretTransOrderGroup pretTransOrderGroup = pretTransOrderGroupRepository.findById(transOrder.getTransOrderGroupId()).get();
-            pretTransOrderGroup.setStatus(ConstantEnum.ETransOrderStatus.完成提货.getLabel());
+            pretTransOrderGroup.setStatus(ConstantEnum.ETransOrderStatus.待起运.getLabel());
             pretTransOrderGroupRepository.save(pretTransOrderGroup);
 
             // 设置提货计划状态
             String[] pickUpArr = bo.getPickUpIds().split(",");
             for (String pickUp : pickUpArr) {
                 PretPickUpPlan pretPickUpPlan = pretPickUpPlanRepository.findById(pickUp).get();
-                List<PretTransOrder> transOrderList = pretTransOrderRepository.findByTransPlanIdAndStatusAndS(pickUp, ConstantEnum.ETransOrderStatus.完成提货.getLabel(), ConstantEnum.S.N.getLabel());
-                if (transOrderList != null && transOrderList.size() > 0) {
-                    pretPickUpPlan.setStatus(ConstantEnum.EPretPickUpPlanStatus.部分完成.getLabel());
-                } else {
-                    pretPickUpPlan.setStatus(ConstantEnum.EPretPickUpPlanStatus.已完成.getLabel());
-                }
+                pretPickUpPlan.setStatus(ConstantEnum.EPretPickUpPlanStatus.提货完成.getLabel());
                 pretPickUpPlan.setEndTime(new Date());
                 pretPickUpPlanRepository.save(pretPickUpPlan);
             }
@@ -344,15 +339,15 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
         List<PretTransOrder> pretTransOrderList = pretTransOrderRepository.findByTransPlanIdAndS(bo.getId(), ConstantEnum.S.N.getLabel());
         String groupId = StringUtils.EMPTY;
         for (PretTransOrder order : pretTransOrderList) {
-            order.setStatus(ConstantEnum.ETransOrderStatus.起运.getLabel());
-            if(StringUtils.isEmpty(groupId)) {
-               groupId = order.getTransOrderGroupId();
+            order.setStatus(ConstantEnum.ETransOrderStatus.已起运.getLabel());
+            if (StringUtils.isEmpty(groupId)) {
+                groupId = order.getTransOrderGroupId();
             }
         }
         pretTransOrderRepository.saveAll(pretTransOrderList);
 
         PretTransOrderGroup pretTransOrderGroup = pretTransOrderGroupRepository.findById(groupId).get();
-        pretTransOrderGroup.setStatus(ConstantEnum.ETransOrderStatus.起运.getLabel());
+        pretTransOrderGroup.setStatus(ConstantEnum.ETransOrderStatus.已起运.getLabel());
         pretTransOrderGroupRepository.save(pretTransOrderGroup);
 
         this.repository.save(pretTransPlan);

@@ -55,6 +55,7 @@ public class PretTransOrderGroupController extends BaseManageController<PretTran
                 PretServiceRouteOrigin pretServiceRouteOrigin = pretServiceRouteOriginRepository.findById(route.getServiceRouteOriginId()).get();
                 route.setPretServiceRouteOrigin(pretServiceRouteOrigin);
             }
+            route.setTotalGw(pretTransOrderRepository.sumKiloByTransOrderGroupId(route.getId()));
         }
         Map<String, Object> rspData = new HashMap<>();
         rspData.put("rows", page.getContent());

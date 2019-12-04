@@ -44,8 +44,8 @@ public class PretTransFeeController extends BaseManageController<PretTransFeeSer
         if (request.isSearchStatus()) {
             List<Integer> statusList = new ArrayList<>();
             statusList.add(ConstantEnum.EPretTransFeeStatus.已申报.getLabel());
-            statusList.add(ConstantEnum.EPretTransFeeStatus.通过.getLabel());
-            statusList.add(ConstantEnum.EPretTransFeeStatus.不通过.getLabel());
+            statusList.add(ConstantEnum.EPretTransFeeStatus.待申报.getLabel());
+            statusList.add(ConstantEnum.EPretTransFeeStatus.审核通过.getLabel());
             request.setIn$status(statusList);
         }
         Page<PretTransFee> page = this.service.page(request);

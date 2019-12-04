@@ -129,8 +129,8 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
     /**
      * 状态(运输中,已签收)
      */
-    @ExcelField(value = "状态", writeConverterExp = "1=运输中,2=已签收")
-    private Integer status = ConstantEnum.ETransPlanStatus.运输中.getValue();
+    @ExcelField(value = "状态", writeConverterExp = "0=待起运,1=已起运,2=已签收")
+    private Integer status = ConstantEnum.ETransPlanStatus.待起运.getValue();
 
     /**
      * 费用创建人

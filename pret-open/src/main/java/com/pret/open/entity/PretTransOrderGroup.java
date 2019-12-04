@@ -176,6 +176,11 @@ public class PretTransOrderGroup extends VersionedAuditableIdEntity implements S
     private String remark;
 
     /**
+     * 储位
+     */
+    private String storageNumber;
+
+    /**
      * 供应商
      */
     private PretVender pretVender;
@@ -188,6 +193,8 @@ public class PretTransOrderGroup extends VersionedAuditableIdEntity implements S
     private PretServiceRouteOrigin pretServiceRouteOrigin;
 
     private List<PretTransOrder> pretTransOrderList;
+
+    private Float totalGw;
 
     // setter and getter
 
@@ -225,5 +232,14 @@ public class PretTransOrderGroup extends VersionedAuditableIdEntity implements S
 
     public void setPretTransOrderList(List<PretTransOrder> pretTransOrderList) {
         this.pretTransOrderList = pretTransOrderList;
+    }
+
+    @Transient()
+    public Float getTotalGw() {
+        return totalGw;
+    }
+
+    public void setTotalGw(Float totalGw) {
+        this.totalGw = totalGw;
     }
 }

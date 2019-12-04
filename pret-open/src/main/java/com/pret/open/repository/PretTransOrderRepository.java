@@ -2,6 +2,7 @@ package com.pret.open.repository;
 
 import com.pret.common.repository.BaseRepository;
 import com.pret.open.entity.PretTransOrder;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.Date;
 import java.util.List;
@@ -56,9 +57,9 @@ public interface PretTransOrderRepository extends BaseRepository<PretTransOrder>
      * 功能描述: 根据venderId和状态查询
      * 〈〉
      * @Param: [venderId, status, s]
-            * @Return: long
-            * @Author: wujingsong
-            * @Date: 2019/12/3  3:51 下午
+     * @Return: long
+     * @Author: wujingsong
+     * @Date: 2019/12/3  3:51 下午
      */
     long countByVenderIdAndStatusAndS(String venderId, Integer status, Integer s);
 
@@ -111,14 +112,17 @@ public interface PretTransOrderRepository extends BaseRepository<PretTransOrder>
      * @Date: 2019/12/3  12:37 上午
      */
     List<PretTransOrder> findByAddressIdInAndDeliveryDateBetweenAndStatusInAndS(List<String> addressList, Date start, Date end, List<Integer> statusList, Integer s);
-    
+
     /* *
      * 功能描述: <br>
      * 〈〉
      * @Param: [transGroupId, s]
-            * @Return: java.util.List<com.pret.open.entity.PretTransOrder>
-            * @Author: wujingsong
-            * @Date: 2019/12/4  6:36 上午
+     * @Return: java.util.List<com.pret.open.entity.PretTransOrder>
+     * @Author: wujingsong
+     * @Date: 2019/12/4  6:36 上午
      */
-    List<PretTransOrder> findByTransOrderGroupIdAndS(String transGroupId,Integer s);
+    List<PretTransOrder> findByTransOrderGroupIdAndS(String transGroupId, Integer s);
+
+    @Query("select sum (kilo) from PretTransOrder where transOrderGroupId=?1 ")
+    Float sumKiloByTransOrderGroupId(String transOrderGroupId);
 }

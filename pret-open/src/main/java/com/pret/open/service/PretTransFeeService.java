@@ -95,10 +95,6 @@ public class PretTransFeeService extends BaseServiceImpl<PretTransFeeRepository,
             PretTransFee transFee = this.repository.findById(id).get();
             transFee.setStatus(ConstantEnum.EPretTransFeeStatus.已申报.getLabel());
             this.repository.save(transFee);
-
-            PretTransPlan pretTransPlan = pretTransPlanRepository.findById(transFee.getTransPlanId()).get();
-            pretTransPlan.setStatus(ConstantEnum.ETransPlanStatus.费用已申报.getValue());
-            pretTransPlanRepository.save(pretTransPlan);
         }
     }
 
@@ -121,12 +117,7 @@ public class PretTransFeeService extends BaseServiceImpl<PretTransFeeRepository,
 
         List<PretTransOrder> pretTransOrderList = pretTransOrderRepository.findByTransPlanIdAndS(id, ConstantEnum.S.N.getLabel());
         if (pretTransOrderList != null && pretTransOrderList.size() > 0) {
-            PretTransOrderGroup pretTransOrderGroup = pretTransOrderGroupRepository.findById(pretTransOrderList.get(0).getTransOrderGroupId()).get();
-            pretTransOrderGroup.setStatus(ConstantEnum.ETransOrderStatus.签收.getLabel());
-            pretTransOrderGroupRepository.save(pretTransOrderGroup);
             for (PretTransOrder pretTransOrder : pretTransOrderList) {
-                pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.签收.getLabel());
-                pretTransOrderRepository.save(pretTransOrder);
                 if (pretTransOrder.getUnit() == ConstantEnum.EUnit.公斤.getLabel()) {
                     totalGw += pretTransOrder.getGw();
                 } else {
@@ -215,7 +206,7 @@ public class PretTransFeeService extends BaseServiceImpl<PretTransFeeRepository,
             }
             pretTransFeeItemRepository.saveAll(list);
 
-            pretTransFee.setStatus(ConstantEnum.EPretTransFeeStatus.通过.getLabel());
+            pretTransFee.setStatus(ConstantEnum.EPretTransFeeStatus.审核通过.getLabel());
             this.repository.save(pretTransFee);
         }
     }

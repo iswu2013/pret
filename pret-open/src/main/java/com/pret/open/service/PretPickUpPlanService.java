@@ -118,7 +118,7 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
             List<PretTransOrder> pretTransOrderList = pretTransOrderRepository.findByTransOrderGroupIdAndS(id, ConstantEnum.S.N.getLabel());
             for (PretTransOrder pretTransOrder : pretTransOrderList) {
                 pretTransOrder.setPickUpPlanId(pretPickUpPlan.getId());
-                pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.计划提货.getLabel());
+                pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.待提货.getLabel());
                 transOrderRepository.save(pretTransOrder);
                 if (StringUtils.isEmpty(venderId)) {
                     venderId = pretTransOrder.getVenderId();
@@ -128,18 +128,12 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
                 }
             }
             PretTransOrderGroup pretTransOrderGroup = pretTransOrderGroupRepository.findById(id).get();
-            pretTransOrderGroup.setStatus(ConstantEnum.ETransOrderStatus.计划提货.getLabel());
+            pretTransOrderGroup.setStatus(ConstantEnum.ETransOrderStatus.待提货.getLabel());
             pretTransOrderGroupRepository.save(pretTransOrderGroup);
         }
 
         pretPickUpPlan.setVenderId(venderId);
         pretPickUpPlan.setServiceRouteOriginId(serviceRouteOriginId);
-
-//        Role role = roleRepository.findByCode(ConstantEnum.ERoleCode.Tallylerk.name());
-//        List<UserRole> userRoleList = userRoleRepository.findByRoleIdAndS(role.getId(), ConstantEnum.S.N.getLabel());
-//        if (userRoleList != null && userRoleList.size() > 0) {
-//
-//        }
 
         List<User> userList = userRepository.findByUserTypeAndS(ConstantEnum.EUserType.理货员.getLabel(), ConstantEnum.S.N.getLabel());
         if (userList != null && userList.size() > 0) {
@@ -222,7 +216,7 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
         List<String> idList = StringUtil.idsStr2ListString(res.getIds());
         for (String id : idList) {
             PretPickUpPlan pickUpPlan = this.repository.findById(id).get();
-            pickUpPlan.setStatus(ConstantEnum.EPretPickUpPlanStatus.已完成.getLabel());
+            pickUpPlan.setStatus(ConstantEnum.EPretPickUpPlanStatus.提货完成.getLabel());
             this.repository.save(pickUpPlan);
         }
 
@@ -267,7 +261,7 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
 
         List<PretTransOrder> pretTransOrderList = transOrderRepository.findByTransPlanIdAndS(pretPickUpPlan.getId(), ConstantEnum.S.N.getLabel());
         for (PretTransOrder pretTransOrder : pretTransOrderList) {
-            pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.完成提货.getLabel());
+            pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.待起运.getLabel());
             transOrderRepository.save(pretTransOrder);
         }
 

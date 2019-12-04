@@ -3,6 +3,7 @@ package com.pret.open.controller;
 import com.pret.api.rest.BaseManageController;
 import com.pret.common.annotation.Log;
 import com.pret.common.constant.ConstantEnum;
+import com.pret.common.constant.Constants;
 import com.pret.common.exception.FebsException;
 import com.pret.open.entity.*;
 import com.pret.open.entity.bo.PretPickUpPlanBo;
@@ -16,10 +17,18 @@ import com.pret.open.service.PretPickUpPlanService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -109,5 +118,39 @@ public class PretPickUpPlanController extends BaseManageController<PretPickUpPla
             message = "修改司机失败";
             throw new FebsException(message);
         }
+    }
+
+    /* *
+     * 功能描述: 下载二维码
+     * 〈〉
+     * @Param: []
+     * @Return: org.springframework.http.ResponseEntity<org.springframework.core.io.InputStreamResource>
+     * @Author: wujingsong
+     * @Date: 2019/12/4  4:34 下午
+     */
+    @RequestMapping(value = "/downEwm/{id}")
+    @ResponseBody
+    public ResponseEntity<InputStreamResource> downEwm(@PathVariable String id) throws IOException {
+        String fileName = "model.zip";
+        try {
+            PretPickUpPlan pretPickUpPlan = this.service.findById(id).get();
+            String fullPath = Constants.QR_ROOT_PATH + pretPickUpPlan.getQrcodePath();
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentDispositionFormData("attachment", new String(fileName.getBytes("gb2312"), "iso-8859-1"));// new String("线上消费记录".getBytes("GBK"),"iso-8859-1")
+            headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+            File file = new File(fullPath);
+            FileInputStream inputStream = new FileInputStream(file);
+
+            return ResponseEntity
+                    .ok()
+                    .headers(headers)
+                    .contentType(MediaType.parseMediaType("application/octet-stream"))
+                    .body(new InputStreamResource(inputStream));
+        } catch (Exception e) {
+            System.out.print("错误");
+        } finally {
+        }
+
+        return null;
     }
 }

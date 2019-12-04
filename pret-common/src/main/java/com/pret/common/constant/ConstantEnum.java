@@ -383,7 +383,7 @@ public class ConstantEnum {
      * @Date: 2019/9/20  8:40 下午
      */
     public enum ETransPlanStatus {
-        运输中(0), 已签收(1), 费用已申报(2), 已取消(3), 已完成(4);
+        待起运(0), 已起运(1), 已签收(2);
 
         private ETransPlanStatus(int value) {
             this.value = value;
@@ -449,8 +449,7 @@ public class ConstantEnum {
     public enum EPretTransFeeStatus {
         待申报(0),
         已申报(1),
-        通过(2),
-        不通过(3);
+        审核通过(2);
         private int label;
 
         private EPretTransFeeStatus(int label) {
@@ -480,11 +479,11 @@ public class ConstantEnum {
         /**
          * 待确认
          */
-        创建(0),
+        对账待确认(0),
         /**
          * 已转U9
          */
-        供应商已确认(1);
+        对账已确认(1);
         private int label;
 
         ETransStatementStatus(int label) {
@@ -534,9 +533,8 @@ public class ConstantEnum {
 
     public enum EPretPickUpPlanStatus {
         待提货(1),
-        已完成(2),
-        已取消(3),
-        部分完成(4);
+        提货完成(2),
+        已取消(3);
         private int label;
 
         private EPretPickUpPlanStatus(int label) {
@@ -876,11 +874,11 @@ public class ConstantEnum {
      */
     public enum ETransOrderStatus {
         待分配(1),
-        待提货(2),
-        计划提货(3),
-        完成提货(4),
-        起运(5),
-        签收(6);
+        已分配(2),
+        待提货(3),
+        待起运(4),
+        已起运(5),
+        已签收(6);
         private int label;
 
         ETransOrderStatus(int label) {

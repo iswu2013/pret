@@ -192,6 +192,13 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
                 BeanUtilsExtended.copyProperties(pretTransOrder, bo);
                 pretTransOrder.setCustomerDetailAddress(pretAddressService.getDetailByAddressId(bo.getAddressId()) + bo.getCustomerAddress());
                 BeanUtilsExtended.copyProperties(pretTransOrder, pretMTransOrderBo);
+                Float kilo = 0.0f;
+                if (pretTransOrder.getUnit() == ConstantEnum.EUnit.公斤.getLabel()) {
+                    kilo += pretTransOrder.getGw();
+                } else {
+                    kilo += pretTransOrder.getGw() * 1000;
+                }
+                pretTransOrder.setKilo(kilo);
                 this.repository.save(pretTransOrder);
                 PretCustomer pretCustomer = pretCustomerRepository.findByCodeAndS(bo.getCustCd(), ConstantEnum.S.N.getLabel());
                 if (pretCustomer == null) {

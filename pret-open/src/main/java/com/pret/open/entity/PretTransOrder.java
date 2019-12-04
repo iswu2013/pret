@@ -175,6 +175,11 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
     private int unit;
 
     /**
+     * 公斤
+     */
+    private Float kilo;
+
+    /**
      * 提货计划id
      */
     @ExcelField(value = "提货计划id")

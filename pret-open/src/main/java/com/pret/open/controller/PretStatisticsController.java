@@ -54,10 +54,10 @@ public class PretStatisticsController {
 
         // 在途运输业务数量
         if (StringUtils.isEmpty(venderId)) {
-            long onTheWayTransCount = pretTransPlanRepository.countByStatusAndS(ConstantEnum.ETransPlanStatus.运输中.getValue(), ConstantEnum.S.N.getLabel());
+            long onTheWayTransCount = pretTransPlanRepository.countByStatusAndS(ConstantEnum.ETransPlanStatus.已起运.getValue(), ConstantEnum.S.N.getLabel());
             vo.setOnTheWayTransCount(onTheWayTransCount);
         } else {
-            long onTheWayTransCount = pretTransPlanRepository.countByVenderIdAndStatusAndS(venderId, ConstantEnum.ETransPlanStatus.运输中.getValue(), ConstantEnum.S.N.getLabel());
+            long onTheWayTransCount = pretTransPlanRepository.countByVenderIdAndStatusAndS(venderId, ConstantEnum.ETransPlanStatus.已起运.getValue(), ConstantEnum.S.N.getLabel());
             vo.setOnTheWayTransCount(onTheWayTransCount);
         }
         // 未提货完成数

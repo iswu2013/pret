@@ -89,7 +89,7 @@ public class PretTransStatementService extends BaseServiceImpl<PretTransStatemen
         try {
             transStatement.setPeriodFrom(DateUtils.parseDate(bo.getPeriodFromStr(), "yyyy-MM-dd"));
             transStatement.setPeriodTo(DateUtils.parseDate(bo.getPeriodToStr(), "yyyy-MM-dd"));
-            transStatement.setStatus(ConstantEnum.ETransStatementStatus.创建.getLabel());
+            transStatement.setStatus(ConstantEnum.ETransStatementStatus.对账待确认.getLabel());
             transStatement.setCheckDate(new Date());
             transStatement.setCurrencyId(bo.getCurrencyId());
             this.repository.save(transStatement);
@@ -101,7 +101,7 @@ public class PretTransStatementService extends BaseServiceImpl<PretTransStatemen
         for (String id : idArr) {
             PretTransFee transFee = transFeeRepository.findById(id).get();
             transFee.setTransStatementId(transStatement.getId());
-            transFee.setStatus(ConstantEnum.EPretTransFeeStatus.通过.getLabel());
+            transFee.setStatus(ConstantEnum.EPretTransFeeStatus.审核通过.getLabel());
             transFeeRepository.save(transFee);
             totalAmount = totalAmount.add(transFee.getQuotation());
 
@@ -130,7 +130,7 @@ public class PretTransStatementService extends BaseServiceImpl<PretTransStatemen
         for (String id : idArr) {
             // 对接U9
             PretTransStatement transStatement = transStatementRepository.findById(id).get();
-            transStatement.setStatus(ConstantEnum.ETransStatementStatus.供应商已确认.getLabel());
+            transStatement.setStatus(ConstantEnum.ETransStatementStatus.对账已确认.getLabel());
             transStatementRepository.save(transStatement);
         }
     }
@@ -160,7 +160,7 @@ public class PretTransStatementService extends BaseServiceImpl<PretTransStatemen
         for (String id : idArr) {
             PretTransFee transFee = transFeeRepository.findById(id).get();
             transFee.setTransStatementId(transStatement.getId());
-            transFee.setStatus(ConstantEnum.EPretTransFeeStatus.通过.getLabel());
+            transFee.setStatus(ConstantEnum.EPretTransFeeStatus.审核通过.getLabel());
             transFeeRepository.save(transFee);
             totalAmount = totalAmount.add(transFee.getQuotation());
 
