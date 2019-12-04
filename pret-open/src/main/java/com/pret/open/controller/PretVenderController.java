@@ -9,10 +9,7 @@ import com.pret.common.exception.FebsException;
 import com.pret.common.util.BeanUtilsExtended;
 import com.pret.common.util.StringUtil;
 import com.pret.common.utils.MD5Util;
-import com.pret.open.entity.PretServiceRouteOriginUser;
-import com.pret.open.entity.PretTransOrder;
-import com.pret.open.entity.PretTransOrderGroup;
-import com.pret.open.entity.PretVender;
+import com.pret.open.entity.*;
 import com.pret.open.entity.bo.PretMTransOrderItemBo;
 import com.pret.open.entity.bo.PretServiceRouteBo;
 import com.pret.open.entity.user.Role;
@@ -20,10 +17,7 @@ import com.pret.open.entity.user.User;
 import com.pret.open.entity.user.UserConfig;
 import com.pret.open.entity.user.UserRole;
 import com.pret.open.entity.vo.PretVenderVo;
-import com.pret.open.repository.PretServiceRouteOriginUserRepository;
-import com.pret.open.repository.PretTransOrderGroupRepository;
-import com.pret.open.repository.PretTransOrderRepository;
-import com.pret.open.repository.PretVenderRepository;
+import com.pret.open.repository.*;
 import com.pret.open.repository.user.RoleRepository;
 import com.pret.open.repository.user.UserConfigRepository;
 import com.pret.open.repository.user.UserRepository;
@@ -69,6 +63,8 @@ public class PretVenderController extends BaseManageController<PretVenderService
     private PretTransOrderGroupRepository pretTransOrderGroupRepository;
     @Autowired
     private PretTransOrderService pretTransOrderService;
+    @Autowired
+    private PretServiceRouteOriginRepository pretServiceRouteOriginRepository;
     @PersistenceContext
     private EntityManager em;
 
@@ -79,6 +75,16 @@ public class PretVenderController extends BaseManageController<PretVenderService
         try {
             PretVender item = this.service.findById(id).get();
             List<PretServiceRouteOriginUser> pretServiceRouteOriginUserList = pretServiceRouteOriginUserRepository.findByVenderIdAndS(item.getId(), ConstantEnum.S.N.getLabel());
+            if (pretServiceRouteOriginUserList != null && pretServiceRouteOriginUserList.size() > 0) {
+                for (PretServiceRouteOriginUser pretServiceRouteOriginUser : pretServiceRouteOriginUserList) {
+                    User user = userRepository.findById(pretServiceRouteOriginUser.getUserId()).get();
+                    pretServiceRouteOriginUser.setUser(user);
+                    PretVender pretVender = pretVenderRepository.findById(pretServiceRouteOriginUser.getVenderId()).get();
+                    pretServiceRouteOriginUser.setPretVender(pretVender);
+                    PretServiceRouteOrigin pretServiceRouteOrigin = pretServiceRouteOriginRepository.findById(pretServiceRouteOriginUser.getServiceRouteOriginId()).get();
+                    pretServiceRouteOriginUser.setPretServiceRouteOrigin(pretServiceRouteOrigin);
+                }
+            }
             item.setServiceRouteOriginUserDataSource(pretServiceRouteOriginUserList);
             return item;
         } catch (Exception e) {

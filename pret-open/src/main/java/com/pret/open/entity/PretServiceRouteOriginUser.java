@@ -1,15 +1,13 @@
 package com.pret.open.entity;
 
 import com.pret.common.VersionedAuditableIdEntity;
+import com.pret.open.entity.user.User;
 import com.wuwenze.poi.annotation.Excel;
 import com.wuwenze.poi.annotation.ExcelField;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -58,4 +56,37 @@ public class PretServiceRouteOriginUser extends VersionedAuditableIdEntity imple
      * 供应商id
      */
     private String venderId;
+
+    private User user;
+
+    private PretVender pretVender;
+
+    private PretServiceRouteOrigin pretServiceRouteOrigin;
+
+    @Transient()
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    @Transient()
+    public PretVender getPretVender() {
+        return pretVender;
+    }
+
+    public void setPretVender(PretVender pretVender) {
+        this.pretVender = pretVender;
+    }
+
+    @Transient()
+    public PretServiceRouteOrigin getPretServiceRouteOrigin() {
+        return pretServiceRouteOrigin;
+    }
+
+    public void setPretServiceRouteOrigin(PretServiceRouteOrigin pretServiceRouteOrigin) {
+        this.pretServiceRouteOrigin = pretServiceRouteOrigin;
+    }
 }
