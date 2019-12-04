@@ -39,6 +39,8 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
         return id;
     }
 
+    private String transOrderGroupId;
+
     /**
      * 0:非返程；1：返程配送单
      */

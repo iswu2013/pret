@@ -11,6 +11,7 @@ import com.pret.common.util.StringUtil;
 import com.pret.common.utils.MD5Util;
 import com.pret.open.entity.PretServiceRouteOriginUser;
 import com.pret.open.entity.PretTransOrder;
+import com.pret.open.entity.PretTransOrderGroup;
 import com.pret.open.entity.PretVender;
 import com.pret.open.entity.bo.PretMTransOrderItemBo;
 import com.pret.open.entity.bo.PretServiceRouteBo;
@@ -20,12 +21,14 @@ import com.pret.open.entity.user.UserConfig;
 import com.pret.open.entity.user.UserRole;
 import com.pret.open.entity.vo.PretVenderVo;
 import com.pret.open.repository.PretServiceRouteOriginUserRepository;
+import com.pret.open.repository.PretTransOrderGroupRepository;
 import com.pret.open.repository.PretTransOrderRepository;
 import com.pret.open.repository.PretVenderRepository;
 import com.pret.open.repository.user.RoleRepository;
 import com.pret.open.repository.user.UserConfigRepository;
 import com.pret.open.repository.user.UserRepository;
 import com.pret.open.repository.user.UserRoleRepository;
+import com.pret.open.service.PretTransOrderService;
 import com.pret.open.service.PretVenderService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -62,6 +65,10 @@ public class PretVenderController extends BaseManageController<PretVenderService
     private PretTransOrderRepository pretTransOrderRepository;
     @Autowired
     private PretServiceRouteOriginUserRepository pretServiceRouteOriginUserRepository;
+    @Autowired
+    private PretTransOrderGroupRepository pretTransOrderGroupRepository;
+    @Autowired
+    private PretTransOrderService pretTransOrderService;
     @PersistenceContext
     private EntityManager em;
 
@@ -121,9 +128,21 @@ public class PretVenderController extends BaseManageController<PretVenderService
         try {
             List<String> idList = StringUtil.idsStr2ListString(ids);
             for (String item : idList) {
-                PretTransOrder pretTransOrder = pretTransOrderRepository.findById(item).get();
-                pretTransOrder.setVenderId(id);
-                pretTransOrderRepository.save(pretTransOrder);
+                PretTransOrderGroup pretTransOrderGroup = pretTransOrderGroupRepository.findById(item).get();
+                pretTransOrderGroup.setVenderId(id);
+                pretTransOrderGroup.setStatus(ConstantEnum.ETransOrderStatus.待提货.getLabel());
+                pretTransOrderGroupRepository.save(pretTransOrderGroup);
+                List<PretTransOrder> pretTransOrderList = pretTransOrderRepository.findByTransOrderGroupIdAndS(item, ConstantEnum.S.N.getLabel());
+                if (pretTransOrderList != null && pretTransOrderList.size() > 0) {
+                    for (PretTransOrder pretTransOrder : pretTransOrderList) {
+                        pretTransOrder.setTransOrderGroupId(item);
+                        pretTransOrder.setVenderId(id);
+                        pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.待提货.getLabel());
+                        pretTransOrderRepository.save(pretTransOrder);
+
+                        pretTransOrderService.pretTransOrderStatistics(ConstantEnum.ETransOrderStatisticsUserType.物流供应商.getLabel(), pretTransOrder.getVenderId());
+                    }
+                }
             }
         } catch (Exception e) {
             message = "查看失败";

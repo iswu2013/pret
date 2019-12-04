@@ -14,7 +14,6 @@ import com.pret.common.exception.FebsException;
 import com.pret.common.util.NoUtil;
 import com.pret.common.util.StringUtil;
 import com.pret.open.entity.*;
-import com.pret.open.entity.bo.PretServiceRouteItemBo;
 import com.pret.open.entity.bo.PretTransFeeBo;
 import com.pret.open.entity.bo.PretTransPlanSignBo;
 import com.pret.open.entity.vo.PretTransFeeVo;
@@ -54,6 +53,8 @@ public class PretTransFeeService extends BaseServiceImpl<PretTransFeeRepository,
     private PretTransFeeItemRepository pretTransFeeItemRepository;
     @Autowired
     private PretTransFeeItemService pretTransFeeItemService;
+    @Autowired
+    private PretTransOrderGroupRepository pretTransOrderGroupRepository;
 
     public PretTransFee genDefaultPretTransFee(String no, String tail) {
         Date date = DateUtils.truncate(new Date(), Calendar.DATE);
@@ -72,7 +73,7 @@ public class PretTransFeeService extends BaseServiceImpl<PretTransFeeRepository,
                 } else {
                     tail = Constants.TAIL;
                 }
-                transFee.setNo(NoUtil.genNo(ConstantEnum.NoTypeEnum.R.name()) + tail);
+                transFee.setNo(NoUtil.genNo(ConstantEnum.NoTypeEnum.TR.name()) + tail);
             }
         }
 
@@ -120,6 +121,9 @@ public class PretTransFeeService extends BaseServiceImpl<PretTransFeeRepository,
 
         List<PretTransOrder> pretTransOrderList = pretTransOrderRepository.findByTransPlanIdAndS(id, ConstantEnum.S.N.getLabel());
         if (pretTransOrderList != null && pretTransOrderList.size() > 0) {
+            PretTransOrderGroup pretTransOrderGroup = pretTransOrderGroupRepository.findById(pretTransOrderList.get(0).getTransOrderGroupId()).get();
+            pretTransOrderGroup.setStatus(ConstantEnum.ETransOrderStatus.签收.getLabel());
+            pretTransOrderGroupRepository.save(pretTransOrderGroup);
             for (PretTransOrder pretTransOrder : pretTransOrderList) {
                 pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.签收.getLabel());
                 pretTransOrderRepository.save(pretTransOrder);

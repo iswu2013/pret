@@ -55,6 +55,8 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
     private PretAddressRepository pretAddressRepository;
     @Autowired
     private PretTransOrderStatisticsRepository pretTransOrderStatisticsRepository;
+    @Autowired
+    private PretTransOrderGroupRepository pretTransOrderGroupRepository;
 
     public void genPickUpPlan(PretPickUpPlanBo bo) {
         String[] idArr = bo.getIds().split(",");
@@ -161,12 +163,21 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
             list = new ArrayList<>();
             list.add(bo2);
         }
+        boolean flag = false;
         if (list != null && list.size() > 0) {
             for (PretMTransOrderItemBo pretMTransOrderBo : list) {
+                PretTransOrderGroup pretTransOrderGroup = pretTransOrderGroupRepository.findByDeliveryBillNumberAndS(bo.getDeliveryBillNumber(), ConstantEnum.S.N.getLabel());
+                if (pretTransOrderGroup != null) {
+                    flag = true;
+                } else {
+                    pretTransOrderGroup = new PretTransOrderGroup();
+                    this.pretTransOrderGroupRepository.save(pretTransOrderGroup);
+                }
                 PretTransOrder pretTransOrder = new PretTransOrder();
                 pretTransOrder.setGw(pretMTransOrderBo.getWeight());
                 pretTransOrder.setUnit(pretMTransOrderBo.getUnit());
                 pretTransOrder.setGoodsNum(pretMTransOrderBo.getGoodsNum());
+                pretTransOrder.setTransOrderGroupId(pretTransOrderGroup.getId());
                 BeanUtilsExtended.copyProperties(pretTransOrder, pretMTransOrderBo);
                 if (StringUtils.isEmpty(bo.getCustomerName())) {
                     pretTransOrder.setCustomerName(bo.getCustomerLinkName());
@@ -205,7 +216,10 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
                 this.calBillingInterval(pretTransOrderList, pretTransOrder, true, pretServiceRouteItemList);
                 // 统计平台
                 this.pretTransOrderStatistics(ConstantEnum.ETransOrderStatisticsUserType.平台.getLabel(), null);
-
+                if (!flag) {
+                    BeanUtilsExtended.copyPropertiesIgnore(pretTransOrderGroup, pretTransOrder, "id");
+                    pretTransOrderGroupRepository.save(pretTransOrderGroup);
+                }
             }
         }
     }
@@ -243,6 +257,9 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
                     transOrder.setServiceRouteItemId(item.getId());
                     transOrder.setStatus(ConstantEnum.ETransOrderStatus.待提货.getLabel());
                     this.repository.saveAll(pretTransOrderList);
+                    PretTransOrderGroup pretTransOrderGroup = pretTransOrderGroupRepository.findById(pretTransOrderList.get(0).getTransOrderGroupId()).get();
+                    pretTransOrderGroup.setStatus(ConstantEnum.ETransOrderStatus.待提货.getLabel());
+                    pretTransOrderGroupRepository.save(pretTransOrderGroup);
                 }
             }
         } else {
@@ -250,6 +267,10 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
             transOrder.setVenderId(venderId);
             this.repository.save(transOrder);
             this.pretTransOrderStatistics(ConstantEnum.ETransOrderStatisticsUserType.物流供应商.getLabel(), venderId);
+
+            PretTransOrderGroup pretTransOrderGroup = pretTransOrderGroupRepository.findById(pretTransOrderList.get(0).getTransOrderGroupId()).get();
+            pretTransOrderGroup.setStatus(ConstantEnum.ETransOrderStatus.待提货.getLabel());
+            pretTransOrderGroupRepository.save(pretTransOrderGroup);
         }
     }
 
@@ -266,6 +287,10 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
         pretTransOrder.setVenderId(venderId);
         pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.待提货.getLabel());
         this.repository.save(pretTransOrder);
+
+        PretTransOrderGroup pretTransOrderGroup = pretTransOrderGroupRepository.findById(pretTransOrder.getTransOrderGroupId()).get();
+        pretTransOrderGroup.setStatus(ConstantEnum.ETransOrderStatus.待提货.getLabel());
+        pretTransOrderGroupRepository.save(pretTransOrderGroup);
     }
 
     /* *

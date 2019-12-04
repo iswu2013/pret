@@ -17,13 +17,13 @@ public class NoUtil {
         Date date = new Date();
         String dateStr = format.format(date);
 
-        if (type.equals(ConstantEnum.NoTypeEnum.TH.name())) {
-            return ConstantEnum.NoTypeEnum.TH.name().concat(dateStr);
+        if (type.equals(ConstantEnum.NoTypeEnum.P.name())) {
+            return ConstantEnum.NoTypeEnum.P.name().concat(dateStr);
         } else if(type.equals(ConstantEnum.NoTypeEnum.T.name())) {
 
             return ConstantEnum.NoTypeEnum.T.name().concat(dateStr);
-        }else if(type.equals(ConstantEnum.NoTypeEnum.R.name())) {
-            return ConstantEnum.NoTypeEnum.R.name().concat(dateStr);
+        }else if(type.equals(ConstantEnum.NoTypeEnum.TR.name())) {
+            return ConstantEnum.NoTypeEnum.TR.name().concat(dateStr);
         }else if(type.equals(ConstantEnum.NoTypeEnum.EX.name())) {
             return ConstantEnum.NoTypeEnum.EX.name().concat(dateStr);
         }

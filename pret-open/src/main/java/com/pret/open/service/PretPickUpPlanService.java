@@ -1,9 +1,5 @@
 package com.pret.open.service;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.FileSystems;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Calendar;
 import java.util.Date;
@@ -21,35 +17,23 @@ import com.pret.common.exception.FebsException;
 import com.pret.common.util.BeanUtilsExtended;
 import com.pret.common.util.NoUtil;
 import com.pret.common.util.StringUtil;
-import com.pret.common.util.UUIDUtils;
-import com.pret.open.entity.PretDriver;
-import com.pret.open.entity.PretPickUpPlan;
-import com.pret.open.entity.PretTransOrder;
-import com.pret.open.entity.PretVender;
+import com.pret.open.entity.*;
 import com.pret.open.entity.bo.PretPickUpPlanBo;
 import com.pret.open.entity.bo.PretPickUpPlanModifyDriverBo;
-import com.pret.open.entity.bo.PretTransPlanBo;
-import com.pret.open.entity.user.Role;
 import com.pret.open.entity.user.User;
-import com.pret.open.entity.user.UserRole;
 import com.pret.open.entity.vo.PretPickUpPlanVo;
-import com.pret.open.repository.PretDriverRepository;
-import com.pret.open.repository.PretTransOrderRepository;
-import com.pret.open.repository.PretVenderRepository;
+import com.pret.open.repository.*;
 import com.pret.open.repository.user.RoleRepository;
 import com.pret.open.repository.user.UserRepository;
 import com.pret.open.repository.user.UserRoleRepository;
 import com.pret.open.vo.req.*;
-import com.pret.open.repository.PretPickUpPlanRepository;
 import com.pret.api.service.impl.BaseServiceImpl;
 import com.pret.open.vo.res.*;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
-import javax.swing.filechooser.FileSystemView;
 import javax.transaction.Transactional;
 
 /**
@@ -79,6 +63,8 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
     private PretDriverRepository pretDriverRepository;
     @Autowired
     private PretTransOrderRepository pretTransOrderRepository;
+    @Autowired
+    private PretTransOrderGroupRepository pretTransOrderGroupRepository;
 
     public PretPickUpPlan genDefaultPretPickUpPlan(String no, String tail) {
         Date date = DateUtils.truncate(new Date(), Calendar.DATE);
@@ -91,13 +77,13 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
             if (StringUtils.isEmpty(tail)) {
                 PretPickUpPlan firstOrder = this.repository.findTop1ByCreateTimeLongBetweenOrderByCreateTimeLongDesc(date.getTime(), endDate.getTime());
                 if (firstOrder != null) {
-                    String str = StringUtil.disposeFrontZero(firstOrder.getNo().substring(12));
+                    String str = StringUtil.disposeFrontZero(firstOrder.getNo().substring(7));
                     int intStr = Integer.parseInt(str) + 1;
-                    tail = StringUtil.addFrontZero(String.valueOf(intStr), 6);
+                    tail = StringUtil.addFrontZero(String.valueOf(intStr), 4);
                 } else {
                     tail = Constants.TAIL;
                 }
-                pretPickUpPlan.setNo(NoUtil.genNo(ConstantEnum.NoTypeEnum.TH.name()) + tail);
+                pretPickUpPlan.setNo(NoUtil.genNo(ConstantEnum.NoTypeEnum.P.name()) + tail);
             }
         }
 
@@ -129,16 +115,21 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
         String venderId = StringUtils.EMPTY;
         String serviceRouteOriginId = StringUtils.EMPTY;
         for (String id : idArr) {
-            PretTransOrder pretTransOrder = transOrderRepository.findById(id).get();
-            pretTransOrder.setPickUpPlanId(pretPickUpPlan.getId());
-            pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.计划提货.getLabel());
-            transOrderRepository.save(pretTransOrder);
-            if (StringUtils.isEmpty(venderId)) {
-                venderId = pretTransOrder.getVenderId();
+            List<PretTransOrder> pretTransOrderList = pretTransOrderRepository.findByTransOrderGroupIdAndS(id, ConstantEnum.S.N.getLabel());
+            for (PretTransOrder pretTransOrder : pretTransOrderList) {
+                pretTransOrder.setPickUpPlanId(pretPickUpPlan.getId());
+                pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.计划提货.getLabel());
+                transOrderRepository.save(pretTransOrder);
+                if (StringUtils.isEmpty(venderId)) {
+                    venderId = pretTransOrder.getVenderId();
+                }
+                if (StringUtils.isEmpty(serviceRouteOriginId)) {
+                    serviceRouteOriginId = pretTransOrder.getServiceRouteOriginId();
+                }
             }
-            if (StringUtils.isEmpty(serviceRouteOriginId)) {
-                serviceRouteOriginId = pretTransOrder.getServiceRouteOriginId();
-            }
+            PretTransOrderGroup pretTransOrderGroup = pretTransOrderGroupRepository.findById(id).get();
+            pretTransOrderGroup.setStatus(ConstantEnum.ETransOrderStatus.计划提货.getLabel());
+            pretTransOrderGroupRepository.save(pretTransOrderGroup);
         }
 
         pretPickUpPlan.setVenderId(venderId);
@@ -160,8 +151,8 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
             QRCodeWriter qrCodeWriter = new QRCodeWriter();
             String uuid = UUID.randomUUID().toString().replace("-", "");
             String qrcode = ConstantEnum.NoTypeEnum.QR.name() + uuid;
-            String p = Constants.dfyyyyMMdd.format(new Date()) + "\\" + ConstantEnum.NoTypeEnum.QR.name() + uuid + ".png";
-            String urlP = Constants.dfyyyyMMdd.format(new Date()) + "/" + ConstantEnum.NoTypeEnum.QR.name() + uuid + ".png";
+            String p = "\\images\\" + ConstantEnum.NoTypeEnum.QR.name() + uuid + ".png";
+            String urlP = "/" + ConstantEnum.NoTypeEnum.QR.name() + uuid + ".png";
             try {
                 BitMatrix bitMatrix = qrCodeWriter.encode(qrcode, BarcodeFormat.QR_CODE, Constants.QR_WIDTH, Constants.QR_HEIGHT);
                 String fullPath = Constants.QR_ROOT_PATH + p;

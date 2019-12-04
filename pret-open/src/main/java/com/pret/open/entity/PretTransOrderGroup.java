@@ -11,6 +11,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>Description: 运输单</p>
@@ -186,6 +187,8 @@ public class PretTransOrderGroup extends VersionedAuditableIdEntity implements S
 
     private PretServiceRouteOrigin pretServiceRouteOrigin;
 
+    private List<PretTransOrder> pretTransOrderList;
+
     // setter and getter
 
     @Transient()
@@ -213,5 +216,14 @@ public class PretTransOrderGroup extends VersionedAuditableIdEntity implements S
 
     public void setPretVender(PretVender pretVender) {
         this.pretVender = pretVender;
+    }
+
+    @Transient()
+    public List<PretTransOrder> getPretTransOrderList() {
+        return pretTransOrderList;
+    }
+
+    public void setPretTransOrderList(List<PretTransOrder> pretTransOrderList) {
+        this.pretTransOrderList = pretTransOrderList;
     }
 }

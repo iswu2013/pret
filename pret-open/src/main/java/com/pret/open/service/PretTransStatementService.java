@@ -6,7 +6,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import com.pret.api.vo.ResBody;
 import com.pret.common.constant.ConstantEnum;
 import com.pret.common.constant.Constants;
 import com.pret.common.util.BeanUtilsExtended;
@@ -18,13 +17,11 @@ import com.pret.open.entity.vo.PretTransStatementVo;
 import com.pret.open.repository.PretTransFeeRepository;
 import com.pret.open.repository.PretTransOrderRepository;
 import com.pret.open.repository.PretTransPlanRepository;
-import com.pret.open.vo.req.*;
 import com.pret.open.repository.PretTransStatementRepository;
 import com.pret.api.service.impl.BaseServiceImpl;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -70,7 +67,7 @@ public class PretTransStatementService extends BaseServiceImpl<PretTransStatemen
                 } else {
                     tail = Constants.TAIL;
                 }
-                transStatement.setNo(NoUtil.genNo(ConstantEnum.NoTypeEnum.TH.name()) + tail);
+                transStatement.setNo(NoUtil.genNo(ConstantEnum.NoTypeEnum.P.name()) + tail);
             }
         }
 

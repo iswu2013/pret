@@ -404,7 +404,7 @@ public class ConstantEnum {
         /**
          * 提货计划
          */
-        TH(0),
+        P(0),
         /**
          * 运输计划
          */
@@ -412,7 +412,7 @@ public class ConstantEnum {
         /**
          * 运输费用
          */
-        R(2),
+        TR(2),
         /**
          * 异常单
          */

@@ -66,6 +66,8 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
     private PretTransExceptionService pretTransExceptionService;
     @Autowired
     private PretTransFeeRepository pretTransFeeRepository;
+    @Autowired
+    private PretTransOrderGroupRepository pretTransOrderGroupRepository;
 
     @Value("${sf.url}")
     private String sfUrl;
@@ -160,6 +162,10 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
             transPlan.setGw(gw);
             transPlan.setDeliveryDate(transOrder.getDeliveryDate());
             this.repository.save(transPlan);
+
+            PretTransOrderGroup pretTransOrderGroup = pretTransOrderGroupRepository.findById(transOrder.getTransOrderGroupId()).get();
+            pretTransOrderGroup.setStatus(ConstantEnum.ETransOrderStatus.完成提货.getLabel());
+            pretTransOrderGroupRepository.save(pretTransOrderGroup);
 
             // 设置提货计划状态
             String[] pickUpArr = bo.getPickUpIds().split(",");
@@ -336,10 +342,18 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
         pretTransPlan.setPreDeliveryDate(bo.getPreDeliveryDate());
         pretTransPlan.setTransDatetime(bo.getTransDatetime());
         List<PretTransOrder> pretTransOrderList = pretTransOrderRepository.findByTransPlanIdAndS(bo.getId(), ConstantEnum.S.N.getLabel());
+        String groupId = StringUtils.EMPTY;
         for (PretTransOrder order : pretTransOrderList) {
             order.setStatus(ConstantEnum.ETransOrderStatus.起运.getLabel());
+            if(StringUtils.isEmpty(groupId)) {
+               groupId = order.getTransOrderGroupId();
+            }
         }
         pretTransOrderRepository.saveAll(pretTransOrderList);
+
+        PretTransOrderGroup pretTransOrderGroup = pretTransOrderGroupRepository.findById(groupId).get();
+        pretTransOrderGroup.setStatus(ConstantEnum.ETransOrderStatus.起运.getLabel());
+        pretTransOrderGroupRepository.save(pretTransOrderGroup);
 
         this.repository.save(pretTransPlan);
     }

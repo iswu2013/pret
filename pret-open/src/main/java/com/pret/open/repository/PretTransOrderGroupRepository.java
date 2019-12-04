@@ -16,4 +16,13 @@ import java.util.List;
  * Copyright (c) 2019年 极客城堡
  */
 public interface PretTransOrderGroupRepository extends BaseRepository<PretTransOrderGroup> {
+    /* *
+     * 功能描述: 根据送货单号查找
+     * 〈〉
+     * @Param: [deliveryBillNumber, s]
+     * @Return: com.pret.open.entity.PretTransOrderGroup
+     * @Author: wujingsong
+     * @Date: 2019/12/4  5:43 上午
+     */
+    PretTransOrderGroup findByDeliveryBillNumberAndS(String deliveryBillNumber, Integer s);
 }
