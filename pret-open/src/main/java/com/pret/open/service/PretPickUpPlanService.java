@@ -1,10 +1,7 @@
 package com.pret.open.service;
 
 import java.nio.file.Paths;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
@@ -65,6 +62,12 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
     private PretTransOrderRepository pretTransOrderRepository;
     @Autowired
     private PretTransOrderGroupRepository pretTransOrderGroupRepository;
+    @Autowired
+    private PretServiceRouteOriginRepository pretServiceRouteOriginRepository;
+    @Autowired
+    private PretServiceRouteOriginUserRepository pretServiceRouteOriginUserRepository;
+    @Autowired
+    private PretPickUpPlanRepository pretPickUpPlanRepository;
 
     public PretPickUpPlan genDefaultPretPickUpPlan(String no, String tail) {
         Date date = DateUtils.truncate(new Date(), Calendar.DATE);
@@ -135,11 +138,11 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
         pretPickUpPlan.setVenderId(venderId);
         pretPickUpPlan.setServiceRouteOriginId(serviceRouteOriginId);
 
-        List<User> userList = userRepository.findByUserTypeAndS(ConstantEnum.EUserType.理货员.getLabel(), ConstantEnum.S.N.getLabel());
-        if (userList != null && userList.size() > 0) {
-            pretPickUpPlan.setTallyClerkId(userList.get(0).getId());
+        List<PretServiceRouteOriginUser> pretServiceRouteOriginUserList = pretServiceRouteOriginUserRepository.findByVenderIdAndServiceRouteOriginIdAndS(pretPickUpPlan.getVenderId(), pretPickUpPlan.getServiceRouteOriginId(), ConstantEnum.S.N.getLabel());
+        if (pretServiceRouteOriginUserList != null && pretServiceRouteOriginUserList.size() > 0) {
+            User user = userRepository.findById(pretServiceRouteOriginUserList.get(0).getUserId()).get();
+            pretPickUpPlan.setTallyClerkId(user.getId());
         }
-
         // 生成二维码
         try {
             QRCodeWriter qrCodeWriter = new QRCodeWriter();
@@ -216,7 +219,7 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
         List<String> idList = StringUtil.idsStr2ListString(res.getIds());
         for (String id : idList) {
             PretPickUpPlan pickUpPlan = this.repository.findById(id).get();
-            pickUpPlan.setStatus(ConstantEnum.EPretPickUpPlanStatus.提货完成.getLabel());
+            pickUpPlan.setStockUpStatus(ConstantEnum.EPretPickUpPlantockUpStatus.已备货.getLabel());
             this.repository.save(pickUpPlan);
         }
 
@@ -237,6 +240,7 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
         PretPickUpPlan pretPickUpPlanList = this.repository.findById(res.getId()).get();
         Date date = new Date();
         pretPickUpPlanList.setStartTime(date);
+        pretPickUpPlanList.setInOutStatus(ConstantEnum.EInOutStatus.已进厂.getLabel());
         this.repository.save(pretPickUpPlanList);
 
         return retVo;
@@ -259,11 +263,11 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
         pretPickUpPlan.setInOutStatus(ConstantEnum.EInOutStatus.已进厂.getLabel());
         this.repository.save(pretPickUpPlan);
 
-        List<PretTransOrder> pretTransOrderList = transOrderRepository.findByTransPlanIdAndS(pretPickUpPlan.getId(), ConstantEnum.S.N.getLabel());
+     /*   List<PretTransOrder> pretTransOrderList = transOrderRepository.findByTransPlanIdAndS(pretPickUpPlan.getId(), ConstantEnum.S.N.getLabel());
         for (PretTransOrder pretTransOrder : pretTransOrderList) {
             pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.待起运.getLabel());
             transOrderRepository.save(pretTransOrder);
-        }
+        }*/
 
         return retVo;
     }
@@ -281,14 +285,24 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
         for (String id : idList) {
             this.lDelete(id);
 
+            List<String> groupIdList = new ArrayList<>();
+
             List<PretTransOrder> pretTransOrderList = pretTransOrderRepository.findByPickUpPlanIdAndS(id, ConstantEnum.S.N.getLabel());
             if (pretTransOrderList != null && pretTransOrderList.size() > 0) {
                 for (PretTransOrder pretTransOrder : pretTransOrderList) {
                     pretTransOrder.setPickUpPlanId(null);
                     pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.已分配.getLabel());
                     pretTransOrderRepository.save(pretTransOrder);
+                    if (!groupIdList.contains(pretTransOrder.getTransOrderGroupId())) {
+                        PretTransOrderGroup pretTransOrderGroup = pretTransOrderGroupRepository.findById(pretTransOrder.getTransOrderGroupId()).get();
+                        pretTransOrderGroup.setStatus(ConstantEnum.ETransOrderStatus.已分配.getLabel());
+                        pretTransOrderGroupRepository.save(pretTransOrderGroup);
+                        groupIdList.add(pretTransOrder.getTransOrderGroupId());
+                    }
                 }
             }
+
+
         }
     }
 
@@ -367,6 +381,25 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
         pretPickUpPlan.setTransOrderList(pretTransOrderList);
 
 
+        return retVo;
+    }
+
+    /* *
+     * 功能描述: 根据提货计划获取司机详情
+     * 〈〉
+     * @Param: [res]
+     * @Return: com.pret.api.vo.ResBody
+     * @Author: wujingsong
+     * @Date: 2019/12/5  8:59 上午
+     */
+    public ResBody getDriveryByPickUpPlanEwm(P8000008Vo res) {
+        PR8000008Vo retVo = new PR8000008Vo();
+
+        PretPickUpPlan pretPickUpPlan = pretPickUpPlanRepository.findByQrcodeAndS(res.getCode(), ConstantEnum.S.N.getLabel());
+        PretDriver pretDriver = pretDriverRepository.findById(pretPickUpPlan.getDriverId()).get();
+        pretPickUpPlan.setPretDriver(pretDriver);
+
+        retVo.setData(pretPickUpPlan);
         return retVo;
     }
 }

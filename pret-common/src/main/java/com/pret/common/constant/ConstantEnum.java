@@ -1285,5 +1285,30 @@ public class ConstantEnum {
         }
     }
 
+    /* *
+     * 功能描述: 是否创建返程
+     * 〈〉
+     * @Param:
+     * @Return:
+     * @Author: wujingsong
+     * @Date: 2019/12/5  1:23 上午
+     */
+    public enum EcreatedReturn {
+        否(0),
+        是(1);
+        private int label;
 
+        EcreatedReturn(int label) {
+            this.setLabel(label);
+        }
+
+        //省略getter、setter方法
+        public int getLabel() {
+            return label;
+        }
+
+        public void setLabel(int label) {
+            this.label = label;
+        }
+    }
 }

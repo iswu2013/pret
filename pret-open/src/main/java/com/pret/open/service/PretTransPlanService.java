@@ -89,7 +89,7 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
             transPlan.setNo(no);
         } else {
             if (StringUtils.isEmpty(tail)) {
-                PretTransPlan firstOrder = this.repository.findTop1ByCreateTimeLongBetweenOrderByCreateTimeLongDesc(date.getTime(), endDate.getTime());
+                PretTransPlan firstOrder = this.repository.findTop1ByTypeAndCreateTimeLongBetweenOrderByCreateTimeLongDesc(ConstantEnum.EPretTransPlanType.正常运输.getLabel(), date.getTime(), endDate.getTime());
                 if (firstOrder != null) {
                     String str = StringUtil.disposeFrontZero(firstOrder.getNo().substring(7));
                     int intStr = Integer.parseInt(str) + 1;

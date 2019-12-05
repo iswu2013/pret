@@ -46,7 +46,7 @@ public class JobLogServiceImpl extends ServiceImpl<JobLogMapper, JobLog> impleme
                         .ge(JobLog::getCreateTime, jobLog.getCreateTimeFrom())
                         .le(JobLog::getCreateTime, jobLog.getCreateTimeTo());
             }
-            Page<JobLog> page = new Page<>(request.getPageNum(), request.getPageSize());
+            Page<JobLog> page = new Page<>(request.getRows(), request.getPage());
             SortUtil.handlePageSort(request, page, "createTime", FebsConstant.ORDER_DESC, true);
             return this.page(page, queryWrapper);
 

@@ -9,6 +9,7 @@ import com.pret.open.entity.bo.AreaBo;
 import com.pret.open.entity.vo.PretQuotationItemRVo;
 import com.pret.open.entity.vo.PretServiceRouteItemVo;
 import com.pret.open.repository.*;
+import com.pret.open.service.PretAddressService;
 import com.pret.open.service.PretServiceRouteItemService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -45,6 +46,8 @@ public class PretServiceRouteItemController extends BaseManageController<PretSer
     private PretQuotationItemRepository pretQuotationItemRepository;
     @Autowired
     private PretBillingIntervalItemRepository pretBillingIntervalItemRepository;
+    @Autowired
+    private PretAddressService pretAddressService;
     @PersistenceContext
     private EntityManager em;
 
@@ -151,12 +154,16 @@ public class PretServiceRouteItemController extends BaseManageController<PretSer
     @GetMapping(value = "/getItemList")
     public List<PretVender> getItemList(PretServiceRouteItemVo request) {
         List<PretVender> pretVenderList = new ArrayList<>();
+        List<String> in$orginAddressId = pretAddressService.findAddressListByAddressIdAdd(request.getOrginAddressIdStr());
+        List<String> in$addressId = pretAddressService.findAddressListByAddressIdAdd(request.getAddressIdStr());
+        request.setIn$originAddressId(in$orginAddressId);
+        request.setIn$addressId(in$addressId);
         Iterable<PretServiceRouteItem> serviceRouteItemList = this.service.page(request).getContent();
         List<String> idList = new ArrayList<>();
         for (PretServiceRouteItem item : serviceRouteItemList) {
             if (!StringUtils.isEmpty(item.getVenderId())) {
                 PretVender pretVender = pretVenderRepository.findById(item.getVenderId()).get();
-                if (!idList.contains(item.getId())) {
+                if (!idList.contains(pretVender.getId())) {
                     List<PretQuotationItem> pretQuotationItemList = pretQuotationItemRepository.findByVenderIdAndS(item.getVenderId(), ConstantEnum.S.N.getLabel());
                     PretQuotationItem quotationItem = null;
                     for (PretQuotationItem pretQuotationItem : pretQuotationItemList) {
@@ -174,7 +181,7 @@ public class PretServiceRouteItemController extends BaseManageController<PretSer
                     }
 
                     pretVenderList.add(pretVender);
-                    idList.add(item.getId());
+                    idList.add(pretVender.getId());
                 }
             }
         }

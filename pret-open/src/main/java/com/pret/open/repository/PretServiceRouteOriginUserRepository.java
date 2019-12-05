@@ -25,4 +25,14 @@ public interface PretServiceRouteOriginUserRepository extends BaseRepository<Pre
      * @Date: 2019/12/3  11:05 上午
      */
     List<PretServiceRouteOriginUser> findByVenderIdAndS(String venderId, Integer s);
+    
+    /* *
+     * 功能描述: <br>
+     * 〈〉
+     * @Param: [venderId, serviceRouteOriginId, s]
+            * @Return: java.util.List<com.pret.open.entity.PretServiceRouteOriginUser>
+            * @Author: wujingsong
+            * @Date: 2019/12/4  10:32 下午
+     */
+    List<PretServiceRouteOriginUser> findByVenderIdAndServiceRouteOriginIdAndS(String venderId,String serviceRouteOriginId,Integer s);
 }

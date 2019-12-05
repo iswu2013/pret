@@ -74,4 +74,14 @@ public interface PretPickUpPlanRepository extends BaseRepository<PretPickUpPlan>
      * @Date: 2019/12/3  3:52 下午
      */
     long countByVenderIdAndStatusAndS(String venderId, Integer status, Integer s);
+    
+    /* *
+     * 功能描述: <br>
+     * 〈〉
+     * @Param: [qrcode, s]
+            * @Return: com.pret.open.entity.PretPickUpPlan
+            * @Author: wujingsong
+            * @Date: 2019/12/5  10:14 上午
+     */
+    PretPickUpPlan findByQrcodeAndS(String qrcode,Integer s);
 }

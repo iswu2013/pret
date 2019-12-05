@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Slf4j
 @Validated
@@ -49,8 +50,10 @@ public class PretTransExceptionController extends BaseManageController<PretTrans
                 orgin.setPretVender(pretVender);
             }
             if (!StringUtils.isEmpty(orgin.getTransPlanId())) {
-                PretTransPlan pretTransPlan = pretTransPlanRepository.findById(orgin.getTransPlanId()).get();
-                orgin.setPretTransPlan(pretTransPlan);
+                Optional<PretTransPlan> pretTransPlanOptional = pretTransPlanRepository.findById(orgin.getTransPlanId());
+                if (pretTransPlanOptional.isPresent()) {
+                    orgin.setPretTransPlan(pretTransPlanOptional.get());
+                }
             }
         }
         Map<String, Object> rspData = new HashMap<>();

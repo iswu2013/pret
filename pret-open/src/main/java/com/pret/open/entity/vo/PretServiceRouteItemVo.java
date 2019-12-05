@@ -4,6 +4,7 @@ import com.pret.api.vo.PageFormVo;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * <p>Description: [pretmodel]</p>
@@ -19,14 +20,15 @@ public class PretServiceRouteItemVo extends PageFormVo implements Serializable {
     private long bw$createTimeLong;
     private long createTimeLongEnd;
     private String eq$venderId;
-    private String eq$orginAddressId;
+    private String eq$originAddressId;
     private String eq$addressId;
-    /**
-     * 供应商类别
-     */
-    private Integer type;
+    private String orginAddressIdStr;
+    private String addressIdStr;
+    private List<String> in$originAddressId;
+    private List<String> in$addressId;
     /**
      * 总重量
      */
     private Float gw;
+    private int eq$venderType = -1;
 }

@@ -17,7 +17,7 @@ import java.util.List;
  * Copyright (c) 2019年 极客城堡
  */
 public interface PretTransPlanRepository extends BaseRepository<PretTransPlan> {
-    PretTransPlan findTop1ByCreateTimeLongBetweenOrderByCreateTimeLongDesc(long time, long time1);
+    PretTransPlan findTop1ByTypeAndCreateTimeLongBetweenOrderByCreateTimeLongDesc(Integer type, long time, long time1);
 
     /* *
      * 功能描述: 根据状态查找

@@ -100,6 +100,11 @@ public class InterfaceConfig {
      */
     public static final String H8000007 = "getPickupPlanDetailByTallyClerk.get";
 
+    /**
+     * 根据提货计划获取司机详情
+     */
+    public static final String H8000008 = "getDriveryByPickUpPlanEwm.get";
+
     static {
         JOP_HANDLER.put(H1000000, "h1000000");
         JOP_HANDLER.put(H1000001, "h1000001");
@@ -117,6 +122,7 @@ public class InterfaceConfig {
         JOP_HANDLER.put(H8000005, "h8000005");
         JOP_HANDLER.put(H8000006, "h8000006");
         JOP_HANDLER.put(H8000007, "h8000007");
+        JOP_HANDLER.put(H8000008, "h8000008");
     }
 
     static {
@@ -136,5 +142,6 @@ public class InterfaceConfig {
         JOP_VO.put(H8000005, P8000005Vo.class);
         JOP_VO.put(H8000006, P8000006Vo.class);
         JOP_VO.put(H8000007, P8000007Vo.class);
+        JOP_VO.put(H8000008, P8000008Vo.class);
     }
 }

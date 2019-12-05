@@ -67,7 +67,7 @@ public class PretTransFeeService extends BaseServiceImpl<PretTransFeeRepository,
             if (StringUtils.isEmpty(tail)) {
                 PretTransFee firstOrder = this.repository.findTop1ByCreateTimeLongBetweenOrderByCreateTimeLongDesc(date.getTime(), endDate.getTime());
                 if (firstOrder != null) {
-                    String str = StringUtil.disposeFrontZero(firstOrder.getNo().substring(7));
+                    String str = StringUtil.disposeFrontZero(firstOrder.getNo().substring(8));
                     int intStr = Integer.parseInt(str) + 1;
                     tail = StringUtil.addFrontZero(String.valueOf(intStr), 4);
                 } else {
@@ -146,6 +146,7 @@ public class PretTransFeeService extends BaseServiceImpl<PretTransFeeRepository,
                         pretTransFeeItem.setQuotation(pretQuotationItem.getQuotation());
                         pretTransFeeItem.setQuotationCount(1f);
                         pretTransFeeItem.setUnitPrice(pretQuotationItem.getQuotation());
+                        quotation = quotation.add(pretQuotationItem.getQuotation());
                     }
                 } else {
                     PretFeeType pretFeeType = pretFeeTypeRepository.findById(pretQuotationItem.getFeeTypeId()).get();
@@ -159,6 +160,7 @@ public class PretTransFeeService extends BaseServiceImpl<PretTransFeeRepository,
                         pretTransFeeItem.setQuotation(pretQuotationItem.getQuotation());
                         pretTransFeeItem.setQuotationCount(1f);
                         pretTransFeeItem.setUnitPrice(pretQuotationItem.getQuotation());
+                        quotation = quotation.add(pretQuotationItem.getQuotation());
                     }
                 }
                 pretTransFeeItem.setFeeTypeId(pretQuotationItem.getFeeTypeId());

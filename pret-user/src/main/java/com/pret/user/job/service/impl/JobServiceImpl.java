@@ -83,7 +83,7 @@ public class JobServiceImpl extends ServiceImpl<JobMapper, Job> implements JobSe
                         .ge(Job::getCreateTime, job.getCreateTimeFrom())
                         .le(Job::getCreateTime, job.getCreateTimeTo());
             }
-            Page<Job> page = new Page<>(request.getPageNum(), request.getPageSize());
+            Page<Job> page = new Page<>(request.getPage(), request.getRows());
             SortUtil.handlePageSort(request, page, "createTime", FebsConstant.ORDER_DESC, true);
             return this.page(page, queryWrapper);
         } catch (Exception e) {

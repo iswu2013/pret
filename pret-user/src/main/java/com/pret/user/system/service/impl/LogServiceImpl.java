@@ -57,7 +57,7 @@ public class LogServiceImpl extends ServiceImpl<LogMapper, SysLog> implements Lo
                         .le(SysLog::getCreateTime, sysLog.getCreateTimeTo());
             }
 
-            Page<SysLog> page = new Page<>(request.getPageNum(), request.getPageSize());
+            Page<SysLog> page = new Page<>(request.getPage(), request.getRows());
             SortUtil.handlePageSort(request, page, "createTime", FebsConstant.ORDER_DESC, true);
 
             return this.page(page, queryWrapper);

@@ -214,7 +214,7 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
                 // 是否存在同一客户，同一地址，同一送达日期的运输单
                 List<Integer> statusList = new ArrayList<>();
                 statusList.add(ConstantEnum.ETransOrderStatus.待分配.getLabel());
-                statusList.add(ConstantEnum.ETransOrderStatus.待提货.getLabel());
+                statusList.add(ConstantEnum.ETransOrderStatus.已分配.getLabel());
                 Date date = DateUtils.truncate(bo.getDeliveryDate(), Calendar.DATE);
                 Date endDate = DateUtils.addDays(date, 1);
                 List<String> pretAddressList = pretAddressService.findAddressListByAddressIdAdd(bo.getAddressId());
@@ -257,26 +257,26 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
                 if (isHeavyCargo && totalGw >= lowLimit) {
                     for (PretTransOrder pretTransOrder : pretTransOrderList) {
                         pretTransOrder.setVenderId(item.getVenderId());
-                        pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.待提货.getLabel());
+                        pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.已分配.getLabel());
                         pretTransOrder.setServiceRouteItemId(item.getId());
                         this.pretTransOrderStatistics(ConstantEnum.ETransOrderStatisticsUserType.物流供应商.getLabel(), venderId);
                     }
                     transOrder.setServiceRouteItemId(item.getId());
-                    transOrder.setStatus(ConstantEnum.ETransOrderStatus.待提货.getLabel());
+                    transOrder.setStatus(ConstantEnum.ETransOrderStatus.已分配.getLabel());
                     this.repository.saveAll(pretTransOrderList);
                     PretTransOrderGroup pretTransOrderGroup = pretTransOrderGroupRepository.findById(pretTransOrderList.get(0).getTransOrderGroupId()).get();
-                    pretTransOrderGroup.setStatus(ConstantEnum.ETransOrderStatus.待提货.getLabel());
+                    pretTransOrderGroup.setStatus(ConstantEnum.ETransOrderStatus.已分配.getLabel());
                     pretTransOrderGroupRepository.save(pretTransOrderGroup);
                 }
             }
         } else {
-            transOrder.setStatus(ConstantEnum.ETransOrderStatus.待提货.getLabel());
+            transOrder.setStatus(ConstantEnum.ETransOrderStatus.已分配.getLabel());
             transOrder.setVenderId(venderId);
             this.repository.save(transOrder);
             this.pretTransOrderStatistics(ConstantEnum.ETransOrderStatisticsUserType.物流供应商.getLabel(), venderId);
 
             PretTransOrderGroup pretTransOrderGroup = pretTransOrderGroupRepository.findById(pretTransOrderList.get(0).getTransOrderGroupId()).get();
-            pretTransOrderGroup.setStatus(ConstantEnum.ETransOrderStatus.待提货.getLabel());
+            pretTransOrderGroup.setStatus(ConstantEnum.ETransOrderStatus.已分配.getLabel());
             pretTransOrderGroupRepository.save(pretTransOrderGroup);
         }
     }

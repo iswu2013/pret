@@ -1,6 +1,7 @@
 package com.pret.open.entity;
 
 import com.pret.common.VersionedAuditableIdEntity;
+import com.pret.open.entity.user.User;
 import com.wuwenze.poi.annotation.Excel;
 import com.wuwenze.poi.annotation.ExcelField;
 import lombok.Data;
@@ -96,6 +97,10 @@ public class PretVender extends VersionedAuditableIdEntity implements Serializab
 
     private List<PretServiceRouteOriginUser> serviceRouteOriginUserDataSource;
 
+    private List<User> userList;
+
+    private List<PretServiceRouteOrigin> pretServiceRouteOriginList;
+
     // setter and getter
 
     @Transient()
@@ -141,5 +146,23 @@ public class PretVender extends VersionedAuditableIdEntity implements Serializab
 
     public void setServiceRouteOriginUserDataSource(List<PretServiceRouteOriginUser> serviceRouteOriginUserDataSource) {
         this.serviceRouteOriginUserDataSource = serviceRouteOriginUserDataSource;
+    }
+
+    @Transient()
+    public List<User> getUserList() {
+        return userList;
+    }
+
+    public void setUserList(List<User> userList) {
+        this.userList = userList;
+    }
+
+    @Transient()
+    public List<PretServiceRouteOrigin> getPretServiceRouteOriginList() {
+        return pretServiceRouteOriginList;
+    }
+
+    public void setPretServiceRouteOriginList(List<PretServiceRouteOrigin> pretServiceRouteOriginList) {
+        this.pretServiceRouteOriginList = pretServiceRouteOriginList;
     }
 }
