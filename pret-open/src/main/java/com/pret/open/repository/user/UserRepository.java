@@ -77,4 +77,14 @@ public interface UserRepository extends BaseRepository<User> {
     User findByOpenidAndUserTypeAndS(String openid, Integer userType, Integer s);
 
     User findByMobileAndS(String mobile, Integer s);
+    
+    /* *
+     * 功能描述: <br>
+     * 〈〉
+     * @Param: [venderId, s]
+            * @Return: com.pret.open.entity.user.User
+            * @Author: wujingsong
+            * @Date: 2019/12/5  1:03 下午
+     */
+    User findByVenderIdAndS(String venderId,Integer s);
 }

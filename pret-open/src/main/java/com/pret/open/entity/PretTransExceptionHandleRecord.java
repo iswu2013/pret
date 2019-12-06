@@ -10,6 +10,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -70,5 +71,14 @@ public class PretTransExceptionHandleRecord extends VersionedAuditableIdEntity i
      */
     private Integer type;
 
+    private List<String> imagesList = new ArrayList<>();
 
+    @Transient()
+    public List<String> getImagesList() {
+        return imagesList;
+    }
+
+    public void setImagesList(List<String> imagesList) {
+        this.imagesList = imagesList;
+    }
 }

@@ -14,15 +14,6 @@ import lombok.Data;
  */
 @Data
 public class P1000000Vo extends ReqBody {
-    /**
-     * U9或OA唯一码
-     */
-    private String sourceCode;
-
-    /**
-     * 储位号
-     */
-    private String storageNumber;
 
     /**
      * 发货类型0正常发货，1库间调拨，2退货
@@ -166,6 +157,11 @@ public class P1000000Vo extends ReqBody {
     private int goodsNum;
 
     /**
+     * U9或OA唯一码
+     */
+    private String sourceCode;
+
+    /**
      * 销售备注
      */
     private String remark;
@@ -179,4 +175,24 @@ public class P1000000Vo extends ReqBody {
      * 空转单标志位 0:非空转单  1:空转单
      */
     private String preOrderFlag;
+
+    /**
+     * 起运地大区(U9 Code)
+     */
+    private String orgBigAreaCd;
+
+    /**
+     * 客户地址所在大区(U9 Code)
+     */
+    private String destBigAreaCd;
+
+    /**
+     * 总量
+     */
+    private Float totalGw;
+
+    /**
+     * 明细
+     */
+    private String itemListStr;
 }

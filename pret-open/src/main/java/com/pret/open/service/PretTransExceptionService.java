@@ -132,17 +132,17 @@ public class PretTransExceptionService extends BaseServiceImpl<PretTransExceptio
      */
     public void genRTransPlan(PretTransException pretTransException) {
         List<PretTransExceptionItem> pretTransExceptionItemList = pretTransExceptionItemRepository.findByTransExceptionIdAndS(pretTransException.getId(), ConstantEnum.S.N.getLabel());
-        PretTransPlan pretTransPlan = new PretTransPlan();
-
-        PretTransPlan oldTransPlan = pretTransPlanRepository.findById(pretTransException.getTransPlanId()).get();
-        pretTransPlan.setCustomerId(pretTransException.getCustomerId());
-        pretTransPlan.setServiceRouteOriginAddress(pretTransException.getAddressDetail());
-        pretTransPlan.setCustomerDetailAddress(pretTransException.getReturnAddress());
-        pretTransPlan.setType(ConstantEnum.EPretTransPlanType.退货运输.getLabel());
-        pretTransPlan.setCustomerId(pretTransException.getCustomerId());
-        pretTransPlan.setNo("B" + oldTransPlan.getNo());
-        pretTransPlan.setStatus(ConstantEnum.ETransPlanStatus.待起运.getValue());
-        pretTransPlanRepository.save(pretTransPlan);
+//        PretTransPlan pretTransPlan = new PretTransPlan();
+//
+//        PretTransPlan oldTransPlan = pretTransPlanRepository.findById(pretTransException.getTransPlanId()).get();
+//        pretTransPlan.setCustomerId(pretTransException.getCustomerId());
+//        pretTransPlan.setServiceRouteOriginAddress(pretTransException.getAddressDetail());
+//        pretTransPlan.setCustomerDetailAddress(pretTransException.getReturnAddress());
+//        pretTransPlan.setType(ConstantEnum.EPretTransPlanType.退货运输.getLabel());
+//        pretTransPlan.setCustomerId(pretTransException.getCustomerId());
+//        pretTransPlan.setNo("B" + oldTransPlan.getNo());
+//        pretTransPlan.setStatus(ConstantEnum.ETransPlanStatus.待起运.getValue());
+//        pretTransPlanRepository.save(pretTransPlan);
 
         PretTransOrderGroup pretTransOrderGroup = null;
 
@@ -154,23 +154,25 @@ public class PretTransExceptionService extends BaseServiceImpl<PretTransExceptio
             pretTransOrder.setDeliveryBillNumber("B" + pretTransOrder.getDeliveryBillNumber());
             pretTransOrder.setCustomerDetailAddress(old.getServiceRouteOriginAddress());
             pretTransOrder.setServiceRouteOriginAddress(old.getCustomerDetailAddress());
-            pretTransOrder.setTransPlanId(pretTransPlan.getId());
+//            pretTransOrder.setTransPlanId(pretTransPlan.getId());
             pretTransOrder.setType(ConstantEnum.EPretTransOrderType.返程配送单.getLabel());
             pretTransOrder.setServiceRouteOriginAddress(pretTransException.getAddressDetail());
             pretTransOrder.setCustomerDetailAddress(pretTransException.getReturnAddress());
-            pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.待起运.getLabel());
+            pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.待分配.getLabel());
+            pretTransOrder.setOriginId(pretTransExceptionItem.getTransOrderId());
+            //pretTransOrder.setAddressId();
 
             if (pretTransOrderGroup == null) {
                 pretTransOrderGroup = new PretTransOrderGroup();
                 BeanUtilsExtended.copyPropertiesIgnore(pretTransOrderGroup, pretTransOrder);
-                pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.待起运.getLabel());
+                pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.待分配.getLabel());
                 pretTransOrderGroupRepository.save(pretTransOrderGroup);
             }
 
             pretTransOrder.setTransOrderGroupId(pretTransOrderGroup.getId());
             pretTransOrderRepository.save(pretTransOrder);
         }
-        pretTransException.setTransNo(pretTransPlan.getNo());
+//        pretTransException.setTransNo(pretTransPlan.getNo());
         pretTransException.setIsReturnStatus(1);
         pretTransException.setReturnStatus(2);
         pretTransException.setCreatedReturn(ConstantEnum.EcreatedReturn.是.getLabel());

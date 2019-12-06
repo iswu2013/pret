@@ -36,11 +36,12 @@ public class PretImageController extends BaseManageController<PretImageService, 
     public PretImage uploadImg(@PathVariable String type, HttpServletRequest request) {
         String prefix = DateUtil.getDays();
         // 文件上传路径
-        String filePath = path + type + "/" + prefix;
+        String subPath = type + "/" + prefix;
+        String filePath = path + subPath;
         String fileName = this.upload(request, filePath);
 
         PretImage image = new PretImage();
-        image.setPath(filePath);
+        image.setPath(subPath + "/" + fileName);
         image.setUrl(baseurl + "/" + type + "/" + prefix + "/" + fileName);
         this.service.save(image);
 

@@ -24,4 +24,6 @@ public interface PretTransExceptionHandleRecordRepository extends BaseRepository
             * @Date: 2019/11/25  5:02 上午
      */
     List<PretTransExceptionHandleRecord> findByExceptionIdAndS(String exceptionId,Integer s);
+
+    List<PretTransExceptionHandleRecord> findByExceptionIdAndSOrderByLastModifiedDateDesc(String exceptionId,Integer s);
 }

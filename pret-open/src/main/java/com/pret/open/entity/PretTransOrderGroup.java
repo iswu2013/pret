@@ -181,6 +181,16 @@ public class PretTransOrderGroup extends VersionedAuditableIdEntity implements S
     private String storageNumber;
 
     /**
+     * 起运地大区(U9 Code)
+     */
+    private String orgBigAreaCd;
+
+    /**
+     * 客户地址所在大区(U9 Code)
+     */
+    private String destBigAreaCd;
+
+    /**
      * 供应商
      */
     private PretVender pretVender;

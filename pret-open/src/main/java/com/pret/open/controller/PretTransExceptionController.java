@@ -5,6 +5,7 @@ import com.pret.common.annotation.Log;
 import com.pret.common.constant.ConstantEnum;
 import com.pret.common.exception.FebsException;
 import com.pret.common.util.BeanUtilsExtended;
+import com.pret.common.util.StringUtil;
 import com.pret.open.entity.*;
 import com.pret.open.entity.bo.PretTransExceptionBo;
 import com.pret.open.entity.vo.PretTransExceptionVo;
@@ -13,6 +14,7 @@ import com.pret.open.service.PretTransExceptionService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -39,6 +41,8 @@ public class PretTransExceptionController extends BaseManageController<PretTrans
     private PretTransOrderRepository pretTransOrderRepository;
     @Autowired
     private PretTransExceptionHandleRecordRepository pretTransExceptionHandleRecordRepository;
+    @Value("${upload.baseurl}")
+    private String baseurl;
 
     @GetMapping
     @Override()
@@ -71,7 +75,15 @@ public class PretTransExceptionController extends BaseManageController<PretTrans
             List<PretTransExceptionItem> itemList = pretTransExceptionItemRepository.findByTransExceptionIdAndS(item.getId(), ConstantEnum.S.N.getLabel());
             item.setPretTransExceptionItemList(itemList);
 
-            List<PretTransExceptionHandleRecord> pretTransExceptionHandleRecordList = pretTransExceptionHandleRecordRepository.findByExceptionIdAndS(id, ConstantEnum.S.N.getLabel());
+            List<PretTransExceptionHandleRecord> pretTransExceptionHandleRecordList = pretTransExceptionHandleRecordRepository.findByExceptionIdAndSOrderByLastModifiedDateDesc(id, ConstantEnum.S.N.getLabel());
+            if (pretTransExceptionHandleRecordList != null && pretTransExceptionHandleRecordList.size() > 0) {
+                for (PretTransExceptionHandleRecord pretTransExceptionHandleRecord : pretTransExceptionHandleRecordList) {
+                    if (!StringUtils.isEmpty(pretTransExceptionHandleRecord.getImages())) {
+                        List<String> imagesList = StringUtil.idsStr2ListStringAddPrefix(pretTransExceptionHandleRecord.getImages(), baseurl);
+                        pretTransExceptionHandleRecord.setImagesList(imagesList);
+                    }
+                }
+            }
             item.setPretTransExceptionHandleRecordList(pretTransExceptionHandleRecordList);
 
             return item;

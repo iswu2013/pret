@@ -1,5 +1,6 @@
 package com.pret.open.entity.bo;
 
+import com.pret.common.constant.ConstantEnum;
 import com.wuwenze.poi.annotation.ExcelField;
 import lombok.Data;
 
@@ -30,7 +31,7 @@ public class PretMTransOrderItemBo {
     /**
      * 商品重量
      */
-    private Float weight;
+    private Float gw;
     /**
      * 商品单位
      */
@@ -44,7 +45,22 @@ public class PretMTransOrderItemBo {
     /**
      * 货物类型1重货2泡货
      */
-    private Integer goodsType;
+    private Integer goodsType = ConstantEnum.EGoodsType.重货.getLabel();
 
     private Integer goodsNum;
+
+    /**
+     * U9或OA唯一码
+     */
+    private String sourceCode;
+
+    /**
+     * 储位号
+     */
+    private String storageNumber;
+
+    /**
+     * 备注
+     */
+    private String remark;
 }

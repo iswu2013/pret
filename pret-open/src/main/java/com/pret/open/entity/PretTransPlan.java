@@ -216,6 +216,11 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
     private String transStatementId;
 
     /**
+     * 签收图片
+     */
+    private String images;
+
+    /**
      * 是否结算
      */
     private Integer settle = 1;
@@ -237,6 +242,8 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
     private PretServiceRouteOrigin pretServiceRouteOrigin;
 
     private List<PretTransOrder> pretTransOrderList;
+
+    private List<String> imageList;
 
     // setter and getter
 
@@ -292,5 +299,14 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
 
     public void setPretTransOrderList(List<PretTransOrder> pretTransOrderList) {
         this.pretTransOrderList = pretTransOrderList;
+    }
+
+    @Transient()
+    public List<String> getImageList() {
+        return imageList;
+    }
+
+    public void setImageList(List<String> imageList) {
+        this.imageList = imageList;
     }
 }

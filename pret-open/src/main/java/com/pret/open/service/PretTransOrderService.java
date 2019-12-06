@@ -129,21 +129,14 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
             bo.setServiceRouteOriginId(pretServiceRouteOrigin.getId());
         }
 
-        bo.setStorageNumber(res.getStorageNumber());
         bo.setTransMode(res.getTransModeCd());
         bo.setTransModeNm(res.getTranModeNm());
 
-        PretMTransOrderItemBo bo2 = new PretMTransOrderItemBo();
-        bo2.setBatchNo(res.getBatchNo());
-        bo2.setCbm(res.getCbm());
-        bo2.setGoodsNum(res.getGoodsNum());
-        bo2.setPartNo(res.getPartNo());
-        bo2.setProduct(res.getProduct());
-        bo2.setUnit(res.getUnit());
-        bo2.setWeight(res.getGw());
-        bo2.setGoodsType(ConstantEnum.EGoodsType.重货.getLabel());
+        List<PretMTransOrderItemBo> list = CommonConstants.GSON.fromJson(res.getItemListStr(),
+                new TypeToken<List<PretMTransOrderItemBo>>() {
+                }.getType());
 
-        this.pretTransOrderAdd(bo, bo2);
+        this.pretTransOrderAdd(bo, list);
         return retVo;
     }
 
@@ -155,13 +148,12 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
      * @Author: wujingsong
      * @Date: 2019/11/7  10:34 上午
      */
-    public void pretTransOrderAdd(PretMTransOrderBo bo, PretMTransOrderItemBo bo2) {
+    public void pretTransOrderAdd(PretMTransOrderBo bo, List<PretMTransOrderItemBo> bo2) {
         List<PretMTransOrderItemBo> list = CommonConstants.GSON.fromJson(bo.getPretMTransOrderItemStr(),
                 new TypeToken<List<PretMTransOrderItemBo>>() {
                 }.getType());
         if (bo2 != null) {
-            list = new ArrayList<>();
-            list.add(bo2);
+            list = bo2;
         }
         boolean flag = false;
         if (list != null && list.size() > 0) {
@@ -174,11 +166,12 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
                     this.pretTransOrderGroupRepository.save(pretTransOrderGroup);
                 }
                 PretTransOrder pretTransOrder = new PretTransOrder();
-                pretTransOrder.setGw(pretMTransOrderBo.getWeight());
+                pretTransOrder.setGw(pretMTransOrderBo.getGw());
                 pretTransOrder.setUnit(pretMTransOrderBo.getUnit());
                 pretTransOrder.setGoodsNum(pretMTransOrderBo.getGoodsNum());
                 pretTransOrder.setTransOrderGroupId(pretTransOrderGroup.getId());
                 BeanUtilsExtended.copyProperties(pretTransOrder, pretMTransOrderBo);
+                pretTransOrder.setRemark(pretMTransOrderBo.getRemark());
                 if (StringUtils.isEmpty(bo.getCustomerName())) {
                     pretTransOrder.setCustomerName(bo.getCustomerLinkName());
                 }

@@ -62,6 +62,20 @@ public class StringUtil {
         return idList;
     }
 
+    public static List<String> idsStr2ListStringAddPrefix(String ids, String prefix) {
+        List<String> idList = new ArrayList<>();
+
+        if (!StringUtils.isEmpty(ids)) {
+            String[] idArr = ids.split(",");
+            for (String id : idArr) {
+                if (!StringUtils.isEmpty(id)) {
+                    idList.add(prefix + id);
+                }
+            }
+        }
+        return idList;
+    }
+
     /**
      * 排序
      *

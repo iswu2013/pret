@@ -108,74 +108,54 @@ public class PretTransFeeService extends BaseServiceImpl<PretTransFeeRepository,
      */
     public void calFee(PretTransPlanSignBo bo) throws FebsException {
         String id = bo.getId();
-        Float totalGw = 0.0f;
         PretTransPlan pretTransPlan = pretTransPlanRepository.findById(id).get();
         pretTransPlan.setStatus(ConstantEnum.ETransPlanStatus.已签收.getValue());
         pretTransPlan.setSignUsername(bo.getUsername());
         pretTransPlan.setSignDatetime(bo.getSignDatetime());
         pretTransPlanRepository.save(pretTransPlan);
+        Float totalGw = pretTransPlan.getGw();
 
-        List<PretTransOrder> pretTransOrderList = pretTransOrderRepository.findByTransPlanIdAndS(id, ConstantEnum.S.N.getLabel());
-        if (pretTransOrderList != null && pretTransOrderList.size() > 0) {
-            for (PretTransOrder pretTransOrder : pretTransOrderList) {
-                if (pretTransOrder.getUnit() == ConstantEnum.EUnit.公斤.getLabel()) {
-                    totalGw += pretTransOrder.getGw();
-                } else {
-                    totalGw += pretTransOrder.getGw() * 1000;
+        // 生成费用
+        PretTransFee pretTransFee = this.genDefaultPretTransFee(null, null);
+        BigDecimal quotation = BigDecimal.ZERO;
+        this.repository.save(pretTransFee);
+        List<PretQuotationItem> pretQuotationItemList = pretQuotationItemRepository.findByVenderIdAndServiceRouteItemIdAndS(pretTransPlan.getVenderId(), pretTransPlan.getServiceRouteItemId(), ConstantEnum.S.N.getLabel());
+        BigDecimal unitPrice = BigDecimal.ZERO;
+        for (PretQuotationItem pretQuotationItem : pretQuotationItemList) {
+            PretTransFeeItem pretTransFeeItem = new PretTransFeeItem();
+            pretTransFeeItem.setTransFeeId(pretTransFee.getId());
+            pretTransFeeItem.setVenderId(pretTransPlan.getVenderId());
+            PretBillingIntervalItem pretBillingIntervalItem = pretBillingIntervalItemRepository.findById(pretQuotationItem.getBillingIntervalItemId()).get();
+            if (totalGw >= pretBillingIntervalItem.getKstart() && totalGw <= pretBillingIntervalItem.getKend()) {
+                PretFeeType pretFeeType = pretFeeTypeRepository.findById(pretQuotationItem.getFeeTypeId()).get();
+                if (pretFeeType.getName().equals(ConstantEnum.EFeeType.运费.name())) {
+                    unitPrice = pretQuotationItem.getQuotation();
                 }
-            }
-
-            // 生成费用
-            PretTransFee pretTransFee = this.genDefaultPretTransFee(null, null);
-            BigDecimal quotation = BigDecimal.ZERO;
-            this.repository.save(pretTransFee);
-            List<PretQuotationItem> pretQuotationItemList = pretQuotationItemRepository.findByVenderIdAndServiceRouteItemIdAndS(pretTransPlan.getVenderId(), pretTransPlan.getServiceRouteItemId(), ConstantEnum.S.N.getLabel());
-            for (PretQuotationItem pretQuotationItem : pretQuotationItemList) {
-                PretTransFeeItem pretTransFeeItem = new PretTransFeeItem();
-                pretTransFeeItem.setTransFeeId(pretTransFee.getId());
-                pretTransFeeItem.setVenderId(pretTransPlan.getVenderId());
-                PretBillingIntervalItem pretBillingIntervalItem = pretBillingIntervalItemRepository.findById(pretQuotationItem.getBillingIntervalItemId()).get();
-                if (pretBillingIntervalItem.getUnit() == ConstantEnum.EUnit.公斤.getLabel()) {
-                    PretFeeType pretFeeType = pretFeeTypeRepository.findById(pretQuotationItem.getFeeTypeId()).get();
-                    if (pretFeeType.getType() == ConstantEnum.ECostType.量.getLabel()) {
-                        pretTransFeeItem.setQuotation(pretQuotationItem.getQuotation().multiply(new BigDecimal(totalGw)).setScale(2, BigDecimal.ROUND_HALF_UP));
-                        pretTransFeeItem.setQuotationCount(totalGw);
-                        pretTransFeeItem.setUnitPrice(pretTransFeeItem.getQuotation().divide(new BigDecimal(totalGw)).setScale(2, BigDecimal.ROUND_HALF_UP));
-                        quotation = quotation.add(pretQuotationItem.getQuotation());
-                    } else {
-                        pretTransFeeItem.setQuotation(pretQuotationItem.getQuotation());
-                        pretTransFeeItem.setQuotationCount(1f);
-                        pretTransFeeItem.setUnitPrice(pretQuotationItem.getQuotation());
-                        quotation = quotation.add(pretQuotationItem.getQuotation());
-                    }
+                if (pretFeeType.getType() == ConstantEnum.ECostType.量.getLabel()) {
+                    pretTransFeeItem.setQuotation(pretQuotationItem.getQuotation().multiply(new BigDecimal(totalGw)).setScale(2, BigDecimal.ROUND_HALF_UP));
+                    pretTransFeeItem.setQuotationCount(totalGw);
+                    pretTransFeeItem.setUnitPrice(pretQuotationItem.getQuotation());
+                    quotation = quotation.add(pretTransFeeItem.getQuotation());
                 } else {
-                    PretFeeType pretFeeType = pretFeeTypeRepository.findById(pretQuotationItem.getFeeTypeId()).get();
-                    if (pretFeeType.getType() == ConstantEnum.ECostType.量.getLabel()) {
-                        pretTransFeeItem.setQuotationCount(totalGw);
-                        BigDecimal tun = new BigDecimal(totalGw).multiply(new BigDecimal(10000)).setScale(2, BigDecimal.ROUND_HALF_UP);
-                        pretTransFeeItem.setQuotation(pretQuotationItem.getQuotation().multiply(tun).setScale(2, BigDecimal.ROUND_HALF_UP));
-                        pretTransFeeItem.setUnitPrice(pretTransFeeItem.getQuotation().divide(new BigDecimal(totalGw)).setScale(2, BigDecimal.ROUND_HALF_UP));
-                        quotation = quotation.add(pretQuotationItem.getQuotation());
-                    } else {
-                        pretTransFeeItem.setQuotation(pretQuotationItem.getQuotation());
-                        pretTransFeeItem.setQuotationCount(1f);
-                        pretTransFeeItem.setUnitPrice(pretQuotationItem.getQuotation());
-                        quotation = quotation.add(pretQuotationItem.getQuotation());
-                    }
+                    pretTransFeeItem.setQuotation(pretQuotationItem.getQuotation());
+                    pretTransFeeItem.setQuotationCount(1f);
+                    pretTransFeeItem.setUnitPrice(pretQuotationItem.getQuotation());
+                    quotation = quotation.add(pretTransFeeItem.getQuotation());
                 }
                 pretTransFeeItem.setFeeTypeId(pretQuotationItem.getFeeTypeId());
                 pretTransFeeItemRepository.save(pretTransFeeItem);
             }
-
-            pretTransFee.setQuotationCount(totalGw);
-            pretTransFee.setStatus(ConstantEnum.EPretTransFeeStatus.待申报.getLabel());
-            pretTransFee.setQuotation(quotation);
-            pretTransFee.setCustomerId(pretTransPlan.getCustomerId());
-            pretTransFee.setVenderId(pretTransPlan.getVenderId());
-            pretTransFee.setTransPlanId(pretTransPlan.getId());
-            pretTransFee.setUnitPrice(pretTransFee.getQuotation().divide(new BigDecimal(totalGw)).setScale(2, BigDecimal.ROUND_HALF_UP));
-            this.repository.save(pretTransFee);
         }
+
+        pretTransFee.setQuotationCount(totalGw);
+        pretTransFee.setStatus(ConstantEnum.EPretTransFeeStatus.待申报.getLabel());
+        pretTransFee.setQuotation(quotation);
+        pretTransFee.setCustomerId(pretTransPlan.getCustomerId());
+        pretTransFee.setVenderId(pretTransPlan.getVenderId());
+        pretTransFee.setTransPlanId(pretTransPlan.getId());
+        pretTransFee.setUnitPrice(unitPrice);
+        this.repository.save(pretTransFee);
+
     }
 
     /* *
