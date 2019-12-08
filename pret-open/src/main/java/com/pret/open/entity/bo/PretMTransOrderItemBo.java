@@ -63,4 +63,9 @@ public class PretMTransOrderItemBo {
      * 备注
      */
     private String remark;
+
+    /**
+     * 行号
+     */
+    private String lineNo;
 }

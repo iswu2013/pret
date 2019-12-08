@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import com.alibaba.fastjson.JSONObject;
 import com.google.common.reflect.TypeToken;
 import com.pret.common.constant.CommonConstants;
 import com.pret.common.constant.ConstantEnum;
@@ -13,15 +14,18 @@ import com.pret.common.constant.Constants;
 import com.pret.common.exception.FebsException;
 import com.pret.common.util.NoUtil;
 import com.pret.common.util.StringUtil;
+import com.pret.common.utils.HttpUtil;
 import com.pret.open.entity.*;
 import com.pret.open.entity.bo.PretTransFeeBo;
 import com.pret.open.entity.bo.PretTransPlanSignBo;
+import com.pret.open.entity.bo.U9ReturnBo;
 import com.pret.open.entity.vo.PretTransFeeVo;
 import com.pret.open.repository.*;
 import com.pret.api.service.impl.BaseServiceImpl;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -55,6 +59,8 @@ public class PretTransFeeService extends BaseServiceImpl<PretTransFeeRepository,
     private PretTransFeeItemService pretTransFeeItemService;
     @Autowired
     private PretTransOrderGroupRepository pretTransOrderGroupRepository;
+    @Value("${u9.ulr}")
+    private String u9Url;
 
     public PretTransFee genDefaultPretTransFee(String no, String tail) {
         Date date = DateUtils.truncate(new Date(), Calendar.DATE);
@@ -154,8 +160,27 @@ public class PretTransFeeService extends BaseServiceImpl<PretTransFeeRepository,
         pretTransFee.setVenderId(pretTransPlan.getVenderId());
         pretTransFee.setTransPlanId(pretTransPlan.getId());
         pretTransFee.setUnitPrice(unitPrice);
-        this.repository.save(pretTransFee);
 
+        // 对接U9
+        //组装请求参数
+        JSONObject map = new JSONObject();
+        map.put("ShipDocNo", pretTransFee.getDeliveryBillNumber());
+        map.put("ShipDocLineNo", pretTransPlan.getShipDocLineNo());
+        map.put("ShipQty", pretTransPlan.getGw());
+        map.put("ConfirmedQty", pretTransPlan.getGw());
+        map.put("MBDTDocNo", pretTransPlan.getNo());
+        String params = map.toString();
+        try {
+            String result = HttpUtil.sendPost(u9Url + "/services/UFIDA.U9.Cust.MBToERPSv.IOpDeliveryTaskSv.svc", params);
+            U9ReturnBo u9ReturnBo = Constants.GSON.fromJson(result, U9ReturnBo.class);
+            if (u9ReturnBo.getRtnBool().equals("True")) {
+                pretTransFee.setRevokeStatus(ConstantEnum.ERevokeStatus.成功.getLabel());
+            } else {
+                pretTransFee.setRevokeStatus(ConstantEnum.ERevokeStatus.失败.getLabel());
+            }
+        } catch (Exception e) {
+        }
+        this.repository.save(pretTransFee);
     }
 
     /* *
@@ -190,6 +215,27 @@ public class PretTransFeeService extends BaseServiceImpl<PretTransFeeRepository,
 
             pretTransFee.setStatus(ConstantEnum.EPretTransFeeStatus.审核通过.getLabel());
             this.repository.save(pretTransFee);
+
+            PretTransPlan pretTransPlan = pretTransPlanRepository.findById(pretTransFee.getTransPlanId()).get();
+
+            //组装请求参数
+            JSONObject map = new JSONObject();
+            map.put("ShipDocNo", pretTransFee.getDeliveryBillNumber());
+            map.put("ShipDocLineNo", pretTransPlan.getShipDocLineNo());
+            map.put("ShipQty", pretTransPlan.getGw());
+            map.put("ConfirmedQty", pretTransPlan.getGw());
+            map.put("MBDTDocNo", pretTransPlan.getNo());
+            String params = map.toString();
+            try {
+                String result = HttpUtil.sendPost(u9Url + "/services/UFIDA.U9.Cust.MBToERPUpdate.IDTUpdateFeeSv.svc", params);
+                U9ReturnBo u9ReturnBo = Constants.GSON.fromJson(result, U9ReturnBo.class);
+                if (u9ReturnBo.getRtnBool().equals("True")) {
+                    pretTransFee.setRevokeStatus(ConstantEnum.ERevokeStatus.成功.getLabel());
+                } else {
+                    pretTransFee.setRevokeStatus(ConstantEnum.ERevokeStatus.失败.getLabel());
+                }
+            } catch (Exception e) {
+            }
         }
     }
 }

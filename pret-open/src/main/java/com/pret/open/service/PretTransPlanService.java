@@ -218,6 +218,7 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
             pretTransException.setRejectCount(count);
             pretTransExceptionRepository.save(pretTransException);
             pretTransPlan.setTransExceptionId(pretTransException.getId());
+            pretTransPlan.setImages(bo.getImages());
             pretTransPlanRepository.save(pretTransPlan);
         }
 

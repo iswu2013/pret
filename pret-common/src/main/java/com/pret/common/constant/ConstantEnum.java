@@ -1316,9 +1316,9 @@ public class ConstantEnum {
      * 功能描述: 运费类别
      * 〈〉
      * @Param:
-            * @Return: 
-            * @Author: wujingsong
-            * @Date: 2019/12/5  1:09 下午
+     * @Return:
+     * @Author: wujingsong
+     * @Date: 2019/12/5  1:09 下午
      */
     public enum EFeeType {
         运费(0);
@@ -1337,4 +1337,33 @@ public class ConstantEnum {
             this.label = label;
         }
     }
+
+    /* *
+     * 功能描述: 调用结果
+     * 〈〉
+     * @Param:
+     * @Return:
+     * @Author: wujingsong
+     * @Date: 2019/12/8  10:20 上午
+     */
+    public enum ERevokeStatus {
+        失败(0),
+        成功(1);
+        private int label;
+
+        ERevokeStatus(int label) {
+            this.setLabel(label);
+        }
+
+        //省略getter、setter方法
+        public int getLabel() {
+            return label;
+        }
+
+        public void setLabel(int label) {
+            this.label = label;
+        }
+    }
+
+
 }

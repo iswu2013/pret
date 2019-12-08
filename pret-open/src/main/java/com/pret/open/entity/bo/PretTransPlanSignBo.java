@@ -37,4 +37,6 @@ public class PretTransPlanSignBo {
      * 签收情况
      */
     private String pretTransOrderSignBoStr;
+
+    private String images;
 }

@@ -103,6 +103,13 @@ public class PretTransFee extends VersionedAuditableIdEntity implements Serializ
      */
     private String pretCurrencyId;
 
+    /**
+     * 调用结果0失败1成功
+     */
+    private Integer revokeStatus;
+
+    private String deliveryBillNumber;
+
     private PretVender pretVender;
 
     private PretCustomer pretCustomer;

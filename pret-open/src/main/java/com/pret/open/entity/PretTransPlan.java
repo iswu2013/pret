@@ -225,6 +225,10 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
      */
     private Integer settle = 1;
 
+    private String deliveryBillNumber;
+
+    private String shipDocLineNo;
+
     private PretVender pretVender;
 
     private PretCustomer pretCustomer;
@@ -309,4 +313,6 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
     public void setImageList(List<String> imageList) {
         this.imageList = imageList;
     }
+
+
 }
