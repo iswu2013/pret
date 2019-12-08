@@ -2,6 +2,7 @@ package com.pret.open.service;
 
 import java.util.*;
 
+import com.alibaba.fastjson.JSONObject;
 import com.google.common.base.Joiner;
 import com.google.common.reflect.TypeToken;
 import com.pret.api.vo.ResBody;
@@ -9,10 +10,8 @@ import com.pret.common.constant.CommonConstants;
 import com.pret.common.constant.ConstantEnum;
 import com.pret.common.constant.Constants;
 import com.pret.common.exception.FebsException;
-import com.pret.common.util.BeanUtilsExtended;
-import com.pret.common.util.NoUtil;
-import com.pret.common.util.SfUtil;
-import com.pret.common.util.StringUtil;
+import com.pret.common.util.*;
+import com.pret.common.utils.HttpUtil;
 import com.pret.open.config.Sender;
 import com.pret.open.entity.*;
 import com.pret.open.entity.bo.*;
@@ -69,9 +68,23 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
     private PretTransFeeRepository pretTransFeeRepository;
     @Autowired
     private PretTransOrderGroupRepository pretTransOrderGroupRepository;
+    @Autowired
+    private PretVenderRepository pretVenderRepository;
 
     @Value("${sf.url}")
     private String sfUrl;
+
+    @Value("${u9.ulr}")
+    private String u9Url;
+
+    @Value("${kd.appSecret}")
+    private String appSecret;
+
+    @Value("${kd.appCode}")
+    private String appCode;
+
+    @Value("${kd.deptName}")
+    private String deptName;
 
     /* *
      * 功能描述: 生成模板运输计划
@@ -182,8 +195,11 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
                 pretPickUpPlanRepository.save(pretPickUpPlan);
             }
 
-            // 生产顺丰单号
-            this.genSfMailno(transPlan);
+            PretVender pretVender = pretVenderRepository.findById(transOrder.getVenderId()).get();
+            if (pretVender.getType() == ConstantEnum.EVenderType.快递.getLabel()) {
+                // 生产顺丰单号
+                this.genThirdMail(transPlan);
+            }
         }
     }
 
@@ -285,6 +301,57 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
 
         return retVo;
     }
+
+    /* *
+     * 功能描述: 三方快递对接
+     * 〈〉
+     * @Param: [pretTransPlan]
+     * @Return: void
+     * @Author: wujingsong
+     * @Date: 2019/12/8  10:38 上午
+     */
+    public void genThirdMail(PretTransPlan pretTransPlan) {
+        PretCustomer pretCustomer = pretCustomerRepository.findById(pretTransPlan.getCustomerId()).get();
+        JSONObject map = new JSONObject();
+        // 商家组织
+        map.put("deptName", deptName);
+        // 收件电话(非必填)
+        map.put("recPersonTel", pretCustomer.getLinkPhone());
+        // 订单号(非必填)
+        map.put("oldOrder", pretTransPlan.getNo());
+        // 件数
+        map.put("count", pretTransPlan.getGw());
+        // 收件人编码
+        map.put("customerCode", pretCustomer.getCode());
+        String params = map.toString();
+        try {
+            List<HeaderProperty> headerPropertyList = new ArrayList<>();
+            HeaderProperty headerProperty = new HeaderProperty();
+            headerProperty.setName("appCode");
+            headerProperty.setValue(appCode);
+            headerPropertyList.add(headerProperty);
+
+            String timestamp = Constants.df2.format(new Date());
+            headerProperty = new HeaderProperty();
+            headerProperty.setName("timestamp");
+            headerProperty.setValue(timestamp);
+            headerPropertyList.add(headerProperty);
+
+            headerProperty = new HeaderProperty();
+            headerProperty.setName("sign");
+            String body = "count=" + pretTransPlan.getGw() + "&customerCode=" + pretCustomer.getCode() + "&deptName=" + deptName + "&oldOrder=" + pretTransPlan.getNo() + "&recPersonTel=" + pretCustomer.getCode();
+            headerProperty.setValue(CommonUtil.generateSign(body, timestamp, appSecret));
+            headerPropertyList.add(headerProperty);
+
+            String result = HttpUtil.sendPost(sfUrl, params);
+            U9ReturnBo u9ReturnBo = Constants.GSON.fromJson(result, U9ReturnBo.class);
+            if (u9ReturnBo.getRtnBool().equals("True")) {
+            } else {
+            }
+        } catch (Exception e) {
+        }
+    }
+
 
     public void genSfMailno(PretTransPlan pretTransPlan) {
         Map map = new HashMap();

@@ -110,3 +110,8 @@ upload:
   path: C:\services\html\
 u9:
   ulr: http://116.228.74.171/u9/
+
+kd:
+  appSecret: ade
+  appCode: code1
+  deptName: '上海普利特'

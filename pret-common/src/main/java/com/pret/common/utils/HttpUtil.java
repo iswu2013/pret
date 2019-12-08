@@ -1,6 +1,7 @@
 package com.pret.common.utils;
 
 
+import com.pret.common.util.HeaderProperty;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
@@ -10,6 +11,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 import java.security.cert.X509Certificate;
+import java.util.List;
 
 @Slf4j
 public class HttpUtil {
@@ -74,6 +76,37 @@ public class HttpUtil {
      * @param param 请求参数，请求参数应该是 name1=value1&name2=value2 的形式。
      * @return 所代表远程资源的响应结果
      */
+    public static String sendPost(String url, String param, List<HeaderProperty> headerPropertyList) throws IOException {
+        StringBuilder result = new StringBuilder();
+
+        String urlNameString = url + "?" + param;
+        URL realUrl = new URL(urlNameString);
+        URLConnection conn = realUrl.openConnection();
+        conn.setDoInput(true);
+        conn.setDoOutput(true);
+        conn.setRequestProperty(CONTENTTYPE, UTF8);
+        conn.setRequestProperty(ACCEPT_CHARSET, UTF8);
+        conn.setRequestProperty(USER_AGENT, USER_AGENT_VALUE);
+        conn.setRequestProperty(CONNECTION, CONNECTION_VALUE);
+        conn.setRequestProperty(ACCEPT, "*/*");
+        if (headerPropertyList != null && headerPropertyList.size() > 0) {
+            for (HeaderProperty headerProperty : headerPropertyList) {
+                conn.setRequestProperty(headerProperty.getName(), headerProperty.getValue());
+            }
+        }
+        try (PrintWriter out = new PrintWriter(conn.getOutputStream()); BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8))) {
+            String line;
+            while ((line = in.readLine()) != null) {
+                result.append(line);
+            }
+            out.flush();
+            out.print(param);
+        } catch (Exception e) {
+            log.error("发送 POST 请求出现异常！", e);
+        }
+        return result.toString();
+    }
+
     public static String sendPost(String url, String param) throws IOException {
         StringBuilder result = new StringBuilder();
 
