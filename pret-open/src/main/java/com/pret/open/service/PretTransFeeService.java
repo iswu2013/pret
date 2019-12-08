@@ -164,7 +164,7 @@ public class PretTransFeeService extends BaseServiceImpl<PretTransFeeRepository,
         // 对接U9
         //组装请求参数
         JSONObject map = new JSONObject();
-        map.put("ShipDocNo", pretTransFee.getDeliveryBillNumber());
+        map.put("ShipDocNo", pretTransPlan.getDeliveryBillNumber());
         map.put("ShipDocLineNo", pretTransPlan.getShipDocLineNo());
         map.put("ShipQty", pretTransPlan.getGw());
         map.put("ConfirmedQty", pretTransPlan.getGw());
@@ -220,7 +220,7 @@ public class PretTransFeeService extends BaseServiceImpl<PretTransFeeRepository,
 
             //组装请求参数
             JSONObject map = new JSONObject();
-            map.put("ShipDocNo", pretTransFee.getDeliveryBillNumber());
+            map.put("ShipDocNo", pretTransPlan.getDeliveryBillNumber());
             map.put("ShipDocLineNo", pretTransPlan.getShipDocLineNo());
             map.put("ShipQty", pretTransPlan.getGw());
             map.put("ConfirmedQty", pretTransPlan.getGw());

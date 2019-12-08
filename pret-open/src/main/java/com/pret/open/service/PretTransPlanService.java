@@ -2,6 +2,7 @@ package com.pret.open.service;
 
 import java.util.*;
 
+import com.google.common.base.Joiner;
 import com.google.common.reflect.TypeToken;
 import com.pret.api.vo.ResBody;
 import com.pret.common.constant.CommonConstants;
@@ -138,6 +139,7 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
             String venderId = StringUtils.EMPTY;
             int count = 0;
             Float gw = 0.0f;
+            List<String> lineNoList = new ArrayList<>();
             for (PretTransOrder pretTransOrder : item.getValue()) {
                 pretTransOrder.setTransPlanId(transPlan.getId());
                 pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.待起运.getLabel());
@@ -149,11 +151,15 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
                     venderId = pretTransOrder.getVenderId();
                 }
                 gw += pretTransOrder.getKilo();
+                lineNoList.add(pretTransOrder.getLineNo());
             }
             transPlan.setCustomerId(transOrder.getCustomerId());
             transPlan.setVenderId(venderId);
+            String ShipDocLineNo = Joiner.on(".").join(lineNoList);
+            transPlan.setShipDocLineNo(ShipDocLineNo);
             transPlan.setStatus(ConstantEnum.ETransPlanStatus.待起运.getValue());
             transPlan.setGoodsNum(count);
+            transPlan.setDeliveryBillNumber(transOrder.getDeliveryBillNumber());
             transPlan.setCustomerDetailAddress(transOrder.getCustomerDetailAddress());
             transPlan.setServiceRouteOriginName(transOrder.getServiceRouteOriginName());
             transPlan.setServiceRouteOriginId(transOrder.getServiceRouteOriginId());
