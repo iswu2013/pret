@@ -101,7 +101,7 @@ public class PretTransStatementService extends BaseServiceImpl<PretTransStatemen
         for (String id : idArr) {
             PretTransFee transFee = transFeeRepository.findById(id).get();
             transFee.setTransStatementId(transStatement.getId());
-            transFee.setStatus(ConstantEnum.EPretTransFeeStatus.审核通过.getLabel());
+            transFee.setStatus(ConstantEnum.EPretTransFeeStatus.已对账.getLabel());
             transFeeRepository.save(transFee);
             totalAmount = totalAmount.add(transFee.getQuotation());
 

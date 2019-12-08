@@ -110,6 +110,8 @@ public class PretTransStatement extends VersionedAuditableIdEntity implements Se
 
     private PretCurrency pretCurrency;
 
+    private PretCustomer pretCustomer;
+
     private List<PretTransPlan> pretTransPlanList;
 
     private List<PretTransFee> pretTransFeeList;
@@ -150,5 +152,14 @@ public class PretTransStatement extends VersionedAuditableIdEntity implements Se
 
     public void setPretTransFeeList(List<PretTransFee> pretTransFeeList) {
         this.pretTransFeeList = pretTransFeeList;
+    }
+
+    @Transient()
+    public PretCustomer getPretCustomer() {
+        return pretCustomer;
+    }
+
+    public void setPretCustomer(PretCustomer pretCustomer) {
+        this.pretCustomer = pretCustomer;
     }
 }

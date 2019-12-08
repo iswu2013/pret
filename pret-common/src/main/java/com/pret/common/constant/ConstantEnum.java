@@ -449,7 +449,8 @@ public class ConstantEnum {
     public enum EPretTransFeeStatus {
         待申报(0),
         已申报(1),
-        审核通过(2);
+        审核通过(2),
+        已对账(3);
         private int label;
 
         private EPretTransFeeStatus(int label) {

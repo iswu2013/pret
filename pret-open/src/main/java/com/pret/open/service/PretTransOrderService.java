@@ -252,7 +252,7 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
                         pretTransOrder.setVenderId(item.getVenderId());
                         pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.已分配.getLabel());
                         pretTransOrder.setServiceRouteItemId(item.getId());
-                        this.pretTransOrderStatistics(ConstantEnum.ETransOrderStatisticsUserType.物流供应商.getLabel(), venderId);
+                        this.pretTransOrderStatistics(ConstantEnum.ETransOrderStatisticsUserType.物流供应商.getLabel(), item.getVenderId());
                     }
                     transOrder.setServiceRouteItemId(item.getId());
                     transOrder.setStatus(ConstantEnum.ETransOrderStatus.已分配.getLabel());

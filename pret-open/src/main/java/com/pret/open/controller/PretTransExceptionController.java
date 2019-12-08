@@ -43,6 +43,8 @@ public class PretTransExceptionController extends BaseManageController<PretTrans
     private PretTransExceptionHandleRecordRepository pretTransExceptionHandleRecordRepository;
     @Value("${upload.baseurl}")
     private String baseurl;
+    @Autowired
+    private PretTransFeeRepository pretTransFeeRepository;
 
     @GetMapping
     @Override()
@@ -85,6 +87,13 @@ public class PretTransExceptionController extends BaseManageController<PretTrans
                 }
             }
             item.setPretTransExceptionHandleRecordList(pretTransExceptionHandleRecordList);
+
+            PretTransPlan pretTransPlan = pretTransPlanRepository.findById(item.getTransPlanId()).get();
+            if (!StringUtils.isEmpty(pretTransPlan.getTransFeeId())) {
+                PretTransFee pretTransFee = pretTransFeeRepository.findById(pretTransPlan.getTransFeeId()).get();
+                item.setPretTransFee(pretTransFee);
+            }
+
 
             return item;
         } catch (Exception e) {

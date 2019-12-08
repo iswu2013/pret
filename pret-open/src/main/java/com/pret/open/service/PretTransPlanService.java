@@ -164,7 +164,9 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
                     venderId = pretTransOrder.getVenderId();
                 }
                 gw += pretTransOrder.getKilo();
-                lineNoList.add(pretTransOrder.getLineNo());
+                if(!StringUtils.isEmpty(pretTransOrder.getLineNo())) {
+                    lineNoList.add(pretTransOrder.getLineNo());
+                }
             }
             transPlan.setCustomerId(transOrder.getCustomerId());
             transPlan.setVenderId(venderId);

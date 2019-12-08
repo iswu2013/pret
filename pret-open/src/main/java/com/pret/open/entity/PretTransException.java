@@ -180,6 +180,8 @@ public class PretTransException extends VersionedAuditableIdEntity implements Se
 
     private PretTransOrder pretTransOrder;
 
+    private PretTransFee pretTransFee;
+
     private List<PretTransExceptionItem> pretTransExceptionItemList;
 
     private List<PretTransExceptionHandleRecord> pretTransExceptionHandleRecordList;
@@ -238,5 +240,14 @@ public class PretTransException extends VersionedAuditableIdEntity implements Se
 
     public void setPretTransExceptionHandleRecordList(List<PretTransExceptionHandleRecord> pretTransExceptionHandleRecordList) {
         this.pretTransExceptionHandleRecordList = pretTransExceptionHandleRecordList;
+    }
+
+    @Transient()
+    public PretTransFee getPretTransFee() {
+        return pretTransFee;
+    }
+
+    public void setPretTransFee(PretTransFee pretTransFee) {
+        this.pretTransFee = pretTransFee;
     }
 }

@@ -1,6 +1,7 @@
 package com.pret.open.vo.req;
 
 import com.pret.api.vo.ReqBody;
+import com.pret.common.constant.ConstantEnum;
 import com.wuwenze.poi.annotation.ExcelField;
 import lombok.Data;
 
@@ -144,7 +145,7 @@ public class P1000000Vo extends ReqBody {
     /**
      * 单位(1吨，2公斤)
      */
-    private int unit;
+    private int unit = ConstantEnum.EUnit.公斤.getLabel();
 
     /**
      * 立方体积
