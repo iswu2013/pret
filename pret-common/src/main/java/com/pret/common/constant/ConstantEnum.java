@@ -1366,5 +1366,34 @@ public class ConstantEnum {
         }
     }
 
+    /* *
+     * 功能描述: <br>
+     * 〈〉
+     * @Param:
+            * @Return: 
+            * @Author: wujingsong
+            * @Date: 2019/12/9  7:03 下午
+     */
+    public enum EPretTransRecordDescription {
+        运输计划(0),
+        起运确认(1),
+        客户签收(2);
+        private int label;
+
+        EPretTransRecordDescription(int label) {
+            this.setLabel(label);
+        }
+
+        //省略getter、setter方法
+        public int getLabel() {
+            return label;
+        }
+
+        public void setLabel(int label) {
+            this.label = label;
+        }
+    }
+
+
 
 }

@@ -87,5 +87,10 @@ public class PretTransPlanBo {
      */
     private String unit;
 
+    /**
+     * 操作人
+     */
+    private String username;
+
     // setter and getter
 }

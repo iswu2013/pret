@@ -30,6 +30,8 @@ public class Dept implements Serializable {
     @ExcelField(value = "部门名称")
     private String deptName;
 
+    private String u9code;
+
     private Double orderNum;
 
     @ExcelField(value = "创建时间", writeConverter = TimeConverter.class)

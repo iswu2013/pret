@@ -170,6 +170,7 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
                 pretTransOrder.setUnit(pretMTransOrderBo.getUnit());
                 pretTransOrder.setGoodsNum(pretMTransOrderBo.getGoodsNum());
                 pretTransOrder.setTransOrderGroupId(pretTransOrderGroup.getId());
+
                 BeanUtilsExtended.copyProperties(pretTransOrder, pretMTransOrderBo);
                 pretTransOrder.setRemark(pretMTransOrderBo.getRemark());
                 if (StringUtils.isEmpty(bo.getCustomerName())) {

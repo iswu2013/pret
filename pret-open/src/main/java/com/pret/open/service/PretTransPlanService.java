@@ -70,6 +70,8 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
     private PretTransOrderGroupRepository pretTransOrderGroupRepository;
     @Autowired
     private PretVenderRepository pretVenderRepository;
+    @Autowired
+    private PretTransRecordRepository pretTransRecordRepository;
 
     @Value("${sf.url}")
     private String sfUrl;
@@ -164,7 +166,7 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
                     venderId = pretTransOrder.getVenderId();
                 }
                 gw += pretTransOrder.getKilo();
-                if(!StringUtils.isEmpty(pretTransOrder.getLineNo())) {
+                if (!StringUtils.isEmpty(pretTransOrder.getLineNo())) {
                     lineNoList.add(pretTransOrder.getLineNo());
                 }
             }
@@ -202,6 +204,18 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
                 // 生产顺丰单号
                 this.genThirdMail(transPlan);
             }
+
+            // 添加一条记录
+            PretTransRecord pretTransRecord = new PretTransRecord();
+
+            pretTransRecord.setDescription(ConstantEnum.EPretTransRecordDescription.运输计划.name());
+            pretTransRecord.setTransPlanId(transPlan.getId());
+            pretTransRecord.setType(ConstantEnum.ETransOrderStatisticsUserType.物流供应商.getLabel());
+            pretTransRecord.setUsername(bo.getUsername());
+
+            pretTransRecordRepository.save(pretTransRecord);
+
+
         }
     }
 
@@ -249,7 +263,13 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
         // 计算费用
         pretTransFeeService.calFee(bo);
 
+        // 添加一条记录
+        PretTransRecord pretTransRecord = new PretTransRecord();
 
+        pretTransRecord.setDescription(ConstantEnum.EPretTransRecordDescription.客户签收.name());
+        pretTransRecord.setTransPlanId(bo.getId());
+        pretTransRecord.setType(ConstantEnum.ETransOrderStatisticsUserType.物流供应商.getLabel());
+        pretTransRecord.setUsername(bo.getUsername());
     }
 
     /* *
@@ -428,6 +448,16 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
         pretTransOrderGroupRepository.save(pretTransOrderGroup);
 
         this.repository.save(pretTransPlan);
+
+        // 添加一条记录
+        PretTransRecord pretTransRecord = new PretTransRecord();
+
+        pretTransRecord.setDescription(ConstantEnum.EPretTransRecordDescription.起运确认.name());
+        pretTransRecord.setTransPlanId(pretTransPlan.getId());
+        pretTransRecord.setType(ConstantEnum.ETransOrderStatisticsUserType.物流供应商.getLabel());
+        pretTransRecord.setUsername(bo.getUsername());
+
+        pretTransRecordRepository.save(pretTransRecord);
     }
 
     /* *

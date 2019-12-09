@@ -26,4 +26,6 @@ public class PretTransPlanStartShipmentConfirmBo {
 
 
     private Date preDeliveryDate;
+
+    private String username;
 }
