@@ -108,6 +108,8 @@ public class PretTransFee extends VersionedAuditableIdEntity implements Serializ
      */
     private Integer revokeStatus;
 
+    private String deptId;
+
     private PretVender pretVender;
 
     private PretCustomer pretCustomer;

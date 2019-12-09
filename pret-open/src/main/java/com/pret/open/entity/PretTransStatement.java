@@ -106,6 +106,8 @@ public class PretTransStatement extends VersionedAuditableIdEntity implements Se
     @ExcelField(value = "状态", writeConverterExp = "0=待确认,1=通过,2=不通过,3=已转u9")
     private Integer status;
 
+    private String deptId;
+
     private PretVender pretVender;
 
     private PretCurrency pretCurrency;

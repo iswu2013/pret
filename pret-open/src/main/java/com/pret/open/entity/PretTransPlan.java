@@ -229,6 +229,8 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
 
     private String shipDocLineNo;
 
+    private String deptId;
+
     private PretVender pretVender;
 
     private PretCustomer pretCustomer;

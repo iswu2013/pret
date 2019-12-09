@@ -147,6 +147,8 @@ public class PretPickUpPlan extends VersionedAuditableIdEntity implements Serial
      */
     private Integer inOutStatus = ConstantEnum.EInOutStatus.待进厂.getLabel();
 
+    private String deptId;
+
     /**
      * 运输任务单
      */

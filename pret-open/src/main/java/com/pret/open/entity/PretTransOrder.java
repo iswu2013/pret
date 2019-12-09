@@ -258,6 +258,8 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
 
     private String lineNo;
 
+    private String deptId;
+
     /**
      * 供应商
      */

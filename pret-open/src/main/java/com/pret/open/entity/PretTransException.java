@@ -169,6 +169,8 @@ public class PretTransException extends VersionedAuditableIdEntity implements Se
      */
     private Integer createdReturn = ConstantEnum.EcreatedReturn.否.getLabel();
 
+    private String deptId;
+
     /**
      * 客户
      */
