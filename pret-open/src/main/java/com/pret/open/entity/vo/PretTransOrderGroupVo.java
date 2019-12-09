@@ -27,4 +27,5 @@ public class PretTransOrderGroupVo extends PageFormVo implements Serializable {
     private String l$deliveryBillNumber;
     private int eq$status = -1;
     private String eq$serviceRouteOriginId;
+    private String eq$deptId;
 }

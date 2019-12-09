@@ -22,4 +22,5 @@ public class PretTransPlanVo extends PageFormVo implements Serializable {
     private int eq$status = -1;
     private String eq$pickupFactoryCd;
     private int eq$type = -1;
+    private String eq$deptId;
 }

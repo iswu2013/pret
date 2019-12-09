@@ -19,4 +19,5 @@ public class PretTransStatementVo extends PageFormVo implements Serializable {
     private long bw$createTimeLong;
     private long createTimeLongEnd;
     private int eq$status = -1;
+    private String eq$deptId;
 }

@@ -26,4 +26,5 @@ public class PretPickUpPlanVo extends PageFormVo implements Serializable {
     private Date pickUpTimeEnd;
     private String eq$pickupFactoryCd;
     private int eq$stockUpStatus = -1;
+    private String eq$deptId;
 }
