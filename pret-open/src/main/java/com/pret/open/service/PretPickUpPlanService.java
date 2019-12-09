@@ -68,6 +68,8 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
     private PretServiceRouteOriginUserRepository pretServiceRouteOriginUserRepository;
     @Autowired
     private PretPickUpPlanRepository pretPickUpPlanRepository;
+    @Autowired
+    private PretPickUpRecordRepository pretPickUpRecordRepository;
 
     public PretPickUpPlan genDefaultPretPickUpPlan(String no, String tail) {
         Date date = DateUtils.truncate(new Date(), Calendar.DATE);
@@ -164,6 +166,16 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
         }
 
         this.repository.save(pretPickUpPlan);
+
+        // 添加一条记录
+        PretPickUpRecord pretTransRecord = new PretPickUpRecord();
+
+        pretTransRecord.setDescription(ConstantEnum.EPretPickUpRecordDescription.生成提货计划.name());
+        pretTransRecord.setPickUpPlanId(pretPickUpPlan.getId());
+        pretTransRecord.setType(ConstantEnum.ETransOrderStatisticsUserType.物流供应商.getLabel());
+        pretTransRecord.setUsername(bo.getUsername());
+
+        pretPickUpRecordRepository.save(pretTransRecord);
     }
 
     /* *
@@ -221,7 +233,18 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
             PretPickUpPlan pickUpPlan = this.repository.findById(id).get();
             pickUpPlan.setStockUpStatus(ConstantEnum.EPretPickUpPlantockUpStatus.已备货.getLabel());
             this.repository.save(pickUpPlan);
+
+            // 添加一条记录
+            PretPickUpRecord pretTransRecord = new PretPickUpRecord();
+
+            pretTransRecord.setDescription(ConstantEnum.EPretPickUpRecordDescription.备货完成.name());
+            pretTransRecord.setPickUpPlanId(pickUpPlan.getId());
+            pretTransRecord.setType(ConstantEnum.ETransOrderStatisticsUserType.物流供应商.getLabel());
+            pretTransRecord.setUsername(res.getUserInfo().getUserInfo().getUsername());
+
+            pretPickUpRecordRepository.save(pretTransRecord);
         }
+
 
         return retVo;
     }
@@ -242,6 +265,16 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
         pretPickUpPlanList.setStartTime(date);
         pretPickUpPlanList.setInOutStatus(ConstantEnum.EInOutStatus.已进厂.getLabel());
         this.repository.save(pretPickUpPlanList);
+
+        // 添加一条记录
+        PretPickUpRecord pretTransRecord = new PretPickUpRecord();
+
+        pretTransRecord.setDescription(ConstantEnum.EPretPickUpRecordDescription.进厂提货.name());
+        pretTransRecord.setPickUpPlanId(pretPickUpPlanList.getId());
+        pretTransRecord.setType(ConstantEnum.ETransOrderStatisticsUserType.门卫.getLabel());
+        pretTransRecord.setUsername(res.getUserInfo().getUserInfo().getUsername());
+
+        pretPickUpRecordRepository.save(pretTransRecord);
 
         return retVo;
     }
@@ -268,6 +301,16 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
             pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.待起运.getLabel());
             transOrderRepository.save(pretTransOrder);
         }*/
+
+        // 添加一条记录
+        PretPickUpRecord pretTransRecord = new PretPickUpRecord();
+
+        pretTransRecord.setDescription(ConstantEnum.EPretPickUpRecordDescription.出厂确认.name());
+        pretTransRecord.setPickUpPlanId(pretPickUpPlan.getId());
+        pretTransRecord.setType(ConstantEnum.ETransOrderStatisticsUserType.门卫.getLabel());
+        pretTransRecord.setUsername(res.getUserInfo().getUserInfo().getUsername());
+
+        pretPickUpRecordRepository.save(pretTransRecord);
 
         return retVo;
     }

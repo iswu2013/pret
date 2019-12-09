@@ -789,7 +789,8 @@ public class ConstantEnum {
      */
     public enum ETransOrderStatisticsUserType {
         平台(0),
-        物流供应商(1);
+        物流供应商(1),
+        门卫(2);
         private int label;
 
         ETransOrderStatisticsUserType(int label) {
@@ -1370,9 +1371,9 @@ public class ConstantEnum {
      * 功能描述: <br>
      * 〈〉
      * @Param:
-            * @Return: 
-            * @Author: wujingsong
-            * @Date: 2019/12/9  7:03 下午
+     * @Return:
+     * @Author: wujingsong
+     * @Date: 2019/12/9  7:03 下午
      */
     public enum EPretTransRecordDescription {
         运输计划(0),
@@ -1394,6 +1395,33 @@ public class ConstantEnum {
         }
     }
 
+    /* *
+     * 功能描述: 提货计划状态
+     * 〈〉
+     * @Param:
+     * @Return:
+     * @Author: wujingsong
+     * @Date: 2019/12/9  7:24 下午
+     */
+    public enum EPretPickUpRecordDescription {
+        生成提货计划(0),
+        备货完成(1),
+        进厂提货(2),
+        出厂确认(3),
+        提货完成(4);
+        private int label;
 
+        EPretPickUpRecordDescription(int label) {
+            this.setLabel(label);
+        }
 
+        //省略getter、setter方法
+        public int getLabel() {
+            return label;
+        }
+
+        public void setLabel(int label) {
+            this.label = label;
+        }
+    }
 }

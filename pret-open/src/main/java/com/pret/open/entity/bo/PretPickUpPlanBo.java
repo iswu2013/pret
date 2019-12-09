@@ -70,4 +70,6 @@ public class PretPickUpPlanBo {
      * 车长
      */
     private String vehicleLength;
+
+    private String username;
 }

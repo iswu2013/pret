@@ -4,10 +4,11 @@ import com.pret.api.rest.BaseManageController;
 import com.pret.common.annotation.Log;
 import com.pret.common.constant.ConstantEnum;
 import com.pret.common.exception.FebsException;
+import com.pret.open.entity.PretPickUpRecord;
 import com.pret.open.entity.PretTransRecord;
-import com.pret.open.entity.vo.PretTransRecordVo;
-import com.pret.open.repository.PretTransRecordRepository;
-import com.pret.open.service.PretTransRecordService;
+import com.pret.open.entity.vo.PretPickUpRecordVo;
+import com.pret.open.repository.PretPickUpRecordRepository;
+import com.pret.open.service.PretPickUpRecordService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -21,10 +22,10 @@ import java.util.List;
 @Slf4j
 @Validated
 @RestController
-@RequestMapping("pretTransRecord")
-public class PretTransRecordController extends BaseManageController<PretTransRecordService, PretTransRecord, PretTransRecordVo> {
+@RequestMapping("pretPickUpRecord")
+public class PretPickUpRecordController extends BaseManageController<PretPickUpRecordService, PretPickUpRecord, PretPickUpRecordVo> {
     @Autowired
-    private PretTransRecordRepository pretTransRecordRepository;
+    private PretPickUpRecordRepository pretPickUpRecordRepository;
 
     /* *
      * 功能描述: 查看
@@ -36,9 +37,9 @@ public class PretTransRecordController extends BaseManageController<PretTransRec
      */
     @Log("查看")
     @PostMapping("/view/{id}")
-    public PretTransRecord view(@PathVariable String id) throws FebsException {
+    public PretPickUpRecord view(@PathVariable String id) throws FebsException {
         try {
-            PretTransRecord item = this.service.findById(id).get();
+            PretPickUpRecord item = this.service.findById(id).get();
             return item;
         } catch (Exception e) {
             message = "查看失败";
@@ -47,10 +48,10 @@ public class PretTransRecordController extends BaseManageController<PretTransRec
     }
 
     @Log("查看")
-    @PostMapping("/viewByTransPlanId/{id}")
-    public List<PretTransRecord> viewByTransPlanId(@PathVariable String id) throws FebsException {
+    @PostMapping("/viewByPickUpPlanId/{id}")
+    public List<PretPickUpRecord> viewByPickUpPlanId(@PathVariable String id) throws FebsException {
         try {
-            List<PretTransRecord> item = pretTransRecordRepository.findByTransPlanIdAndS(id, ConstantEnum.S.N.getLabel());
+            List<PretPickUpRecord> item = pretPickUpRecordRepository.findByPickUpPlanIdAndS(id, ConstantEnum.S.N.getLabel());
             return item;
         } catch (Exception e) {
             message = "查看失败";

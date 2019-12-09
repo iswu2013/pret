@@ -72,6 +72,8 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
     private PretVenderRepository pretVenderRepository;
     @Autowired
     private PretTransRecordRepository pretTransRecordRepository;
+    @Autowired
+    private PretPickUpRecordRepository pretPickUpRecordRepository;
 
     @Value("${sf.url}")
     private String sfUrl;
@@ -197,6 +199,16 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
                 pretPickUpPlan.setStatus(ConstantEnum.EPretPickUpPlanStatus.提货完成.getLabel());
                 pretPickUpPlan.setEndTime(new Date());
                 pretPickUpPlanRepository.save(pretPickUpPlan);
+
+                // 添加一条记录
+                PretPickUpRecord pretTransRecord = new PretPickUpRecord();
+
+                pretTransRecord.setDescription(ConstantEnum.EPretPickUpRecordDescription.提货完成.name());
+                pretTransRecord.setPickUpPlanId(pretPickUpPlan.getId());
+                pretTransRecord.setType(ConstantEnum.ETransOrderStatisticsUserType.物流供应商.getLabel());
+                pretTransRecord.setUsername(bo.getUsername());
+
+                pretPickUpRecordRepository.save(pretTransRecord);
             }
 
             PretVender pretVender = pretVenderRepository.findById(transOrder.getVenderId()).get();
@@ -204,6 +216,7 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
                 // 生产顺丰单号
                 this.genThirdMail(transPlan);
             }
+
 
             // 添加一条记录
             PretTransRecord pretTransRecord = new PretTransRecord();
