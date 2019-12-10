@@ -68,4 +68,14 @@ public interface PretTransPlanRepository extends BaseRepository<PretTransPlan> {
      * @Date: 2019/11/20  5:31 下午
      */
     List<PretTransPlan> findByTransStatementIdAndS(String transStatementId, Integer s);
+
+    /* *
+     * 功能描述: 根据venderId和状态查找
+     * 〈〉
+     * @Param: [venderId, status]
+            * @Return: java.util.List<com.pret.open.entity.PretTransPlan>
+            * @Author: wujingsong
+            * @Date: 2019/12/10  9:58 上午
+     */
+    List<PretTransPlan> findByVenderIdAndStatus(String venderId,Integer status);
 }

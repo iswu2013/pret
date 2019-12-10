@@ -4,6 +4,7 @@ import com.pret.api.vo.PageFormVo;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * <p>Description: [pretmodel]</p>
@@ -20,4 +21,6 @@ public class PretTransStatementVo extends PageFormVo implements Serializable {
     private long createTimeLongEnd;
     private int eq$status = -1;
     private String eq$deptId;
+    private List<String> in$deptId;
+    private String userId;
 }

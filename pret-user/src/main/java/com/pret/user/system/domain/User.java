@@ -8,7 +8,10 @@ import com.pret.common.domain.RegexpConstant;
 import com.wuwenze.poi.annotation.Excel;
 import com.wuwenze.poi.annotation.ExcelField;
 import lombok.Data;
+import org.springframework.data.annotation.LastModifiedDate;
 
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
@@ -111,6 +114,8 @@ public class User implements Serializable {
      */
     private String name;
 
+    private String u9code;
+
     // 排序字段
     private transient String sortField;
 
@@ -120,6 +125,9 @@ public class User implements Serializable {
     private transient String createTimeFrom;
     private transient String createTimeTo;
     private transient Integer notUserType;
+    private long createTimeLong;// 创建时间
+    private String createTimeStr;
+    private Date lastModifiedDate;// 最后修改时间
 
     /**
      * shiro-redis v3.1.0 必须要有 getAuthCacheKey()或者 getId()方法

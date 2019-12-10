@@ -8,6 +8,7 @@ import com.pret.open.entity.PretVender;
 import com.pret.open.entity.vo.PretTransStatementVo;
 import com.pret.open.repository.PretVenderRepository;
 import com.pret.open.service.PretTransStatementService;
+import com.pret.open.service.user.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,10 +26,15 @@ import java.util.Map;
 public class PretTransStatementCController extends BaseManageController<PretTransStatementService, PretTransStatement, PretTransStatementVo> {
     @Autowired
     private PretVenderRepository pretVenderRepository;
+    @Autowired
+    private UserService userService;
 
     @GetMapping
     @Override()
     public Map<String, Object> list(PretTransStatementVo request, PretTransStatement t) {
+        if(!StringUtils.isEmpty(request.getUserId())) {
+            request.setIn$deptId(userService.getDeptIdListByUserId(request.getUserId()));
+        }
         Page<PretTransStatement> page = this.service.page(request);
         for (PretTransStatement transStatement : page.getContent()) {
             if (!StringUtils.isEmpty(transStatement.getBillToId())) {

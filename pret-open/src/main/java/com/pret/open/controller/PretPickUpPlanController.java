@@ -11,6 +11,7 @@ import com.pret.open.entity.bo.PretPickUpPlanModifyDriverBo;
 import com.pret.open.entity.vo.PretPickUpPlanVo;
 import com.pret.open.repository.*;
 import com.pret.open.service.PretPickUpPlanService;
+import com.pret.open.service.user.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,10 +46,15 @@ public class PretPickUpPlanController extends BaseManageController<PretPickUpPla
     private PretServiceRouteOriginRepository pretServiceRouteOriginRepository;
     @Autowired
     private PretCustomerRepository pretCustomerRepository;
+    @Autowired
+    private UserService userService;
 
     @GetMapping
     @Override()
     public Map<String, Object> list(PretPickUpPlanVo request, PretPickUpPlan t) {
+        if(!StringUtils.isEmpty(request.getUserId())) {
+            request.setIn$deptId(userService.getDeptIdListByUserId(request.getUserId()));
+        }
         Page<PretPickUpPlan> page = this.service.page(request);
         for (PretPickUpPlan pickUpPlan : page.getContent()) {
             List<PretTransOrder> transOrderList = pretTransOrderRepository.findByPickUpPlanIdAndS(pickUpPlan.getId(), ConstantEnum.S.N.getLabel());

@@ -260,6 +260,8 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
 
     private String deptId;
 
+    private String ownFactoryCd;
+
     /**
      * 供应商
      */

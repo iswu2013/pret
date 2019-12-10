@@ -15,12 +15,16 @@ import com.pret.common.utils.HttpUtil;
 import com.pret.open.config.Sender;
 import com.pret.open.entity.*;
 import com.pret.open.entity.bo.*;
+import com.pret.open.entity.user.User;
 import com.pret.open.entity.vo.PretTransPlanVo;
 import com.pret.open.repository.*;
+import com.pret.open.repository.user.UserRepository;
 import com.pret.open.vo.req.*;
 import com.pret.api.service.impl.BaseServiceImpl;
 import com.pret.open.vo.res.PR8000002Vo;
 import com.pret.open.vo.res.PR8000003Vo;
+import com.pret.open.vo.res.PR8000009ItemVo;
+import com.pret.open.vo.res.PR8000009Vo;
 import com.sf.csim.express.service.CallExpressServiceTools;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
@@ -31,6 +35,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.transaction.Transactional;
 
 /**
@@ -74,6 +81,12 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
     private PretTransRecordRepository pretTransRecordRepository;
     @Autowired
     private PretPickUpRecordRepository pretPickUpRecordRepository;
+    @Autowired
+    private PretTransRecordRepository getPretTransRecordRepository;
+    @Autowired
+    private UserRepository userRepository;
+    @PersistenceContext
+    private EntityManager em;
 
     @Value("${sf.url}")
     private String sfUrl;
@@ -178,6 +191,7 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
             transPlan.setShipDocLineNo(ShipDocLineNo);
             transPlan.setStatus(ConstantEnum.ETransPlanStatus.待起运.getValue());
             transPlan.setGoodsNum(count);
+            transPlan.setDeptId(transOrder.getDeptId());
             transPlan.setDeliveryBillNumber(transOrder.getDeliveryBillNumber());
             transPlan.setCustomerDetailAddress(transOrder.getCustomerDetailAddress());
             transPlan.setServiceRouteOriginName(transOrder.getServiceRouteOriginName());
@@ -247,6 +261,7 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
             PretTransException pretTransException = pretTransExceptionService.genDefaultPretTransException(null, null);
             pretTransException.setVenderId(pretTransPlan.getVenderId());
             pretTransException.setTransPlanId(bo.getId());
+            pretTransException.setDeptId(pretTransPlan.getDeptId());
             pretTransExceptionRepository.save(pretTransException);
             Float count = 0.0f;
             List<PretTransOrderSignBo> list = CommonConstants.GSON.fromJson(bo.getPretTransOrderSignBoStr(),
@@ -266,6 +281,7 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
                     pretTransExceptionItemRepository.save(item);
                 }
             }
+            pretTransException.setDeptId(pretTransPlan.getDeptId());
             pretTransException.setRejectCount(count);
             pretTransExceptionRepository.save(pretTransException);
             pretTransPlan.setTransExceptionId(pretTransException.getId());
@@ -312,6 +328,25 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
         PretTransPlanVo vo = new PretTransPlanVo();
         vo.setEq$customerId(customer.getId());
         List<PretTransPlan> list = this.page(vo).getContent();
+        for (PretTransPlan pretTransPlan : list) {
+            if (pretTransPlan.getTransDatetime() != null) {
+                pretTransPlan.setTransDatetimeStr(Constants.df2.format(pretTransPlan.getTransDatetime()));
+            } else {
+                pretTransPlan.setTransDatetimeStr("暂未起运");
+            }
+
+            if (pretTransPlan.getDeliveryDate() != null) {
+                pretTransPlan.setDeliveryDateStr(Constants.df2.format(pretTransPlan.getDeliveryDate()));
+            } else {
+                pretTransPlan.setDeliveryDateStr(StringUtils.EMPTY);
+            }
+
+            if (pretTransPlan.getPreDeliveryDate() != null) {
+                pretTransPlan.setPreDeliveryDateStr(Constants.df2.format(pretTransPlan.getPreDeliveryDate()));
+            } else {
+                pretTransPlan.setPreDeliveryDateStr(StringUtils.EMPTY);
+            }
+        }
         retVo.setData(list);
 
         return retVo;
@@ -331,8 +366,8 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
         PretTransPlan transPlan = pretTransPlanRepository.findById(res.getId()).get();
         retVo.setData(transPlan);
 
-        List<PretTransTrajectory> list = transTrajectoryRepository.findByTransPlanIdAndS(transPlan.getId(), ConstantEnum.S.N.getLabel());
-        retVo.setTransTrajectoryList(list);
+        List<PretTransRecord> list = pretTransRecordRepository.findByTransPlanIdAndS(transPlan.getId(), ConstantEnum.S.N.getLabel());
+        retVo.setTransRecordList(list);
 
         return retVo;
     }
@@ -499,5 +534,56 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
         if (!StringUtils.isEmpty(message)) {
             throw new FebsException(message);
         }
+    }
+
+    public ResBody getTransPanListBySale(P8000009Vo res) {
+        PR8000009Vo retVo = new PR8000009Vo();
+
+        User user = userRepository.findByOpenidAndS(res.getOpenid(), ConstantEnum.S.N.getLabel());
+
+
+        Query query;
+        StringBuffer querySql;
+        String con = "SELECT id,sales_id,vender_id FROM pret_trans_plan a  where 1=1 and a.sales_id= '" + user.getId() + "' and a.s=1 and a.status=1 GROUP BY a.vender_id ORDER BY a.last_modified_date desc ";
+
+        querySql = new StringBuffer(con);
+        query = em.createNativeQuery(querySql.toString());
+        query.setFirstResult(0);
+        query.setMaxResults(Integer.MAX_VALUE);
+        List<Object[]> objectList = query.getResultList();
+        if (objectList != null && objectList.size() > 0) {
+            for (Object object[] : objectList) {
+                PR8000009ItemVo itemVo = new PR8000009ItemVo();
+                String venderId = object[2].toString();
+                PretVender pretVender = pretVenderRepository.findById(venderId).get();
+                itemVo.setPretVender(pretVender);
+
+                List<PretTransPlan> transPlanList = pretTransPlanRepository.findByVenderIdAndStatus(venderId, ConstantEnum.ETransPlanStatus.已起运.getValue());
+                for (PretTransPlan pretTransPlan : transPlanList) {
+                    if (pretTransPlan.getTransDatetime() != null) {
+                        pretTransPlan.setTransDatetimeStr(Constants.df2.format(pretTransPlan.getTransDatetime()));
+                    } else {
+                        pretTransPlan.setTransDatetimeStr("暂未起运");
+                    }
+
+                    if (pretTransPlan.getDeliveryDate() != null) {
+                        pretTransPlan.setDeliveryDateStr(Constants.df2.format(pretTransPlan.getDeliveryDate()));
+                    } else {
+                        pretTransPlan.setDeliveryDateStr(StringUtils.EMPTY);
+                    }
+
+                    if (pretTransPlan.getPreDeliveryDate() != null) {
+                        pretTransPlan.setPreDeliveryDateStr(Constants.df2.format(pretTransPlan.getPreDeliveryDate()));
+                    } else {
+                        pretTransPlan.setPreDeliveryDateStr(StringUtils.EMPTY);
+                    }
+                }
+                itemVo.setPretTransPlanList(transPlanList);
+
+                retVo.getItemVoList().add(itemVo);
+            }
+        }
+
+        return retVo;
     }
 }

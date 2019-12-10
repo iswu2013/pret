@@ -10,6 +10,7 @@ import com.pret.open.entity.bo.PretTransPlanSignBo;
 import com.pret.open.entity.vo.PretTransFeeVo;
 import com.pret.open.repository.*;
 import com.pret.open.service.PretTransFeeService;
+import com.pret.open.service.user.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,8 @@ public class PretTransFeeController extends BaseManageController<PretTransFeeSer
     private PretTransFeeItemRepository pretTransFeeItemRepository;
     @Autowired
     private PretFeeTypeRepository pretFeeTypeRepository;
+    @Autowired
+    private UserService userService;
 
     @GetMapping
     @Override()
@@ -47,6 +50,9 @@ public class PretTransFeeController extends BaseManageController<PretTransFeeSer
             statusList.add(ConstantEnum.EPretTransFeeStatus.待申报.getLabel());
             statusList.add(ConstantEnum.EPretTransFeeStatus.审核通过.getLabel());
             request.setIn$status(statusList);
+        }
+        if(!StringUtils.isEmpty(request.getUserId())) {
+            request.setIn$deptId(userService.getDeptIdListByUserId(request.getUserId()));
         }
         Page<PretTransFee> page = this.service.page(request);
         for (PretTransFee transFee : page.getContent()) {

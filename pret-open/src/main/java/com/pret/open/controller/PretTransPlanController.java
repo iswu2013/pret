@@ -10,6 +10,7 @@ import com.pret.open.entity.bo.PretTransPlanStartShipmentConfirmBo;
 import com.pret.open.entity.vo.PretTransPlanVo;
 import com.pret.open.repository.*;
 import com.pret.open.service.PretTransPlanService;
+import com.pret.open.service.user.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,10 +37,15 @@ public class PretTransPlanController extends BaseManageController<PretTransPlanS
     private PretTransOrderRepository pretTransOrderRepository;
     @Autowired
     private PretServiceRouteOriginRepository pretServiceRouteOriginRepository;
+    @Autowired
+    private UserService userService;
 
     @GetMapping
     @Override()
     public Map<String, Object> list(PretTransPlanVo request, PretTransPlan t) {
+        if(!StringUtils.isEmpty(request.getUserId())) {
+            request.setIn$deptId(userService.getDeptIdListByUserId(request.getUserId()));
+        }
         Page<PretTransPlan> page = this.service.page(request);
         for (PretTransPlan transPlan : page.getContent()) {
             if (!StringUtils.isEmpty(transPlan.getVenderId())) {

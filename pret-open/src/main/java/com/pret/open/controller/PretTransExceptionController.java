@@ -11,6 +11,7 @@ import com.pret.open.entity.bo.PretTransExceptionBo;
 import com.pret.open.entity.vo.PretTransExceptionVo;
 import com.pret.open.repository.*;
 import com.pret.open.service.PretTransExceptionService;
+import com.pret.open.service.user.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,10 +46,15 @@ public class PretTransExceptionController extends BaseManageController<PretTrans
     private String baseurl;
     @Autowired
     private PretTransFeeRepository pretTransFeeRepository;
+    @Autowired
+    private UserService userService;
 
     @GetMapping
     @Override()
     public Map<String, Object> list(PretTransExceptionVo request, PretTransException t) {
+        if(!StringUtils.isEmpty(request.getUserId())) {
+            request.setIn$deptId(userService.getDeptIdListByUserId(request.getUserId()));
+        }
         Page<PretTransException> page = this.service.page(request);
         for (PretTransException orgin : page.getContent()) {
             if (!StringUtils.isEmpty(orgin.getVenderId())) {

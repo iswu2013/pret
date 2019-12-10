@@ -4,6 +4,8 @@ import com.pret.common.repository.BaseRepository;
 import com.pret.open.entity.user.Dept;
 import com.pret.open.entity.user.Role;
 
+import java.util.List;
+
 /**
  * <p>Description: [tRepository]</p>
  * Created on 2019年10月19日
@@ -13,5 +15,8 @@ import com.pret.open.entity.user.Role;
  * Copyright (c) 2019年 极客城堡
  */
 public interface DeptRepository extends BaseRepository<Dept> {
+    Dept findByU9codeAndS(String u9code,Integer s);
+
+    List<Dept> findByParentIdAndS(String parendId,Integer s);
     
 }

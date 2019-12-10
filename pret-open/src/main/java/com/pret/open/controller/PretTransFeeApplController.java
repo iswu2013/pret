@@ -10,6 +10,7 @@ import com.pret.open.repository.PretServiceRouteOriginRepository;
 import com.pret.open.repository.PretTransPlanRepository;
 import com.pret.open.repository.PretVenderRepository;
 import com.pret.open.service.PretTransFeeService;
+import com.pret.open.service.user.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,10 +34,13 @@ public class PretTransFeeApplController extends BaseManageController<PretTransFe
     private PretTransPlanRepository pretTransPlanRepository;
     @Autowired
     private PretServiceRouteOriginRepository pretServiceRouteOriginRepository;
+    @Autowired
+    private UserService userService;
 
     @GetMapping
     @Override()
     public Map<String, Object> list(PretTransFeeVo request, PretTransFee t) {
+        request.setIn$deptId(userService.getDeptIdListByUserId(request.getUserId()));
         Page<PretTransFee> page = this.service.page(request);
         for (PretTransFee transFee : page.getContent()) {
             if (!StringUtils.isEmpty(transFee.getVenderId())) {

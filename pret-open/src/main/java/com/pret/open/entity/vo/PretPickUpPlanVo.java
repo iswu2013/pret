@@ -5,6 +5,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>Description: [pretmodel]</p>
@@ -27,4 +28,6 @@ public class PretPickUpPlanVo extends PageFormVo implements Serializable {
     private String eq$pickupFactoryCd;
     private int eq$stockUpStatus = -1;
     private String eq$deptId;
+    private List<String> in$deptId;
+    private String userId;
 }

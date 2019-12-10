@@ -196,4 +196,9 @@ public class P1000000Vo extends ReqBody {
      * 明细
      */
     private String itemListStr;
+
+    /**
+     * 所属工厂code
+     */
+    private String ownFactoryCd;
 }

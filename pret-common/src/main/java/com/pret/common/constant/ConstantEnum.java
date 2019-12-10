@@ -650,7 +650,11 @@ public class ConstantEnum {
         /**
          * 管理员
          */
-        管理员(7);
+        管理员(7),
+        /**
+         * 货主公司
+         */
+        分公司(8);
         private int label;
 
         EUserType(int label) {
@@ -700,7 +704,11 @@ public class ConstantEnum {
         /**
          * 供应商
          */
-        Vender(5);
+        Vender(5),
+        /**
+         * 供应商
+         */
+        Branch(8);
         private int label;
 
         ERoleCode(int label) {

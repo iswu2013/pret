@@ -8,10 +8,12 @@ import com.pret.common.exception.BusinessException;
 import com.pret.open.constant.OpenBEEnum;
 import com.pret.open.entity.PretCustomer;
 import com.pret.open.entity.PretDriver;
+import com.pret.open.entity.user.Dept;
 import com.pret.open.entity.user.User;
 import com.pret.open.entity.vo.user.UserVo;
 import com.pret.open.repository.PretCustomerRepository;
 import com.pret.open.repository.PretDriverRepository;
+import com.pret.open.repository.user.DeptRepository;
 import com.pret.open.repository.user.UserRepository;
 import com.pret.open.vo.req.P1000004Vo;
 import com.pret.open.vo.req.P1000007Vo;
@@ -22,6 +24,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -39,6 +43,34 @@ public class UserService extends BaseServiceImpl<UserRepository, User, UserVo> {
     private PretCustomerRepository pretCustomerRepository;
     @Autowired
     private PretDriverRepository pretDriverRepository;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private DeptRepository deptRepository;
+
+    public List<String> getDeptIdListByUserId(String userId) {
+        List<String> idList = new ArrayList<>();
+
+        if (!StringUtils.isEmpty(userId)) {
+            User user = userRepository.findById(userId).get();
+            Dept dept = deptRepository.findById(user.getDeptId()).get();
+            idList.add(dept.getId());
+            List<Dept> deptList = deptRepository.findByParentIdAndS(dept.getId(), ConstantEnum.S.N.getLabel());
+            if (deptList != null && deptList.size() > 0) {
+                for (Dept p : deptList) {
+                    idList.add(p.getId());
+                    deptList = deptRepository.findByParentIdAndS(p.getId(), ConstantEnum.S.N.getLabel());
+                    if (deptList != null && deptList.size() > 0) {
+                        for (Dept d : deptList) {
+                            idList.add(d.getId());
+                        }
+                    }
+                }
+            }
+        }
+        
+        return idList;
+    }
 
     /* *
      * 功能描述: 绑定用户

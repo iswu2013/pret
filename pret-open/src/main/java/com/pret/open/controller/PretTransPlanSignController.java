@@ -12,6 +12,7 @@ import com.pret.open.repository.PretDriverRepository;
 import com.pret.open.repository.PretTransOrderRepository;
 import com.pret.open.repository.PretVenderRepository;
 import com.pret.open.service.PretTransPlanService;
+import com.pret.open.service.user.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,10 +38,15 @@ public class PretTransPlanSignController extends BaseManageController<PretTransP
     private PretTransOrderRepository pretTransOrderRepository;
     @Autowired
     private PretTransPlanService pretTransPlanService;
+    @Autowired
+    private UserService userService;
 
     @GetMapping
     @Override()
     public Map<String, Object> list(PretTransPlanVo request, PretTransPlan t) {
+        if(!StringUtils.isEmpty(request.getUserId())) {
+            request.setIn$deptId(userService.getDeptIdListByUserId(request.getUserId()));
+        }
         request.setEq$type(ConstantEnum.EPretTransPlanType.退货运输.getLabel());
         Page<PretTransPlan> page = this.service.page(request);
         for (PretTransPlan transPlan : page.getContent()) {
@@ -86,7 +92,7 @@ public class PretTransPlanSignController extends BaseManageController<PretTransP
             throw new FebsException(message);
         }
     }
-    
+
     @Log("检查异常")
     @PostMapping("/checkException/{transFeeIds}")
     public void checkException(@PathVariable String transFeeIds) throws FebsException {

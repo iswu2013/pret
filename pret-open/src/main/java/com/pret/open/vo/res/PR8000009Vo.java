@@ -1,14 +1,13 @@
 package com.pret.open.vo.res;
 
 import com.pret.api.vo.ResBody;
-import com.pret.open.entity.PretTransRecord;
-import com.pret.open.entity.PretTransTrajectory;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Description: 获取用户运输计划详情
+ * Description: 获取销售员运输计划
  * Created on 2019年09月15日
  *
  * @author <a href="mailto: 1037216275@qq.com">wujinsong</a>
@@ -16,6 +15,6 @@ import java.util.List;
  * Copyright (c) 2019年 极客城堡
  */
 @Data
-public class PR8000003Vo extends ResBody {
-    private List<PretTransRecord> transRecordList;
+public class PR8000009Vo extends ResBody {
+    private List<PR8000009ItemVo> itemVoList = new ArrayList<>();
 }

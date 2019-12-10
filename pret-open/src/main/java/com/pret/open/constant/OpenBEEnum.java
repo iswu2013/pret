@@ -19,9 +19,9 @@ public enum OpenBEEnum {
      */
     E90000003("用户不存在","User does not exist"),
     /**
-     * 请先绑定手机账号或者邮件
+     * 工厂不存在
      */
-    E90000004("请先绑定手机账号","Please bind your mobile account."),
+    E90000004("工厂不存在","工厂不存在."),
     /**
      * 密码不正确
      */

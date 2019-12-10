@@ -231,6 +231,14 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
 
     private String deptId;
 
+    private String salesId;
+
+    private String transDatetimeStr;
+
+    private String deliveryDateStr;
+
+    private String preDeliveryDateStr;
+
     private PretVender pretVender;
 
     private PretCustomer pretCustomer;
@@ -316,5 +324,30 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
         this.imageList = imageList;
     }
 
+    @Transient()
+    public String getTransDatetimeStr() {
+        return transDatetimeStr;
+    }
 
+    public void setTransDatetimeStr(String transDatetimeStr) {
+        this.transDatetimeStr = transDatetimeStr;
+    }
+
+    @Transient()
+    public String getDeliveryDateStr() {
+        return deliveryDateStr;
+    }
+
+    public void setDeliveryDateStr(String deliveryDateStr) {
+        this.deliveryDateStr = deliveryDateStr;
+    }
+
+    @Transient()
+    public String getPreDeliveryDateStr() {
+        return preDeliveryDateStr;
+    }
+
+    public void setPreDeliveryDateStr(String preDeliveryDateStr) {
+        this.preDeliveryDateStr = preDeliveryDateStr;
+    }
 }

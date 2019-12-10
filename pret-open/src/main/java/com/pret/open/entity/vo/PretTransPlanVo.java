@@ -4,6 +4,7 @@ import com.pret.api.vo.PageFormVo;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * <p>Description: [pretmodel]</p>
@@ -23,4 +24,7 @@ public class PretTransPlanVo extends PageFormVo implements Serializable {
     private String eq$pickupFactoryCd;
     private int eq$type = -1;
     private String eq$deptId;
+    private String eq$salesId;
+    private List<String> in$deptId;
+    private String userId;
 }

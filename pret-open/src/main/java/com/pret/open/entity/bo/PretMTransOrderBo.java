@@ -84,4 +84,10 @@ public class PretMTransOrderBo {
     private String transModeNm;
 
     private String pretMTransOrderItemStr;
+
+    /**
+     * 所属工厂code
+     */
+    private String ownFactoryCd;
+
 }

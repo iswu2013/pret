@@ -15,8 +15,10 @@ import com.pret.open.entity.*;
 import com.pret.open.entity.bo.PretMTransOrderBo;
 import com.pret.open.entity.bo.PretMTransOrderItemBo;
 import com.pret.open.entity.bo.PretPickUpPlanBo;
+import com.pret.open.entity.user.Dept;
 import com.pret.open.entity.vo.PretTransOrderVo;
 import com.pret.open.repository.*;
+import com.pret.open.repository.user.DeptRepository;
 import com.pret.open.vo.req.*;
 import com.pret.api.service.impl.BaseServiceImpl;
 import com.pret.open.vo.res.PR1000000Vo;
@@ -57,6 +59,8 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
     private PretTransOrderStatisticsRepository pretTransOrderStatisticsRepository;
     @Autowired
     private PretTransOrderGroupRepository pretTransOrderGroupRepository;
+    @Autowired
+    private DeptRepository deptRepository;
 
     public void genPickUpPlan(PretPickUpPlanBo bo) {
         String[] idArr = bo.getIds().split(",");
@@ -99,6 +103,7 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
         bo.setCustomerLinkPhone(res.getCustTel());
         bo.setCustomerName(res.getCustName());
         bo.setDeliveryBillNumber(res.getDlvOrdNo());
+        bo.setOwnFactoryCd(res.getOwnFactoryCd());
         try {
             bo.setDeliveryDate(DateUtils.parseDate(res.getReqDlvDatetime(), "yyyy-MM-dd HH:mm:ss"));
             bo.setTakeDeliveryDate(DateUtils.parseDate(res.getReqPickupDatetime(), "yyyy-MM-dd HH:mm:ss"));
@@ -156,6 +161,10 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
             list = bo2;
         }
         boolean flag = false;
+        Dept dept = deptRepository.findByU9codeAndS(bo.getOwnFactoryCd(), ConstantEnum.S.N.getLabel());
+        if (dept == null) {
+            throw new BusinessException(OpenBEEnum.E90000004.name(), OpenBEEnum.E90000004.getMsg());
+        }
         if (list != null && list.size() > 0) {
             for (PretMTransOrderItemBo pretMTransOrderBo : list) {
                 PretTransOrderGroup pretTransOrderGroup = pretTransOrderGroupRepository.findByDeliveryBillNumberAndS(bo.getDeliveryBillNumber(), ConstantEnum.S.N.getLabel());
@@ -163,6 +172,8 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
                     flag = true;
                 } else {
                     pretTransOrderGroup = new PretTransOrderGroup();
+                    pretTransOrderGroup.setDeptId(dept.getId());
+                    pretTransOrderGroup.setOwnFactoryCd(bo.getOwnFactoryCd());
                     this.pretTransOrderGroupRepository.save(pretTransOrderGroup);
                 }
                 PretTransOrder pretTransOrder = new PretTransOrder();
@@ -170,6 +181,8 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
                 pretTransOrder.setUnit(pretMTransOrderBo.getUnit());
                 pretTransOrder.setGoodsNum(pretMTransOrderBo.getGoodsNum());
                 pretTransOrder.setTransOrderGroupId(pretTransOrderGroup.getId());
+                pretTransOrder.setDeptId(dept.getId());
+                pretTransOrder.setOwnFactoryCd(bo.getOwnFactoryCd());
 
                 BeanUtilsExtended.copyProperties(pretTransOrder, pretMTransOrderBo);
                 pretTransOrder.setRemark(pretMTransOrderBo.getRemark());

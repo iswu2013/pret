@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.pret.common.constant.ConstantEnum;
 import com.pret.common.domain.FebsConstant;
 import com.pret.common.domain.QueryRequest;
 import com.pret.common.utils.MD5Util;
@@ -13,6 +14,7 @@ import com.pret.user.common.utils.SortUtil;
 import com.pret.user.system.dao.RoleMapper;
 import com.pret.user.system.dao.UserMapper;
 import com.pret.user.system.dao.UserRoleMapper;
+import com.pret.user.system.domain.Role;
 import com.pret.user.system.domain.User;
 import com.pret.user.system.domain.UserRole;
 import com.pret.user.system.manager.UserManager;
@@ -25,6 +27,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -44,6 +47,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     private UserRoleService userRoleService;
     @Autowired
     private UserManager userManager;
+    @Autowired
+    private RoleMapper roleMapper;
 
 
     @Override
@@ -82,6 +87,23 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         // 创建用户
         user.setAvatar(User.DEFAULT_AVATAR);
         user.setPassword(MD5Util.encrypt(user.getUsername(), User.DEFAULT_PASSWORD));
+        Role role = roleMapper.selectById(user.getRoleId());
+        if (role.getCode().equals(ConstantEnum.ERoleCode.Branch.name())) {
+            user.setUserType(ConstantEnum.ERoleCode.Branch.getLabel());
+        } else if (role.getCode().equals(ConstantEnum.ERoleCode.Tallylerk.name())) {
+            user.setUserType(ConstantEnum.ERoleCode.Tallylerk.getLabel());
+        } else if (role.getCode().equals(ConstantEnum.ERoleCode.Guard.name())) {
+            user.setUserType(ConstantEnum.ERoleCode.Guard.getLabel());
+        } else if (role.getCode().equals(ConstantEnum.ERoleCode.Salesman.name())) {
+            user.setUserType(ConstantEnum.ERoleCode.Salesman.getLabel());
+        }
+
+        Date date = new Date();
+        user.setLastModifiedDate(date);
+        user.setCreateTimeLong(date.getTime());
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        user.setCreateTimeStr(format.format(date));
+
         save(user);
 
         // 保存用户角色
@@ -100,6 +122,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public void updateUser(User user) throws Exception {
         // 更新用户
         user.setPassword(null);
+        user.setLastModifiedDate(new Date());
         updateById(user);
 
         userRoleMapper.delete(new LambdaQueryWrapper<UserRole>().eq(UserRole::getUserId, user.getId()));

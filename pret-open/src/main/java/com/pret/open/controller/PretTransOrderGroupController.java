@@ -12,6 +12,7 @@ import com.pret.open.repository.PretServiceRouteOriginRepository;
 import com.pret.open.repository.PretTransOrderRepository;
 import com.pret.open.repository.PretVenderRepository;
 import com.pret.open.service.PretTransOrderGroupService;
+import com.pret.open.service.user.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,11 +37,17 @@ public class PretTransOrderGroupController extends BaseManageController<PretTran
     private PretServiceRouteOriginRepository pretServiceRouteOriginRepository;
     @Autowired
     private PretTransOrderRepository pretTransOrderRepository;
+    @Autowired
+    private UserService userService;
 
     @GetMapping
     @Override()
     public Map<String, Object> list(PretTransOrderGroupVo request, PretTransOrderGroup t) {
         request.setSortConditions(SortConditionUtil.build("desc", "lastModifiedDate"));
+        if (!StringUtils.isEmpty(request.getUserId())) {
+            request.setIn$deptId(userService.getDeptIdListByUserId(request.getUserId()));
+        }
+
         Page<PretTransOrderGroup> page = this.service.page(request);
         for (PretTransOrderGroup route : page.getContent()) {
             if (!StringUtils.isEmpty(route.getVenderId())) {

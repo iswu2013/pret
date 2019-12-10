@@ -149,6 +149,10 @@ public class PretPickUpPlan extends VersionedAuditableIdEntity implements Serial
 
     private String deptId;
 
+    private String dateGap;
+
+    private String pickUpTimeStr;
+
     /**
      * 运输任务单
      */
@@ -202,5 +206,23 @@ public class PretPickUpPlan extends VersionedAuditableIdEntity implements Serial
 
     public void setPretServiceRouteOrigin(PretServiceRouteOrigin pretServiceRouteOrigin) {
         this.pretServiceRouteOrigin = pretServiceRouteOrigin;
+    }
+
+    @Transient()
+    public String getDateGap() {
+        return dateGap;
+    }
+
+    public void setDateGap(String dateGap) {
+        this.dateGap = dateGap;
+    }
+
+    @Transient()
+    public String getPickUpTimeStr() {
+        return pickUpTimeStr;
+    }
+
+    public void setPickUpTimeStr(String pickUpTimeStr) {
+        this.pickUpTimeStr = pickUpTimeStr;
     }
 }

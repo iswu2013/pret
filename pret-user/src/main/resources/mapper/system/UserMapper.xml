@@ -14,6 +14,7 @@
         <result column="AVATAR" jdbcType="VARCHAR" property="avatar"/>
         <result column="DESCRIPTION" jdbcType="VARCHAR" property="description"/>
         <result column="NAME" jdbcType="VARCHAR" property="name"/>
+        <result column="u9code" jdbcType="VARCHAR" property="u9code"/>
     </resultMap>
 
     <select id="findUserDetail" resultType="user" parameterType="user">
@@ -30,9 +31,10 @@
         u.AVATAR,
         u.DESCRIPTION,
         u.NAME,
+        u.u9code,
         u.LAST_LOGIN_TIME lastLoginTime,
-        GROUP_CONCAT(r.id) roleId,
-        GROUP_CONCAT(r.ROLE_NAME) roleName
+        r.id roleId,
+        r.ROLE_NAME roleName
         FROM
         t_user u
         LEFT JOIN t_dept d ON (u.dept_id = d.id)
@@ -54,7 +56,7 @@
         <if test="user.status != null and user.status != ''">
             AND u.status = #{user.status}
         </if>
-        group by u.username
+        order by u.last_modified_date desc
 
     </select>
 
@@ -73,16 +75,17 @@
         u.user_type userType,
         u.DESCRIPTION,
         u.NAME,
+        u.u9code,
         u.vender_id venderId,
         u.LAST_LOGIN_TIME lastLoginTime,
-        GROUP_CONCAT(r.id) roleId,
-        GROUP_CONCAT(r.ROLE_NAME) roleName
+        r.id roleId,
+        r.ROLE_NAME roleName
         FROM
         t_user u
         LEFT JOIN t_dept d ON (u.dept_id = d.id)
         LEFT JOIN t_user_role ur ON (u.id = ur.user_id)
         LEFT JOIN t_role r ON r.id = ur.role_id
         WHERE  u.username = #{username}
-        group by u.username
+        order by u.last_modified_date desc
     </select>
 </mapper>

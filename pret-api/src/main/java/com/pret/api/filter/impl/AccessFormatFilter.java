@@ -108,7 +108,8 @@ public class AccessFormatFilter extends BaseContext implements JopFilter {
         if (!StringUtils.isEmpty(token)) {
             TypeUserInfo userInfo = new TypeUserInfo();
             userInfo.setOpenid(token);
-            user = userService.findByOpenid(userInfo);
+            userInfo = userService.findByOpenid(userInfo);
+            user = userInfo;
             newBody.setUserInfo(userInfo);
         }
 

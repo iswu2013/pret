@@ -192,6 +192,8 @@ public class PretTransOrderGroup extends VersionedAuditableIdEntity implements S
 
     private String deptId;
 
+    private String ownFactoryCd;
+
     /**
      * 供应商
      */
