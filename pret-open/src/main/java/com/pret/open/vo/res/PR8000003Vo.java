@@ -3,6 +3,7 @@ package com.pret.open.vo.res;
 import com.pret.api.vo.ResBody;
 import com.pret.open.entity.PretTransRecord;
 import com.pret.open.entity.PretTransTrajectory;
+import com.pret.open.entity.bo.PretSteps;
 import lombok.Data;
 
 import java.util.List;
@@ -18,4 +19,6 @@ import java.util.List;
 @Data
 public class PR8000003Vo extends ResBody {
     private List<PretTransRecord> transRecordList;
+
+    private List<PretSteps> stepsList;
 }

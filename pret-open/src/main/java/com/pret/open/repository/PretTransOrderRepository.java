@@ -125,4 +125,14 @@ public interface PretTransOrderRepository extends BaseRepository<PretTransOrder>
 
     @Query("select sum (kilo) from PretTransOrder where transOrderGroupId=?1 ")
     Float sumKiloByTransOrderGroupId(String transOrderGroupId);
+    
+    /* *
+     * 功能描述: <br>
+     * 〈〉
+     * @Param: [idList, s]
+            * @Return: java.util.List<com.pret.open.entity.PretTransOrder>
+            * @Author: wujingsong
+            * @Date: 2019/12/11  9:19 上午
+     */
+    List<PretTransOrder> findByIdInAndS(List<String> idList,Integer s);
 }

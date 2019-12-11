@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.pret.open.entity.user.User;
 import com.wuwenze.poi.annotation.Excel;
 import com.wuwenze.poi.annotation.ExcelField;
 import lombok.Data;
@@ -77,6 +78,10 @@ public class PretServiceRouteOrigin extends VersionedAuditableIdEntity implement
 
     private String linkPhone;
 
+    private String tallylerkIds;
+
+    private List<User> userList;
+
     // setter and getter
 
     public String getFullAddress() {
@@ -112,5 +117,14 @@ public class PretServiceRouteOrigin extends VersionedAuditableIdEntity implement
 
     public void setNowArea(String nowArea) {
         this.nowArea = nowArea;
+    }
+
+    @Transient()
+    public List<User> getUserList() {
+        return userList;
+    }
+
+    public void setUserList(List<User> userList) {
+        this.userList = userList;
     }
 }

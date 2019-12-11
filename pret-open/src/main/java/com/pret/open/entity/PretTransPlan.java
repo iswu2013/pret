@@ -239,6 +239,16 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
 
     private String preDeliveryDateStr;
 
+    /**
+     * 要求提货日期
+     */
+    private String pickUpTimeStr;
+
+    /**
+     * 实际提货日期
+     */
+    private String startTimeStr;
+
     private PretVender pretVender;
 
     private PretCustomer pretCustomer;

@@ -87,4 +87,14 @@ public interface UserRepository extends BaseRepository<User> {
             * @Date: 2019/12/5  1:03 下午
      */
     User findByVenderIdAndS(String venderId,Integer s);
+
+    /* *
+     * 功能描述: <br>
+     * 〈〉
+     * @Param: [idList, s]
+            * @Return: java.util.List<com.pret.open.entity.user.User>
+            * @Author: wujingsong
+            * @Date: 2019/12/10  6:04 下午
+     */
+    List<User> findByIdInAndS(List<String> idList,Integer s);
 }

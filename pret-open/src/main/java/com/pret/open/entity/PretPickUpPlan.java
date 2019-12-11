@@ -142,6 +142,8 @@ public class PretPickUpPlan extends VersionedAuditableIdEntity implements Serial
      */
     private String tallyClerkId;
 
+    private String tallyClerkIds;
+
     /**
      * 进出厂状态0待进厂1已进厂2已出厂
      */

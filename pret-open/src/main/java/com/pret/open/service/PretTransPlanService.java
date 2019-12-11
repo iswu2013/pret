@@ -146,6 +146,7 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
      */
     public void pretTransPlanAdd(PretTransPlanBo bo) {
         List<String> idList = StringUtil.idsStr2ListString(bo.getIds());
+        Date date = new Date();
 
         // 将配送任务单分组
         Map<String, List<PretTransOrder>> map = new HashMap<>();
@@ -186,6 +187,8 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
                 }
             }
             transPlan.setCustomerId(transOrder.getCustomerId());
+            transPlan.setPickUpTimeStr(Constants.df2.format(transOrder.getTakeDeliveryDate()));
+            transPlan.setPickUpTimeStr(Constants.df2.format(date));
             transPlan.setVenderId(venderId);
             String ShipDocLineNo = Joiner.on(".").join(lineNoList);
             transPlan.setShipDocLineNo(ShipDocLineNo);
@@ -211,7 +214,7 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
             for (String pickUp : pickUpArr) {
                 PretPickUpPlan pretPickUpPlan = pretPickUpPlanRepository.findById(pickUp).get();
                 pretPickUpPlan.setStatus(ConstantEnum.EPretPickUpPlanStatus.提货完成.getLabel());
-                pretPickUpPlan.setEndTime(new Date());
+                pretPickUpPlan.setEndTime(date);
                 pretPickUpPlanRepository.save(pretPickUpPlan);
 
                 // 添加一条记录
@@ -363,11 +366,42 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
     public ResBody getTransPlanDetail(P8000003Vo res) {
         PR8000003Vo retVo = new PR8000003Vo();
 
-        PretTransPlan transPlan = pretTransPlanRepository.findById(res.getId()).get();
-        retVo.setData(transPlan);
+        PretTransPlan pretTransPlan = pretTransPlanRepository.findById(res.getId()).get();
+        if (!StringUtils.isEmpty(pretTransPlan.getVenderId())) {
+            PretVender pretVender = pretVenderRepository.findById(pretTransPlan.getVenderId()).get();
+            pretTransPlan.setPretVender(pretVender);
+            if (pretTransPlan.getTransDatetime() != null) {
+                pretTransPlan.setTransDatetimeStr(Constants.df2.format(pretTransPlan.getTransDatetime()));
+            } else {
+                pretTransPlan.setTransDatetimeStr("暂未起运");
+            }
 
-        List<PretTransRecord> list = pretTransRecordRepository.findByTransPlanIdAndS(transPlan.getId(), ConstantEnum.S.N.getLabel());
+            if (pretTransPlan.getDeliveryDate() != null) {
+                pretTransPlan.setDeliveryDateStr(Constants.df2.format(pretTransPlan.getDeliveryDate()));
+            } else {
+                pretTransPlan.setDeliveryDateStr(StringUtils.EMPTY);
+            }
+
+            if (pretTransPlan.getPreDeliveryDate() != null) {
+                pretTransPlan.setPreDeliveryDateStr(Constants.df2.format(pretTransPlan.getPreDeliveryDate()));
+            } else {
+                pretTransPlan.setPreDeliveryDateStr(StringUtils.EMPTY);
+            }
+        }
+
+        retVo.setData(pretTransPlan);
+
+        List<PretTransRecord> list = pretTransRecordRepository.findByTransPlanIdAndS(pretTransPlan.getId(), ConstantEnum.S.N.getLabel());
+        List<PretSteps> pretStepsList = new ArrayList<>();
+        for (PretTransRecord pretTransRecord : list) {
+            PretSteps pretSteps = new PretSteps();
+            pretSteps.setDesc(StringUtils.EMPTY);
+            pretSteps.setText(pretTransRecord.getDescription() + " " + Constants.df2.format(pretTransRecord.getCreateTimeLong()));
+            pretStepsList.add(pretSteps);
+        }
+        retVo.setStepsList(pretStepsList);
         retVo.setTransRecordList(list);
+
 
         return retVo;
     }

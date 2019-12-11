@@ -4,11 +4,14 @@ import com.pret.api.rest.BaseManageController;
 import com.pret.common.annotation.Log;
 import com.pret.common.constant.ConstantEnum;
 import com.pret.common.exception.FebsException;
+import com.pret.common.util.StringUtil;
 import com.pret.open.entity.PretAddress;
 import com.pret.open.entity.PretServiceRouteOrigin;
 import com.pret.open.entity.bo.PretServiceRouteOrginBo;
+import com.pret.open.entity.user.User;
 import com.pret.open.entity.vo.PretServiceRouteOrginVo;
 import com.pret.open.repository.PretAddressRepository;
+import com.pret.open.repository.user.UserRepository;
 import com.pret.open.service.PretAddressService;
 import com.pret.open.service.PretServiceRouteOriginService;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +22,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -30,6 +34,8 @@ public class PretServiceRouteOriginController extends BaseManageController<PretS
     private PretAddressRepository pretAddressRepository;
     @Autowired
     private PretAddressService pretAddressService;
+    @Autowired
+    private UserRepository userRepository;
 
     @GetMapping
     @Override()
@@ -88,6 +94,11 @@ public class PretServiceRouteOriginController extends BaseManageController<PretS
                 }
 
                 item.setFullAddress(pretAddressService.getDetailByAddressId(item.getAddressId()) + item.getDetail());
+                if (!StringUtils.isEmpty(item.getTallylerkIds())) {
+                    List<User> userList = userRepository.findByIdInAndS(StringUtil.idsStr2ListString(item.getTallylerkIds()), ConstantEnum.S.N.getLabel());
+                    item.setUserList(userList);
+                }
+
             }
             return item;
         } catch (Exception e) {

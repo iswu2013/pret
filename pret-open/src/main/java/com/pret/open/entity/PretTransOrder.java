@@ -263,6 +263,11 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
     private String ownFactoryCd;
 
     /**
+     * 针对小程序理货员
+     */
+    private boolean checked;
+
+    /**
      * 供应商
      */
     private PretVender pretVender;
@@ -328,5 +333,14 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
 
     public void setRejectReason(String rejectReason) {
         this.rejectReason = rejectReason;
+    }
+
+    @Transient()
+    public boolean isChecked() {
+        return checked;
+    }
+
+    public void setChecked(boolean checked) {
+        this.checked = checked;
     }
 }

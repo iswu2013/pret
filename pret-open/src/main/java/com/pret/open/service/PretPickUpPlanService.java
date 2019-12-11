@@ -234,8 +234,11 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
     public ResBody finishPickupPlan(P1000001Vo res) {
         PR1000001Vo retVo = new PR1000001Vo();
 
+        User user = userRepository.findByOpenidAndUserTypeAndS(res.getUserInfo().getOpenid(), ConstantEnum.EUserType.理货员.getLabel(), ConstantEnum.S.N.getLabel());
+
         PretPickUpPlan pickUpPlan = this.repository.findById(res.getId()).get();
         pickUpPlan.setStockUpStatus(ConstantEnum.EPretPickUpPlantockUpStatus.已备货.getLabel());
+        pickUpPlan.setTallyClerkId(user.getId());
         this.repository.save(pickUpPlan);
 
         // 添加一条记录
@@ -249,8 +252,11 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
         pretPickUpRecordRepository.save(pretTransRecord);
 
         List<String> idList = StringUtil.idsStr2ListString(res.getIds());
-        for (String id : idList) {
-
+        List<PretTransOrder> PretTransOrder = pretTransOrderRepository.findByIdInAndS(idList, ConstantEnum.S.N.getLabel());
+        for (PretTransOrder pretTransOrder : PretTransOrder) {
+            pretTransOrder.setPickUpPlanId(null);
+            pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.已分配.getLabel());
+            pretTransOrderRepository.save(pretTransOrder);
         }
 
 
@@ -392,8 +398,12 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
         PR8000006Vo retVo = new PR8000006Vo();
         User user = userRepository.findByOpenidAndUserTypeAndS(res.getUserInfo().getOpenid(), ConstantEnum.EUserType.理货员.getLabel(), ConstantEnum.S.N.getLabel());
         PretPickUpPlanVo vo = new PretPickUpPlanVo();
+        if (res.getStatus() == ConstantEnum.EPretPickUpPlantockUpStatus.待备货.getLabel()) {
+            vo.setL$tallyClerkIds(user.getId());
+        } else {
+            vo.setEq$tallyClerkId(user.getId());
+        }
         vo.setEq$status(res.getStatus());
-        vo.setEq$tallyClerkId(user.getId());
         vo.setEq$stockUpStatus(res.getStockUpStatus());
         List<PretPickUpPlan> list = this.page(vo).getContent();
         for (PretPickUpPlan pretPickUpPlan : list) {

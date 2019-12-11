@@ -44,4 +44,6 @@ public class PretServiceRouteOrginBo {
      * 地址
      */
     private String detail;
+
+    private String tallylerkIds;
 }
