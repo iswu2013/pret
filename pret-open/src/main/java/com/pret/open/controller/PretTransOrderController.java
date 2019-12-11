@@ -132,7 +132,6 @@ public class PretTransOrderController extends BaseManageController<PretTransOrde
                 pretTransOrder.setDeliveryDate(new Date());
                 pretTransOrder.setTakeDeliveryDate(new Date());
                 pretTransOrder.setServiceRouteOriginId("SH-JX");
-                pretTransOrder.setTransMode("陆运");
 
                 PretVender pretVender = new PretVender();
                 pretTransOrder.setVenderId(pretVender.getId());

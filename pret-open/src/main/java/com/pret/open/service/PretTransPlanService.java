@@ -194,6 +194,7 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
             transPlan.setShipDocLineNo(ShipDocLineNo);
             transPlan.setStatus(ConstantEnum.ETransPlanStatus.待起运.getValue());
             transPlan.setGoodsNum(count);
+            transPlan.setSalesCd(transOrder.getSalesCd());
             transPlan.setDeptId(transOrder.getDeptId());
             transPlan.setDeliveryBillNumber(transOrder.getDeliveryBillNumber());
             transPlan.setCustomerDetailAddress(transOrder.getCustomerDetailAddress());
@@ -580,7 +581,7 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
 
         Query query;
         StringBuffer querySql;
-        String con = "SELECT id,sales_id,vender_id FROM pret_trans_plan a  where 1=1 and a.sales_id= '" + user.getId() + "' and a.s=1 and a.status=1 GROUP BY a.vender_id ORDER BY a.last_modified_date desc ";
+        String con = "SELECT id,sales_id,vender_id FROM pret_trans_plan a  where 1=1 and a.sales_cd= '" + user.getU9code() + "' and a.s=1 and a.status=1 GROUP BY a.vender_id ORDER BY a.last_modified_date desc ";
 
         querySql = new StringBuffer(con);
         query = em.createNativeQuery(querySql.toString());

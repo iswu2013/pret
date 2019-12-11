@@ -52,6 +52,16 @@ public class PretTransOrderGroup extends VersionedAuditableIdEntity implements S
     private String sourceCode;
 
     /**
+     * 销售员 u9 code
+     */
+    private String salesCd;
+
+    /**
+     * 业务员名称
+     */
+    private String salesNm;
+
+    /**
      * 供应商id
      */
     @ExcelField(value = "供应商id")
