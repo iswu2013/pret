@@ -1432,4 +1432,24 @@ public class ConstantEnum {
             this.label = label;
         }
     }
+
+    public enum EAuthStatus {
+        待审核(0),
+        通过(1),
+        不通过(2);
+        private int label;
+
+        EAuthStatus(int label) {
+            this.setLabel(label);
+        }
+
+        //省略getter、setter方法
+        public int getLabel() {
+            return label;
+        }
+
+        public void setLabel(int label) {
+            this.label = label;
+        }
+    }
 }

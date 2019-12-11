@@ -3,6 +3,7 @@ package com.pret.user.system.domain;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.pret.common.constant.ConstantEnum;
 import com.pret.common.converter.TimeConverter;
 import com.pret.common.domain.RegexpConstant;
 import com.wuwenze.poi.annotation.Excel;
@@ -115,6 +116,13 @@ public class User implements Serializable {
     private String name;
 
     private String u9code;
+
+    /**
+     * 审核状态
+     */
+    private Integer authStatus = ConstantEnum.EAuthStatus.待审核.getLabel();
+
+    private String nickName;
 
     // 排序字段
     private transient String sortField;

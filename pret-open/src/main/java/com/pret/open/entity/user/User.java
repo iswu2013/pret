@@ -1,6 +1,7 @@
 package com.pret.open.entity.user;
 
 import com.pret.common.VersionedAuditableIdEntity;
+import com.pret.common.constant.ConstantEnum;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -123,6 +124,10 @@ public class User extends VersionedAuditableIdEntity implements Serializable {
     private String u9code;
 
     private String name;
+
+    private String nickName;
+
+    private Integer authStatus = ConstantEnum.EAuthStatus.待审核.getLabel();
 
     // setter and getter
 }
