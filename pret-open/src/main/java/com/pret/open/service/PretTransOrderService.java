@@ -104,6 +104,8 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
         bo.setCustomerName(res.getCustName());
         bo.setDeliveryBillNumber(res.getDlvOrdNo());
         bo.setOwnFactoryCd(res.getOwnFactoryCd());
+        bo.setTotalCbm(res.getTotalCbm());
+        bo.setTotalPkg(res.getTotalPkg());
         try {
             bo.setDeliveryDate(DateUtils.parseDate(res.getReqDlvDatetime(), "yyyy-MM-dd HH:mm:ss"));
             bo.setTakeDeliveryDate(DateUtils.parseDate(res.getReqPickupDatetime(), "yyyy-MM-dd HH:mm:ss"));
@@ -174,6 +176,8 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
                     pretTransOrderGroup = new PretTransOrderGroup();
                     pretTransOrderGroup.setDeptId(dept.getId());
                     pretTransOrderGroup.setOwnFactoryCd(bo.getOwnFactoryCd());
+                    pretTransOrderGroup.setTotalCbm(bo.getTotalCbm());
+                    pretTransOrderGroup.setTotalPkg(bo.getTotalPkg());
                     this.pretTransOrderGroupRepository.save(pretTransOrderGroup);
                 }
                 PretTransOrder pretTransOrder = new PretTransOrder();

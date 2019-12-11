@@ -92,6 +92,7 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements De
             tree.setOrder(dept.getOrderNum());
             tree.setTitle(tree.getText());
             tree.setValue(tree.getId());
+            tree.setU9code(dept.getU9code());
             trees.add(tree);
         });
     }

@@ -62,7 +62,7 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
      * 运输方式
      */
     @ExcelField(value = "运输方式")
-    private String transMode;
+    private String transModeCd;
 
     /**
      * 运输方式名称

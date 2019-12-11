@@ -45,6 +45,8 @@ public class Tree<T> {
 
     private Date modifyTime;
 
+    private String u9code;
+
     public void initChildren(){
         this.children = new ArrayList<>();
     }
