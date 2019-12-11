@@ -23,4 +23,6 @@ public interface PretServiceRouteOriginRepository extends BaseRepository<PretSer
      * @Date: 2019/11/27  11:57 上午
      */
     PretServiceRouteOrigin findByCodeAndS(String code, Integer s);
+
+    List<PretServiceRouteOrigin> findByS(Integer s);
 }
