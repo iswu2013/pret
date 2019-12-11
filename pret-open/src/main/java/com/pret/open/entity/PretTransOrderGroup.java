@@ -195,6 +195,16 @@ public class PretTransOrderGroup extends VersionedAuditableIdEntity implements S
     private String ownFactoryCd;
 
     /**
+     * 总体积.(加总明细档中的CBM)
+     */
+    private Float totalCbm;
+
+    /**
+     * 总件数.(加总明细档中的goodsNum)
+     */
+    private Integer totalPkg;
+
+    /**
      * 供应商
      */
     private PretVender pretVender;

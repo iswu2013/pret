@@ -197,6 +197,8 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
 
         PretDriver pretDriver = driverRepository.findByOpenidAndS(res.getUserInfo().getOpenid(), ConstantEnum.S.N.getLabel());
         PretPickUpPlanVo vo = new PretPickUpPlanVo();
+        vo.setRows(res.getRows());
+        vo.setPage(res.getPage());
         vo.setEq$status(res.getStatus());
         vo.setEq$stockUpStatus(res.getStockUpStatus());
         vo.setEq$driverId(pretDriver.getId());
@@ -405,6 +407,8 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
         }
         vo.setEq$status(res.getStatus());
         vo.setEq$stockUpStatus(res.getStockUpStatus());
+        vo.setPage(res.getPage());
+        vo.setRows(res.getRows());
         List<PretPickUpPlan> list = this.page(vo).getContent();
         for (PretPickUpPlan pretPickUpPlan : list) {
             if (!StringUtils.isEmpty(pretPickUpPlan.getVenderId())) {

@@ -329,6 +329,8 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
 
         PretCustomer customer = pretCustomerRepository.findByOpenidAndS(res.getOpenid(), ConstantEnum.S.N.getLabel());
         PretTransPlanVo vo = new PretTransPlanVo();
+        vo.setPage(res.getPage());
+        vo.setRows(res.getRows());
         vo.setEq$customerId(customer.getId());
         List<PretTransPlan> list = this.page(vo).getContent();
         for (PretTransPlan pretTransPlan : list) {
@@ -582,8 +584,8 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
 
         querySql = new StringBuffer(con);
         query = em.createNativeQuery(querySql.toString());
-        query.setFirstResult(0);
-        query.setMaxResults(Integer.MAX_VALUE);
+        query.setFirstResult(res.getPage() * res.getRows());
+        query.setMaxResults(res.getRows());
         List<Object[]> objectList = query.getResultList();
         if (objectList != null && objectList.size() > 0) {
             for (Object object[] : objectList) {

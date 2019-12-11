@@ -31,7 +31,7 @@ public class UserInfo extends BaseInfo {
     /**
      * 状态 0锁定 1有效
      */
-    private String status;
+    private Integer status;
     /**
      * 创建时间
      */

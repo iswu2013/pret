@@ -63,7 +63,7 @@ public class User extends VersionedAuditableIdEntity implements Serializable {
     /**
      * 状态 0锁定 1有效
      */
-    private String status;
+    private Integer status;
     /**
      * 创建时间
      */
@@ -127,7 +127,7 @@ public class User extends VersionedAuditableIdEntity implements Serializable {
 
     private String nickName;
 
-    private Integer authStatus = ConstantEnum.EAuthStatus.待审核.getLabel();
+    private String no;
 
     // setter and getter
 }

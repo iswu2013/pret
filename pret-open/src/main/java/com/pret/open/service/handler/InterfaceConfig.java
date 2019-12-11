@@ -115,6 +115,11 @@ public class InterfaceConfig {
      */
     public static final String H8000010 = "getDeptList.get";
 
+    /**
+     * 获取用户信息
+     */
+    public static final String H8000011 = "getUserInfo.get";
+
     static {
         JOP_HANDLER.put(H1000000, "h1000000");
         JOP_HANDLER.put(H1000001, "h1000001");
@@ -135,6 +140,7 @@ public class InterfaceConfig {
         JOP_HANDLER.put(H8000008, "h8000008");
         JOP_HANDLER.put(H8000009, "h8000009");
         JOP_HANDLER.put(H8000010, "h8000010");
+        JOP_HANDLER.put(H8000011, "h8000011");
     }
 
     static {
@@ -157,5 +163,6 @@ public class InterfaceConfig {
         JOP_VO.put(H8000008, P8000008Vo.class);
         JOP_VO.put(H8000009, P8000009Vo.class);
         JOP_VO.put(H8000010, P8000010Vo.class);
+        JOP_VO.put(H8000011, P8000011Vo.class);
     }
 }

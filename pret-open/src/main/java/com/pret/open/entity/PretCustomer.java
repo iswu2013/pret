@@ -64,5 +64,13 @@ public class PretCustomer extends VersionedAuditableIdEntity implements Serializ
      */
     private String code;
 
+    private Integer status;
+
+    private String nickName;
+
+    private String avatar;
+
+
+
     // setter and getter
 }

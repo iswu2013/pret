@@ -48,6 +48,7 @@ public class DeptService extends BaseServiceImpl<DeptRepository, Dept, DeptVo> {
                 itemVo.setId(dept.getId());
                 itemVo.setDisplayName(dept.getDeptName());
                 retVo.getItemVoList().add(itemVo);
+                retVo.getItemList().add(dept.getDeptName());
                 List<Dept> list = this.repository.findByParentIdAndS(dept.getId(), ConstantEnum.S.N.getLabel());
                 if (list != null && list.size() > 0) {
                     for (Dept d : list) {
@@ -55,6 +56,7 @@ public class DeptService extends BaseServiceImpl<DeptRepository, Dept, DeptVo> {
                         itemVo.setId(d.getId());
                         itemVo.setDisplayName(dept.getDeptName() + "-" + d.getDeptName());
                         retVo.getItemVoList().add(itemVo);
+                        retVo.getItemList().add(itemVo.getDisplayName());
                     }
                 }
             }

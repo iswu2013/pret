@@ -15,4 +15,6 @@ import lombok.Data;
 @Data
 public class P8000002Vo extends ReqBody {
     private String openid;
+    private Integer page;
+    private Integer rows = 10;
 }

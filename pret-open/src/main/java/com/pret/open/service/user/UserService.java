@@ -162,10 +162,30 @@ public class UserService extends BaseServiceImpl<UserRepository, User, UserVo> {
     public ResBody inputU9Code(P1000007Vo res) {
         PR1000007Vo retVo = new PR1000007Vo();
 
-        PretMemberAuth pretMemberAuth = new PretMemberAuth();
+        PretMemberAuth pretMemberAuth = pretMemberAuthRepository.findByOpenidAndS(res.getOpenId(), ConstantEnum.S.N.getLabel());
+        if (pretMemberAuth != null) {
+            throw new BusinessException(OpenBEEnum.E90000005.name(), OpenBEEnum.E90000005.getMsg() + "：" + this.getRoleName(pretMemberAuth.getUserType()));
+        }
+
+        pretMemberAuth = new PretMemberAuth();
         BeanUtilsExtended.copyPropertiesIgnore(pretMemberAuth, res);
+        pretMemberAuth.setOpenid(res.getOpenId());
         pretMemberAuthRepository.save(pretMemberAuth);
 
         return retVo;
+    }
+
+    public String getRoleName(Integer type) {
+        if (type == ConstantEnum.EUserType.理货员.getLabel()) {
+            return ConstantEnum.EUserType.理货员.name();
+        } else if (type == ConstantEnum.EUserType.客户.getLabel()) {
+            return ConstantEnum.EUserType.客户.name();
+        } else if (type == ConstantEnum.EUserType.业务员.getLabel()) {
+            return ConstantEnum.EUserType.业务员.name();
+        } else if (type == ConstantEnum.EUserType.门卫.getLabel()) {
+            return ConstantEnum.EUserType.门卫.name();
+        }
+
+        return StringUtils.EMPTY;
     }
 }

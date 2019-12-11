@@ -1434,6 +1434,7 @@ public class ConstantEnum {
     }
 
     public enum EAuthStatus {
+        不存在(-1),
         待审核(0),
         通过(1),
         不通过(2);
@@ -1444,6 +1445,28 @@ public class ConstantEnum {
         }
 
         //省略getter、setter方法
+        public int getLabel() {
+            return label;
+        }
+
+        public void setLabel(int label) {
+            this.label = label;
+        }
+    }
+
+    public enum EDeptCode {
+        /**
+         * 理货员
+         */
+        headquarters(0);
+        private int label;
+
+        EDeptCode(int label) {
+            this.setLabel(label);
+        }
+
+        //省略getter、setter方法
+
         public int getLabel() {
             return label;
         }

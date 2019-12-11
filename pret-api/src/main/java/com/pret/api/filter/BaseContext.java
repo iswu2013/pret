@@ -2,6 +2,8 @@ package com.pret.api.filter;
 
 import com.pret.api.feign.IUserService;
 import feign.Feign;
+import feign.Request;
+import feign.Retryer;
 import feign.jackson.JacksonDecoder;
 import feign.jackson.JacksonEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +32,9 @@ public class BaseContext {
     public IUserService getiUserService() {
         this.iUserService = Feign.builder().encoder(new JacksonEncoder())
                 .decoder(new JacksonDecoder())
-                .target(IUserService.class, loadBalancer.choose("pret-user").getUri().toString());
+                .options(new Request.Options(10000, 35000))
+                .retryer(new Retryer.Default(5000, 50000, 3))
+                .target(IUserService.class, loadBalancer.choose("pret-open").getUri().toString());
 
         return this.iUserService;
     }

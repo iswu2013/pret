@@ -1,13 +1,18 @@
 package com.pret.open.service.handler;
 
 import com.alibaba.fastjson.JSONObject;
+import com.pret.api.feign.IUserService;
 import com.pret.api.filter.BaseContext;
 import com.pret.api.handler.JopHandler;
+import com.pret.api.info.TypeUserInfo;
 import com.pret.api.vo.ReqBody;
 import com.pret.api.vo.ResBody;
+import com.pret.common.constant.ConstantEnum;
 import com.pret.common.utils.AESUtils;
 import com.pret.common.utils.HttpUtil;
+import com.pret.open.entity.PretMemberAuth;
 import com.pret.open.entity.user.User;
+import com.pret.open.repository.PretMemberAuthRepository;
 import com.pret.open.repository.user.UserRepository;
 import com.pret.open.vo.req.P1000006Vo;
 import com.pret.open.vo.req.P8000005Vo;
@@ -36,7 +41,10 @@ public class H8000005 extends BaseContext implements JopHandler {
     private static final Logger LOGGER = LoggerFactory.getLogger(H8000005.class);
     private static final String TAG = "H1000000";
     @Autowired
-    private UserRepository userRepository;
+    private PretMemberAuthRepository pretMemberAuthRepository;
+    // 不需要登录的接口
+    @Autowired
+    protected BaseContext baseContext;
 
     @Override
     public ResBody handle(ReqBody requestBody) {
@@ -65,13 +73,17 @@ public class H8000005 extends BaseContext implements JopHandler {
         retVo.setOpenId(openid);
         retVo.setSessionKey(jsonObject.get("session_key").toString());
 
-        User user = userRepository.findByOpenid(openid);
-        if (user != null) {
-            retVo.setUser(user);
-            user.setToken(UUID.randomUUID().toString().replace("-", ""));
-            user.setSessionKey(retVo.getSessionKey());
-            userRepository.save(user);
+        PretMemberAuth pretMemberAuth = pretMemberAuthRepository.findByOpenidAndS(openid, ConstantEnum.S.N.getLabel());
+        if (pretMemberAuth != null) {
+            retVo.setAuthStatus(pretMemberAuth.getStatus());
+            retVo.setUserType(pretMemberAuth.getUserType());
+        } else {
+            retVo.setAuthStatus(ConstantEnum.EAuthStatus.不存在.getLabel());
         }
+        TypeUserInfo userInfo = new TypeUserInfo();
+        userInfo.setOpenid(openid);
+        userInfo = baseContext.getiUserService().findByOpenid(userInfo);
+        retVo.setData(userInfo);
 
         return retVo;
     }

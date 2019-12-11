@@ -18,4 +18,5 @@ public class PretMemberAuthVo extends PageFormVo implements Serializable {
     private String l$name;
     private long bw$createTimeLong;
     private long createTimeLongEnd;
+    private String ll$namell$mobilell$noll$u9code;
 }

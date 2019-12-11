@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Description: 获取部门
+ * Description: 获取用户信息
  * Created on 2019年09月15日
  *
  * @author <a href="mailto: 1037216275@qq.com">wujinsong</a>
@@ -15,8 +15,7 @@ import java.util.List;
  * Copyright (c) 2019年 极客城堡
  */
 @Data
-public class PR8000010Vo extends ResBody {
-    private List<PR8000010ItemVo> itemVoList = new ArrayList<>();
-
-    private List<String> itemList = new ArrayList<>();
+public class PR8000011Vo extends ResBody {
+    private Integer authStatus;
+    private Integer userType;
 }

@@ -56,4 +56,6 @@ public class PretMemberAuth extends VersionedAuditableIdEntity implements Serial
     private String avatarUrl;
 
     private String deptId;
+
+    private String u9code;
 }

@@ -13,4 +13,6 @@ import lombok.Data;
  */
 @Data
 public class P8000009Vo extends ReqBody {
+    private Integer page;
+    private Integer rows = 10;
 }

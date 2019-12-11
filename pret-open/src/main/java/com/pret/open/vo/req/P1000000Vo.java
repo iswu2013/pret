@@ -201,4 +201,14 @@ public class P1000000Vo extends ReqBody {
      * 所属工厂code
      */
     private String ownFactoryCd;
+
+    /**
+     * 总体积.(加总明细档中的CBM)
+     */
+    private Float totalCbm;
+
+    /**
+     * 总件数.(加总明细档中的goodsNum)
+     */
+    private Integer totalPkg;
 }

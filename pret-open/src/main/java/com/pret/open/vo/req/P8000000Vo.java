@@ -17,8 +17,8 @@ import java.util.Date;
 @Data
 public class P8000000Vo extends ReqBody {
     private String openid;
-
     private int status = -1;
-
     private int stockUpStatus = -1;
+    private Integer page;
+    private Integer rows = 10;
 }

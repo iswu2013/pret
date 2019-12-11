@@ -15,4 +15,5 @@ import java.util.List;
  * Copyright (c) 2019年 极客城堡
  */
 public interface PretMemberAuthRepository extends BaseRepository<PretMemberAuth> {
+    PretMemberAuth findByOpenidAndS(String openid,Integer s);
 }

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 /**
  * 用户管理
  */
-@FeignClient(name = "pert-open")
+@FeignClient(name = "pret-open")
 public interface IUserService {
     /**
      * 功能描述: 根据token查找

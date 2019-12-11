@@ -20,8 +20,6 @@ public class P1000007Vo extends ReqBody {
 
     private String mobile;
 
-    private String openid;
-
     private String no;
 
     private String serviceRouteOriginId;
@@ -35,4 +33,6 @@ public class P1000007Vo extends ReqBody {
     private String avatarUrl;
 
     private String deptId;
+
+    private String openId;
 }

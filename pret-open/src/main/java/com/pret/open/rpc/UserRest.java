@@ -9,9 +9,11 @@ import com.pret.common.constant.ConstantEnum;
 import com.pret.common.util.BeanUtilsExtended;
 import com.pret.open.entity.PretCustomer;
 import com.pret.open.entity.PretDriver;
+import com.pret.open.entity.PretMemberAuth;
 import com.pret.open.entity.user.User;
 import com.pret.open.repository.PretCustomerRepository;
 import com.pret.open.repository.PretDriverRepository;
+import com.pret.open.repository.PretMemberAuthRepository;
 import com.pret.open.repository.user.RoleRepository;
 import com.pret.open.repository.user.UserRepository;
 import com.pret.open.repository.user.UserRoleRepository;
@@ -35,6 +37,8 @@ public class UserRest implements IUserService {
     private UserRoleRepository userRoleRepository;
     @Autowired
     private RoleRepository roleRepository;
+    @Autowired
+    private PretMemberAuthRepository pretMemberAuthRepository;
 
     /* *
      * 功能描述: 根据token查找用户
@@ -49,6 +53,7 @@ public class UserRest implements IUserService {
     public TypeUserInfo findByOpenid(@RequestBody TypeUserInfo typeUserInfo) {
         boolean has = false;
         User user = userRepository.findByOpenid(typeUserInfo.getOpenid());
+        PretMemberAuth pretMemberAuth = pretMemberAuthRepository.findByOpenidAndS(typeUserInfo.getOpenid(), ConstantEnum.S.N.getLabel());
         if (user != null) {
             if (user.getUserType() == ConstantEnum.EUserType.理货员.getLabel() || user.getUserType() == ConstantEnum.EUserType.业务员.getLabel() || user.getUserType() == ConstantEnum.EUserType.门卫.getLabel()) {
                 UserInfo userInfo = new UserInfo();
@@ -56,6 +61,13 @@ public class UserRest implements IUserService {
                 typeUserInfo.setUserInfo(userInfo);
                 has = true;
                 typeUserInfo.setType(user.getUserType());
+                if (pretMemberAuth != null) {
+                    typeUserInfo.setNickName(pretMemberAuth.getNickName());
+                    typeUserInfo.setAvatarUrl(pretMemberAuth.getAvatarUrl());
+                } else {
+                    typeUserInfo.setNickName(user.getNickName());
+                    typeUserInfo.setAvatarUrl(user.getAvatar());
+                }
             }
         }
         if (!has) {
@@ -65,6 +77,13 @@ public class UserRest implements IUserService {
             typeUserInfo.setCustomerInfo(customerInfo);
             has = true;
             typeUserInfo.setType(ConstantEnum.ERoleCode.Customer.getLabel());
+            if (pretMemberAuth != null) {
+                typeUserInfo.setNickName(pretMemberAuth.getNickName());
+                typeUserInfo.setAvatarUrl(pretMemberAuth.getAvatarUrl());
+            } else {
+                typeUserInfo.setNickName(pretCustomer.getNickName());
+                typeUserInfo.setAvatarUrl(pretCustomer.getAvatar());
+            }
         }
         if (!has) {
             PretDriver pretDriver = pretDriverRepository.findByOpenidAndS(typeUserInfo.getOpenid(), ConstantEnum.S.N.getLabel());

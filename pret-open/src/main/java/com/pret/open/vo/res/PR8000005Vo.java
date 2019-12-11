@@ -1,5 +1,6 @@
 package com.pret.open.vo.res;
 
+import com.pret.api.info.TypeUserInfo;
 import com.pret.api.vo.ResBody;
 import com.pret.open.entity.user.User;
 import lombok.Data;
@@ -18,5 +19,7 @@ public class PR8000005Vo extends ResBody {
     private String sessionKey;
     private String unionId;
     private String token;
-    private User user;
+    private TypeUserInfo typeUserInfo;
+    private Integer authStatus;
+    private Integer userType;
 }
