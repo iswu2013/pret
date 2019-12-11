@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Description: 获取提货工厂
+ * Description: 获取部门
  * Created on 2019年09月15日
  *
  * @author <a href="mailto: 1037216275@qq.com">wujinsong</a>
@@ -16,5 +16,5 @@ import java.util.List;
  */
 @Data
 public class PR8000010Vo extends ResBody {
-    private List<PR8000009ItemVo> itemVoList = new ArrayList<>();
+    private List<PR8000010ItemVo> itemVoList = new ArrayList<>();
 }

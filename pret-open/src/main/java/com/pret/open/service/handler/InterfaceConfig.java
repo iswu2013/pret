@@ -111,9 +111,9 @@ public class InterfaceConfig {
     public static final String H8000009 = "getTransPanListBySale.get";
 
     /**
-     * 获取提货工厂
+     * 获取部门
      */
-    public static final String H8000010 = "getPretServiceRouteOrigin.get";
+    public static final String H8000010 = "getDeptList.get";
 
     static {
         JOP_HANDLER.put(H1000000, "h1000000");

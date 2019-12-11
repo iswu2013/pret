@@ -5,14 +5,17 @@ import com.pret.api.service.impl.BaseServiceImpl;
 import com.pret.api.vo.ResBody;
 import com.pret.common.constant.ConstantEnum;
 import com.pret.common.exception.BusinessException;
+import com.pret.common.util.BeanUtilsExtended;
 import com.pret.open.constant.OpenBEEnum;
 import com.pret.open.entity.PretCustomer;
 import com.pret.open.entity.PretDriver;
+import com.pret.open.entity.PretMemberAuth;
 import com.pret.open.entity.user.Dept;
 import com.pret.open.entity.user.User;
 import com.pret.open.entity.vo.user.UserVo;
 import com.pret.open.repository.PretCustomerRepository;
 import com.pret.open.repository.PretDriverRepository;
+import com.pret.open.repository.PretMemberAuthRepository;
 import com.pret.open.repository.user.DeptRepository;
 import com.pret.open.repository.user.UserRepository;
 import com.pret.open.vo.req.P1000004Vo;
@@ -47,6 +50,8 @@ public class UserService extends BaseServiceImpl<UserRepository, User, UserVo> {
     private UserRepository userRepository;
     @Autowired
     private DeptRepository deptRepository;
+    @Autowired
+    private PretMemberAuthRepository pretMemberAuthRepository;
 
     public List<String> getDeptIdListByUserId(String userId) {
         List<String> idList = new ArrayList<>();
@@ -68,7 +73,7 @@ public class UserService extends BaseServiceImpl<UserRepository, User, UserVo> {
                 }
             }
         }
-        
+
         return idList;
     }
 
@@ -147,7 +152,7 @@ public class UserService extends BaseServiceImpl<UserRepository, User, UserVo> {
     }
 
     /* *
-     * 功能描述: <br>
+     * 功能描述: 注册
      * 〈〉
      * @Param: [res]
      * @Return: com.pret.api.vo.ResBody
@@ -156,9 +161,10 @@ public class UserService extends BaseServiceImpl<UserRepository, User, UserVo> {
      */
     public ResBody inputU9Code(P1000007Vo res) {
         PR1000007Vo retVo = new PR1000007Vo();
-        User user = this.repository.findById(res.getId()).get();
-        user.setU9code(res.getU9code());
-        this.repository.save(user);
+
+        PretMemberAuth pretMemberAuth = new PretMemberAuth();
+        BeanUtilsExtended.copyPropertiesIgnore(pretMemberAuth, res);
+        pretMemberAuthRepository.save(pretMemberAuth);
 
         return retVo;
     }

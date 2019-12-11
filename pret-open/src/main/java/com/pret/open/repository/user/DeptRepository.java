@@ -18,5 +18,6 @@ public interface DeptRepository extends BaseRepository<Dept> {
     Dept findByU9codeAndS(String u9code,Integer s);
 
     List<Dept> findByParentIdAndS(String parendId,Integer s);
-    
+
+    List<Dept> findByS(Integer s);
 }

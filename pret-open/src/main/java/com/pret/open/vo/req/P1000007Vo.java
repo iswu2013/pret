@@ -1,6 +1,7 @@
 package com.pret.open.vo.req;
 
 import com.pret.api.vo.ReqBody;
+import com.pret.common.constant.ConstantEnum;
 import lombok.Data;
 
 /**
@@ -13,6 +14,25 @@ import lombok.Data;
  */
 @Data
 public class P1000007Vo extends ReqBody {
-    private String u9code;
-    private String id;
+    private Integer userType;
+
+    private String name;
+
+    private String mobile;
+
+    private String openid;
+
+    private String no;
+
+    private String serviceRouteOriginId;
+
+    private String authUsername;
+
+    private Long authDate;
+
+    private String nickName;
+
+    private String avatarUrl;
+
+    private String deptId;
 }

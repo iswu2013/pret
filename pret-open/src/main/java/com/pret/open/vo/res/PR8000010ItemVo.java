@@ -1,7 +1,10 @@
-package com.pret.open.vo.req;
+package com.pret.open.vo.res;
 
-import com.pret.api.vo.ReqBody;
+import com.pret.api.vo.ResBody;
 import lombok.Data;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Description: 获取部门
@@ -12,5 +15,7 @@ import lombok.Data;
  * Copyright (c) 2019年 极客城堡
  */
 @Data
-public class P8000010Vo extends ReqBody {
+public class PR8000010ItemVo {
+    private String id;
+    private String displayName;
 }
