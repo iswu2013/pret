@@ -77,6 +77,8 @@ public class H8000005 extends BaseContext implements JopHandler {
         if (pretMemberAuth != null) {
             retVo.setAuthStatus(pretMemberAuth.getStatus());
             retVo.setUserType(pretMemberAuth.getUserType());
+            retVo.setNickName(pretMemberAuth.getNickName());
+            retVo.setAvatarUrl(pretMemberAuth.getAvatarUrl());
         } else {
             retVo.setAuthStatus(ConstantEnum.EAuthStatus.不存在.getLabel());
         }

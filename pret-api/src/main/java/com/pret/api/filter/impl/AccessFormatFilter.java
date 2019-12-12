@@ -57,11 +57,13 @@ public class AccessFormatFilter extends BaseContext implements JopFilter {
     @Override
     public synchronized void doFilter(ReqBody requestBody, HttpServletRequest httpServletRequest,
                                       JopFilterChain jopFilterChain) {
-        this.userService = Feign.builder().encoder(new JacksonEncoder())
-                .decoder(new JacksonDecoder())
-                .options(new Request.Options(10000, 35000))
-                .retryer(new Retryer.Default(5000, 50000, 3))
-                .target(IUserService.class, loadBalancer.choose("pret-open").getUri().toString());
+        if (this.userService == null) {
+            this.userService = Feign.builder().encoder(new JacksonEncoder())
+                    .decoder(new JacksonDecoder())
+                    .options(new Request.Options(10000, 35000))
+                    .retryer(new Retryer.Default(5000, 50000, 3))
+                    .target(IUserService.class, loadBalancer.choose("pret-open").getUri().toString());
+        }
 
         Map<String, String[]> paramtersOld = httpServletRequest.getParameterMap();
         Map<String, String[]> paramters = new HashMap<String, String[]>();

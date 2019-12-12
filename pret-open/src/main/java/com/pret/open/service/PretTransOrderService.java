@@ -178,6 +178,7 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
                     pretTransOrderGroup.setOwnFactoryCd(bo.getOwnFactoryCd());
                     pretTransOrderGroup.setTotalCbm(bo.getTotalCbm());
                     pretTransOrderGroup.setTotalPkg(bo.getTotalPkg());
+                    pretTransOrderGroup.setSalesCd(bo.getSalesCd());
                     this.pretTransOrderGroupRepository.save(pretTransOrderGroup);
                 }
                 PretTransOrder pretTransOrder = new PretTransOrder();
@@ -187,6 +188,8 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
                 pretTransOrder.setTransOrderGroupId(pretTransOrderGroup.getId());
                 pretTransOrder.setDeptId(dept.getId());
                 pretTransOrder.setOwnFactoryCd(bo.getOwnFactoryCd());
+                pretTransOrder.setSalesCd(bo.getSalesCd());
+                pretTransOrder.setSignGw(pretTransOrder.getGw());
 
                 BeanUtilsExtended.copyProperties(pretTransOrder, pretMTransOrderBo);
                 pretTransOrder.setRemark(pretMTransOrderBo.getRemark());
@@ -272,10 +275,12 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
                         pretTransOrder.setServiceRouteItemId(item.getId());
                         this.pretTransOrderStatistics(ConstantEnum.ETransOrderStatisticsUserType.物流供应商.getLabel(), item.getVenderId());
                     }
+                    transOrder.setVenderId(item.getVenderId());
                     transOrder.setServiceRouteItemId(item.getId());
                     transOrder.setStatus(ConstantEnum.ETransOrderStatus.已分配.getLabel());
                     this.repository.saveAll(pretTransOrderList);
                     PretTransOrderGroup pretTransOrderGroup = pretTransOrderGroupRepository.findById(pretTransOrderList.get(0).getTransOrderGroupId()).get();
+                    pretTransOrderGroup.setVenderId(item.getVenderId());
                     pretTransOrderGroup.setStatus(ConstantEnum.ETransOrderStatus.已分配.getLabel());
                     pretTransOrderGroupRepository.save(pretTransOrderGroup);
                 }
@@ -288,6 +293,7 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
 
             PretTransOrderGroup pretTransOrderGroup = pretTransOrderGroupRepository.findById(pretTransOrderList.get(0).getTransOrderGroupId()).get();
             pretTransOrderGroup.setStatus(ConstantEnum.ETransOrderStatus.已分配.getLabel());
+            pretTransOrderGroup.setVenderId(venderId);
             pretTransOrderGroupRepository.save(pretTransOrderGroup);
         }
     }

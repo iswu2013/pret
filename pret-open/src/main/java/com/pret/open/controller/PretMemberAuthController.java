@@ -5,6 +5,7 @@ import com.pret.common.annotation.Log;
 import com.pret.common.constant.ConstantEnum;
 import com.pret.common.exception.FebsException;
 import com.pret.common.util.BeanUtilsExtended;
+import com.pret.common.utils.MD5Util;
 import com.pret.open.entity.PretCustomer;
 import com.pret.open.entity.PretMemberAuth;
 import com.pret.open.entity.user.Dept;
@@ -51,41 +52,42 @@ public class PretMemberAuthController extends BaseManageController<PretMemberAut
             pretMemberAuthRepository.save(old);
 
 
-            if (pretMemberAuth.getUserType() == ConstantEnum.EUserType.客户.getLabel()) {
-                PretCustomer pretCustomer = pretCustomerRepository.findByCodeAndS(pretMemberAuth.getU9code(), ConstantEnum.S.N.getLabel());
+            if (old.getUserType() == ConstantEnum.EUserType.客户.getLabel()) {
+                PretCustomer pretCustomer = pretCustomerRepository.findByCodeAndS(old.getU9code(), ConstantEnum.S.N.getLabel());
                 if (pretCustomer == null) {
                     pretCustomer = new PretCustomer();
-                    pretCustomer.setOpenid(pretMemberAuth.getOpenid());
-                    pretCustomer.setCode(pretMemberAuth.getU9code());
-                    pretCustomer.setLinkPhone(pretMemberAuth.getMobile());
-                    pretCustomer.setLinkName(pretMemberAuth.getName());
-                    pretCustomer.setStatus(pretMemberAuth.getStatus());
-                    pretCustomer.setNickName(pretMemberAuth.getNickName());
-                    pretCustomer.setAvatar(pretMemberAuth.getAvatarUrl());
+                    pretCustomer.setOpenid(old.getOpenid());
+                    pretCustomer.setCode(old.getU9code());
+                    pretCustomer.setLinkPhone(old.getMobile());
+                    pretCustomer.setLinkName(old.getName());
+                    pretCustomer.setStatus(old.getStatus());
+                    pretCustomer.setNickName(old.getNickName());
+                    pretCustomer.setAvatar(old.getAvatarUrl());
                 }
-                pretCustomer.setStatus(pretMemberAuth.getStatus());
+                pretCustomer.setStatus(old.getStatus());
                 pretCustomerRepository.save(pretCustomer);
-            } else if (pretMemberAuth.getUserType() == ConstantEnum.EUserType.业务员.getLabel() || pretMemberAuth.getUserType() == ConstantEnum.EUserType.门卫.getLabel() || pretMemberAuth.getUserType() == ConstantEnum.EUserType.理货员.getLabel()) {
-                User user = userRepository.findByMobileAndS(pretMemberAuth.getMobile(), ConstantEnum.S.N.getLabel());
+            } else if (old.getUserType() == ConstantEnum.EUserType.业务员.getLabel() || old.getUserType() == ConstantEnum.EUserType.门卫.getLabel() || old.getUserType() == ConstantEnum.EUserType.理货员.getLabel()) {
+                User user = userRepository.findByMobileAndS(old.getMobile(), ConstantEnum.S.N.getLabel());
                 if (user == null) {
                     user = new User();
-                    user.setU9code(pretMemberAuth.getU9code());
-                    user.setNo(pretMemberAuth.getNo());
-                    user.setUserType(pretMemberAuth.getUserType());
-                    user.setName(pretMemberAuth.getName());
-                    user.setNickName(pretMemberAuth.getNickName());
-                    user.setAvatar(pretMemberAuth.getAvatarUrl());
-                    user.setUsername(pretMemberAuth.getMobile());
-                    user.setMobile(pretMemberAuth.getMobile());
-                    user.setOpenid(pretMemberAuth.getOpenid());
-                    if (pretMemberAuth.getUserType() == ConstantEnum.EUserType.业务员.getLabel()) {
+                    user.setU9code(old.getU9code());
+                    user.setNo(old.getNo());
+                    user.setUserType(old.getUserType());
+                    user.setName(old.getName());
+                    user.setNickName(old.getNickName());
+                    user.setAvatar(old.getAvatarUrl());
+                    user.setUsername(old.getMobile());
+                    user.setMobile(old.getMobile());
+                    user.setOpenid(old.getOpenid());
+                    user.setPassword(MD5Util.encrypt(user.getUsername(), User.DEFAULT_PASSWORD));
+                    if (old.getUserType() == ConstantEnum.EUserType.业务员.getLabel()) {
                         Dept dept = deptRepository.findByU9codeAndS(ConstantEnum.EDeptCode.headquarters.name(), ConstantEnum.S.N.getLabel());
                         user.setDeptId(dept.getId());
                     } else {
-                        user.setDeptId(pretMemberAuth.getDeptId());
+                        user.setDeptId(old.getDeptId());
                     }
                 }
-                user.setStatus(pretMemberAuth.getStatus());
+                user.setStatus(old.getStatus());
                 userRepository.save(user);
             }
         } catch (Exception e) {

@@ -100,4 +100,5 @@ public class PretMTransOrderBo {
      */
     private Integer totalPkg;
 
+    private String salesCd;
 }

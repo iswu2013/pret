@@ -283,6 +283,11 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
                     item.setReason(signBo.getRejectReason());
 
                     pretTransExceptionItemRepository.save(item);
+
+                    PretTransOrder pretTransOrder = pretTransOrderRepository.findById(signBo.getId()).get();
+                    pretTransOrder.setSignGw(signBo.getSignCount());
+                    pretTransOrder.setRejectCount(signBo.getRejectCount());
+                    pretTransOrderRepository.save(pretTransOrder);
                 }
             }
             pretTransException.setDeptId(pretTransPlan.getDeptId());
@@ -290,7 +295,13 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
             pretTransExceptionRepository.save(pretTransException);
             pretTransPlan.setTransExceptionId(pretTransException.getId());
             pretTransPlan.setImages(bo.getImages());
+            pretTransPlan.setSignGw(pretTransPlan.getGw() - count);
+            pretTransPlan.setRejectGw(count);
             pretTransPlanRepository.save(pretTransPlan);
+        } else {
+            PretTransPlan pretTransPlan = this.repository.findById(bo.getId()).get();
+            pretTransPlan.setSignGw(pretTransPlan.getGw());
+            pretTransPlan.setRejectGw(0f);
         }
 
         // 计算费用
@@ -303,6 +314,7 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
         pretTransRecord.setTransPlanId(bo.getId());
         pretTransRecord.setType(ConstantEnum.ETransOrderStatisticsUserType.物流供应商.getLabel());
         pretTransRecord.setUsername(bo.getUsername());
+        pretTransRecordRepository.save(pretTransRecord);
     }
 
     /* *

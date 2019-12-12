@@ -7,6 +7,6 @@
         FROM
             t_dept
         WHERE
-            id IN ( SELECT d.id FROM ( SELECT id FROM id WHERE FIND_IN_SET( id, findDeptChildren ( #{id} ) ) > 0 ) d )
+            id IN ( SELECT d.id FROM ( SELECT id FROM t_dept WHERE FIND_IN_SET( id, findDeptChildren ( #{id} ) ) > 0 ) d )
     </delete>
 </mapper>

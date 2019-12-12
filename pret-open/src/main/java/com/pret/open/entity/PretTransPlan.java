@@ -85,6 +85,17 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
     private Float gw;
 
     /**
+     * 签收数量
+     */
+    private Float signGw;
+
+    /**
+     * 拒收数量
+     */
+    private Float rejectGw;
+
+
+    /**
      * 立方体积
      */
     @ExcelField(value = "立方体积")
@@ -220,6 +231,8 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
      */
     private String images;
 
+    private List<String> imageList;
+
     /**
      * 是否结算
      */
@@ -271,8 +284,6 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
     private PretServiceRouteOrigin pretServiceRouteOrigin;
 
     private List<PretTransOrder> pretTransOrderList;
-
-    private List<String> imageList;
 
     // setter and getter
 
@@ -365,4 +376,6 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
     public void setPreDeliveryDateStr(String preDeliveryDateStr) {
         this.preDeliveryDateStr = preDeliveryDateStr;
     }
+
+
 }

@@ -31,4 +31,5 @@ public class PretPickUpPlanVo extends PageFormVo implements Serializable {
     private List<String> in$deptId;
     private String userId;
     private String l$tallyClerkIds;
+    private String eq$ownFactoryCd;
 }

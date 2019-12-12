@@ -142,7 +142,15 @@ public class PretPickUpPlan extends VersionedAuditableIdEntity implements Serial
      */
     private String tallyClerkId;
 
-    private String tallyClerkIds;
+    /**
+     * 进厂门卫id
+     */
+    private String inGuardId;
+
+    /**
+     * 出厂门卫id
+     */
+    private String outGuardId;
 
     /**
      * 进出厂状态0待进厂1已进厂2已出厂
@@ -150,6 +158,8 @@ public class PretPickUpPlan extends VersionedAuditableIdEntity implements Serial
     private Integer inOutStatus = ConstantEnum.EInOutStatus.待进厂.getLabel();
 
     private String deptId;
+
+    private String ownFactoryCd;
 
     private String dateGap;
 

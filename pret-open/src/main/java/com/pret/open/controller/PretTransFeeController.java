@@ -44,13 +44,6 @@ public class PretTransFeeController extends BaseManageController<PretTransFeeSer
     @GetMapping
     @Override()
     public Map<String, Object> list(PretTransFeeVo request, PretTransFee t) {
-        if (request.isSearchStatus()) {
-            List<Integer> statusList = new ArrayList<>();
-            statusList.add(ConstantEnum.EPretTransFeeStatus.已申报.getLabel());
-            statusList.add(ConstantEnum.EPretTransFeeStatus.待申报.getLabel());
-            statusList.add(ConstantEnum.EPretTransFeeStatus.审核通过.getLabel());
-            request.setIn$status(statusList);
-        }
         if(!StringUtils.isEmpty(request.getUserId())) {
             request.setIn$deptId(userService.getDeptIdListByUserId(request.getUserId()));
         }

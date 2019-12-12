@@ -110,11 +110,11 @@ public class PretTransExceptionService extends BaseServiceImpl<PretTransExceptio
      */
     public void indemnityAccount(PretTransExceptionHandleRecord record) {
         PretTransException pretTransException = this.repository.findById(record.getExceptionId()).get();
-        PretTransPlan pretTransPlan = pretTransPlanRepository.findById(pretTransException.getTransPlanId()).get();
-        if (pretTransPlan.getStatus() == ConstantEnum.ETransPlanStatus.已签收.getValue()) {
-            pretTransException.setStatus(ConstantEnum.ETransExceptionStatus.已结案.getLabel());
-            pretTransException.setCloseTime(new Date().getTime());
-        }
+//        PretTransPlan pretTransPlan = pretTransPlanRepository.findById(pretTransException.getTransPlanId()).get();
+//        if (pretTransPlan.getStatus() == ConstantEnum.ETransPlanStatus.已签收.getValue()) {
+//            pretTransException.setStatus(ConstantEnum.ETransExceptionStatus.已结案.getLabel());
+//            pretTransException.setCloseTime(new Date().getTime());
+//        }
         pretTransException.setCompensationStatus(ConstantEnum.ECompensationStatus.已赔款.getLabel());
         this.repository.save(pretTransException);
         record.setDescription(ConstantEnum.EHandleDescription.赔款到账.name());

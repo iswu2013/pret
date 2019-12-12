@@ -120,6 +120,8 @@ public class HttpUtil {
         conn.setRequestProperty(USER_AGENT, USER_AGENT_VALUE);
         conn.setRequestProperty(CONNECTION, CONNECTION_VALUE);
         conn.setRequestProperty(ACCEPT, "*/*");
+        conn.setConnectTimeout(5000);
+        conn.setConnectTimeout(5000);
         try (PrintWriter out = new PrintWriter(conn.getOutputStream()); BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8))) {
             String line;
             while ((line = in.readLine()) != null) {

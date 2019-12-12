@@ -52,7 +52,7 @@ public class PretTransExceptionController extends BaseManageController<PretTrans
     @GetMapping
     @Override()
     public Map<String, Object> list(PretTransExceptionVo request, PretTransException t) {
-        if(!StringUtils.isEmpty(request.getUserId())) {
+        if (!StringUtils.isEmpty(request.getUserId())) {
             request.setIn$deptId(userService.getDeptIdListByUserId(request.getUserId()));
         }
         Page<PretTransException> page = this.service.page(request);
@@ -178,14 +178,15 @@ public class PretTransExceptionController extends BaseManageController<PretTrans
     public void closeCase(@PathVariable String id) throws FebsException {
         try {
             PretTransException pretTransException = this.service.findById(id).get();
-            if (pretTransException.getIsReturnStatus() == 1 && pretTransException.getReturnStatus() == 2) {
-                message = "货物未退回，无法结案";
-                throw new FebsException(message);
-            } else if (pretTransException.getReturnFeeStatus() == 1 && pretTransException.getCompensationStatus() == 2) {
-                message = "赔偿金未支付，无法结案";
-                throw new FebsException(message);
-            }
-            this.service.closeCase(id);
+            if (pretTransException.getStatus() > ConstantEnum.ETransExceptionStatus.待认定.getLabel())
+//            if (pretTransException.getIsReturnStatus() == 1 && pretTransException.getReturnStatus() == 2) {
+//                message = "货物未退回，无法结案";
+//                throw new FebsException(message);
+//            } else if (pretTransException.getReturnFeeStatus() == 1 && pretTransException.getCompensationStatus() == 2) {
+//                message = "赔偿金未支付，无法结案";
+//                throw new FebsException(message);
+//            }
+                this.service.closeCase(id);
         } catch (Exception e) {
             throw new FebsException(message);
         }

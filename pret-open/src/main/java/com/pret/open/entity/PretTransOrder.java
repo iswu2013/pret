@@ -179,6 +179,16 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
     private Float gw;
 
     /**
+     * 签收数量
+     */
+    private Float signGw;
+
+    /**
+     * 拒收数量
+     */
+    private Float rejectGw = 0f;
+
+    /**
      * 单位(1吨，2公斤)
      */
     @ExcelField(value = "单位", writeConverterExp = "1=吨,2=公斤")

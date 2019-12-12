@@ -22,4 +22,6 @@ public class PR8000005Vo extends ResBody {
     private TypeUserInfo typeUserInfo;
     private Integer authStatus;
     private Integer userType;
+    private String nickName;
+    private String avatarUrl;
 }

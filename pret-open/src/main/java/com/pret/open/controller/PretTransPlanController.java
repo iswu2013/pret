@@ -4,6 +4,7 @@ import com.pret.api.rest.BaseManageController;
 import com.pret.common.annotation.Log;
 import com.pret.common.constant.ConstantEnum;
 import com.pret.common.exception.FebsException;
+import com.pret.common.util.StringUtil;
 import com.pret.open.entity.*;
 import com.pret.open.entity.bo.PretTransPlanBo;
 import com.pret.open.entity.bo.PretTransPlanStartShipmentConfirmBo;
@@ -14,6 +15,7 @@ import com.pret.open.service.user.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -39,11 +41,13 @@ public class PretTransPlanController extends BaseManageController<PretTransPlanS
     private PretServiceRouteOriginRepository pretServiceRouteOriginRepository;
     @Autowired
     private UserService userService;
+    @Value("${upload.baseurl}")
+    private String baseurl;
 
     @GetMapping
     @Override()
     public Map<String, Object> list(PretTransPlanVo request, PretTransPlan t) {
-        if(!StringUtils.isEmpty(request.getUserId())) {
+        if (!StringUtils.isEmpty(request.getUserId())) {
             request.setIn$deptId(userService.getDeptIdListByUserId(request.getUserId()));
         }
         Page<PretTransPlan> page = this.service.page(request);
@@ -79,6 +83,9 @@ public class PretTransPlanController extends BaseManageController<PretTransPlanS
             PretTransPlan item = this.service.findById(id).get();
             List<PretTransOrder> pretTransOrderList = pretTransOrderRepository.findByTransPlanIdAndS(item.getId(), ConstantEnum.S.N.getLabel());
             item.setPretTransOrderList(pretTransOrderList);
+            if (!StringUtils.isEmpty(item.getImages())) {
+                item.setImageList(StringUtil.idsStr2ListStringAddPrefix(item.getImages(), baseurl));
+            }
             return item;
         } catch (Exception e) {
             message = "查看失败";
