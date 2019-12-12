@@ -1475,4 +1475,30 @@ public class ConstantEnum {
             this.label = label;
         }
     }
+
+    public enum EYesOrNo {
+        /**
+         * 否
+         */
+        否(0),
+        /**
+         * 是
+         */
+        是(1);
+        private int label;
+
+        EYesOrNo(int label) {
+            this.setLabel(label);
+        }
+
+        //省略getter、setter方法
+
+        public int getLabel() {
+            return label;
+        }
+
+        public void setLabel(int label) {
+            this.label = label;
+        }
+    }
 }

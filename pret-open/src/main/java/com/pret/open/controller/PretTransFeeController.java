@@ -44,7 +44,7 @@ public class PretTransFeeController extends BaseManageController<PretTransFeeSer
     @GetMapping
     @Override()
     public Map<String, Object> list(PretTransFeeVo request, PretTransFee t) {
-        if(!StringUtils.isEmpty(request.getUserId())) {
+        if (!StringUtils.isEmpty(request.getUserId())) {
             request.setIn$deptId(userService.getDeptIdListByUserId(request.getUserId()));
         }
         Page<PretTransFee> page = this.service.page(request);
@@ -74,8 +74,10 @@ public class PretTransFeeController extends BaseManageController<PretTransFeeSer
             PretTransFee item = this.service.findById(id).get();
             List<PretTransFeeItem> pretTransFeeItemList = pretTransFeeItemRepository.findByTransFeeIdAndS(item.getId(), ConstantEnum.S.N.getLabel());
             for (PretTransFeeItem pretTransFeeItem : pretTransFeeItemList) {
-                PretFeeType pretFeeType = pretFeeTypeRepository.findById(pretTransFeeItem.getFeeTypeId()).get();
-                pretTransFeeItem.setPretFeeType(pretFeeType);
+                if (pretTransFeeItem.getCalType() == ConstantEnum.ECalType.自动计费.getLabel()) {
+                    PretFeeType pretFeeType = pretFeeTypeRepository.findById(pretTransFeeItem.getFeeTypeId()).get();
+                    pretTransFeeItem.setPretFeeType(pretFeeType);
+                }
             }
             item.setPretTransFeeItemList(pretTransFeeItemList);
             return item;
@@ -90,6 +92,16 @@ public class PretTransFeeController extends BaseManageController<PretTransFeeSer
     public void editTransFee(PretTransFeeBo bo) throws FebsException {
         try {
             this.service.editTransFee(bo);
+        } catch (Exception e) {
+            throw new FebsException(e.getMessage());
+        }
+    }
+
+    @Log("编辑异常费用费用")
+    @PostMapping("/editExceptionTransFee")
+    public void editExceptionTransFee(PretTransFeeBo bo) throws FebsException {
+        try {
+            this.service.editExceptionTransFee(bo);
         } catch (Exception e) {
             throw new FebsException(e.getMessage());
         }

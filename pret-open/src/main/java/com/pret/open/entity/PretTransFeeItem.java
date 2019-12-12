@@ -94,6 +94,11 @@ public class PretTransFeeItem extends VersionedAuditableIdEntity implements Seri
      */
     private Integer calType = ConstantEnum.ECalType.自动计费.getLabel();
 
+    /**
+     * 是否是异常费用
+     */
+    private Integer exceptionFee = ConstantEnum.EYesOrNo.否.getLabel();
+
     private PretFeeType pretFeeType;
 
     // setter and getter

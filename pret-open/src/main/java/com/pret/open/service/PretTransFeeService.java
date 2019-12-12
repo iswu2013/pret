@@ -239,4 +239,50 @@ public class PretTransFeeService extends BaseServiceImpl<PretTransFeeRepository,
             }
         }
     }
+
+    public void editExceptionTransFee(PretTransFeeBo bo) {
+        PretTransFee pretTransFee = this.repository.findById(bo.getId()).get();
+        List<PretTransFeeItem> list = CommonConstants.GSON.fromJson(bo.getPretTransFeeStr(),
+                new TypeToken<List<PretTransFeeItem>>() {
+                }.getType());
+        List<String> idList = new ArrayList<>();
+        if (list != null && list.size() > 0) {
+            for (PretTransFeeItem item : list) {
+                if (!StringUtils.isEmpty(item.getId())) {
+                    idList.add(item.getId());
+                }
+                item.setVenderId(pretTransFee.getVenderId());
+                item.setTransFeeId(pretTransFee.getId());
+                item.setExceptionFee(ConstantEnum.EYesOrNo.是.getLabel());
+            }
+            List<PretTransFeeItem> pretTransFeeItemList = pretTransFeeItemRepository.findByExceptionFeeAndIdNotInAndS(ConstantEnum.EYesOrNo.是.getLabel(), idList, ConstantEnum.S.N.getLabel());
+            if (pretTransFeeItemList != null && pretTransFeeItemList.size() > 0) {
+                for (PretTransFeeItem pretTransFeeItem : pretTransFeeItemList) {
+                    pretTransFeeItemService.lDelete(pretTransFeeItem.getId());
+                }
+            }
+            pretTransFeeItemRepository.saveAll(list);
+            this.repository.save(pretTransFee);
+            PretTransPlan pretTransPlan = pretTransPlanRepository.findById(pretTransFee.getTransPlanId()).get();
+
+            //组装请求参数
+            JSONObject map = new JSONObject();
+            map.put("ShipDocNo", pretTransPlan.getDeliveryBillNumber());
+            map.put("ShipDocLineNo", pretTransPlan.getShipDocLineNo());
+            map.put("ShipQty", pretTransPlan.getGw());
+            map.put("ConfirmedQty", pretTransPlan.getGw());
+            map.put("MBDTDocNo", pretTransPlan.getNo());
+            String params = map.toString();
+            try {
+                String result = HttpUtil.sendPost(u9Url + "/services/UFIDA.U9.Cust.MBToERPUpdate.IDTUpdateFeeSv.svc", params);
+                U9ReturnBo u9ReturnBo = Constants.GSON.fromJson(result, U9ReturnBo.class);
+                if (u9ReturnBo.getRtnBool().equals("True")) {
+                    pretTransFee.setRevokeStatus(ConstantEnum.ERevokeStatus.成功.getLabel());
+                } else {
+                    pretTransFee.setRevokeStatus(ConstantEnum.ERevokeStatus.失败.getLabel());
+                }
+            } catch (Exception e) {
+            }
+        }
+    }
 }
