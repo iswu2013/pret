@@ -4,6 +4,8 @@ import com.pret.api.vo.PageFormVo;
 import com.pret.api.vo.ReqBody;
 import lombok.Data;
 
+import java.util.List;
+
 /**
  * Description: 获取用户运输计划
  * Created on 2019年09月15日
@@ -17,4 +19,6 @@ public class P8000002Vo extends ReqBody {
     private String openid;
     private Integer page;
     private Integer rows = 10;
+    private int eq$status = -1;
+    private int searchType = -1;
 }

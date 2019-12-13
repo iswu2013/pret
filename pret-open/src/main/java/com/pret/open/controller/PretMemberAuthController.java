@@ -6,24 +6,30 @@ import com.pret.common.constant.ConstantEnum;
 import com.pret.common.exception.FebsException;
 import com.pret.common.util.BeanUtilsExtended;
 import com.pret.common.utils.MD5Util;
-import com.pret.open.entity.PretCustomer;
-import com.pret.open.entity.PretMemberAuth;
+import com.pret.open.entity.*;
 import com.pret.open.entity.user.Dept;
 import com.pret.open.entity.user.User;
 import com.pret.open.entity.vo.PretMemberAuthVo;
+import com.pret.open.entity.vo.PretPickUpPlanVo;
 import com.pret.open.repository.PretCustomerRepository;
 import com.pret.open.repository.PretMemberAuthRepository;
 import com.pret.open.repository.user.DeptRepository;
 import com.pret.open.repository.user.UserRepository;
 import com.pret.open.service.PretMemberAuthService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 审核
@@ -41,6 +47,23 @@ public class PretMemberAuthController extends BaseManageController<PretMemberAut
     private PretCustomerRepository pretCustomerRepository;
     @Autowired
     private DeptRepository deptRepository;
+
+    @GetMapping
+    @Override()
+    public Map<String, Object> list(PretMemberAuthVo request, PretMemberAuth t) {
+        Page<PretMemberAuth> page = this.service.page(request);
+        for (PretMemberAuth memberAuth : page.getContent()) {
+            if (!StringUtils.isEmpty(memberAuth.getDeptId())) {
+                Dept dept = deptRepository.findById(memberAuth.getDeptId()).get();
+                memberAuth.setDept(dept);
+            }
+        }
+        Map<String, Object> rspData = new HashMap<>();
+        rspData.put("rows", page.getContent());
+        rspData.put("total", page.getTotalElements());
+
+        return rspData;
+    }
 
     @Log("审核")
     @PostMapping("/auth")

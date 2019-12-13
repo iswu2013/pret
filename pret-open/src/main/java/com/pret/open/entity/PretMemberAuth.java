@@ -2,14 +2,12 @@ package com.pret.open.entity;
 
 import com.pret.common.VersionedAuditableIdEntity;
 import com.pret.common.constant.ConstantEnum;
+import com.pret.open.entity.user.Dept;
 import com.wuwenze.poi.annotation.Excel;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -58,4 +56,15 @@ public class PretMemberAuth extends VersionedAuditableIdEntity implements Serial
     private String deptId;
 
     private String u9code;
+
+    private Dept dept;
+
+    @Transient()
+    public Dept getDept() {
+        return dept;
+    }
+
+    public void setDept(Dept dept) {
+        this.dept = dept;
+    }
 }

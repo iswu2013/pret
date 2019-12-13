@@ -116,6 +116,11 @@ public class PretTransExceptionController extends BaseManageController<PretTrans
             pretTransException.setStatus(status);
             pretTransExceptionRepository.save(pretTransException);
 
+            PretTransPlan pretTransPlan = pretTransPlanRepository.findById(pretTransException.getTransPlanId()).get();
+
+            PretTransFee pretTransFee = pretTransFeeRepository.findById(pretTransPlan.getTransFeeId()).get();
+            pretTransException.setPretTransFee(pretTransFee);
+
             /*if (status == ConstantEnum.ECheckStatus.通过.getLabel()) {
                 PretTransPlan pretTransPlan = pretTransPlanRepository.findById(pretTransException.getTransPlanId()).get();
                 PretTransPlan newP = new PretTransPlan();

@@ -85,6 +85,9 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
     private PretTransRecordRepository getPretTransRecordRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private PretMemberAuthRepository pretMemberAuthRepository;
+
     @PersistenceContext
     private EntityManager em;
 
@@ -195,6 +198,7 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
             transPlan.setStatus(ConstantEnum.ETransPlanStatus.待起运.getValue());
             transPlan.setGoodsNum(count);
             transPlan.setSalesCd(transOrder.getSalesCd());
+            transPlan.setCustCd(transOrder.getCustCd());
             transPlan.setDeptId(transOrder.getDeptId());
             transPlan.setDeliveryBillNumber(transOrder.getDeliveryBillNumber());
             transPlan.setCustomerDetailAddress(transOrder.getCustomerDetailAddress());
@@ -340,11 +344,18 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
     public ResBody getTransPanList(P8000002Vo res) {
         PR8000002Vo retVo = new PR8000002Vo();
 
-        PretCustomer customer = pretCustomerRepository.findByOpenidAndS(res.getOpenid(), ConstantEnum.S.N.getLabel());
+        PretMemberAuth pretMemberAuth = pretMemberAuthRepository.findByOpenidAndS(res.getOpenid(), ConstantEnum.S.N.getLabel());
         PretTransPlanVo vo = new PretTransPlanVo();
         vo.setPage(res.getPage());
         vo.setRows(res.getRows());
-        vo.setEq$customerId(customer.getId());
+        vo.setEq$custCd(pretMemberAuth.getU9code());
+        if (res.getSearchType() == 1) {
+            List<Integer> statusList = new ArrayList<>();
+            statusList.add(ConstantEnum.ETransPlanStatus.待起运.getValue());
+            statusList.add(ConstantEnum.ETransPlanStatus.已起运.getValue());
+            vo.setIn$status(statusList);
+        }
+        vo.setEq$status(res.getEq$status());
         List<PretTransPlan> list = this.page(vo).getContent();
         for (PretTransPlan pretTransPlan : list) {
             if (pretTransPlan.getTransDatetime() != null) {
@@ -588,12 +599,12 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
     public ResBody getTransPanListBySale(P8000009Vo res) {
         PR8000009Vo retVo = new PR8000009Vo();
 
-        User user = userRepository.findByOpenidAndS(res.getOpenid(), ConstantEnum.S.N.getLabel());
+        PretMemberAuth pretMemberAuth = pretMemberAuthRepository.findByOpenidAndS(res.getOpenid(), ConstantEnum.S.N.getLabel());
 
 
         Query query;
         StringBuffer querySql;
-        String con = "SELECT id,sales_id,vender_id FROM pret_trans_plan a  where 1=1 and a.sales_cd= '" + user.getU9code() + "' and a.s=1 and a.status=1 GROUP BY a.vender_id ORDER BY a.last_modified_date desc ";
+        String con = "SELECT id,sales_id,vender_id FROM pret_trans_plan a  where 1=1 and a.sales_cd= '" + pretMemberAuth.getU9code() + "' and a.s=1 and a.status=1 GROUP BY a.vender_id ORDER BY a.last_modified_date desc ";
 
         querySql = new StringBuffer(con);
         query = em.createNativeQuery(querySql.toString());

@@ -4,6 +4,7 @@ import com.pret.api.rest.BaseManageController;
 import com.pret.common.annotation.Log;
 import com.pret.common.constant.ConstantEnum;
 import com.pret.common.exception.FebsException;
+import com.pret.common.util.StringUtil;
 import com.pret.open.entity.*;
 import com.pret.open.entity.bo.PretTransStatementBo;
 import com.pret.open.entity.vo.PretTransStatementVo;
@@ -48,7 +49,7 @@ public class PretTransStatementController extends BaseManageController<PretTrans
     @GetMapping
     @Override()
     public Map<String, Object> list(PretTransStatementVo request, PretTransStatement t) {
-        if(!StringUtils.isEmpty(request.getUserId())) {
+        if (!StringUtils.isEmpty(request.getUserId())) {
             request.setIn$deptId(userService.getDeptIdListByUserId(request.getUserId()));
         }
         Page<PretTransStatement> page = this.service.page(request);
@@ -95,6 +96,25 @@ public class PretTransStatementController extends BaseManageController<PretTrans
             return item;
         } catch (Exception e) {
             message = "查看失败";
+            throw new FebsException(message);
+        }
+    }
+
+    @Log("删除")
+    @PostMapping("/delete/{ids}")
+    public void deleteByIds(@PathVariable String ids) throws FebsException {
+        try {
+            List<String> idList = StringUtil.idsStr2ListString(ids);
+            for (String id : idList) {
+                List<PretTransFee> pretTransFeeList = pretTransFeeRepository.findByTransStatementIdAndS(id, ConstantEnum.S.N.getLabel());
+                for (PretTransFee pretTransFee : pretTransFeeList) {
+                    pretTransFee.setStatus(ConstantEnum.EPretTransFeeStatus.已申报.getLabel());
+                    pretTransFeeRepository.save(pretTransFee);
+                }
+            }
+            this.service.deleteByIds(ids);
+        } catch (Exception e) {
+            message = "删除失败";
             throw new FebsException(message);
         }
     }

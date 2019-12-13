@@ -33,6 +33,10 @@ public interface PretTransFeeItemRepository extends BaseRepository<PretTransFeeI
      */
     List<PretTransFeeItem> findByCalTypeAndIdNotInAndS(Integer calType,List<String> idList,Integer s);
 
+    List<PretTransFeeItem> findByCalTypeAndIdInAndS(Integer calType,List<String> idList,Integer s);
+
+    List<PretTransFeeItem> findByCalTypeAndS(Integer calType,Integer s);
+
     /* *
      * 功能描述: <br>
      * 〈〉

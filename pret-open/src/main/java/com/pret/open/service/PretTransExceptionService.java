@@ -1,9 +1,11 @@
 package com.pret.open.service;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import com.alibaba.fastjson.JSONObject;
 import com.google.common.reflect.TypeToken;
 import com.pret.common.constant.CommonConstants;
 import com.pret.common.constant.ConstantEnum;
@@ -11,9 +13,11 @@ import com.pret.common.constant.Constants;
 import com.pret.common.util.BeanUtilsExtended;
 import com.pret.common.util.NoUtil;
 import com.pret.common.util.StringUtil;
+import com.pret.common.utils.HttpUtil;
 import com.pret.open.entity.*;
 import com.pret.open.entity.bo.PretTransExceptionBo;
 import com.pret.open.entity.bo.PretTransExceptionItemBo;
+import com.pret.open.entity.bo.U9ReturnBo;
 import com.pret.open.entity.vo.PretTransExceptionVo;
 import com.pret.open.repository.*;
 import com.pret.api.service.impl.BaseServiceImpl;
@@ -52,6 +56,12 @@ public class PretTransExceptionService extends BaseServiceImpl<PretTransExceptio
     private PretTransPlanService pretTransPlanService;
     @Autowired
     private PretTransOrderGroupRepository pretTransOrderGroupRepository;
+    @Autowired
+    private PretTransFeeItemRepository pretTransFeeItemRepository;
+    @Autowired
+    private PretTransFeeRepository pretTransFeeRepository;
+    @Autowired
+    private PretTransFeeItemService pretTransFeeItemService;
 
     /* *
      * 功能描述: 生成默认异常单
@@ -216,6 +226,28 @@ public class PretTransExceptionService extends BaseServiceImpl<PretTransExceptio
         pretTransExceptionHandleRecord.setExceptionId(bo.getId());
         pretTransExceptionHandleRecordRepository.save(pretTransExceptionHandleRecord);
         this.repository.save(exception);
+
+        // 编辑异常费用
+        PretTransFee pretTransFee = pretTransFeeRepository.findById(bo.getTransFeeId()).get();
+        List<PretTransFeeItem> list = CommonConstants.GSON.fromJson(bo.getPretTransFeeStr(),
+                new TypeToken<List<PretTransFeeItem>>() {
+                }.getType());
+        List<String> idList = new ArrayList<>();
+        List<PretTransFeeItem> pretTransFeeItemList = pretTransFeeItemRepository.findByExceptionFeeAndIdNotInAndS(ConstantEnum.EYesOrNo.是.getLabel(), idList, ConstantEnum.S.N.getLabel());
+        if (pretTransFeeItemList != null && pretTransFeeItemList.size() > 0) {
+            for (PretTransFeeItem pretTransFeeItem : pretTransFeeItemList) {
+                pretTransFeeItemService.lDelete(pretTransFeeItem.getId());
+            }
+        }
+        if (list != null && list.size() > 0) {
+            for (PretTransFeeItem item : list) {
+                item.setVenderId(pretTransFee.getVenderId());
+                item.setTransFeeId(pretTransFee.getId());
+                item.setExceptionFee(ConstantEnum.EYesOrNo.是.getLabel());
+            }
+            pretTransFeeItemRepository.saveAll(list);
+            pretTransFeeRepository.save(pretTransFee);
+        }
     }
 
     /* *

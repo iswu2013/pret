@@ -288,6 +288,11 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
     private boolean checked;
 
     /**
+     * 用户u9code
+     */
+    private String custCd;
+
+    /**
      * 供应商
      */
     private PretVender pretVender;

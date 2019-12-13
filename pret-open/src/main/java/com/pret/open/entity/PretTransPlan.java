@@ -251,6 +251,11 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
      */
     private String salesCd;
 
+    /**
+     * 客户 u9 code
+     */
+    private String custCd;
+
     private String transDatetimeStr;
 
     private String deliveryDateStr;

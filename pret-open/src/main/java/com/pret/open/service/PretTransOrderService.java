@@ -189,6 +189,7 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
                 pretTransOrder.setDeptId(dept.getId());
                 pretTransOrder.setOwnFactoryCd(bo.getOwnFactoryCd());
                 pretTransOrder.setSalesCd(bo.getSalesCd());
+                pretTransOrder.setCustCd(bo.getCustCd());
                 pretTransOrder.setSignGw(pretTransOrder.getGw());
 
                 BeanUtilsExtended.copyProperties(pretTransOrder, pretMTransOrderBo);

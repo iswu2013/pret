@@ -118,7 +118,6 @@ public class PretTransFeeService extends BaseServiceImpl<PretTransFeeRepository,
         pretTransPlan.setStatus(ConstantEnum.ETransPlanStatus.已签收.getValue());
         pretTransPlan.setSignUsername(bo.getUsername());
         pretTransPlan.setSignDatetime(bo.getSignDatetime());
-        pretTransPlanRepository.save(pretTransPlan);
         Float totalGw = pretTransPlan.getGw();
 
         // 生成费用
@@ -182,6 +181,8 @@ public class PretTransFeeService extends BaseServiceImpl<PretTransFeeRepository,
         } catch (Exception e) {
         }*/
         this.repository.save(pretTransFee);
+        pretTransPlan.setTransFeeId(pretTransFee.getId());
+        pretTransPlanRepository.save(pretTransPlan);
     }
 
     /* *
@@ -194,9 +195,16 @@ public class PretTransFeeService extends BaseServiceImpl<PretTransFeeRepository,
      */
     public void editTransFee(PretTransFeeBo bo) {
         PretTransFee pretTransFee = this.repository.findById(bo.getId()).get();
+        pretTransFee.setStatus(ConstantEnum.EPretTransFeeStatus.审核通过.getLabel());
         List<PretTransFeeItem> list = CommonConstants.GSON.fromJson(bo.getPretTransFeeStr(),
                 new TypeToken<List<PretTransFeeItem>>() {
                 }.getType());
+        List<PretTransFeeItem> pretTransFeeItemList = pretTransFeeItemRepository.findByCalTypeAndS(ConstantEnum.ECalType.手动计费.getLabel(), ConstantEnum.S.N.getLabel());
+        if (pretTransFeeItemList != null && pretTransFeeItemList.size() > 0) {
+            for (PretTransFeeItem pretTransFeeItem : pretTransFeeItemList) {
+                pretTransFeeItemService.lDelete(pretTransFeeItem.getId());
+            }
+        }
         List<String> idList = new ArrayList<>();
         if (list != null && list.size() > 0) {
             for (PretTransFeeItem item : list) {
@@ -206,21 +214,11 @@ public class PretTransFeeService extends BaseServiceImpl<PretTransFeeRepository,
                 item.setVenderId(pretTransFee.getVenderId());
                 item.setTransFeeId(pretTransFee.getId());
             }
-            List<PretTransFeeItem> pretTransFeeItemList = pretTransFeeItemRepository.findByCalTypeAndIdNotInAndS(ConstantEnum.ECalType.手动计费.getLabel(), idList, ConstantEnum.S.N.getLabel());
-            if (pretTransFeeItemList != null && pretTransFeeItemList.size() > 0) {
-                for (PretTransFeeItem pretTransFeeItem : pretTransFeeItemList) {
-                    pretTransFeeItemService.lDelete(pretTransFeeItem.getId());
-                }
-            }
             pretTransFeeItemRepository.saveAll(list);
-
-            //pretTransFee.setStatus(ConstantEnum.EPretTransFeeStatus.审核通过.getLabel());
-            this.repository.save(pretTransFee);
-
             PretTransPlan pretTransPlan = pretTransPlanRepository.findById(pretTransFee.getTransPlanId()).get();
 
             //组装请求参数
-            JSONObject map = new JSONObject();
+          /*  JSONObject map = new JSONObject();
             map.put("ShipDocNo", pretTransPlan.getDeliveryBillNumber());
             map.put("ShipDocLineNo", pretTransPlan.getShipDocLineNo());
             map.put("ShipQty", pretTransPlan.getGw());
@@ -236,8 +234,9 @@ public class PretTransFeeService extends BaseServiceImpl<PretTransFeeRepository,
                     pretTransFee.setRevokeStatus(ConstantEnum.ERevokeStatus.失败.getLabel());
                 }
             } catch (Exception e) {
-            }
+            }*/
         }
+        this.repository.save(pretTransFee);
     }
 
     public void editExceptionTransFee(PretTransFeeBo bo) {

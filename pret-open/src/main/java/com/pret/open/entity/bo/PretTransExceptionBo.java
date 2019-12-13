@@ -84,6 +84,16 @@ public class PretTransExceptionBo {
 
     private String handleUserId;
 
+    /**
+     * 费用id
+     */
+    private String transFeeId;
+
+    /**
+     * 异常费用
+     */
+    private String pretTransFeeStr;
+
 
     // setter and getter
 }

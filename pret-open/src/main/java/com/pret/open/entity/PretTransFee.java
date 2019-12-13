@@ -1,6 +1,7 @@
 package com.pret.open.entity;
 
 import com.pret.common.VersionedAuditableIdEntity;
+import com.pret.common.constant.ConstantEnum;
 import com.wuwenze.poi.annotation.Excel;
 import com.wuwenze.poi.annotation.ExcelField;
 import lombok.Data;
@@ -97,6 +98,11 @@ public class PretTransFee extends VersionedAuditableIdEntity implements Serializ
      */
     @ExcelField(value = "状态", writeConverterExp = "0=待审核,1=通过,2=不通过")
     private Integer status;
+
+    /**
+     * 是否对过账
+     */
+    private Integer checkStatus = ConstantEnum.EYesOrNo.否.getLabel();
 
     /**
      * 币别
