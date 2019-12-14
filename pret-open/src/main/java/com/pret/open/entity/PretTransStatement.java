@@ -86,6 +86,8 @@ public class PretTransStatement extends VersionedAuditableIdEntity implements Se
     @ExcelField(value = "费用总额")
     private BigDecimal totalAmount;
 
+    private Float totalGw;
+
     /**
      *
      */

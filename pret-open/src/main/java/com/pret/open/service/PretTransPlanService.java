@@ -306,6 +306,8 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
             PretTransPlan pretTransPlan = this.repository.findById(bo.getId()).get();
             pretTransPlan.setSignGw(pretTransPlan.getGw());
             pretTransPlan.setRejectGw(0f);
+            pretTransPlan.setImages(bo.getImages());
+            pretTransPlanRepository.save(pretTransPlan);
         }
 
         // 计算费用

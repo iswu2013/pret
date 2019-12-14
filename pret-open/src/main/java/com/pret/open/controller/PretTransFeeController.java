@@ -4,6 +4,7 @@ import com.pret.api.rest.BaseManageController;
 import com.pret.common.annotation.Log;
 import com.pret.common.constant.ConstantEnum;
 import com.pret.common.exception.FebsException;
+import com.pret.common.util.StringUtil;
 import com.pret.open.entity.*;
 import com.pret.open.entity.bo.PretTransFeeBo;
 import com.pret.open.entity.bo.PretTransPlanSignBo;
@@ -14,6 +15,7 @@ import com.pret.open.service.user.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -42,6 +44,8 @@ public class PretTransFeeController extends BaseManageController<PretTransFeeSer
     private PretTransOrderRepository pretTransOrderRepository;
     @Autowired
     private UserService userService;
+    @Value("${upload.baseurl}")
+    private String baseurl;
 
     @GetMapping
     @Override()
@@ -84,6 +88,9 @@ public class PretTransFeeController extends BaseManageController<PretTransFeeSer
             item.setPretTransFeeItemList(pretTransFeeItemList);
             PretTransPlan pretTransPlan = pretTransPlanRepository.findById(item.getTransPlanId()).get();
             item.setPretTransPlan(pretTransPlan);
+            if (!StringUtils.isEmpty(pretTransPlan.getImages())) {
+                pretTransPlan.setImageList(StringUtil.idsStr2ListStringAddPrefix(pretTransPlan.getImages(), baseurl));
+            }
 
             List<PretTransOrder> pretTransOrderList = pretTransOrderRepository.findByTransPlanIdAndS(item.getTransPlanId(), ConstantEnum.S.N.getLabel());
             item.setPretTransOrderList(pretTransOrderList);
