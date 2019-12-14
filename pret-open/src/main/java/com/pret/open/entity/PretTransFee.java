@@ -114,6 +114,11 @@ public class PretTransFee extends VersionedAuditableIdEntity implements Serializ
      */
     private Integer revokeStatus;
 
+    /**
+     * 起运日期
+     */
+    private Long transDatetimeLong;
+
     private String deptId;
 
     private PretVender pretVender;
@@ -125,6 +130,8 @@ public class PretTransFee extends VersionedAuditableIdEntity implements Serializ
     private PretServiceRouteOrigin pretServiceRouteOrigin;
 
     private List<PretTransFeeItem> pretTransFeeItemList;
+
+    private List<PretTransOrder> pretTransOrderList;
 
     // setter and getter
 
@@ -171,5 +178,14 @@ public class PretTransFee extends VersionedAuditableIdEntity implements Serializ
 
     public void setPretTransFeeItemList(List<PretTransFeeItem> pretTransFeeItemList) {
         this.pretTransFeeItemList = pretTransFeeItemList;
+    }
+
+    @Transient()
+    public List<PretTransOrder> getPretTransOrderList() {
+        return pretTransOrderList;
+    }
+
+    public void setPretTransOrderList(List<PretTransOrder> pretTransOrderList) {
+        this.pretTransOrderList = pretTransOrderList;
     }
 }

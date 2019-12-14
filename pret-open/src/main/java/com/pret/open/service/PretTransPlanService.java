@@ -264,7 +264,7 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
      */
     public void sign(PretTransPlanSignBo bo) throws FebsException {
         // 异常单生成
-        if (bo.isHasException()) {
+        if (!bo.isHasException()) {
             PretTransPlan pretTransPlan = this.repository.findById(bo.getId()).get();
             PretTransException pretTransException = pretTransExceptionService.genDefaultPretTransException(null, null);
             pretTransException.setVenderId(pretTransPlan.getVenderId());

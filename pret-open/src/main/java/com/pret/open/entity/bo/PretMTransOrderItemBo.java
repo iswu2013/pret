@@ -40,7 +40,7 @@ public class PretMTransOrderItemBo {
     /**
      * 立方米
      */
-    private float cbm;
+    private Float cbm;
 
     /**
      * 货物类型1重货2泡货

@@ -39,6 +39,8 @@ public class PretTransFeeController extends BaseManageController<PretTransFeeSer
     @Autowired
     private PretFeeTypeRepository pretFeeTypeRepository;
     @Autowired
+    private PretTransOrderRepository pretTransOrderRepository;
+    @Autowired
     private UserService userService;
 
     @GetMapping
@@ -80,6 +82,11 @@ public class PretTransFeeController extends BaseManageController<PretTransFeeSer
                 }
             }
             item.setPretTransFeeItemList(pretTransFeeItemList);
+            PretTransPlan pretTransPlan = pretTransPlanRepository.findById(item.getTransPlanId()).get();
+            item.setPretTransPlan(pretTransPlan);
+
+            List<PretTransOrder> pretTransOrderList = pretTransOrderRepository.findByTransPlanIdAndS(item.getTransPlanId(), ConstantEnum.S.N.getLabel());
+            item.setPretTransOrderList(pretTransOrderList);
             return item;
         } catch (Exception e) {
             message = "查看失败";

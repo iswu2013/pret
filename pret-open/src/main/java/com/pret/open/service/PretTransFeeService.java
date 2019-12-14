@@ -160,6 +160,7 @@ public class PretTransFeeService extends BaseServiceImpl<PretTransFeeRepository,
         pretTransFee.setVenderId(pretTransPlan.getVenderId());
         pretTransFee.setTransPlanId(pretTransPlan.getId());
         pretTransFee.setUnitPrice(unitPrice);
+        pretTransFee.setTransDatetimeLong(pretTransPlan.getTransDatetime().getTime());
 
         // 对接U9
         //组装请求参数
@@ -170,7 +171,7 @@ public class PretTransFeeService extends BaseServiceImpl<PretTransFeeRepository,
         map.put("ConfirmedQty", pretTransPlan.getGw());
         map.put("MBDTDocNo", pretTransPlan.getNo());
         String params = map.toString();
-        /*try {
+        try {
             String result = HttpUtil.sendPost(u9Url + "/services/UFIDA.U9.Cust.MBToERPSv.IOpDeliveryTaskSv.svc", params);
             U9ReturnBo u9ReturnBo = Constants.GSON.fromJson(result, U9ReturnBo.class);
             if (u9ReturnBo.getRtnBool().equals("True")) {
@@ -179,7 +180,7 @@ public class PretTransFeeService extends BaseServiceImpl<PretTransFeeRepository,
                 pretTransFee.setRevokeStatus(ConstantEnum.ERevokeStatus.失败.getLabel());
             }
         } catch (Exception e) {
-        }*/
+        }
         this.repository.save(pretTransFee);
         pretTransPlan.setTransFeeId(pretTransFee.getId());
         pretTransPlanRepository.save(pretTransPlan);

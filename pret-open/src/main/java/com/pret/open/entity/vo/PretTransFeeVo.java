@@ -19,6 +19,8 @@ public class PretTransFeeVo extends PageFormVo implements Serializable {
     private String eq$venderId;
     private long bw$createTimeLong;
     private long createTimeLongEnd;
+    private long bw$transDatetimeLong;
+    private long transDatetimeLongEnd;
     private int eq$status = -1;
     private String eq$transStatementId;
     private List<Integer> in$status;

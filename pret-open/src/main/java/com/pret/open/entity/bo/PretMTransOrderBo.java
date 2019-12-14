@@ -15,6 +15,7 @@ import java.util.Date;
  */
 @Data
 public class PretMTransOrderBo {
+    private String sourceCode;
     /**
      * 运输方式
      */
