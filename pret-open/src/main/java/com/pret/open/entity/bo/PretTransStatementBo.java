@@ -66,6 +66,8 @@ public class PretTransStatementBo {
 
     private String currencyId;
 
+    private String username;
+
     // setter and getter
 
 }

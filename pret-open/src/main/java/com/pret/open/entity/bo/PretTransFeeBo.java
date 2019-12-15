@@ -19,5 +19,7 @@ public class PretTransFeeBo {
 
     private String pretTransFeeStr;
 
+    private String username;
+
     // setter and getter
 }

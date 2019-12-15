@@ -4,10 +4,10 @@ import com.pret.api.rest.BaseManageController;
 import com.pret.common.annotation.Log;
 import com.pret.common.constant.ConstantEnum;
 import com.pret.common.exception.FebsException;
-import com.pret.open.entity.PretPickUpRecord;
-import com.pret.open.entity.vo.PretPickUpRecordVo;
-import com.pret.open.repository.PretPickUpRecordRepository;
-import com.pret.open.service.PretPickUpRecordService;
+import com.pret.open.entity.PretTransFeeRecord;
+import com.pret.open.entity.vo.PretTransFeeRecordVo;
+import com.pret.open.repository.PretTransFeeRecordRepository;
+import com.pret.open.service.PretTransFeeRecordService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -21,10 +21,10 @@ import java.util.List;
 @Slf4j
 @Validated
 @RestController
-@RequestMapping("pretPickUpRecord")
-public class PretPickUpRecordController extends BaseManageController<PretPickUpRecordService, PretPickUpRecord, PretPickUpRecordVo> {
+@RequestMapping("pretTransFeeRecord")
+public class PretTransFeeRecordController extends BaseManageController<PretTransFeeRecordService, PretTransFeeRecord, PretTransFeeRecordVo> {
     @Autowired
-    private PretPickUpRecordRepository pretPickUpRecordRepository;
+    private PretTransFeeRecordRepository pretTransFeeRecordRepository;
 
     /* *
      * 功能描述: 查看
@@ -36,9 +36,9 @@ public class PretPickUpRecordController extends BaseManageController<PretPickUpR
      */
     @Log("查看")
     @PostMapping("/view/{id}")
-    public PretPickUpRecord view(@PathVariable String id) throws FebsException {
+    public PretTransFeeRecord view(@PathVariable String id) throws FebsException {
         try {
-            PretPickUpRecord item = this.service.findById(id).get();
+            PretTransFeeRecord item = this.service.findById(id).get();
             return item;
         } catch (Exception e) {
             message = "查看失败";
@@ -47,10 +47,10 @@ public class PretPickUpRecordController extends BaseManageController<PretPickUpR
     }
 
     @Log("查看")
-    @PostMapping("/viewByPickUpPlanId/{id}")
-    public List<PretPickUpRecord> viewByPickUpPlanId(@PathVariable String id) throws FebsException {
+    @PostMapping("/viewByTransFeeId/{id}")
+    public List<PretTransFeeRecord> viewByTransFeeId(@PathVariable String id) throws FebsException {
         try {
-            List<PretPickUpRecord> item = pretPickUpRecordRepository.findByPickUpPlanIdAndSOrderByLastModifiedDateDesc(id, ConstantEnum.S.N.getLabel());
+            List<PretTransFeeRecord> item = pretTransFeeRecordRepository.findByTransFeeIdAndSOrderByLastModifiedDateDesc(id, ConstantEnum.S.N.getLabel());
             return item;
         } catch (Exception e) {
             message = "查看失败";

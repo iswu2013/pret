@@ -65,6 +65,9 @@ public class PretTransExceptionController extends BaseManageController<PretTrans
                 Optional<PretTransPlan> pretTransPlanOptional = pretTransPlanRepository.findById(orgin.getTransPlanId());
                 if (pretTransPlanOptional.isPresent()) {
                     orgin.setPretTransPlan(pretTransPlanOptional.get());
+                    if (!StringUtils.isEmpty(pretTransPlanOptional.get().getImages())) {
+                        pretTransPlanOptional.get().setImageList(StringUtil.idsStr2ListStringAddPrefix(pretTransPlanOptional.get().getImages(), baseurl));
+                    }
                 }
             }
         }
@@ -95,6 +98,7 @@ public class PretTransExceptionController extends BaseManageController<PretTrans
             item.setPretTransExceptionHandleRecordList(pretTransExceptionHandleRecordList);
 
             PretTransPlan pretTransPlan = pretTransPlanRepository.findById(item.getTransPlanId()).get();
+            item.setPretTransPlan(pretTransPlan);
             if (!StringUtils.isEmpty(pretTransPlan.getTransFeeId())) {
                 PretTransFee pretTransFee = pretTransFeeRepository.findById(pretTransPlan.getTransFeeId()).get();
                 item.setPretTransFee(pretTransFee);

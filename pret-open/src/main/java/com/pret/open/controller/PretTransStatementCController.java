@@ -62,10 +62,10 @@ public class PretTransStatementCController extends BaseManageController<PretTran
     }
 
     @Log("对账确认")
-    @PostMapping("/{ids}")
-    public void confirmStatement(@PathVariable String ids) throws FebsException {
+    @PostMapping("/{ids}/{username}")
+    public void confirmStatement(@PathVariable String ids,@PathVariable String username) throws FebsException {
         try {
-            this.service.confirmStatement(ids);
+            this.service.confirmStatement(ids,username);
         } catch (Exception e) {
             message = "对账确认失败";
             throw new FebsException(message);

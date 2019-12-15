@@ -58,7 +58,11 @@ public class PretTransFeeService extends BaseServiceImpl<PretTransFeeRepository,
     @Autowired
     private PretTransFeeItemService pretTransFeeItemService;
     @Autowired
+    private PretTransRecordRepository pretTransRecordRepository;
+    @Autowired
     private PretTransOrderGroupRepository pretTransOrderGroupRepository;
+    @Autowired
+    private PretTransFeeRecordRepository pretTransFeeRecordRepository;
     @Value("${u9.ulr}")
     private String u9Url;
 
@@ -95,12 +99,21 @@ public class PretTransFeeService extends BaseServiceImpl<PretTransFeeRepository,
      * @Author: wujingsong
      * @Date: 2019/10/4  5:29 下午
      */
-    public void transFeeAppl(String ids) {
+    public void transFeeAppl(String ids, String username) {
         String[] idArr = ids.split(",");
         for (String id : idArr) {
             PretTransFee transFee = this.repository.findById(id).get();
             transFee.setStatus(ConstantEnum.EPretTransFeeStatus.已申报.getLabel());
             this.repository.save(transFee);
+
+            // 添加一条记录
+            PretTransFeeRecord pretTransFeeRecord = new PretTransFeeRecord();
+
+            pretTransFeeRecord.setDescription(ConstantEnum.EPretTransFeeRecordDescription.运费申报.name());
+            pretTransFeeRecord.setTransFeeId(transFee.getId());
+            pretTransFeeRecord.setType(ConstantEnum.ETransOrderStatisticsUserType.物流供应商.getLabel());
+            pretTransFeeRecord.setUsername(username);
+            pretTransFeeRecordRepository.save(pretTransFeeRecord);
         }
     }
 
@@ -177,6 +190,24 @@ public class PretTransFeeService extends BaseServiceImpl<PretTransFeeRepository,
             U9ReturnBo u9ReturnBo = Constants.GSON.fromJson(result, U9ReturnBo.class);
             if (u9ReturnBo.getRtnBool().equals("True")) {
                 pretTransFee.setRevokeStatus(ConstantEnum.ERevokeStatus.成功.getLabel());
+
+                // 添加一条记录
+                PretTransRecord pretTransRecord = new PretTransRecord();
+
+                pretTransRecord.setDescription(ConstantEnum.EPretTransRecordDescription.运单传ERP.name());
+                pretTransRecord.setTransPlanId(bo.getId());
+                pretTransRecord.setType(ConstantEnum.ETransOrderStatisticsUserType.系统.getLabel());
+                pretTransRecord.setUsername(bo.getUsername());
+                pretTransRecordRepository.save(pretTransRecord);
+
+                // 添加一条记录
+                PretTransFeeRecord pretTransFeeRecord = new PretTransFeeRecord();
+
+                pretTransFeeRecord.setDescription(ConstantEnum.EPretTransFeeRecordDescription.费用转ERP.name());
+                pretTransFeeRecord.setTransFeeId(pretTransFee.getId());
+                pretTransFeeRecord.setType(ConstantEnum.ETransOrderStatisticsUserType.系统.getLabel());
+                pretTransFeeRecord.setUsername(bo.getUsername());
+                pretTransFeeRecordRepository.save(pretTransFeeRecord);
             } else {
                 pretTransFee.setRevokeStatus(ConstantEnum.ERevokeStatus.失败.getLabel());
             }
@@ -185,6 +216,15 @@ public class PretTransFeeService extends BaseServiceImpl<PretTransFeeRepository,
         this.repository.save(pretTransFee);
         pretTransPlan.setTransFeeId(pretTransFee.getId());
         pretTransPlanRepository.save(pretTransPlan);
+
+        // 添加一条记录
+        PretTransFeeRecord pretTransFeeRecord = new PretTransFeeRecord();
+
+        pretTransFeeRecord.setDescription(ConstantEnum.EPretTransFeeRecordDescription.生成运输费用.name());
+        pretTransFeeRecord.setTransFeeId(pretTransFee.getId());
+        pretTransFeeRecord.setType(ConstantEnum.ETransOrderStatisticsUserType.系统.getLabel());
+        pretTransFeeRecord.setUsername(ConstantEnum.ETransOrderStatisticsUserType.系统.name());
+        pretTransFeeRecordRepository.save(pretTransFeeRecord);
     }
 
     /* *
@@ -239,6 +279,15 @@ public class PretTransFeeService extends BaseServiceImpl<PretTransFeeRepository,
             }*/
         }
         this.repository.save(pretTransFee);
+
+        // 添加一条记录
+        PretTransFeeRecord pretTransFeeRecord = new PretTransFeeRecord();
+
+        pretTransFeeRecord.setDescription(ConstantEnum.EPretTransFeeRecordDescription.运费审核.name());
+        pretTransFeeRecord.setTransFeeId(pretTransFee.getId());
+        pretTransFeeRecord.setType(ConstantEnum.ETransOrderStatisticsUserType.平台.getLabel());
+        pretTransFeeRecord.setUsername(bo.getUsername());
+        pretTransFeeRecordRepository.save(pretTransFeeRecord);
     }
 
     public void editExceptionTransFee(PretTransFeeBo bo) {
@@ -264,6 +313,16 @@ public class PretTransFeeService extends BaseServiceImpl<PretTransFeeRepository,
             }
             pretTransFeeItemRepository.saveAll(list);
             this.repository.save(pretTransFee);
+
+            // 添加一条记录
+            PretTransFeeRecord pretTransFeeRecord = new PretTransFeeRecord();
+
+            pretTransFeeRecord.setDescription(ConstantEnum.EPretTransFeeRecordDescription.费用调整.name());
+            pretTransFeeRecord.setTransFeeId(pretTransFee.getId());
+            pretTransFeeRecord.setType(ConstantEnum.ETransOrderStatisticsUserType.平台.getLabel());
+            pretTransFeeRecord.setUsername(bo.getUsername());
+            pretTransFeeRecordRepository.save(pretTransFeeRecord);
+
             PretTransPlan pretTransPlan = pretTransPlanRepository.findById(pretTransFee.getTransPlanId()).get();
 
             //组装请求参数

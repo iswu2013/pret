@@ -14,10 +14,7 @@ import com.pret.common.util.StringUtil;
 import com.pret.open.entity.*;
 import com.pret.open.entity.bo.PretTransStatementBo;
 import com.pret.open.entity.vo.PretTransStatementVo;
-import com.pret.open.repository.PretTransFeeRepository;
-import com.pret.open.repository.PretTransOrderRepository;
-import com.pret.open.repository.PretTransPlanRepository;
-import com.pret.open.repository.PretTransStatementRepository;
+import com.pret.open.repository.*;
 import com.pret.api.service.impl.BaseServiceImpl;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
@@ -49,6 +46,8 @@ public class PretTransStatementService extends BaseServiceImpl<PretTransStatemen
     private PretTransFeeRepository pretTransFeeRepository;
     @Autowired
     private PretTransPlanRepository pretTransPlanRepository;
+    @Autowired
+    private PretTransStatementRecordRepository pretTransStatementRecordRepository;
 
     public PretTransStatement genDefaultPretPickUpPlan(String no, String tail) {
         Date date = DateUtils.truncate(new Date(), Calendar.DATE);
@@ -93,6 +92,15 @@ public class PretTransStatementService extends BaseServiceImpl<PretTransStatemen
             transStatement.setCheckDate(new Date());
             transStatement.setCurrencyId(bo.getCurrencyId());
             this.repository.save(transStatement);
+
+            // 添加一条记录
+            PretTransStatementRecord pretTransFeeRecord = new PretTransStatementRecord();
+
+            pretTransFeeRecord.setDescription(ConstantEnum.EPretTransStatementDescription.创建对账单.name());
+            pretTransFeeRecord.setTransStatementId(transStatement.getId());
+            pretTransFeeRecord.setType(ConstantEnum.ETransOrderStatisticsUserType.平台.getLabel());
+            pretTransFeeRecord.setUsername(bo.getUsername());
+            pretTransStatementRecordRepository.save(pretTransFeeRecord);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -135,13 +143,22 @@ public class PretTransStatementService extends BaseServiceImpl<PretTransStatemen
      * @Author: wujingsong
      * @Date: 2019/10/4  5:48 下午
      */
-    public void confirmStatement(String ids) {
+    public void confirmStatement(String ids, String username) {
         String[] idArr = ids.split(",");
         for (String id : idArr) {
             // 对接U9
             PretTransStatement transStatement = transStatementRepository.findById(id).get();
             transStatement.setStatus(ConstantEnum.ETransStatementStatus.对账已确认.getLabel());
             transStatementRepository.save(transStatement);
+
+            // 添加一条记录
+            PretTransStatementRecord pretTransFeeRecord = new PretTransStatementRecord();
+
+            pretTransFeeRecord.setDescription(ConstantEnum.EPretTransStatementDescription.对账确认.name());
+            pretTransFeeRecord.setTransStatementId(transStatement.getId());
+            pretTransFeeRecord.setType(ConstantEnum.ETransOrderStatisticsUserType.物流供应商.getLabel());
+            pretTransFeeRecord.setUsername(username);
+            pretTransStatementRecordRepository.save(pretTransFeeRecord);
         }
     }
 

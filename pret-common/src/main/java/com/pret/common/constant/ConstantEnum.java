@@ -383,7 +383,7 @@ public class ConstantEnum {
      * @Date: 2019/9/20  8:40 下午
      */
     public enum ETransPlanStatus {
-        待起运(0), 已起运(1), 已签收(2);
+        待起运(0), 已起运(1), 已签收(2),运单传ERP(3);
 
         private ETransPlanStatus(int value) {
             this.value = value;
@@ -798,7 +798,8 @@ public class ConstantEnum {
     public enum ETransOrderStatisticsUserType {
         平台(0),
         物流供应商(1),
-        门卫(2);
+        门卫(2),
+        系统(3);
         private int label;
 
         ETransOrderStatisticsUserType(int label) {
@@ -1386,10 +1387,68 @@ public class ConstantEnum {
     public enum EPretTransRecordDescription {
         运输计划(0),
         起运确认(1),
-        客户签收(2);
+        客户签收(2),
+        运单传ERP(3);
         private int label;
 
         EPretTransRecordDescription(int label) {
+            this.setLabel(label);
+        }
+
+        //省略getter、setter方法
+        public int getLabel() {
+            return label;
+        }
+
+        public void setLabel(int label) {
+            this.label = label;
+        }
+    }
+
+    /* *
+     * 功能描述: <br>
+     * 〈〉
+     * @Param:
+            * @Return: 
+            * @Author: wujingsong
+            * @Date: 2019/12/15  10:47 上午
+     */
+    public enum EPretTransFeeRecordDescription {
+        生成运输费用(0),
+        运费申报(1),
+        运费审核(2),
+        费用调整(3),
+        费用转ERP(4);
+        private int label;
+
+        EPretTransFeeRecordDescription(int label) {
+            this.setLabel(label);
+        }
+
+        //省略getter、setter方法
+        public int getLabel() {
+            return label;
+        }
+
+        public void setLabel(int label) {
+            this.label = label;
+        }
+    }
+
+    /* *
+     * 功能描述: 对账单状态
+     * 〈〉
+     * @Param:
+            * @Return: 
+            * @Author: wujingsong
+            * @Date: 2019/12/15  10:48 上午
+     */
+    public enum EPretTransStatementDescription {
+        创建对账单(0),
+        对账确认(1);
+        private int label;
+
+        EPretTransStatementDescription(int label) {
             this.setLabel(label);
         }
 

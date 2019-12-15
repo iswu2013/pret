@@ -311,9 +311,6 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
             pretTransPlanRepository.save(pretTransPlan);
         }
 
-        // 计算费用
-        pretTransFeeService.calFee(bo);
-
         // 添加一条记录
         PretTransRecord pretTransRecord = new PretTransRecord();
 
@@ -322,6 +319,9 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
         pretTransRecord.setType(ConstantEnum.ETransOrderStatisticsUserType.物流供应商.getLabel());
         pretTransRecord.setUsername(bo.getUsername());
         pretTransRecordRepository.save(pretTransRecord);
+
+        // 计算费用
+        pretTransFeeService.calFee(bo);
     }
 
     /* *

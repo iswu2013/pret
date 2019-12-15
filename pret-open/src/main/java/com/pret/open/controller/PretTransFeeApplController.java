@@ -81,10 +81,10 @@ public class PretTransFeeApplController extends BaseManageController<PretTransFe
     }
 
     @Log("费用申报")
-    @PostMapping("/{ids}")
-    public void sign(@PathVariable String ids) throws FebsException {
+    @PostMapping("/{ids}/{username}")
+    public void sign(@PathVariable String ids, @PathVariable String username) throws FebsException {
         try {
-            this.service.transFeeAppl(ids);
+            this.service.transFeeAppl(ids, username);
         } catch (Exception e) {
             message = "费用申报失败";
             throw new FebsException(message);

@@ -1,7 +1,7 @@
 package com.pret.open.repository;
 
 import com.pret.common.repository.BaseRepository;
-import com.pret.open.entity.PretPickUpRecord;
+import com.pret.open.entity.PretTransFeeRecord;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import java.util.List;
  * @version 1.0
  * Copyright (c) 2019年 极客城堡
  */
-public interface PretPickUpRecordRepository extends BaseRepository<PretPickUpRecord> {
+public interface PretTransFeeRecordRepository extends BaseRepository<PretTransFeeRecord> {
     /* *
      * 功能描述: <br>
      * 〈〉
@@ -22,5 +22,5 @@ public interface PretPickUpRecordRepository extends BaseRepository<PretPickUpRec
             * @Author: wujingsong
             * @Date: 2019/12/9  10:41 下午
      */
-    List<PretPickUpRecord> findByPickUpPlanIdAndSOrderByLastModifiedDateDesc(String pickUpPlanId, Integer s);
+    List<PretTransFeeRecord> findByTransFeeIdAndSOrderByLastModifiedDateDesc(String transFeeId, Integer s);
 }
