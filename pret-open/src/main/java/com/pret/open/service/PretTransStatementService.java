@@ -100,6 +100,7 @@ public class PretTransStatementService extends BaseServiceImpl<PretTransStatemen
         BigDecimal totalAmount = BigDecimal.ZERO;
         String deptId = StringUtils.EMPTY;
         Float totalGw = 0.0f;
+        Float totalSignGw = 0.0f;
         for (String id : idArr) {
             PretTransFee transFee = transFeeRepository.findById(id).get();
             transFee.setTransStatementId(transStatement.getId());
@@ -108,10 +109,11 @@ public class PretTransStatementService extends BaseServiceImpl<PretTransStatemen
             totalAmount = totalAmount.add(transFee.getQuotation());
             totalGw += transFee.getQuotationCount();
 
+
             PretTransPlan pretTransPlan = transPlanRepository.findById(transFee.getTransPlanId()).get();
             pretTransPlan.setTransStatementId(transStatement.getId());
             transPlanRepository.save(pretTransPlan);
-
+            totalSignGw += pretTransPlan.getSignGw();
             if (StringUtils.isEmpty(deptId)) {
                 deptId = pretTransPlan.getDeptId();
             }

@@ -50,6 +50,12 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
     private String no;
 
     /**
+     * 运输方式
+     */
+    @ExcelField(value = "运输方式")
+    private String transModeCd;
+
+    /**
      * 供应商id
      */
     @ExcelField(value = "供应商id")

@@ -195,6 +195,7 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
             transPlan.setVenderId(venderId);
             String ShipDocLineNo = Joiner.on(".").join(lineNoList);
             transPlan.setShipDocLineNo(ShipDocLineNo);
+            transPlan.setTransModeCd(transOrder.getTransModeCd());
             transPlan.setStatus(ConstantEnum.ETransPlanStatus.待起运.getValue());
             transPlan.setGoodsNum(count);
             transPlan.setSalesCd(transOrder.getSalesCd());

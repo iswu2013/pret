@@ -154,6 +154,7 @@ public class PretTransFeeService extends BaseServiceImpl<PretTransFeeRepository,
 
         pretTransFee.setDeptId(pretTransPlan.getDeptId());
         pretTransFee.setQuotationCount(totalGw);
+        pretTransFee.setTransNo(pretTransPlan.getNo());
         pretTransFee.setStatus(ConstantEnum.EPretTransFeeStatus.待申报.getLabel());
         pretTransFee.setQuotation(quotation);
         pretTransFee.setCustomerId(pretTransPlan.getCustomerId());

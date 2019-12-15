@@ -46,6 +46,11 @@ public class PretTransFee extends VersionedAuditableIdEntity implements Serializ
     private String no;
 
     /**
+     * 运输单号
+     */
+    private String transNo;
+
+    /**
      * 供应商id
      */
     @ExcelField(value = "供应商id")

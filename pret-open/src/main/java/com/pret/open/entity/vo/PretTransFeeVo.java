@@ -30,4 +30,5 @@ public class PretTransFeeVo extends PageFormVo implements Serializable {
     private List<String> in$deptId;
     private String userId;
     private int eq$checkStatus = -1;
+    private String l$transNo;
 }
