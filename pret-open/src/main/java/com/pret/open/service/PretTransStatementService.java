@@ -109,6 +109,8 @@ public class PretTransStatementService extends BaseServiceImpl<PretTransStatemen
         String deptId = StringUtils.EMPTY;
         Float totalGw = 0.0f;
         Float totalSignGw = 0.0f;
+        Date transDatetime = null;
+        String transModeCd = StringUtils.EMPTY;
         for (String id : idArr) {
             PretTransFee transFee = transFeeRepository.findById(id).get();
             transFee.setTransStatementId(transStatement.getId());
@@ -125,10 +127,19 @@ public class PretTransStatementService extends BaseServiceImpl<PretTransStatemen
             if (StringUtils.isEmpty(deptId)) {
                 deptId = pretTransPlan.getDeptId();
             }
+            if (transDatetime == null) {
+                transDatetime = pretTransPlan.getTransDatetime();
+            }
+            if (StringUtils.isEmpty(transModeCd)) {
+                transModeCd = pretTransPlan.getTransModeCd();
+            }
         }
+        transStatement.setTransDatetime(transDatetime);
+        transStatement.setTransModeCd(transModeCd);
         transStatement.setDeptId(deptId);
         transStatement.setTotalGw(totalGw);
         transStatement.setTotalAmount(totalAmount);
+        transStatement.setTotalSignGw(totalSignGw);
         transStatement.setRealAmount(totalAmount);
         this.repository.save(transStatement);
 

@@ -46,4 +46,6 @@ public interface PretTransFeeItemRepository extends BaseRepository<PretTransFeeI
             * @Date: 2019/12/13  7:29 上午
      */
     List<PretTransFeeItem> findByExceptionFeeAndIdNotInAndS(Integer exceptionFee,List<String> idList,Integer s);
+
+    List<PretTransFeeItem> findByExceptionFeeAndS(Integer exceptionFee,Integer s);
 }

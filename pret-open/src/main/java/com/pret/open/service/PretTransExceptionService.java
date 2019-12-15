@@ -232,8 +232,7 @@ public class PretTransExceptionService extends BaseServiceImpl<PretTransExceptio
         List<PretTransFeeItem> list = CommonConstants.GSON.fromJson(bo.getPretTransFeeStr(),
                 new TypeToken<List<PretTransFeeItem>>() {
                 }.getType());
-        List<String> idList = new ArrayList<>();
-        List<PretTransFeeItem> pretTransFeeItemList = pretTransFeeItemRepository.findByExceptionFeeAndIdNotInAndS(ConstantEnum.EYesOrNo.是.getLabel(), idList, ConstantEnum.S.N.getLabel());
+        List<PretTransFeeItem> pretTransFeeItemList = pretTransFeeItemRepository.findByExceptionFeeAndS(ConstantEnum.EYesOrNo.是.getLabel(), ConstantEnum.S.N.getLabel());
         if (pretTransFeeItemList != null && pretTransFeeItemList.size() > 0) {
             for (PretTransFeeItem pretTransFeeItem : pretTransFeeItemList) {
                 pretTransFeeItemService.lDelete(pretTransFeeItem.getId());

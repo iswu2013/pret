@@ -40,6 +40,12 @@ public class PretTransPlanController extends BaseManageController<PretTransPlanS
     @Autowired
     private PretServiceRouteOriginRepository pretServiceRouteOriginRepository;
     @Autowired
+    private PretTransFeeRepository pretTransFeeRepository;
+    @Autowired
+    private PretTransFeeItemRepository pretTransFeeItemRepository;
+    @Autowired
+    private PretFeeTypeRepository pretFeeTypeRepository;
+    @Autowired
     private UserService userService;
     @Value("${upload.baseurl}")
     private String baseurl;
@@ -85,6 +91,17 @@ public class PretTransPlanController extends BaseManageController<PretTransPlanS
             item.setPretTransOrderList(pretTransOrderList);
             if (!StringUtils.isEmpty(item.getImages())) {
                 item.setImageList(StringUtil.idsStr2ListStringAddPrefix(item.getImages(), baseurl));
+            }
+            PretTransFee pretTransFee = pretTransFeeRepository.findByTransPlanIdAndS(id, ConstantEnum.S.N.getLabel());
+            if (pretTransFee != null) {
+                List<PretTransFeeItem> pretTransFeeItemList = pretTransFeeItemRepository.findByTransFeeIdAndS(pretTransFee.getId(), ConstantEnum.S.N.getLabel());
+                for (PretTransFeeItem pretTransFeeItem : pretTransFeeItemList) {
+                    if (pretTransFeeItem.getCalType() == ConstantEnum.ECalType.自动计费.getLabel()) {
+                        PretFeeType pretFeeType = pretFeeTypeRepository.findById(pretTransFeeItem.getFeeTypeId()).get();
+                        pretTransFeeItem.setPretFeeType(pretFeeType);
+                    }
+                }
+                item.setPretTransFeeItemList(pretTransFeeItemList);
             }
             return item;
         } catch (Exception e) {

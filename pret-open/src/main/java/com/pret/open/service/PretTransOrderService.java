@@ -179,6 +179,7 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
                     pretTransOrderGroup.setOwnFactoryCd(bo.getOwnFactoryCd());
                     pretTransOrderGroup.setTotalCbm(bo.getTotalCbm());
                     pretTransOrderGroup.setTotalPkg(bo.getTotalPkg());
+                    pretTransOrderGroup.setTransModeCd(bo.getTransModeCd());
                     pretTransOrderGroup.setSalesCd(bo.getSalesCd());
                     pretTransOrderGroup.setSourceCode(bo.getSourceCode());
                     this.pretTransOrderGroupRepository.save(pretTransOrderGroup);
@@ -186,6 +187,7 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
                 PretTransOrder pretTransOrder = new PretTransOrder();
                 pretTransOrder.setGw(pretMTransOrderBo.getGw());
                 pretTransOrder.setUnit(pretMTransOrderBo.getUnit());
+                pretTransOrder.setTransModeCd(bo.getTransModeCd());
                 pretTransOrder.setGoodsNum(pretMTransOrderBo.getGoodsNum());
                 pretTransOrder.setTransOrderGroupId(pretTransOrderGroup.getId());
                 pretTransOrder.setDeptId(dept.getId());
@@ -268,9 +270,19 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
             venderId = pretTransOrder.getVenderId();
         }
 
+        String serviceRouteItemId = StringUtils.EMPTY;
+
+        for (PretServiceRouteItem item : pretServiceRouteItemList) {
+            Float lowLimit = item.getLowerLimit() == null ? 0 : item.getLowerLimit();
+            if (isHeavyCargo && totalGw >= lowLimit) {
+                serviceRouteItemId = item.getId();
+            }
+        }
+
         if (StringUtils.isEmpty(venderId)) {
             for (PretServiceRouteItem item : pretServiceRouteItemList) {
                 Float lowLimit = item.getLowerLimit() == null ? 0 : item.getLowerLimit();
+
                 if (isHeavyCargo && totalGw >= lowLimit) {
                     for (PretTransOrder pretTransOrder : pretTransOrderList) {
                         pretTransOrder.setVenderId(item.getVenderId());
@@ -279,7 +291,7 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
                         this.pretTransOrderStatistics(ConstantEnum.ETransOrderStatisticsUserType.物流供应商.getLabel(), item.getVenderId());
                     }
                     transOrder.setVenderId(item.getVenderId());
-                    transOrder.setServiceRouteItemId(item.getId());
+                    transOrder.setServiceRouteItemId(serviceRouteItemId);
                     transOrder.setStatus(ConstantEnum.ETransOrderStatus.已分配.getLabel());
                     this.repository.saveAll(pretTransOrderList);
                     PretTransOrderGroup pretTransOrderGroup = pretTransOrderGroupRepository.findById(pretTransOrderList.get(0).getTransOrderGroupId()).get();

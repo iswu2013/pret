@@ -20,10 +20,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Slf4j
 @Validated
@@ -63,8 +60,10 @@ public class PretTransFeeController extends BaseManageController<PretTransFeeSer
                 PretCustomer pretCustomer = pretCustomerRepository.findById(transFee.getCustomerId()).get();
                 transFee.setPretCustomer(pretCustomer);
             }
-            PretTransPlan pretTransPlan = pretTransPlanRepository.findById(transFee.getTransPlanId()).get();
-            transFee.setPretTransPlan(pretTransPlan);
+            Optional<PretTransPlan> pretTransPlanOptional = pretTransPlanRepository.findById(transFee.getTransPlanId());
+            if (pretTransPlanOptional.isPresent()) {
+                transFee.setPretTransPlan(pretTransPlanOptional.get());
+            }
         }
         Map<String, Object> rspData = new HashMap<>();
         rspData.put("rows", page.getContent());

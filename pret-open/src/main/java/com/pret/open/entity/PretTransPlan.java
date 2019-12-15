@@ -296,6 +296,8 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
 
     private List<PretTransOrder> pretTransOrderList;
 
+    private List<PretTransFeeItem> pretTransFeeItemList;
+
     // setter and getter
 
     @Transient()
@@ -388,5 +390,12 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
         this.preDeliveryDateStr = preDeliveryDateStr;
     }
 
+    @Transient()
+    public List<PretTransFeeItem> getPretTransFeeItemList() {
+        return pretTransFeeItemList;
+    }
 
+    public void setPretTransFeeItemList(List<PretTransFeeItem> pretTransFeeItemList) {
+        this.pretTransFeeItemList = pretTransFeeItemList;
+    }
 }

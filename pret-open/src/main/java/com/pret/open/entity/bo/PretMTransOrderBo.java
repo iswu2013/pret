@@ -20,6 +20,9 @@ public class PretMTransOrderBo {
      * 运输方式
      */
     private String transMode;
+
+    private String transModeCd;
+
     /**
      * 提货日期
      */

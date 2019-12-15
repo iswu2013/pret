@@ -118,6 +118,14 @@ public class PretTransStatement extends VersionedAuditableIdEntity implements Se
 
     private String deptId;
 
+    private Date transDatetime;
+
+    /**
+     * 运输方式
+     */
+    @ExcelField(value = "运输方式")
+    private String transModeCd;
+
     private PretVender pretVender;
 
     private PretCurrency pretCurrency;
