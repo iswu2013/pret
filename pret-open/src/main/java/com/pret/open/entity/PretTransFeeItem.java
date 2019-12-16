@@ -87,6 +87,9 @@ public class PretTransFeeItem extends VersionedAuditableIdEntity implements Seri
      */
     private String feeType;
 
+    /**
+     * 签收数量
+     */
     private Float quotationCount;
 
     /**

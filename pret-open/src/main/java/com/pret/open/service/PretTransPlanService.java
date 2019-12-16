@@ -189,6 +189,11 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
                     lineNoList.add(pretTransOrder.getLineNo());
                 }
             }
+
+            PretTransOrderGroup pretTransOrderGroup = pretTransOrderGroupRepository.findById(transOrder.getTransOrderGroupId()).get();
+            pretTransOrderGroup.setStatus(ConstantEnum.ETransOrderStatus.待起运.getLabel());
+            pretTransOrderGroupRepository.save(pretTransOrderGroup);
+
             transPlan.setCustomerId(transOrder.getCustomerId());
             transPlan.setPickUpTimeStr(Constants.df2.format(transOrder.getTakeDeliveryDate()));
             transPlan.setPickUpTimeStr(Constants.df2.format(date));
@@ -200,6 +205,8 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
             transPlan.setGoodsNum(count);
             transPlan.setSalesCd(transOrder.getSalesCd());
             transPlan.setCustCd(transOrder.getCustCd());
+            transPlan.setOrgBigAreaCd(pretTransOrderGroup.getOrgBigAreaCd());
+            transPlan.setDestBigAreaCd(pretTransOrderGroup.getDestBigAreaCd());
             transPlan.setDeptId(transOrder.getDeptId());
             transPlan.setDeliveryBillNumber(transOrder.getDeliveryBillNumber());
             transPlan.setCustomerDetailAddress(transOrder.getCustomerDetailAddress());
@@ -210,10 +217,6 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
             transPlan.setGw(gw);
             transPlan.setDeliveryDate(transOrder.getDeliveryDate());
             this.repository.save(transPlan);
-
-            PretTransOrderGroup pretTransOrderGroup = pretTransOrderGroupRepository.findById(transOrder.getTransOrderGroupId()).get();
-            pretTransOrderGroup.setStatus(ConstantEnum.ETransOrderStatus.待起运.getLabel());
-            pretTransOrderGroupRepository.save(pretTransOrderGroup);
 
             // 设置提货计划状态
             String[] pickUpArr = bo.getPickUpIds().split(",");

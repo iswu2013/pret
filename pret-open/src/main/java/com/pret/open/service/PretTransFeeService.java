@@ -22,6 +22,7 @@ import com.pret.open.entity.bo.U9ReturnBo;
 import com.pret.open.entity.vo.PretTransFeeVo;
 import com.pret.open.repository.*;
 import com.pret.api.service.impl.BaseServiceImpl;
+import com.pret.open.u9.tempuri.*;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,6 +64,8 @@ public class PretTransFeeService extends BaseServiceImpl<PretTransFeeRepository,
     private PretTransOrderGroupRepository pretTransOrderGroupRepository;
     @Autowired
     private PretTransFeeRecordRepository pretTransFeeRecordRepository;
+    @Autowired
+    private PretVenderRepository pretVenderRepository;
     @Value("${u9.ulr}")
     private String u9Url;
 
@@ -178,17 +181,41 @@ public class PretTransFeeService extends BaseServiceImpl<PretTransFeeRepository,
 
         // 对接U9
         //组装请求参数
-        JSONObject map = new JSONObject();
-        map.put("ShipDocNo", pretTransPlan.getDeliveryBillNumber());
-        map.put("ShipDocLineNo", pretTransPlan.getShipDocLineNo());
-        map.put("ShipQty", pretTransPlan.getGw());
-        map.put("ConfirmedQty", pretTransPlan.getGw());
-        map.put("MBDTDocNo", pretTransPlan.getNo());
-        String params = map.toString();
+        MBToERPService mbToERPService = new MBToERPService();
+        ObjectFactory objectFactory = new ObjectFactory();
+        MBToERPServiceSoap mbToERPServiceSoap = mbToERPService.getMBToERPServiceSoap();
+        ArrayOfDTDoc arrayOfDTDoc = objectFactory.createArrayOfDTDoc();
+        DTDoc dtDoc = new DTDoc();
+        dtDoc.setTransType(pretTransPlan.getTransModeCd());
+        PretVender pretVender = pretVenderRepository.findById(pretTransPlan.getVenderId()).get();
+        dtDoc.setSupplier(pretVender.getCode());
+        dtDoc.setMBDocNo(pretTransPlan.getNo());
+
+
+        ArrayOfDTLines arrayOfDTLines = new ArrayOfDTLines();
+        Integer docType = null;
+        List<PretTransOrder> pretTransOrderList = pretTransOrderRepository.findByTransPlanIdAndS(pretTransPlan.getId(), ConstantEnum.S.N.getLabel());
+        if (pretTransOrderList != null && pretTransOrderList.size() > 0) {
+            List<DTLines> dtLinesList = new ArrayList<>();
+            for (PretTransOrder pretTransOrder : pretTransOrderList) {
+                DTLines dtLines = new DTLines();
+                dtLines.setConfirmedQty(new BigDecimal(pretTransOrder.getSignCount()));
+                dtLines.setShipQty(new BigDecimal(pretTransOrder.getGw()));
+                dtLines.setU9DocLineNo(Integer.parseInt(pretTransOrder.getLineNo()));
+                dtLines.setU9DocNo(pretTransOrder.getDeliveryBillNumber());
+                dtLinesList.add(dtLines);
+                arrayOfDTLines.getDTLines().add(dtLines);
+                if (docType == null) {
+                    docType = pretTransOrder.getTransType();
+                }
+            }
+        }
+        dtDoc.setDocType(String.valueOf(docType));
+        dtDoc.setDTLines(arrayOfDTLines);
+        arrayOfDTDoc.getDTDoc().add(dtDoc);
         try {
-            String result = HttpUtil.sendPost(u9Url + "/services/UFIDA.U9.Cust.MBToERPSv.IOpDeliveryTaskSv.svc", params);
-            U9ReturnBo u9ReturnBo = Constants.GSON.fromJson(result, U9ReturnBo.class);
-            if (u9ReturnBo.getRtnBool().equals("True")) {
+            RetMsg retMsg = mbToERPServiceSoap.createDeliveryTask(arrayOfDTDoc, null, null);
+            if (retMsg.getMessageType().equals("True")) {
                 pretTransFee.setRevokeStatus(ConstantEnum.ERevokeStatus.成功.getLabel());
 
                 // 添加一条记录
@@ -257,26 +284,6 @@ public class PretTransFeeService extends BaseServiceImpl<PretTransFeeRepository,
                 item.setTransFeeId(pretTransFee.getId());
             }
             pretTransFeeItemRepository.saveAll(list);
-            PretTransPlan pretTransPlan = pretTransPlanRepository.findById(pretTransFee.getTransPlanId()).get();
-
-            //组装请求参数
-          /*  JSONObject map = new JSONObject();
-            map.put("ShipDocNo", pretTransPlan.getDeliveryBillNumber());
-            map.put("ShipDocLineNo", pretTransPlan.getShipDocLineNo());
-            map.put("ShipQty", pretTransPlan.getGw());
-            map.put("ConfirmedQty", pretTransPlan.getGw());
-            map.put("MBDTDocNo", pretTransPlan.getNo());
-            String params = map.toString();
-            try {
-                String result = HttpUtil.sendPost(u9Url + "/services/UFIDA.U9.Cust.MBToERPUpdate.IDTUpdateFeeSv.svc", params);
-                U9ReturnBo u9ReturnBo = Constants.GSON.fromJson(result, U9ReturnBo.class);
-                if (u9ReturnBo.getRtnBool().equals("True")) {
-                    pretTransFee.setRevokeStatus(ConstantEnum.ERevokeStatus.成功.getLabel());
-                } else {
-                    pretTransFee.setRevokeStatus(ConstantEnum.ERevokeStatus.失败.getLabel());
-                }
-            } catch (Exception e) {
-            }*/
         }
         this.repository.save(pretTransFee);
 
@@ -288,6 +295,47 @@ public class PretTransFeeService extends BaseServiceImpl<PretTransFeeRepository,
         pretTransFeeRecord.setType(ConstantEnum.ETransOrderStatisticsUserType.平台.getLabel());
         pretTransFeeRecord.setUsername(bo.getUsername());
         pretTransFeeRecordRepository.save(pretTransFeeRecord);
+
+        MBToERPService mbToERPService = new MBToERPService();
+        ObjectFactory objectFactory = new ObjectFactory();
+        MBToERPServiceSoap mbToERPServiceSoap = mbToERPService.getMBToERPServiceSoap();
+
+        PretTransPlan pretTransPlan = pretTransPlanRepository.findById(pretTransFee.getTransPlanId()).get();
+
+        ArrayOfFeeDoc arrayOfFeeDoc = objectFactory.createArrayOfFeeDoc();
+        FeeDoc feeDoc = new FeeDoc();
+        feeDoc.setMBDocNo(pretTransPlan.getNo());
+
+        ArrayOfFeeLines arrayOfDTLines = new ArrayOfFeeLines();
+        PretFeeType pretFeeType = pretFeeTypeRepository.findByNameAndS(ConstantEnum.EFeeTypeName.运费.name(), ConstantEnum.S.N.getLabel());
+        List<PretTransFeeItem> pretTransFeeItems = pretTransFeeItemRepository.findByTransFeeIdAndFeeTypeIdAndS(bo.getId(), pretFeeType.getId(), ConstantEnum.S.N.getLabel());
+        BigDecimal bigDecimal = BigDecimal.ZERO;
+        for (PretTransFeeItem transFee : pretTransFeeItems) {
+            bigDecimal = bigDecimal.add(transFee.getQuotation());
+        }
+        FeeLines dtLines = new FeeLines();
+        dtLines.setConfirmedQty(new BigDecimal(pretTransPlan.getSignGw()));
+        dtLines.setFee(bigDecimal);
+        dtLines.setStartArea(pretTransPlan.getOrgBigAreaCd());
+        dtLines.setEndArea(pretTransPlan.getDestBigAreaCd());
+        dtLines.setFeeType("物流费");
+        arrayOfDTLines.getFeeLines().add(dtLines);
+
+        pretTransFeeItems = pretTransFeeItemRepository.findByTransFeeIdAndFeeTypeIdNotAndS(bo.getId(), pretFeeType.getId(), ConstantEnum.S.N.getLabel());
+        bigDecimal = BigDecimal.ZERO;
+        for (PretTransFeeItem transFee : pretTransFeeItems) {
+            bigDecimal = bigDecimal.add(transFee.getQuotation());
+        }
+        dtLines = new FeeLines();
+        dtLines.setConfirmedQty(new BigDecimal(pretTransPlan.getSignGw()));
+        dtLines.setFee(bigDecimal);
+        dtLines.setStartArea(pretTransPlan.getOrgBigAreaCd());
+        dtLines.setEndArea(pretTransPlan.getDestBigAreaCd());
+        dtLines.setFeeType("杂费");
+        arrayOfDTLines.getFeeLines().add(dtLines);
+        feeDoc.setFeeLines(arrayOfDTLines);
+
+        mbToERPServiceSoap.updateDeliveryTaskFee(arrayOfFeeDoc, null, null);
     }
 
     public void editExceptionTransFee(PretTransFeeBo bo) {
@@ -322,27 +370,6 @@ public class PretTransFeeService extends BaseServiceImpl<PretTransFeeRepository,
             pretTransFeeRecord.setType(ConstantEnum.ETransOrderStatisticsUserType.平台.getLabel());
             pretTransFeeRecord.setUsername(bo.getUsername());
             pretTransFeeRecordRepository.save(pretTransFeeRecord);
-
-            PretTransPlan pretTransPlan = pretTransPlanRepository.findById(pretTransFee.getTransPlanId()).get();
-
-            //组装请求参数
-            JSONObject map = new JSONObject();
-            map.put("ShipDocNo", pretTransPlan.getDeliveryBillNumber());
-            map.put("ShipDocLineNo", pretTransPlan.getShipDocLineNo());
-            map.put("ShipQty", pretTransPlan.getGw());
-            map.put("ConfirmedQty", pretTransPlan.getGw());
-            map.put("MBDTDocNo", pretTransPlan.getNo());
-            String params = map.toString();
-            try {
-                String result = HttpUtil.sendPost(u9Url + "/services/UFIDA.U9.Cust.MBToERPUpdate.IDTUpdateFeeSv.svc", params);
-                U9ReturnBo u9ReturnBo = Constants.GSON.fromJson(result, U9ReturnBo.class);
-                if (u9ReturnBo.getRtnBool().equals("True")) {
-                    pretTransFee.setRevokeStatus(ConstantEnum.ERevokeStatus.成功.getLabel());
-                } else {
-                    pretTransFee.setRevokeStatus(ConstantEnum.ERevokeStatus.失败.getLabel());
-                }
-            } catch (Exception e) {
-            }
         }
     }
 }

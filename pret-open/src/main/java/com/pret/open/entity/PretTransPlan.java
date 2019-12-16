@@ -98,7 +98,7 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
     /**
      * 拒收数量
      */
-    private Float rejectGw;
+    private Float rejectGw = 0f;
 
 
     /**
@@ -277,6 +277,16 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
      * 实际提货日期
      */
     private String startTimeStr;
+
+    /**
+     * 起运地大区(U9 Code)
+     */
+    private String orgBigAreaCd;
+
+    /**
+     * 客户地址所在大区(U9 Code)
+     */
+    private String destBigAreaCd;
 
     private PretVender pretVender;
 

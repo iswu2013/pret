@@ -211,4 +211,5 @@ public class P1000000Vo extends ReqBody {
      * 总件数.(加总明细档中的goodsNum)
      */
     private Integer totalPkg;
+
 }

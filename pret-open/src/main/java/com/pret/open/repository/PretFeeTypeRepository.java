@@ -12,4 +12,13 @@ import com.pret.open.entity.PretFeeType;
  * Copyright (c) 2019年 极客城堡
  */
 public interface PretFeeTypeRepository extends BaseRepository<PretFeeType> {
+    /* *
+     * 功能描述: <br>
+     * 〈〉
+     * @Param: [name, s]
+            * @Return: com.pret.open.entity.PretFeeType
+            * @Author: wujingsong
+            * @Date: 2019/12/16  7:44 下午
+     */
+    PretFeeType findByNameAndS(String name,Integer s);
 }

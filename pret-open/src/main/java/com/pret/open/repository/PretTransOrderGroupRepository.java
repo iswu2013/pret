@@ -25,4 +25,14 @@ public interface PretTransOrderGroupRepository extends BaseRepository<PretTransO
      * @Date: 2019/12/4  5:43 上午
      */
     PretTransOrderGroup findByDeliveryBillNumberAndS(String deliveryBillNumber, Integer s);
+
+    /* *
+     * 功能描述: <br>
+     * 〈〉
+     * @Param: [sourceCode, s]
+            * @Return: com.pret.open.entity.PretTransOrderGroup
+            * @Author: wujingsong
+            * @Date: 2019/12/16  10:28 上午
+     */
+    PretTransOrderGroup findBySourceCodeAndS(String sourceCode,Integer s);
 }

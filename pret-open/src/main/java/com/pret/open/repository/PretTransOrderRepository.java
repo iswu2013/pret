@@ -113,6 +113,11 @@ public interface PretTransOrderRepository extends BaseRepository<PretTransOrder>
      */
     List<PretTransOrder> findByAddressIdInAndDeliveryDateBetweenAndStatusInAndS(List<String> addressList, Date start, Date end, List<Integer> statusList, Integer s);
 
+    List<PretTransOrder> findByAddressIdInAndTakeDeliveryDateBetweenAndDeliveryDateBetweenAndStatusInAndS(List<String> addressList, Date startT, Date endT, Date start, Date end, List<Integer> statusList, Integer s);
+
+
+    List<PretTransOrder> findByAddressIdAndTakeDeliveryDateBetweenAndDeliveryDateBetweenAndStatusInAndS(String addressId, Date startT, Date endT, Date start, Date end, List<Integer> statusList, Integer s);
+
     /* *
      * 功能描述: <br>
      * 〈〉
@@ -125,14 +130,24 @@ public interface PretTransOrderRepository extends BaseRepository<PretTransOrder>
 
     @Query("select sum (kilo) from PretTransOrder where transOrderGroupId=?1 ")
     Float sumKiloByTransOrderGroupId(String transOrderGroupId);
-    
+
     /* *
      * 功能描述: <br>
      * 〈〉
      * @Param: [idList, s]
-            * @Return: java.util.List<com.pret.open.entity.PretTransOrder>
-            * @Author: wujingsong
-            * @Date: 2019/12/11  9:19 上午
+     * @Return: java.util.List<com.pret.open.entity.PretTransOrder>
+     * @Author: wujingsong
+     * @Date: 2019/12/11  9:19 上午
      */
-    List<PretTransOrder> findByIdInAndS(List<String> idList,Integer s);
+    List<PretTransOrder> findByIdInAndS(List<String> idList, Integer s);
+
+    /* *
+     * 功能描述: <br>
+     * 〈〉
+     * @Param: [groupId, s]
+            * @Return: com.pret.open.entity.PretTransOrder
+            * @Author: wujingsong
+            * @Date: 2019/12/16  10:23 上午
+     */
+    PretTransOrder findTop1ByTransOrderGroupIdAndS(String groupId,Integer s);
 }

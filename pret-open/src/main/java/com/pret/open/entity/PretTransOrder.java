@@ -244,7 +244,7 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
     /**
      * 数据来源
      */
-    private String dataSource;
+    private Integer dataSource;
 
     /**
      * 0重货1泡货
@@ -291,6 +291,11 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
      * 用户u9code
      */
     private String custCd;
+
+    /**
+     *
+     */
+    private Integer transType;
 
     /**
      * 供应商

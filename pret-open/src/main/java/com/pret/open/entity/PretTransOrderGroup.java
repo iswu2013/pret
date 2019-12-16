@@ -168,7 +168,7 @@ public class PretTransOrderGroup extends VersionedAuditableIdEntity implements S
     /**
      * 数据来源
      */
-    private String dataSource;
+    private Integer dataSource;
 
     /**
      * 0重货1泡货
@@ -213,6 +213,9 @@ public class PretTransOrderGroup extends VersionedAuditableIdEntity implements S
      * 总件数.(加总明细档中的goodsNum)
      */
     private Integer totalPkg;
+
+    private Integer transType;
+
 
     /**
      * 供应商
