@@ -212,4 +212,5 @@ public class P1000000Vo extends ReqBody {
      */
     private Integer totalPkg;
 
+
 }

@@ -109,4 +109,14 @@ public class PretMTransOrderBo {
     private Integer dataSource;
 
     private Integer transType;
+
+    /**
+     * 起运地大区(U9 Code)
+     */
+    private String orgBigAreaCd;
+
+    /**
+     * 客户地址所在大区(U9 Code)
+     */
+    private String destBigAreaCd;
 }

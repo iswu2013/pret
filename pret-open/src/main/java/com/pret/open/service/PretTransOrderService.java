@@ -112,6 +112,8 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
         bo.setDataSource(res.getDataSource());
         bo.setSourceCode(res.getSourceCode());
         bo.setTransType(res.getTransType());
+        bo.setOrgBigAreaCd(res.getOrgBigAreaCd());
+        bo.setDestBigAreaCd(res.getDestBigAreaCd());
         try {
             bo.setDeliveryDate(DateUtils.parseDate(res.getReqDlvDatetime(), "yyyy-MM-dd HH:mm:ss"));
             bo.setTakeDeliveryDate(DateUtils.parseDate(res.getReqPickupDatetime(), "yyyy-MM-dd HH:mm:ss"));
@@ -189,6 +191,8 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
                     pretTransOrderGroup.setSourceCode(bo.getSourceCode());
                     pretTransOrderGroup.setDataSource(bo.getDataSource());
                     pretTransOrderGroup.setTransType(bo.getTransType());
+                    pretTransOrderGroup.setOrgBigAreaCd(bo.getOrgBigAreaCd());
+                    pretTransOrderGroup.setDestBigAreaCd(bo.getDestBigAreaCd());
                     this.pretTransOrderGroupRepository.save(pretTransOrderGroup);
                 }
                 PretTransOrder pretTransOrder = new PretTransOrder();
