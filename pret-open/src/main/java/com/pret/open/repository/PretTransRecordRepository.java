@@ -24,4 +24,6 @@ public interface PretTransRecordRepository extends BaseRepository<PretTransRecor
      * @Date: 2019/12/9  10:16 下午
      */
     List<PretTransRecord> findByTransPlanIdAndS(String transPlanId, Integer s);
+
+    List<PretTransRecord> findByTransPlanIdAndSOrderByLastModifiedDateDesc(String transPlanId, Integer s);
 }

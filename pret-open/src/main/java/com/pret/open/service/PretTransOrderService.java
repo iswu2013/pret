@@ -114,6 +114,9 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
         bo.setTransType(res.getTransType());
         bo.setOrgBigAreaCd(res.getOrgBigAreaCd());
         bo.setDestBigAreaCd(res.getDestBigAreaCd());
+        bo.setPickupAddr(res.getPickupAddr());
+        bo.setPickupAttn(res.getPickupAttn());
+        bo.setPickupTel(res.getPickupTel());
         try {
             bo.setDeliveryDate(DateUtils.parseDate(res.getReqDlvDatetime(), "yyyy-MM-dd HH:mm:ss"));
             bo.setTakeDeliveryDate(DateUtils.parseDate(res.getReqPickupDatetime(), "yyyy-MM-dd HH:mm:ss"));
@@ -193,6 +196,9 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
                     pretTransOrderGroup.setTransType(bo.getTransType());
                     pretTransOrderGroup.setOrgBigAreaCd(bo.getOrgBigAreaCd());
                     pretTransOrderGroup.setDestBigAreaCd(bo.getDestBigAreaCd());
+                    pretTransOrderGroup.setPickupAddr(bo.getPickupAddr());
+                    pretTransOrderGroup.setPickupAttn(bo.getPickupAttn());
+                    pretTransOrderGroup.setPickupTel(bo.getPickupTel());
                     this.pretTransOrderGroupRepository.save(pretTransOrderGroup);
                 }
                 PretTransOrder pretTransOrder = new PretTransOrder();
@@ -208,6 +214,9 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
                 pretTransOrder.setCustCd(bo.getCustCd());
                 pretTransOrder.setTransType(bo.getTransType());
                 pretTransOrder.setSignGw(pretTransOrder.getGw());
+                pretTransOrder.setPickupAddr(bo.getPickupAddr());
+                pretTransOrder.setPickupAttn(bo.getPickupAttn());
+                pretTransOrder.setPickupTel(bo.getPickupTel());
 
                 BeanUtilsExtended.copyProperties(pretTransOrder, pretMTransOrderBo);
                 pretTransOrder.setRemark(pretMTransOrderBo.getRemark());

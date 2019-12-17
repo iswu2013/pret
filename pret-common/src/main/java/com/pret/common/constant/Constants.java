@@ -192,6 +192,8 @@ public class Constants {
 
     public static FastDateFormat df_yyyyMMddHHmmssSSS = FastDateFormat.getInstance("yyyyMMddHHmmssSSS");
 
+    public static FastDateFormat df_yyyyMMddHHmmss = FastDateFormat.getInstance("yyyyMMddHHmmss");
+
     /**
      * 服务器端ip
      */

@@ -195,8 +195,7 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
             pretTransOrderGroupRepository.save(pretTransOrderGroup);
 
             transPlan.setCustomerId(transOrder.getCustomerId());
-            transPlan.setPickUpTimeStr(Constants.df2.format(transOrder.getTakeDeliveryDate()));
-            transPlan.setPickUpTimeStr(Constants.df2.format(date));
+            transPlan.setPickUpDate(transOrder.getTakeDeliveryDate());
             transPlan.setVenderId(venderId);
             String ShipDocLineNo = Joiner.on(".").join(lineNoList);
             transPlan.setShipDocLineNo(ShipDocLineNo);
@@ -215,9 +214,9 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
             transPlan.setServiceRouteOriginAddress(transOrder.getServiceRouteOriginAddress());
             transPlan.setServiceRouteItemId(transOrder.getServiceRouteItemId());
             transPlan.setGw(gw);
+            transPlan.setTransType(transOrder.getTransType());
             transPlan.setDeliveryDate(transOrder.getDeliveryDate());
-            this.repository.save(transPlan);
-
+            Date pickUpDate = null;
             // 设置提货计划状态
             String[] pickUpArr = bo.getPickUpIds().split(",");
             for (String pickUp : pickUpArr) {
@@ -225,6 +224,10 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
                 pretPickUpPlan.setStatus(ConstantEnum.EPretPickUpPlanStatus.提货完成.getLabel());
                 pretPickUpPlan.setEndTime(date);
                 pretPickUpPlanRepository.save(pretPickUpPlan);
+
+                if (pickUpDate == null) {
+                    pickUpDate = pretPickUpPlan.getStartTime();
+                }
 
                 // 添加一条记录
                 PretPickUpRecord pretTransRecord = new PretPickUpRecord();
@@ -242,6 +245,9 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
                 // 生产顺丰单号
                 this.genThirdMail(transPlan);
             }
+
+            transPlan.setPickUpDate(pickUpDate);
+            this.repository.save(transPlan);
 
 
             // 添加一条记录
@@ -381,6 +387,12 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
             } else {
                 pretTransPlan.setPreDeliveryDateStr(StringUtils.EMPTY);
             }
+
+            if (pretTransPlan.getPickUpTime() != null) {
+                pretTransPlan.setPickUpTimeStr(Constants.df2.format(pretTransPlan.getPickUpTime()));
+            } else {
+                pretTransPlan.setPickUpTimeStr(StringUtils.EMPTY);
+            }
         }
         retVo.setData(list);
 
@@ -403,32 +415,43 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
             PretVender pretVender = pretVenderRepository.findById(pretTransPlan.getVenderId()).get();
             pretTransPlan.setPretVender(pretVender);
             if (pretTransPlan.getTransDatetime() != null) {
-                pretTransPlan.setTransDatetimeStr(Constants.df2.format(pretTransPlan.getTransDatetime()));
+                pretTransPlan.setTransDatetimeStr(Constants.dfyyyyMMdd.format(pretTransPlan.getTransDatetime()));
             } else {
                 pretTransPlan.setTransDatetimeStr("暂未起运");
             }
 
             if (pretTransPlan.getDeliveryDate() != null) {
-                pretTransPlan.setDeliveryDateStr(Constants.df2.format(pretTransPlan.getDeliveryDate()));
+                pretTransPlan.setDeliveryDateStr(Constants.dfyyyyMMdd.format(pretTransPlan.getDeliveryDate()));
             } else {
                 pretTransPlan.setDeliveryDateStr(StringUtils.EMPTY);
             }
 
             if (pretTransPlan.getPreDeliveryDate() != null) {
-                pretTransPlan.setPreDeliveryDateStr(Constants.df2.format(pretTransPlan.getPreDeliveryDate()));
+                pretTransPlan.setPreDeliveryDateStr(Constants.dfyyyyMMdd.format(pretTransPlan.getPreDeliveryDate()));
             } else {
                 pretTransPlan.setPreDeliveryDateStr(StringUtils.EMPTY);
+            }
+            if (pretTransPlan.getPickUpTime() != null) {
+                pretTransPlan.setPickUpTimeStr(Constants.dfyyyyMMdd.format(pretTransPlan.getPickUpTime()));
+            } else {
+                pretTransPlan.setPickUpTimeStr(StringUtils.EMPTY);
+            }
+
+            if (pretTransPlan.getPickUpDate() != null) {
+                pretTransPlan.setPickUpDateStr(Constants.dfyyyyMMdd.format(pretTransPlan.getPickUpDate()));
+            } else {
+                pretTransPlan.setPickUpDateStr(StringUtils.EMPTY);
             }
         }
 
         retVo.setData(pretTransPlan);
 
-        List<PretTransRecord> list = pretTransRecordRepository.findByTransPlanIdAndS(pretTransPlan.getId(), ConstantEnum.S.N.getLabel());
+        List<PretTransRecord> list = pretTransRecordRepository.findByTransPlanIdAndSOrderByLastModifiedDateDesc(pretTransPlan.getId(), ConstantEnum.S.N.getLabel());
         List<PretSteps> pretStepsList = new ArrayList<>();
         for (PretTransRecord pretTransRecord : list) {
             PretSteps pretSteps = new PretSteps();
             pretSteps.setDesc(StringUtils.EMPTY);
-            pretSteps.setText(pretTransRecord.getDescription() + " " + Constants.df2.format(pretTransRecord.getCreateTimeLong()));
+            pretSteps.setText(pretTransRecord.getDescription() + " " + Constants.dfyyyyMMdd.format(pretTransRecord.getCreateTimeLong()));
             pretStepsList.add(pretSteps);
         }
         retVo.setStepsList(pretStepsList);
@@ -614,7 +637,7 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
 
         querySql = new StringBuffer(con);
         query = em.createNativeQuery(querySql.toString());
-        query.setFirstResult(res.getPage() * res.getRows());
+        query.setFirstResult((res.getPage() - 1) * res.getRows());
         query.setMaxResults(res.getRows());
         List<Object[]> objectList = query.getResultList();
         if (objectList != null && objectList.size() > 0) {

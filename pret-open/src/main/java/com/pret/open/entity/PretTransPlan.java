@@ -237,6 +237,8 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
      */
     private String images;
 
+    private Integer transType;
+
     private List<String> imageList;
 
     /**
@@ -268,6 +270,7 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
 
     private String preDeliveryDateStr;
 
+    private Date pickUpTime;
     /**
      * 要求提货日期
      */
@@ -287,6 +290,13 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
      * 客户地址所在大区(U9 Code)
      */
     private String destBigAreaCd;
+
+    /**
+     * 实际提货日期
+     */
+    private Date pickUpDate;
+
+    private String pickUpDateStr;
 
     private PretVender pretVender;
 
@@ -407,5 +417,23 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
 
     public void setPretTransFeeItemList(List<PretTransFeeItem> pretTransFeeItemList) {
         this.pretTransFeeItemList = pretTransFeeItemList;
+    }
+
+    @Transient()
+    public String getPickUpDateStr() {
+        return pickUpDateStr;
+    }
+
+    public void setPickUpDateStr(String pickUpDateStr) {
+        this.pickUpDateStr = pickUpDateStr;
+    }
+
+    @Transient()
+    public Date getPickUpTime() {
+        return pickUpTime;
+    }
+
+    public void setPickUpTime(Date pickUpTime) {
+        this.pickUpTime = pickUpTime;
     }
 }

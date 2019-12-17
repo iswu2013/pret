@@ -119,4 +119,10 @@ public class PretMTransOrderBo {
      * 客户地址所在大区(U9 Code)
      */
     private String destBigAreaCd;
+
+    private String pickupAddr;
+
+    private String pickupAttn;
+
+    private String pickupTel;
 }

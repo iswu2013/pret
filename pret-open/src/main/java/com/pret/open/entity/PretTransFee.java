@@ -102,7 +102,7 @@ public class PretTransFee extends VersionedAuditableIdEntity implements Serializ
      * 状态(待审核,通过,不通过)
      */
     @ExcelField(value = "状态", writeConverterExp = "0=待审核,1=通过,2=不通过")
-    private Integer status;
+    private Integer status = ConstantEnum.EPretTransFeeStatus.待申报.getLabel();
 
     /**
      * 是否对过账

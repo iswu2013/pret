@@ -15,20 +15,20 @@ import java.util.Map;
 
 @Service
 public class BaseService {
+    @Autowired
+    private RequestLogService requestLogService;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BaseManageService.class);
     @Autowired
     private JopFilterChain jopFilterChain;
 
-    public ResBody handle(HttpServletRequest httpServletRequest, ReqBody reqBody)
-            throws IOException, InterruptedException {
-
+    public ResBody handle(HttpServletRequest httpServletRequest, ReqBody reqBody) {
         LOGGER.info(httpServletRequest.getMethod());
         LOGGER.info(getParameters(httpServletRequest));
         // 过滤
         reqBody = jopFilterChain.doFilter(reqBody, httpServletRequest);
-        ResBody responseBody = null;
-        responseBody = executeTask(httpServletRequest, reqBody);
+        ResBody responseBody = executeTask(httpServletRequest, reqBody);
+        requestLogService.updateRequestLog(responseBody);
 
         return responseBody;
     }

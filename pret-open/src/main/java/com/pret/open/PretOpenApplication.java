@@ -14,11 +14,11 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableCircuitBreaker
 @SpringBootApplication
 @EnableScheduling
-@EntityScan("com.pret.open.entity")
+@EntityScan(basePackages = {"com.pret.open.entity", "com.pret.api.entity"})
 @EnableFeignClients
 @EnableDiscoveryClient
 @ComponentScan("com.pret")
-@EnableJpaRepositories(value = "com.pret.open.repository")
+@EnableJpaRepositories(basePackages = {"com.pret.open.repository", "com.pret.api.repository"})
 @EnableTransactionManagement
 public class PretOpenApplication {
     public static void main(String[] args) {

@@ -150,4 +150,14 @@ public interface PretTransOrderRepository extends BaseRepository<PretTransOrder>
             * @Date: 2019/12/16  10:23 上午
      */
     PretTransOrder findTop1ByTransOrderGroupIdAndS(String groupId,Integer s);
+
+    /* *
+     * 功能描述: <br>
+     * 〈〉
+     * @Param: [deliveryBillNumber, s]
+            * @Return: java.util.List<com.pret.open.entity.PretTransOrder>
+            * @Author: wujingsong
+            * @Date: 2019/12/17  7:47 上午
+     */
+    List<PretTransOrder> findByDeliveryBillNumberAndS(String deliveryBillNumber,Integer s);
 }

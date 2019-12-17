@@ -135,6 +135,7 @@ public class PretTransFeeService extends BaseServiceImpl<PretTransFeeRepository,
         pretTransPlan.setSignUsername(bo.getUsername());
         pretTransPlan.setSignDatetime(bo.getSignDatetime());
         Float totalGw = pretTransPlan.getGw();
+        Float signGw = pretTransPlan.getSignGw();
 
         // 生成费用
         PretTransFee pretTransFee = this.genDefaultPretTransFee(null, null);
@@ -153,8 +154,8 @@ public class PretTransFeeService extends BaseServiceImpl<PretTransFeeRepository,
                     unitPrice = pretQuotationItem.getQuotation();
                 }
                 if (pretFeeType.getType() == ConstantEnum.ECostType.量.getLabel()) {
-                    pretTransFeeItem.setQuotation(pretQuotationItem.getQuotation().multiply(new BigDecimal(totalGw)).setScale(2, BigDecimal.ROUND_HALF_UP));
-                    pretTransFeeItem.setQuotationCount(totalGw);
+                    pretTransFeeItem.setQuotation(pretQuotationItem.getQuotation().multiply(new BigDecimal(signGw)).setScale(2, BigDecimal.ROUND_HALF_UP));
+                    pretTransFeeItem.setQuotationCount(signGw);
                     pretTransFeeItem.setUnitPrice(pretQuotationItem.getQuotation());
                     quotation = quotation.add(pretTransFeeItem.getQuotation());
                 } else {
@@ -318,7 +319,7 @@ public class PretTransFeeService extends BaseServiceImpl<PretTransFeeRepository,
         dtLines.setFee(bigDecimal);
         dtLines.setStartArea(pretTransPlan.getOrgBigAreaCd());
         dtLines.setEndArea(pretTransPlan.getDestBigAreaCd());
-        dtLines.setFeeType("物流费");
+        //dtLines.setFeeType("物流费");
         arrayOfDTLines.getFeeLines().add(dtLines);
 
         pretTransFeeItems = pretTransFeeItemRepository.findByTransFeeIdAndFeeTypeIdNotAndS(bo.getId(), pretFeeType.getId(), ConstantEnum.S.N.getLabel());
@@ -331,7 +332,7 @@ public class PretTransFeeService extends BaseServiceImpl<PretTransFeeRepository,
         dtLines.setFee(bigDecimal);
         dtLines.setStartArea(pretTransPlan.getOrgBigAreaCd());
         dtLines.setEndArea(pretTransPlan.getDestBigAreaCd());
-        dtLines.setFeeType("杂费");
+       // dtLines.setFeeType("杂费");
         arrayOfDTLines.getFeeLines().add(dtLines);
         feeDoc.setFeeLines(arrayOfDTLines);
 

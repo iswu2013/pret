@@ -1,9 +1,8 @@
 package com.pret.open.vo.res;
 
-import com.pret.api.vo.ResBody;
+import com.pret.open.entity.PretTransOrder;
 import lombok.Data;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,6 +13,9 @@ import java.util.List;
  * Copyright (c) 2019年 极客城堡
  */
 @Data
-public class PR8000007Vo extends ResBody {
-    private List<PR8000007ItemVo> itemVoList = new ArrayList<>();
+public class PR8000007ItemVo  {
+    private String deliveryBillNumber;
+    private String customerName;
+
+    private List<PretTransOrder> pretTransOrderList;
 }

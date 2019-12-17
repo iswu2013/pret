@@ -383,7 +383,7 @@ public class ConstantEnum {
      * @Date: 2019/9/20  8:40 下午
      */
     public enum ETransPlanStatus {
-        待起运(0), 已起运(1), 已签收(2),运单传ERP(3);
+        待起运(0), 已起运(1), 已签收(2), 运单传ERP(3);
 
         private ETransPlanStatus(int value) {
             this.value = value;
@@ -1409,9 +1409,9 @@ public class ConstantEnum {
      * 功能描述: <br>
      * 〈〉
      * @Param:
-            * @Return: 
-            * @Author: wujingsong
-            * @Date: 2019/12/15  10:47 上午
+     * @Return:
+     * @Author: wujingsong
+     * @Date: 2019/12/15  10:47 上午
      */
     public enum EPretTransFeeRecordDescription {
         生成运输费用(0),
@@ -1439,9 +1439,9 @@ public class ConstantEnum {
      * 功能描述: 对账单状态
      * 〈〉
      * @Param:
-            * @Return: 
-            * @Author: wujingsong
-            * @Date: 2019/12/15  10:48 上午
+     * @Return:
+     * @Author: wujingsong
+     * @Date: 2019/12/15  10:48 上午
      */
     public enum EPretTransStatementDescription {
         创建对账单(0),
@@ -1517,20 +1517,20 @@ public class ConstantEnum {
         /**
          * 理货员
          */
-        headquarters(0);
-        private int label;
+        headquarters("00");
+        private String label;
 
-        EDeptCode(int label) {
+        EDeptCode(String label) {
             this.setLabel(label);
         }
 
         //省略getter、setter方法
 
-        public int getLabel() {
+        public String getLabel() {
             return label;
         }
 
-        public void setLabel(int label) {
+        public void setLabel(String label) {
             this.label = label;
         }
     }
@@ -1587,5 +1587,37 @@ public class ConstantEnum {
         }
     }
 
+    public enum ETransType {
+        /**
+         * 正常发货
+         */
+        正常发货(0),
+        /**
+         * 库间调拨
+         */
+        库间调拨(1),
+        /**
+         * 退货
+         */
+        退货(2),
+        /**
+         * 测试数据
+         */
+        测试数据(9);
+        private int label;
 
+        ETransType(int label) {
+            this.setLabel(label);
+        }
+
+        //省略getter、setter方法
+
+        public int getLabel() {
+            return label;
+        }
+
+        public void setLabel(int label) {
+            this.label = label;
+        }
+    }
 }

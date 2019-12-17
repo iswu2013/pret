@@ -2,6 +2,7 @@ package com.pret.api.filter.impl;
 
 import com.pret.api.info.TypeUserInfo;
 import com.pret.api.info.UserInfo;
+import com.pret.api.service.RequestLogService;
 import com.pret.api.session.ClothingSession;
 import com.pret.api.vo.ReqBody;
 import com.pret.api.feign.IUserService;
@@ -41,6 +42,8 @@ import java.util.Map;
  */
 @Service
 public class AccessFormatFilter extends BaseContext implements JopFilter {
+    @Autowired
+    private RequestLogService requestLogService;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AccessFormatFilter.class);
     private static final String TAG = "AccessFormatFilter";
@@ -67,11 +70,12 @@ public class AccessFormatFilter extends BaseContext implements JopFilter {
 
         Map<String, String[]> paramtersOld = httpServletRequest.getParameterMap();
         Map<String, String[]> paramters = new HashMap<String, String[]>();
+        String queryString = "";
         for (String key : paramtersOld.keySet()) {
             String[] param = paramtersOld.get(key);
             if (param[0].length() > 0) {
-                // vallidateXss(param);
                 paramters.put(key, param);
+                queryString += key + "=" + param[0] + "&";
             }
         }
         String bodyStr = "";
@@ -99,6 +103,9 @@ public class AccessFormatFilter extends BaseContext implements JopFilter {
                 BeanUtilsExtended.copyProperties(newBody, reqBody);
             }
         }
+
+        requestLogService.createRequestLog(newBody, httpServletRequest.getRemoteAddr(), bodyStr,
+                queryString);
 
         String token = httpServletRequest.getHeader("openid");
         newBody.setToken(token);

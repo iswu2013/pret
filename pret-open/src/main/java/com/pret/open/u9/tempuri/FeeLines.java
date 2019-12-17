@@ -47,9 +47,6 @@ public class FeeLines {
     protected BigDecimal fee;
     @XmlElement(name = "EndArea")
     protected String endArea;
-    @XmlElement(name = "FeeType")
-    protected String feeType;
-
 
     /**
      * Gets the value of the startArea property.
@@ -147,11 +144,4 @@ public class FeeLines {
         this.endArea = value;
     }
 
-    public String getFeeType() {
-        return feeType;
-    }
-
-    public void setFeeType(String feeType) {
-        this.feeType = feeType;
-    }
 }

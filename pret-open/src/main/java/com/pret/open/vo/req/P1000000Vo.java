@@ -212,5 +212,10 @@ public class P1000000Vo extends ReqBody {
      */
     private Integer totalPkg;
 
+    private String pickupAddr;
+
+    private String pickupAttn;
+
+    private String pickupTel;
 
 }

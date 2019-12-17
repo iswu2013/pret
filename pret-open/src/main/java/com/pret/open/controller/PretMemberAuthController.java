@@ -104,7 +104,7 @@ public class PretMemberAuthController extends BaseManageController<PretMemberAut
                     user.setOpenid(old.getOpenid());
                     user.setPassword(MD5Util.encrypt(user.getUsername(), User.DEFAULT_PASSWORD));
                     if (old.getUserType() == ConstantEnum.EUserType.业务员.getLabel()) {
-                        Dept dept = deptRepository.findByU9codeAndS(ConstantEnum.EDeptCode.headquarters.name(), ConstantEnum.S.N.getLabel());
+                        Dept dept = deptRepository.findByU9codeAndS(ConstantEnum.EDeptCode.headquarters.getLabel(), ConstantEnum.S.N.getLabel());
                         user.setDeptId(dept.getId());
                     } else {
                         user.setDeptId(old.getDeptId());

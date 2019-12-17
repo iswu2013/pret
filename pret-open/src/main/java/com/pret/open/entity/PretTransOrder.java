@@ -297,6 +297,12 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
      */
     private Integer transType;
 
+    private String pickupAddr;
+
+    private String pickupAttn;
+
+    private String pickupTel;
+
     /**
      * 供应商
      */

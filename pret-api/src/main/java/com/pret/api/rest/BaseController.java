@@ -3,6 +3,7 @@ package com.pret.api.rest;
 import com.pret.api.filter.BaseContext;
 import com.pret.api.handler.JopHandler;
 import com.pret.api.service.BaseService;
+import com.pret.api.service.RequestLogService;
 import com.pret.api.session.UserContext;
 import com.pret.api.vo.ErrorResponseBody;
 import com.pret.api.vo.ReqBody;
@@ -39,6 +40,8 @@ public class BaseController {
     private BaseService baseService;
     @Autowired
     protected BaseContext baseContext;
+    @Autowired
+    private RequestLogService requestLogService;
 
     private static List<String> filterError = Arrays
             .asList(new String[]{Constants.PARAM_ERROR, Constants.METHOD_ERROR});
@@ -53,8 +56,8 @@ public class BaseController {
             requestBody.setIgnoreToken(false);
         }
 
-        if(unBodyMap != null) {
-            if(unBodyMap.containsKey(requestBody.getMethod())) {
+        if (unBodyMap != null) {
+            if (unBodyMap.containsKey(requestBody.getMethod())) {
                 requestBody.setIgnoreBody(true);
             }
         }
@@ -70,6 +73,9 @@ public class BaseController {
     public ResBody handleIOException(BusinessException e) {
         LOGGER.warn(e.getMessage(), e);
         ErrorResponseBody responseBody = ErrorResponseBody.createErrorResponseBody(e.getCode(), e.getMessage());
+        if (!filterError.contains(e.getCode())) {
+            requestLogService.updateRequestLog(responseBody);
+        }
         return responseBody;
     }
 
@@ -80,6 +86,7 @@ public class BaseController {
         LOGGER.error("调用接口失败", e);
         ErrorResponseBody responseBody = ErrorResponseBody.createErrorResponseBody(Constants.SYSTEM_ERROR,
                 Constants.S_SYSTEM_ERROR);
+        requestLogService.updateRequestLog(responseBody);
         return responseBody;
     }
 }

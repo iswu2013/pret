@@ -406,7 +406,18 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
         PretMemberAuth pretMemberAuth = pretMemberAuthRepository.findByOpenidAndS(res.getOpenid(), ConstantEnum.S.N.getLabel());
         PretPickUpPlanVo vo = new PretPickUpPlanVo();
         if (res.getStockUpStatus() == ConstantEnum.EPretPickUpPlantockUpStatus.待备货.getLabel()) {
-            vo.setEq$deptId(pretMemberAuth.getDeptId());
+            Dept dept = deptRepository.findById(pretMemberAuth.getDeptId()).get();
+            if (dept.getU9code().equals(ConstantEnum.EDeptCode.headquarters.getLabel())) {
+                List<String> ds = new ArrayList<>();
+                List<Dept> deptList = deptRepository.findByS(ConstantEnum.S.N.getLabel());
+                for (Dept d : deptList) {
+                    ds.add(d.getId());
+                }
+                vo.setIn$deptId(ds);
+            } else {
+                vo.setEq$deptId(pretMemberAuth.getDeptId());
+            }
+
             vo.setEq$status(ConstantEnum.EPretPickUpPlanStatus.待提货.getLabel());
         } else {
             vo.setEq$tallyClerkId(pretMemberAuth.getId());
@@ -451,6 +462,19 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
             pretPickUpPlan.setPretDriver(pretDriver);
         }
         List<PretTransOrder> pretTransOrderList = pretTransOrderRepository.findByPickUpPlanIdAndS(res.getId(), ConstantEnum.S.N.getLabel());
+        List<String> deliveryBillNumberList = new ArrayList<>();
+        for (PretTransOrder p : pretTransOrderList) {
+            if (!deliveryBillNumberList.contains(p.getDeliveryBillNumber())) {
+                PR8000007ItemVo itemVo = new PR8000007ItemVo();
+                itemVo.setCustomerName(p.getCustomerName());
+                itemVo.setDeliveryBillNumber(p.getDeliveryBillNumber());
+                itemVo.setPretTransOrderList(pretTransOrderRepository.findByDeliveryBillNumberAndS(p.getDeliveryBillNumber(), ConstantEnum.S.N.getLabel()));
+                deliveryBillNumberList.add(p.getDeliveryBillNumber());
+                retVo.getItemVoList().add(itemVo);
+            }
+        }
+
+
         pretPickUpPlan.setTransOrderList(pretTransOrderList);
 
 
@@ -471,9 +495,13 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
         PretMemberAuth pretMemberAuth = pretMemberAuthRepository.findByOpenidAndS(res.getOpenid(), ConstantEnum.S.N.getLabel());
 
         PretPickUpPlan pretPickUpPlan = pretPickUpPlanRepository.findByQrcodeAndS(res.getCode(), ConstantEnum.S.N.getLabel());
-//        if (!pretMemberAuth.getDeptId().equals(pretPickUpPlan.getDeptId())) {
-//            throw new BusinessException(OpenBEEnum.E90000006.name(), OpenBEEnum.E90000006.getMsg());
-//        }
+        Dept dept = deptRepository.findById(pretMemberAuth.getDeptId()).get();
+        if (!dept.getU9code().equals(ConstantEnum.EDeptCode.headquarters.getLabel())) {
+            if (!pretMemberAuth.getDeptId().equals(pretPickUpPlan.getDeptId())) {
+                throw new BusinessException(OpenBEEnum.E90000006.name(), OpenBEEnum.E90000006.getMsg());
+            }
+        }
+        
         pretPickUpPlan.setPickUpTimeStr(Constants.df2.format(pretPickUpPlan.getPickUpTime()));
         PretDriver pretDriver = pretDriverRepository.findById(pretPickUpPlan.getDriverId()).get();
         pretPickUpPlan.setPretDriver(pretDriver);

@@ -216,6 +216,11 @@ public class PretTransOrderGroup extends VersionedAuditableIdEntity implements S
 
     private Integer transType;
 
+    private String pickupAddr;
+
+    private String pickupAttn;
+
+    private String pickupTel;
 
     /**
      * 供应商
