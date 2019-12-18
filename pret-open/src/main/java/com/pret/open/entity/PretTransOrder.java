@@ -295,7 +295,7 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
     /**
      *
      */
-    private Integer transType;
+    private Integer transType = ConstantEnum.ETransType.正常发货.getLabel();
 
     private String pickupAddr;
 

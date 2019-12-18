@@ -89,6 +89,11 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
     public ResBody order(P1000000Vo res) {
         PR1000000Vo retVo = new PR1000000Vo();
 
+        PretTransOrderGroup pretTransOrderGroup = pretTransOrderGroupRepository.findBySourceCodeAndS(res.getSourceCode(), ConstantEnum.S.N.getLabel());
+        if (pretTransOrderGroup != null) {
+            throw new BusinessException(OpenBEEnum.E90000008.name(), OpenBEEnum.E90000008.getMsg());
+        }
+
         // 客户
         PretMTransOrderBo bo = new PretMTransOrderBo();
         PretAddress pretAddress = null;
@@ -143,6 +148,9 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
             pretServiceRouteOrigin.setCode(res.getPickupFactoryCd());
             pretServiceRouteOrigin.setAddressId(address.getId());
             pretServiceRouteOrigin.setFullAddress(fullAddress);
+            pretServiceRouteOrigin.setLinkPhone(res.getPickupTel());
+            pretServiceRouteOrigin.setLinkMan(res.getPickupAttn());
+            pretServiceRouteOrigin.setDetail(res.getPickupAddr());
             pretServiceRouteOriginRepository.save(pretServiceRouteOrigin);
             bo.setServiceRouteOriginId(pretServiceRouteOrigin.getId());
         }

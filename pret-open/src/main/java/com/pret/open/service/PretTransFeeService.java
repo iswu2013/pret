@@ -214,32 +214,35 @@ public class PretTransFeeService extends BaseServiceImpl<PretTransFeeRepository,
         dtDoc.setDocType(String.valueOf(docType));
         dtDoc.setDTLines(arrayOfDTLines);
         arrayOfDTDoc.getDTDoc().add(dtDoc);
-        try {
-            RetMsg retMsg = mbToERPServiceSoap.createDeliveryTask(arrayOfDTDoc, null, null);
-            if (retMsg.getMessageType().equals("True")) {
-                pretTransFee.setRevokeStatus(ConstantEnum.ERevokeStatus.成功.getLabel());
+        if (pretTransPlan.getTransType() == ConstantEnum.ETransType.测试数据.getLabel()) {
+            try {
+                RetMsg retMsg = mbToERPServiceSoap.createDeliveryTask(arrayOfDTDoc, null, null);
+                if (retMsg.getMessageType().equals("True")) {
+                    pretTransFee.setRevokeStatus(ConstantEnum.ERevokeStatus.成功.getLabel());
 
-                // 添加一条记录
-                PretTransRecord pretTransRecord = new PretTransRecord();
+                    // 添加一条记录
+                    PretTransRecord pretTransRecord = new PretTransRecord();
 
-                pretTransRecord.setDescription(ConstantEnum.EPretTransRecordDescription.运单传ERP.name());
-                pretTransRecord.setTransPlanId(bo.getId());
-                pretTransRecord.setType(ConstantEnum.ETransOrderStatisticsUserType.系统.getLabel());
-                pretTransRecord.setUsername(bo.getUsername());
-                pretTransRecordRepository.save(pretTransRecord);
+                    pretTransRecord.setDescription(ConstantEnum.EPretTransRecordDescription.运单传ERP.name());
+                    pretTransRecord.setTransPlanId(bo.getId());
+                    pretTransRecord.setType(ConstantEnum.ETransOrderStatisticsUserType.系统.getLabel());
+                    pretTransRecord.setUsername(bo.getUsername());
+                    pretTransRecordRepository.save(pretTransRecord);
 
-                // 添加一条记录
-                PretTransFeeRecord pretTransFeeRecord = new PretTransFeeRecord();
+                    // 添加一条记录
+                    PretTransFeeRecord pretTransFeeRecord = new PretTransFeeRecord();
 
-                pretTransFeeRecord.setDescription(ConstantEnum.EPretTransFeeRecordDescription.费用转ERP.name());
-                pretTransFeeRecord.setTransFeeId(pretTransFee.getId());
-                pretTransFeeRecord.setType(ConstantEnum.ETransOrderStatisticsUserType.系统.getLabel());
-                pretTransFeeRecord.setUsername(bo.getUsername());
-                pretTransFeeRecordRepository.save(pretTransFeeRecord);
-            } else {
-                pretTransFee.setRevokeStatus(ConstantEnum.ERevokeStatus.失败.getLabel());
+                    pretTransFeeRecord.setDescription(ConstantEnum.EPretTransFeeRecordDescription.费用转ERP.name());
+                    pretTransFeeRecord.setTransFeeId(pretTransFee.getId());
+                    pretTransFeeRecord.setType(ConstantEnum.ETransOrderStatisticsUserType.系统.getLabel());
+                    pretTransFeeRecord.setUsername(bo.getUsername());
+                    pretTransFeeRecordRepository.save(pretTransFeeRecord);
+                } else {
+                    pretTransFee.setRevokeStatus(ConstantEnum.ERevokeStatus.失败.getLabel());
+                }
+            } catch (Exception e) {
+
             }
-        } catch (Exception e) {
         }
         this.repository.save(pretTransFee);
         pretTransPlan.setTransFeeId(pretTransFee.getId());
@@ -332,11 +335,13 @@ public class PretTransFeeService extends BaseServiceImpl<PretTransFeeRepository,
         dtLines.setFee(bigDecimal);
         dtLines.setStartArea(pretTransPlan.getOrgBigAreaCd());
         dtLines.setEndArea(pretTransPlan.getDestBigAreaCd());
-       // dtLines.setFeeType("杂费");
+        // dtLines.setFeeType("杂费");
         arrayOfDTLines.getFeeLines().add(dtLines);
         feeDoc.setFeeLines(arrayOfDTLines);
 
-        mbToERPServiceSoap.updateDeliveryTaskFee(arrayOfFeeDoc, null, null);
+        if (pretTransPlan.getTransType() == ConstantEnum.ETransType.测试数据.getLabel()) {
+            mbToERPServiceSoap.updateDeliveryTaskFee(arrayOfFeeDoc, null, null);
+        }
     }
 
     public void editExceptionTransFee(PretTransFeeBo bo) {
