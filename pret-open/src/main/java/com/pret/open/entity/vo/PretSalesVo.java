@@ -15,7 +15,7 @@ import java.io.Serializable;
  */
 @Data
 public class PretSalesVo extends PageFormVo implements Serializable {
-    private String l$name;
+    private String l$salesNm;
     private long bw$createTimeLong;
     private long createTimeLongEnd;
     private int eq$adds = 0;
