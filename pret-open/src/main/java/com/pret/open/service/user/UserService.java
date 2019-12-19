@@ -148,6 +148,7 @@ public class UserService extends BaseServiceImpl<UserRepository, User, UserVo> {
         retVo.setUser(user);
         this.repository.save(user);
 
+        retVo.setSerialNo(res.getSerialNo());
         return retVo;
     }
 
@@ -172,6 +173,7 @@ public class UserService extends BaseServiceImpl<UserRepository, User, UserVo> {
         pretMemberAuth.setOpenid(res.getOpenId());
         pretMemberAuthRepository.save(pretMemberAuth);
 
+        retVo.setSerialNo(res.getSerialNo());
         return retVo;
     }
 

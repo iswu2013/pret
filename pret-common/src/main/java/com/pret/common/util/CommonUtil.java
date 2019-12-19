@@ -49,19 +49,19 @@ public class CommonUtil {
         System.out.println(MD5Util.SharedMD5Util().Md5(str));
     }
 
-    public static String generateSign(String body, String timestamp, String appSecrets) {
+    public static String generateSign(Map<String, Object> param, String timestamp, String appSecrets) {
         StringBuilder sb = new StringBuilder();
-        Map params = JSONObject.parseObject(JSON.toJSONString(body), Map.class);
-        if (params != null && params.size() > 0) {
-            List<String> keys = new ArrayList<>(params.keySet());
-            Collections.sort(keys);
-            for (String key : keys) {
-                Object value = params.get(key);
-                if (value != null) {
-                    sb.append(key).append("=").append(value).append("&");
-                }
+        Collection<String> keyset = param.keySet();
+        List<String> list = new ArrayList<String>(keyset);
+        // 对key键值按字典升序排序
+        Collections.sort(list);
+        for (int i = 0; i < list.size(); i++) {
+            Object value = param.get(list.get(i));
+            if (value != null) {
+                sb.append(list.get(i)).append("=").append(value).append("&");
             }
         }
+
         sb.append(timestamp).append("&").append(appSecrets);
         return DigestUtils.md5Hex(sb.toString());
     }

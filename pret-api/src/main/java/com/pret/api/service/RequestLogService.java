@@ -9,6 +9,7 @@ import com.pret.api.vo.ResBody;
 import com.pret.common.constant.Constants;
 import com.pret.common.exception.BusinessException;
 import org.apache.commons.beanutils.BeanUtilsBean;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class RequestLogService {
     @Autowired
     private RequestLogRepository requestLogRepository;
 
-    public void     createRequestLog(ReqBody requestBody, String ip, String body, String url) {
+    public void createRequestLog(ReqBody requestBody, String ip, String body, String url, String serialNo) {
         RequestLog requestLog = new RequestLog();
         try {
             BeanUtilsBean.getInstance().copyProperties(requestLog, requestBody);
@@ -40,6 +41,7 @@ public class RequestLogService {
         requestLog.setBody(body);
         requestLog.setUrl(url);
         requestLog.setIp(ip);
+        requestLog.setSerialNo(serialNo);
         try {
             requestLog.setRequestTimestamp(requestBody.getTimestamp());
         } catch (Exception e) {
@@ -52,13 +54,15 @@ public class RequestLogService {
 
     public void updateRequestLog(ErrorResponseBody responseBody) {
         try {
-            RequestLog requestLog = requestLogRepository
-                    .findById(((RequestLog) ClothingSession.get("requestLog")).getId()).get();
-            if (null == requestLog) {
-                LOGGER.error("日志未保存" + responseBody);
-                return;
+            if (!StringUtils.isEmpty(responseBody.getSerialNo())) {
+                RequestLog requestLog = requestLogRepository
+                        .findBySerialNo(responseBody.getSerialNo());
+                if (null == requestLog) {
+                    LOGGER.error("日志未保存" + responseBody);
+                    return;
+                }
+                requestLog.setResponseTimestamp(Constants.df2.format(new Date()));
             }
-            requestLog.setResponseTimestamp(Constants.df2.format(new Date()));
         } catch (Exception e) {
             LOGGER.error("更新请求日志失败：{}", e);
         }
@@ -68,11 +72,15 @@ public class RequestLogService {
 
     public void updateRequestLog(ResBody responseBody) {
         try {
-            RequestLog requestLog = (RequestLog) ClothingSession.get("requestLog");
-            requestLog.setResponseContent(responseBody.toString());
-            requestLog.setStatus(Constants.SUCCUSS_CODE);
-            requestLog.setResponseTimestamp(Constants.df2.format(new Date()));
-            requestLogRepository.save(requestLog);
+            if (!StringUtils.isEmpty(responseBody.getSerialNo())) {
+                RequestLog requestLog = requestLogRepository.findBySerialNo(responseBody.getSerialNo());
+                if (requestLog != null) {
+                    requestLog.setResponseContent(responseBody.toString());
+                    requestLog.setStatus(Constants.SUCCUSS_CODE);
+                    requestLog.setResponseTimestamp(Constants.df2.format(new Date()));
+                    requestLogRepository.save(requestLog);
+                }
+            }
         } catch (Exception e) {
             LOGGER.error("更新请求日志失败：{}", e);
         }

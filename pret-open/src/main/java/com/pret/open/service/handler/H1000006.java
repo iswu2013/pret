@@ -44,6 +44,7 @@ public class H1000006 extends BaseContext implements JopHandler {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        retVo.setSerialNo(res.getSerialNo());
         return retVo;
     }
 }

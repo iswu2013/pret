@@ -62,6 +62,7 @@ public class DeptService extends BaseServiceImpl<DeptRepository, Dept, DeptVo> {
             }
         }
 
+        retVo.setSerialNo(res.getSerialNo());
         return retVo;
     }
 }

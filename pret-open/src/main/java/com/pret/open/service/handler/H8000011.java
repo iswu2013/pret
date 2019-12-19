@@ -49,6 +49,7 @@ public class H8000011 extends BaseContext implements JopHandler {
             retVo.setAuthStatus(ConstantEnum.EAuthStatus.不存在.getLabel());
         }
 
+        retVo.setSerialNo(res.getSerialNo());
         return retVo;
     }
 }

@@ -10,4 +10,5 @@ import com.pret.common.repository.BaseRepository;
  * @author wujinsong
  */
 public interface RequestLogRepository extends BaseRepository<RequestLog> {
+    RequestLog findBySerialNo(String serialNo);
 }

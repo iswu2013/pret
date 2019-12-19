@@ -213,6 +213,7 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
         List<PretPickUpPlan> list = this.page(vo).getContent();
         retVo.setData(list);
 
+        retVo.setSerialNo(res.getSerialNo());
         return retVo;
     }
 
@@ -230,6 +231,7 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
         PretPickUpPlan pretPickUpPlan = this.repository.findById(res.getId()).get();
         retVo.setData(pretPickUpPlan);
 
+        retVo.setSerialNo(res.getSerialNo());
         return retVo;
     }
 
@@ -268,7 +270,7 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
             pretTransOrderRepository.save(pretTransOrder);
         }
 
-
+        retVo.setSerialNo(res.getSerialNo());
         return retVo;
     }
 
@@ -301,6 +303,7 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
 
         pretPickUpRecordRepository.save(pretTransRecord);
 
+        retVo.setSerialNo(res.getSerialNo());
         return retVo;
     }
 
@@ -333,6 +336,7 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
 
         pretPickUpRecordRepository.save(pretTransRecord);
 
+        retVo.setSerialNo(res.getSerialNo());
         return retVo;
     }
 
@@ -436,6 +440,7 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
         }
         retVo.setData(list);
 
+        retVo.setSerialNo(res.getSerialNo());
         return retVo;
     }
 
@@ -477,7 +482,7 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
 
         pretPickUpPlan.setTransOrderList(pretTransOrderList);
 
-
+        retVo.setSerialNo(res.getSerialNo());
         return retVo;
     }
 
@@ -507,6 +512,8 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
         pretPickUpPlan.setPretDriver(pretDriver);
 
         retVo.setData(pretPickUpPlan);
+
+        retVo.setSerialNo(res.getSerialNo());
         return retVo;
     }
 }

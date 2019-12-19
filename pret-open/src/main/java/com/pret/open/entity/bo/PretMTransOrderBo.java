@@ -106,6 +106,16 @@ public class PretMTransOrderBo {
 
     private String salesCd;
 
+    /**
+     * 业务员名称
+     */
+    private String salesNm;
+
+    /**
+     * 业务员联系方式
+     */
+    private String salesTel;
+
     private Integer dataSource;
 
     private Integer transType;

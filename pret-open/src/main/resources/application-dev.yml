@@ -103,15 +103,18 @@ sender:
   checkword: tjOl5JBdOb4TyaVunWo2YlQTspmUmVv3
 
 sf:
-  url: http://bsp-oisp.sf-express.com/bsp-oisp/sfexpressService
+  url: http://hda2-sit-ms.sf-express.com/manager/open/order/v2/createAndReturnDetail
+  jcontact: '上海普利特'
+  jtel: '13764488418'
+  jaddress: '上海市青浦工业园区新业路558号'
+  appSecret: 'SLYJBc83Xu5l2qRWZoNCzVzZpQbVDNP7H'
+  appCode: 'PLT001'
+  storeId: 'PLT001'
+
+
 
 upload:
   baseurl: https://tms.pret.com.cn/
   path: C:\services\html\
 u9:
   ulr: http://116.228.74.171/u9/
-
-kd:
-  appSecret: ade
-  appCode: code1
-  deptName: '上海普利特'

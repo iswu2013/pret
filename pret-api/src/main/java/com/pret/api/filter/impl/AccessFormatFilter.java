@@ -34,6 +34,7 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * 访问过滤器，生成requestBody
@@ -103,9 +104,9 @@ public class AccessFormatFilter extends BaseContext implements JopFilter {
                 BeanUtilsExtended.copyProperties(newBody, reqBody);
             }
         }
-
+        String serialNo = UUID.randomUUID().toString().replace("-", "");
         requestLogService.createRequestLog(newBody, httpServletRequest.getRemoteAddr(), bodyStr,
-                queryString);
+                queryString, serialNo);
 
         String token = httpServletRequest.getHeader("openid");
         newBody.setToken(token);
@@ -113,6 +114,7 @@ public class AccessFormatFilter extends BaseContext implements JopFilter {
         newBody.setSessionId(httpServletRequest.getSession().getId());
         newBody.setHandler(requestBody.getHandler());
         newBody.setReqBody(requestBody.getReqBody());
+        newBody.setSerialNo(serialNo);
         TypeUserInfo user = null;
         if (!StringUtils.isEmpty(token)) {
             TypeUserInfo userInfo = new TypeUserInfo();

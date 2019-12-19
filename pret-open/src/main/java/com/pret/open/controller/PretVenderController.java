@@ -22,6 +22,7 @@ import com.pret.open.repository.user.RoleRepository;
 import com.pret.open.repository.user.UserConfigRepository;
 import com.pret.open.repository.user.UserRepository;
 import com.pret.open.repository.user.UserRoleRepository;
+import com.pret.open.service.PretRouteService;
 import com.pret.open.service.PretServiceRouteOriginUserService;
 import com.pret.open.service.PretTransOrderService;
 import com.pret.open.service.PretVenderService;
@@ -68,6 +69,9 @@ public class PretVenderController extends BaseManageController<PretVenderService
     private PretServiceRouteOriginRepository pretServiceRouteOriginRepository;
     @Autowired
     private PretServiceRouteOriginUserService pretServiceRouteOriginUserService;
+    @Autowired
+    private PretRouteService pretRouteService;
+
     @PersistenceContext
     private EntityManager em;
 
@@ -152,13 +156,15 @@ public class PretVenderController extends BaseManageController<PretVenderService
                     for (PretTransOrder pretTransOrder : pretTransOrderList) {
                         pretTransOrder.setTransOrderGroupId(item);
                         pretTransOrder.setVenderId(id);
-                        pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.已分配.getLabel());
-                        pretTransOrderRepository.save(pretTransOrder);
+                        //pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.已分配.getLabel());
+                        //pretTransOrderRepository.save(pretTransOrder);
+                        //pretTransOrderService.pretTransOrderStatistics(ConstantEnum.ETransOrderStatisticsUserType.物流供应商.getLabel(), pretTransOrder.getVenderId());
 
-                        pretTransOrderService.pretTransOrderStatistics(ConstantEnum.ETransOrderStatisticsUserType.物流供应商.getLabel(), pretTransOrder.getVenderId());
+                        pretRouteService.genThirdMail(pretTransOrder);
                     }
                 }
             }
+
         } catch (Exception e) {
             message = "查看失败";
             throw new FebsException(message);

@@ -66,6 +66,11 @@ public class P1000000Vo extends ReqBody {
     private String salesNm;
 
     /**
+     * 业务员联系方式
+     */
+    private String salesTel;
+
+    /**
      * PRET提货工厂Code(U9 Code)
      */
     private String pickupFactoryCd;

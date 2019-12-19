@@ -80,6 +80,8 @@ public class ReqBody<H extends JopHandler> implements Serializable {
      */
     private boolean isIgnoreBody = false;
 
+    private String serialNo;
+
     @NotBlank
     @Size(max = 100)
     public String getMethod() {
@@ -253,5 +255,13 @@ public class ReqBody<H extends JopHandler> implements Serializable {
 
     public void setOpenid(String openid) {
         this.openid = openid;
+    }
+
+    public String getSerialNo() {
+        return serialNo;
+    }
+
+    public void setSerialNo(String serialNo) {
+        this.serialNo = serialNo;
     }
 }

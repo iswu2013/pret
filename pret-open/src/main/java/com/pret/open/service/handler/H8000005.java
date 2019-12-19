@@ -87,6 +87,7 @@ public class H8000005 extends BaseContext implements JopHandler {
         userInfo = baseContext.getiUserService().findByOpenid(userInfo);
         retVo.setData(userInfo);
 
+        retVo.setSerialNo(res.getSerialNo());
         return retVo;
     }
 }

@@ -157,12 +157,15 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
 
         bo.setTransMode(res.getTransModeCd());
         bo.setTransModeNm(res.getTranModeNm());
+        BeanUtilsExtended.copyProperties(bo, res);
 
         List<PretMTransOrderItemBo> list = CommonConstants.GSON.fromJson(res.getItemListStr(),
                 new TypeToken<List<PretMTransOrderItemBo>>() {
                 }.getType());
 
         this.pretTransOrderAdd(bo, list);
+
+        retVo.setSerialNo(res.getSerialNo());
         return retVo;
     }
 
@@ -194,38 +197,14 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
                 } else {
                     pretTransOrderGroup = new PretTransOrderGroup();
                     pretTransOrderGroup.setDeptId(dept.getId());
-                    pretTransOrderGroup.setOwnFactoryCd(bo.getOwnFactoryCd());
-                    pretTransOrderGroup.setTotalCbm(bo.getTotalCbm());
-                    pretTransOrderGroup.setTotalPkg(bo.getTotalPkg());
-                    pretTransOrderGroup.setTransModeCd(bo.getTransModeCd());
-                    pretTransOrderGroup.setSalesCd(bo.getSalesCd());
-                    pretTransOrderGroup.setSourceCode(bo.getSourceCode());
-                    pretTransOrderGroup.setDataSource(bo.getDataSource());
-                    pretTransOrderGroup.setTransType(bo.getTransType());
-                    pretTransOrderGroup.setOrgBigAreaCd(bo.getOrgBigAreaCd());
-                    pretTransOrderGroup.setDestBigAreaCd(bo.getDestBigAreaCd());
-                    pretTransOrderGroup.setPickupAddr(bo.getPickupAddr());
-                    pretTransOrderGroup.setPickupAttn(bo.getPickupAttn());
-                    pretTransOrderGroup.setPickupTel(bo.getPickupTel());
+                    BeanUtilsExtended.copyProperties(pretTransOrderGroup, bo);
                     this.pretTransOrderGroupRepository.save(pretTransOrderGroup);
                 }
                 PretTransOrder pretTransOrder = new PretTransOrder();
-                pretTransOrder.setGw(pretMTransOrderBo.getGw());
-                pretTransOrder.setUnit(pretMTransOrderBo.getUnit());
-                pretTransOrder.setTransModeCd(bo.getTransModeCd());
-                pretTransOrder.setGoodsNum(pretMTransOrderBo.getGoodsNum());
                 pretTransOrder.setTransOrderGroupId(pretTransOrderGroup.getId());
                 pretTransOrder.setDeptId(dept.getId());
-                pretTransOrder.setSourceCode(bo.getSourceCode());
-                pretTransOrder.setOwnFactoryCd(bo.getOwnFactoryCd());
-                pretTransOrder.setSalesCd(bo.getSalesCd());
-                pretTransOrder.setCustCd(bo.getCustCd());
-                pretTransOrder.setTransType(bo.getTransType());
                 pretTransOrder.setSignGw(pretTransOrder.getGw());
-                pretTransOrder.setPickupAddr(bo.getPickupAddr());
-                pretTransOrder.setPickupAttn(bo.getPickupAttn());
-                pretTransOrder.setPickupTel(bo.getPickupTel());
-
+                BeanUtilsExtended.copyProperties(pretTransOrder, bo);
                 BeanUtilsExtended.copyProperties(pretTransOrder, pretMTransOrderBo);
                 pretTransOrder.setRemark(pretMTransOrderBo.getRemark());
                 if (StringUtils.isEmpty(bo.getCustomerName())) {
@@ -448,6 +427,7 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
 
         this.pretTransOrderGroupService.lDelete(pretTransOrderGroup.getId());
 
+        retVo.setSerialNo(res.getSerialNo());
         return retVo;
     }
 

@@ -27,6 +27,8 @@ public class ResBody implements Serializable {
 
     private Object ext;
 
+    private String serialNo;
+
     public String getStatus() {
         return status;
     }
@@ -58,5 +60,13 @@ public class ResBody implements Serializable {
 
     public void setExt(Object ext) {
         this.ext = ext;
+    }
+
+    public String getSerialNo() {
+        return serialNo;
+    }
+
+    public void setSerialNo(String serialNo) {
+        this.serialNo = serialNo;
     }
 }

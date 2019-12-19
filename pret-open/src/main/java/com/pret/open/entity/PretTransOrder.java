@@ -63,6 +63,11 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
     private String salesNm;
 
     /**
+     * 业务员名称
+     */
+    private String salesTel;
+
+    /**
      * 供应商id
      */
     @ExcelField(value = "供应商id")

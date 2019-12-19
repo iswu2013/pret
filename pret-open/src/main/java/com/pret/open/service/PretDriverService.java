@@ -40,6 +40,7 @@ public class PretDriverService extends BaseServiceImpl<PretDriverRepository, Pre
         PretDriver pretDriver = this.repository.findByOpenidAndS(res.getOpenid(), ConstantEnum.S.N.getLabel());
         retVo.setData(pretDriver);
 
+        retVo.setSerialNo(res.getSerialNo());
         return retVo;
     }
 }
