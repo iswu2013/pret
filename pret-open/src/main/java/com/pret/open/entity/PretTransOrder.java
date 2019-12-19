@@ -309,6 +309,11 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
     private String pickupTel;
 
     /**
+     * 顺丰运单
+     */
+    private String mailno;
+
+    /**
      * 供应商
      */
     private PretVender pretVender;

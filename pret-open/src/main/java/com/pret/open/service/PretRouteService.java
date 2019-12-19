@@ -5,11 +5,15 @@ import com.google.gson.Gson;
 import com.pret.api.service.impl.BaseServiceImpl;
 import com.pret.common.constant.Constants;
 import com.pret.common.util.*;
+import com.pret.open.entity.PretPickUpPlan;
 import com.pret.open.entity.PretRoute;
 import com.pret.open.entity.PretTransOrder;
+import com.pret.open.entity.bo.JsonRootBean;
 import com.pret.open.entity.bo.U9ReturnBo;
 import com.pret.open.entity.vo.PretRouteVo;
 import com.pret.open.repository.PretRouteRepository;
+import com.pret.open.repository.PretTransOrderRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +33,9 @@ import java.util.List;
 @Service
 @Transactional(rollbackOn = Exception.class)
 public class PretRouteService extends BaseServiceImpl<PretRouteRepository, PretRoute, PretRouteVo> {
+    @Autowired
+    private PretTransOrderRepository pretTransOrderRepository;
+
     @Value("${sf.url}")
     private String sfUrl;
     @Value("${sf.appSecret}")
@@ -59,7 +66,7 @@ public class PretRouteService extends BaseServiceImpl<PretRouteRepository, PretR
         bodyProperty.setDispatchNo(pretTransOrder.getDeliveryBillNumber());
         map.put("storeId", appCode);
         bodyProperty.setStoreId(appCode);
-        map.put("count", 1);
+        map.put("count", "1");
         bodyProperty.setCount("1");
         map.put("dcontact", pretTransOrder.getCustomerName());
         bodyProperty.setDcontact(pretTransOrder.getCustomerName());
@@ -86,48 +93,21 @@ public class PretRouteService extends BaseServiceImpl<PretRouteRepository, PretR
         map.put("custPayTime", custPayTime);
         bodyProperty.setCustPayTime(custPayTime);
         try {
-            List<HeaderProperty> headerPropertyList = new ArrayList<>();
-            HeaderProperty headerProperty = new HeaderProperty();
-            headerProperty.setName("appCode");
-            headerProperty.setValue(appCode);
-            headerPropertyList.add(headerProperty);
-
             String timestamp = Constants.df2.format(new Date());
-            headerProperty = new HeaderProperty();
-            headerProperty.setName("timestamp");
-            headerProperty.setValue(timestamp);
-            headerPropertyList.add(headerProperty);
-
-            headerProperty = new HeaderProperty();
-            headerProperty.setName("sign");
             String sign = CommonUtil.generateSign(map, timestamp, appSecret);
-            headerProperty.setValue(sign);
-            headerPropertyList.add(headerProperty);
-
-            headerProperty = new HeaderProperty();
-            headerProperty.setName("Content-Type");
-            headerProperty.setValue("application/json");
-            headerPropertyList.add(headerProperty);
-
-            headerProperty = new HeaderProperty();
-            headerProperty.setName("Accept");
-            headerProperty.setValue("application/json");
-            headerPropertyList.add(headerProperty);
-
-            JSONObject sendMap = new JSONObject();
-
             HeadProperty headProperty = new HeadProperty();
             headProperty.setAppCode(appCode);
             headProperty.setSign(sign);
             headProperty.setTimestamp(timestamp);
             Gson gson = new Gson();
-            String gsonStr = gson.toJson(headProperty);
-            sendMap.put("head", gsonStr);
-            sendMap.put("body", gson.toJson(bodyProperty));
-            String params = sendMap.toString();
-            String result = HttpUtil.post(headerPropertyList, sfUrl, params);
-            U9ReturnBo u9ReturnBo = Constants.GSON.fromJson(result, U9ReturnBo.class);
-            if (u9ReturnBo.getRtnBool().equals("True")) {
+            RequestProperty requestProperty = new RequestProperty();
+            requestProperty.setBody(bodyProperty);
+            requestProperty.setHead(headProperty);
+
+            String result = HttpUtil.post(sfUrl, gson.toJson(requestProperty));
+            JsonRootBean u9ReturnBo = Constants.GSON.fromJson(result, JsonRootBean.class);
+            if (u9ReturnBo.isSuccess()) {
+                PretTransOrder transOrder = pretTransOrderRepository.findTop1ByMailno(u9ReturnBo.getData().get(0).getMailno());
             } else {
             }
         } catch (Exception e) {

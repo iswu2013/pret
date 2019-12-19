@@ -145,19 +145,39 @@ public interface PretTransOrderRepository extends BaseRepository<PretTransOrder>
      * 功能描述: <br>
      * 〈〉
      * @Param: [groupId, s]
-            * @Return: com.pret.open.entity.PretTransOrder
-            * @Author: wujingsong
-            * @Date: 2019/12/16  10:23 上午
+     * @Return: com.pret.open.entity.PretTransOrder
+     * @Author: wujingsong
+     * @Date: 2019/12/16  10:23 上午
      */
-    PretTransOrder findTop1ByTransOrderGroupIdAndS(String groupId,Integer s);
+    PretTransOrder findTop1ByTransOrderGroupIdAndS(String groupId, Integer s);
 
     /* *
      * 功能描述: <br>
      * 〈〉
      * @Param: [deliveryBillNumber, s]
-            * @Return: java.util.List<com.pret.open.entity.PretTransOrder>
-            * @Author: wujingsong
-            * @Date: 2019/12/17  7:47 上午
+     * @Return: java.util.List<com.pret.open.entity.PretTransOrder>
+     * @Author: wujingsong
+     * @Date: 2019/12/17  7:47 上午
      */
-    List<PretTransOrder> findByDeliveryBillNumberAndS(String deliveryBillNumber,Integer s);
+    List<PretTransOrder> findByDeliveryBillNumberAndS(String deliveryBillNumber, Integer s);
+
+    /* *
+     * 功能描述: 根据mailno查找
+     * 〈〉
+     * @Param: [mailno]
+     * @Return: com.pret.open.entity.PretTransOrder
+     * @Author: wujingsong
+     * @Date: 2019/12/19  7:46 下午
+     */
+    PretTransOrder findTop1ByMailno(String mailno);
+
+    /* *
+     * 功能描述: <br>
+     * 〈〉
+     * @Param: [mailno, s]
+            * @Return: com.pret.open.entity.PretTransOrder
+            * @Author: wujingsong
+            * @Date: 2019/12/19  7:47 下午
+     */
+    PretTransOrder findTop1ByMailnoAndStatus(String mailno, Integer s);
 }

@@ -161,6 +161,7 @@ public class HttpUtil {
         try {
             CloseableHttpClient httpClient = HttpClients.createDefault();
             HttpPost httpPost = new HttpPost(url);
+            httpPost.addHeader("Content-Type","application/json");
             StringEntity sEntity = new StringEntity(params, CHARSET);
             httpPost.setEntity(sEntity);
             CloseableHttpResponse response = httpClient.execute(httpPost);
