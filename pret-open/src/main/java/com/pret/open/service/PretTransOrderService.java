@@ -64,6 +64,8 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
     private DeptRepository deptRepository;
     @Autowired
     private PretTransOrderGroupService pretTransOrderGroupService;
+    @Autowired
+    private PretSalesRepository pretSalesRepository;
 
     public void genPickUpPlan(PretPickUpPlanBo bo) {
         String[] idArr = bo.getIds().split(",");
@@ -244,6 +246,14 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
                     pretCustomerRepository.save(pretCustomer);
                 }
                 pretTransOrder.setCustomerId(pretCustomer.getId());
+
+                PretSales pretSales = pretSalesRepository.findBySalesCdAndS(bo.getSalesCd(), ConstantEnum.S.N.getLabel());
+                if (pretSales == null) {
+                    pretSales = new PretSales();
+                    BeanUtilsExtended.copyProperties(pretSales, bo);
+                    pretSalesRepository.save(pretSales);
+                }
+
                 // 是否存在同一客户，同一地址，同一送达日期的运输单
                 List<Integer> statusList = new ArrayList<>();
                 statusList.add(ConstantEnum.ETransOrderStatus.待分配.getLabel());

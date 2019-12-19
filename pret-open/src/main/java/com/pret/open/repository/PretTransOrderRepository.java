@@ -177,7 +177,7 @@ public interface PretTransOrderRepository extends BaseRepository<PretTransOrder>
      * @Param: [mailno, s]
             * @Return: com.pret.open.entity.PretTransOrder
             * @Author: wujingsong
-            * @Date: 2019/12/19  7:47 下午
+            * @Date: 2019/12/19  9:51 下午
      */
     PretTransOrder findTop1ByMailnoAndStatus(String mailno, Integer s);
 }
