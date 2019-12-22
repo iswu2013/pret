@@ -223,4 +223,14 @@ public class P1000000Vo extends ReqBody {
 
     private String pickupTel;
 
+    /* *
+     * 功能描述: 计算得来
+     * 〈〉
+     * @Param:
+            * @Return:
+            * @Author: wujingsong
+            * @Date: 2019/12/22  5:51 下午
+     */
+    private String serviceRouteOriginId;
+
 }

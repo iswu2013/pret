@@ -96,45 +96,9 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
             throw new BusinessException(OpenBEEnum.E90000008.name(), OpenBEEnum.E90000008.getMsg());
         }
 
-        // 客户
-        PretMTransOrderBo bo = new PretMTransOrderBo();
-        PretAddress pretAddress = null;
-        if (!StringUtils.isEmpty(res.getDestAreaCd())) {
-            pretAddress = pretAddressRepository.findByValueAndLevelsAndS(res.getDestAreaCd(), ConstantEnum.AreaLevelEnum.区县.getLabel(), ConstantEnum.S.N.getLabel());
-        } else if (!StringUtils.isEmpty(res.getDestCityCd())) {
-            pretAddress = pretAddressRepository.findByValueAndLevelsAndS(res.getDestCityCd(), ConstantEnum.AreaLevelEnum.市.getLabel(), ConstantEnum.S.N.getLabel());
-        } else if (!StringUtils.isEmpty(res.getDestProvinceCd())) {
-            pretAddress = pretAddressRepository.findByValueAndLevelsAndS(res.getDestProvinceCd(), ConstantEnum.AreaLevelEnum.省.getLabel(), ConstantEnum.S.N.getLabel());
-        }
-        bo.setAddressId(pretAddress.getId());
-        bo.setCustomerAddress(res.getCustAddr());
-        bo.setCustCd(res.getCustCd());
-        bo.setCustomerLinkName(res.getCustAttn());
-        bo.setCustomerLinkPhone(res.getCustTel());
-        bo.setCustomerName(res.getCustName());
-        bo.setDeliveryBillNumber(res.getDlvOrdNo());
-        bo.setOwnFactoryCd(res.getOwnFactoryCd());
-        bo.setTotalCbm(res.getTotalCbm());
-        bo.setTotalPkg(res.getTotalPkg());
-        bo.setDataSource(res.getDataSource());
-        bo.setSourceCode(res.getSourceCode());
-        bo.setTransType(res.getTransType());
-        bo.setOrgBigAreaCd(res.getOrgBigAreaCd());
-        bo.setDestBigAreaCd(res.getDestBigAreaCd());
-        bo.setPickupAddr(res.getPickupAddr());
-        bo.setPickupAttn(res.getPickupAttn());
-        bo.setPickupTel(res.getPickupTel());
-        try {
-            bo.setDeliveryDate(DateUtils.parseDate(res.getReqDlvDatetime(), "yyyy-MM-dd HH:mm:ss"));
-            bo.setTakeDeliveryDate(DateUtils.parseDate(res.getReqPickupDatetime(), "yyyy-MM-dd HH:mm:ss"));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        bo.setPickupFactoryCd(res.getPickupFactoryCd());
-        bo.setRemark(res.getRemark());
         PretServiceRouteOrigin pretServiceRouteOrigin = pretServiceRouteOriginRepository.findByCodeAndS(res.getPickupFactoryCd(), ConstantEnum.S.N.getLabel());
         if (pretServiceRouteOrigin != null) {
-            bo.setServiceRouteOriginId(pretServiceRouteOrigin.getId());
+            res.setServiceRouteOriginId(pretServiceRouteOrigin.getId());
         } else {
             PretAddress address = null;
             if (!StringUtils.isEmpty(res.getOrgAreaCd())) {
@@ -154,18 +118,13 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
             pretServiceRouteOrigin.setLinkMan(res.getPickupAttn());
             pretServiceRouteOrigin.setDetail(res.getPickupAddr());
             pretServiceRouteOriginRepository.save(pretServiceRouteOrigin);
-            bo.setServiceRouteOriginId(pretServiceRouteOrigin.getId());
+            res.setServiceRouteOriginId(pretServiceRouteOrigin.getId());
         }
-
-        bo.setTransMode(res.getTransModeCd());
-        bo.setTransModeNm(res.getTranModeNm());
-        BeanUtilsExtended.copyProperties(bo, res);
-
         List<PretMTransOrderItemBo> list = CommonConstants.GSON.fromJson(res.getItemListStr(),
                 new TypeToken<List<PretMTransOrderItemBo>>() {
                 }.getType());
 
-        this.pretTransOrderAdd(bo, list);
+        this.pretTransOrderAdd(res, list);
 
         retVo.setSerialNo(res.getSerialNo());
         return retVo;
@@ -179,8 +138,8 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
      * @Author: wujingsong
      * @Date: 2019/11/7  10:34 上午
      */
-    public void pretTransOrderAdd(PretMTransOrderBo bo, List<PretMTransOrderItemBo> bo2) {
-        List<PretMTransOrderItemBo> list = CommonConstants.GSON.fromJson(bo.getPretMTransOrderItemStr(),
+    public void pretTransOrderAdd(P1000000Vo bo, List<PretMTransOrderItemBo> bo2) {
+        List<PretMTransOrderItemBo> list = CommonConstants.GSON.fromJson(bo.getItemListStr(),
                 new TypeToken<List<PretMTransOrderItemBo>>() {
                 }.getType());
         if (bo2 != null) {
@@ -189,6 +148,14 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
         Dept dept = deptRepository.findByU9codeAndS(bo.getOwnFactoryCd(), ConstantEnum.S.N.getLabel());
         if (dept == null) {
             throw new BusinessException(OpenBEEnum.E90000004.name(), OpenBEEnum.E90000004.getMsg());
+        }
+        PretAddress pretAddress = null;
+        if (!StringUtils.isEmpty(bo.getDestAreaCd())) {
+            pretAddress = pretAddressRepository.findByValueAndLevelsAndS(bo.getDestAreaCd(), ConstantEnum.AreaLevelEnum.区县.getLabel(), ConstantEnum.S.N.getLabel());
+        } else if (!StringUtils.isEmpty(bo.getDestCityCd())) {
+            pretAddress = pretAddressRepository.findByValueAndLevelsAndS(bo.getDestCityCd(), ConstantEnum.AreaLevelEnum.市.getLabel(), ConstantEnum.S.N.getLabel());
+        } else if (!StringUtils.isEmpty(bo.getDestProvinceCd())) {
+            pretAddress = pretAddressRepository.findByValueAndLevelsAndS(bo.getDestProvinceCd(), ConstantEnum.AreaLevelEnum.省.getLabel(), ConstantEnum.S.N.getLabel());
         }
         PretCustomer pretCustomer = this.getPretCustomer(bo);
         PretSales pretSales = this.getPretSales(bo);
@@ -200,6 +167,21 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
         if (list != null && list.size() > 0) {
             for (PretMTransOrderItemBo pretMTransOrderBo : list) {
                 PretTransOrder pretTransOrder = new PretTransOrder();
+                BeanUtilsExtended.copyProperties(pretTransOrder, bo);
+                BeanUtilsExtended.copyProperties(pretTransOrder, pretMTransOrderBo);
+                pretTransOrder.setAddressId(pretAddress.getId());
+                pretTransOrder.setCustomerAddress(bo.getCustAddr());
+                pretTransOrder.setCustomerName(bo.getCustName());
+                pretTransOrder.setCustomerLinkPhone(bo.getCustTel());
+                pretTransOrder.setCustomerLinkName(bo.getCustAttn());
+                pretTransOrder.setDeliveryBillNumber(bo.getDlvOrdNo());
+                try {
+                    pretTransOrder.setDeliveryDate(DateUtils.parseDate(bo.getReqDlvDatetime(), "yyyy-MM-dd HH:mm:ss"));
+                    pretTransOrder.setTakeDeliveryDate(DateUtils.parseDate(bo.getReqPickupDatetime(), "yyyy-MM-dd HH:mm:ss"));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                pretTransOrder.setRemark(pretMTransOrderBo.getRemark());
                 pretTransOrder.setCustomerId(pretCustomer.getId());
                 pretTransOrder.setSalesId(pretSales.getId());
                 pretTransOrder.setDeptId(dept.getId());
@@ -209,13 +191,6 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
                 } else {
                     pretTransOrder.setSignGw(pretTransOrder.getGw());
                 }
-
-                BeanUtilsExtended.copyProperties(pretTransOrder, bo);
-                BeanUtilsExtended.copyProperties(pretTransOrder, pretMTransOrderBo);
-                pretTransOrder.setRemark(pretMTransOrderBo.getRemark());
-                if (StringUtils.isEmpty(bo.getCustomerName())) {
-                    pretTransOrder.setCustomerName(bo.getCustomerLinkName());
-                }
                 // 设置起运地详细地址
                 PretServiceRouteOrigin pretServiceRouteOrigin = pretServiceRouteOriginRepository.findById(bo.getServiceRouteOriginId()).get();
                 pretTransOrder.setServiceRouteOriginName(pretServiceRouteOrigin.getName());
@@ -224,7 +199,7 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
                 pretTransOrder.setServiceRouteOriginName(pretServiceRouteOrigin.getName());
 
                 BeanUtilsExtended.copyProperties(pretTransOrder, bo);
-                pretTransOrder.setCustomerDetailAddress(pretAddressService.getDetailByAddressId(bo.getAddressId()) + bo.getCustomerAddress());
+                pretTransOrder.setCustomerDetailAddress(pretAddressService.getDetailByAddressId(pretAddress.getId()) + bo.getCustAddr());
                 BeanUtilsExtended.copyProperties(pretTransOrder, pretMTransOrderBo);
                 Float kilo = 0.0f;
                 if (pretTransOrder.getUnit() == ConstantEnum.EUnit.公斤.getLabel()) {
@@ -242,13 +217,13 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
                 List<Integer> statusList = new ArrayList<>();
                 statusList.add(ConstantEnum.ETransOrderStatus.待分配.getLabel());
                 statusList.add(ConstantEnum.ETransOrderStatus.已分配.getLabel());
-                Date date = DateUtils.truncate(bo.getDeliveryDate(), Calendar.DATE);
+                Date date = DateUtils.truncate(pretTransOrder.getDeliveryDate(), Calendar.DATE);
                 Date endDate = DateUtils.addDays(date, 1);
 
-                Date dateT = DateUtils.truncate(bo.getTakeDeliveryDate(), Calendar.DATE);
+                Date dateT = DateUtils.truncate(pretTransOrder.getTakeDeliveryDate(), Calendar.DATE);
                 Date endDateT = DateUtils.addDays(dateT, 1);
-                List<String> pretAddressList = pretAddressService.findAddressListByAddressIdAdd(bo.getAddressId());
-                List<PretTransOrder> pretTransOrderList = this.repository.findByAddressIdAndTakeDeliveryDateBetweenAndDeliveryDateBetweenAndStatusInAndS(bo.getAddressId(), dateT, endDateT, date, endDate, statusList, ConstantEnum.S.N.getLabel());
+                List<String> pretAddressList = pretAddressService.findAddressListByAddressIdAdd(pretTransOrder.getAddressId());
+                List<PretTransOrder> pretTransOrderList = this.repository.findByAddressIdAndTakeDeliveryDateBetweenAndDeliveryDateBetweenAndStatusInAndS(pretTransOrder.getAddressId(), dateT, endDateT, date, endDate, statusList, ConstantEnum.S.N.getLabel());
                 List<PretServiceRouteItem> pretServiceRouteItemList = pretServiceRouteItemRepository.findByCodeAndVenderTypeAndAddressIdInAndS(bo.getPickupFactoryCd(), ConstantEnum.EVenderType.三方.getLabel(), pretAddressList, ConstantEnum.S.N.getLabel());
                 this.calBillingInterval(pretTransOrderList, pretTransOrder, true, pretServiceRouteItemList);
                 // 统计平台
@@ -263,7 +238,7 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
         pretTransOrderGroupRepository.save(pretTransOrderGroup);
     }
 
-    private PretSales getPretSales(PretMTransOrderBo bo) {
+    private PretSales getPretSales(P1000000Vo bo) {
         PretSales pretSales = pretSalesRepository.findBySalesCdAndS(bo.getSalesCd(), ConstantEnum.S.N.getLabel());
         if (pretSales == null) {
             pretSales = new PretSales();
@@ -273,19 +248,19 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
         return pretSales;
     }
 
-    private PretCustomer getPretCustomer(PretMTransOrderBo bo) {
+    private PretCustomer getPretCustomer(P1000000Vo bo) {
         PretCustomer pretCustomer = pretCustomerRepository.findByCodeAndS(bo.getCustCd(), ConstantEnum.S.N.getLabel());
         if (pretCustomer == null) {
             pretCustomer = new PretCustomer();
             BeanUtilsExtended.copyProperties(pretCustomer, bo);
-            pretCustomer.setName(bo.getCustomerName());
-            pretCustomer.setLinkName(bo.getCustomerLinkName());
-            pretCustomer.setLinkPhone(bo.getCustomerLinkPhone());
+            pretCustomer.setName(bo.getCustName());
+            pretCustomer.setLinkName(bo.getCustAttn());
+            pretCustomer.setLinkPhone(bo.getCustTel());
             pretCustomer.setCode(bo.getCustCd());
             pretCustomerRepository.save(pretCustomer);
         } else {
             if (StringUtils.isEmpty(pretCustomer.getName())) {
-                pretCustomer.setName(bo.getCustomerName());
+                pretCustomer.setName(bo.getCustName());
             }
             pretCustomerRepository.save(pretCustomer);
         }
