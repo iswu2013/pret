@@ -183,4 +183,14 @@ public interface PretTransOrderRepository extends BaseRepository<PretTransOrder>
      * @Date: 2019/12/19  9:51 下午
      */
     PretTransOrder findTop1ByMailnoAndStatus(String mailno, Integer s);
+
+    /* *
+     * 功能描述: <br>
+     * 〈〉
+     * @Param: [mailno]
+            * @Return: java.util.List<com.pret.open.entity.PretTransOrder>
+            * @Author: wujingsong
+            * @Date: 2019/12/22  9:46 下午
+     */
+    List<PretTransOrder> findByMailno(String mailno);
 }

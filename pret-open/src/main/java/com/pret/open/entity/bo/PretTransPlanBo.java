@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>Description: 运输计划</p>
@@ -31,66 +32,14 @@ public class PretTransPlanBo {
     private String pickUpIds;
 
     /**
-     * 供应商id
-     */
-    private String venderId;
-    /**
-     * 客户id
-     */
-    private String customerId;
-    /**
-     * 预计提货日期
-     */
-    private java.util.Date transDatetime;
-    /**
-     * 原始运输计划id,针对异常退货
-     */
-    private String originId;
-    /**
-     * 起运地id
-     */
-    private String orgId;
-    /**
-     * 起运地
-     */
-    private String orgAddress;
-    /**
-     * 目的地id
-     */
-    private String destId;
-    /**
-     * 目的地
-     */
-    private String destAddress;
-    /**
-     * 司机id
-     */
-    private String driverId;
-    /**
-     * 提货数量
-     */
-    private Integer count;
-    /**
-     * 重物数量
-     */
-    private Integer gw;
-    /**
-     * 重物单位重
-     */
-    private String cbm;
-    /**
-     * 泡物数量
-     */
-    private Integer cw;
-    /**
-     * 泡物单位立方
-     */
-    private String unit;
-
-    /**
      * 操作人
      */
     private String username;
+
+    /**
+     * mailno
+     */
+    private String mailno;
 
     // setter and getter
 }

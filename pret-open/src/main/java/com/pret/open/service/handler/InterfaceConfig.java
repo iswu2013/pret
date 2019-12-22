@@ -61,6 +61,11 @@ public class InterfaceConfig {
     public static final String H1000007 = "inputU9Code.do";
 
     /**
+     *  顺丰回调
+     */
+    public static final String H1000008 = "sfCallbak.do";
+
+    /**
      * 获取司机备货列表
      */
     public static final String H8000000 = "getPickupPlanList.get";
