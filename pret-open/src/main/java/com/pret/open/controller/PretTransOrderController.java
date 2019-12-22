@@ -41,6 +41,10 @@ public class PretTransOrderController extends BaseManageController<PretTransOrde
     @Override()
     public Map<String, Object> list(PretTransOrderVo request, PretTransOrder t) {
         request.setSortConditions(SortConditionUtil.build("desc", "lastModifiedDate"));
+        if (request.getTakeDeliveryDateLong() > 0) {
+            request.setBw$takeDeliveryDate(new Date(request.getTakeDeliveryDateLong()));
+            request.setTakeDeliveryDateEnd(new Date(request.getTakeDeliveryDateLongEnd()));
+        }
         Page<PretTransOrder> page = this.service.page(request);
         for (PretTransOrder route : page.getContent()) {
             if (!StringUtils.isEmpty(route.getVenderId())) {

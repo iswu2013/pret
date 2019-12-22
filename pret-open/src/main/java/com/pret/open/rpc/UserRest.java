@@ -52,46 +52,14 @@ public class UserRest implements IUserService {
     @Override
     public TypeUserInfo findByOpenid(@RequestBody TypeUserInfo typeUserInfo) {
         boolean has = false;
-        User user = userRepository.findByOpenid(typeUserInfo.getOpenid());
         PretMemberAuth pretMemberAuth = pretMemberAuthRepository.findByOpenidAndS(typeUserInfo.getOpenid(), ConstantEnum.S.N.getLabel());
-        if (user != null) {
-            if (user.getUserType() == ConstantEnum.EUserType.理货员.getLabel() || user.getUserType() == ConstantEnum.EUserType.业务员.getLabel() || user.getUserType() == ConstantEnum.EUserType.门卫.getLabel()) {
-                UserInfo userInfo = new UserInfo();
-                BeanUtilsExtended.copyProperties(userInfo, user);
-                typeUserInfo.setUserInfo(userInfo);
-                has = true;
-                typeUserInfo.setType(user.getUserType());
-                if (pretMemberAuth != null) {
-                    typeUserInfo.setNickName(pretMemberAuth.getNickName());
-                    typeUserInfo.setAvatarUrl(pretMemberAuth.getAvatarUrl());
-                } else {
-                    typeUserInfo.setNickName(user.getNickName());
-                    typeUserInfo.setAvatarUrl(user.getAvatar());
-                }
-            }
-        }
-        if (!has) {
-            PretCustomer pretCustomer = pretCustomerRepository.findByOpenidAndS(typeUserInfo.getOpenid(), ConstantEnum.S.N.getLabel());
-            CustomerInfo customerInfo = new CustomerInfo();
-            BeanUtilsExtended.copyProperties(customerInfo, pretCustomer);
-            typeUserInfo.setCustomerInfo(customerInfo);
+        if (pretMemberAuth != null) {
             has = true;
-            typeUserInfo.setType(ConstantEnum.ERoleCode.Customer.getLabel());
+            typeUserInfo.setType(pretMemberAuth.getUserType());
             if (pretMemberAuth != null) {
                 typeUserInfo.setNickName(pretMemberAuth.getNickName());
                 typeUserInfo.setAvatarUrl(pretMemberAuth.getAvatarUrl());
-            } else {
-                typeUserInfo.setNickName(pretCustomer.getNickName());
-                typeUserInfo.setAvatarUrl(pretCustomer.getAvatar());
             }
-        }
-        if (!has) {
-            PretDriver pretDriver = pretDriverRepository.findByOpenidAndS(typeUserInfo.getOpenid(), ConstantEnum.S.N.getLabel());
-            DriverInfo driverInfo = new DriverInfo();
-            BeanUtilsExtended.copyProperties(driverInfo, pretDriver);
-            typeUserInfo.setDriverInfo(driverInfo);
-            has = true;
-            typeUserInfo.setType(ConstantEnum.ERoleCode.Driver.getLabel());
         }
         if (!has) {
             return null;

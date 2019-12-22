@@ -193,43 +193,7 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
         }
         if (list != null && list.size() > 0) {
             for (PretMTransOrderItemBo pretMTransOrderBo : list) {
-                PretTransOrderGroup pretTransOrderGroup = pretTransOrderGroupRepository.findByDeliveryBillNumberAndS(bo.getDeliveryBillNumber(), ConstantEnum.S.N.getLabel());
-                if (pretTransOrderGroup != null) {
-                    flag = true;
-                } else {
-                    pretTransOrderGroup = new PretTransOrderGroup();
-                    pretTransOrderGroup.setDeptId(dept.getId());
-                    BeanUtilsExtended.copyProperties(pretTransOrderGroup, bo);
-                    this.pretTransOrderGroupRepository.save(pretTransOrderGroup);
-                }
                 PretTransOrder pretTransOrder = new PretTransOrder();
-                pretTransOrder.setTransOrderGroupId(pretTransOrderGroup.getId());
-                pretTransOrder.setDeptId(dept.getId());
-                pretTransOrder.setSignGw(pretTransOrder.getGw());
-                BeanUtilsExtended.copyProperties(pretTransOrder, bo);
-                BeanUtilsExtended.copyProperties(pretTransOrder, pretMTransOrderBo);
-                pretTransOrder.setRemark(pretMTransOrderBo.getRemark());
-                if (StringUtils.isEmpty(bo.getCustomerName())) {
-                    pretTransOrder.setCustomerName(bo.getCustomerLinkName());
-                }
-                // 设置起运地详细地址
-                PretServiceRouteOrigin pretServiceRouteOrigin = pretServiceRouteOriginRepository.findById(bo.getServiceRouteOriginId()).get();
-                pretTransOrder.setServiceRouteOriginName(pretServiceRouteOrigin.getName());
-                String detailAddr = pretAddressService.getDetailByAddressId(pretServiceRouteOrigin.getAddressId()) + pretServiceRouteOrigin.getDetail();
-                pretTransOrder.setServiceRouteOriginAddress(detailAddr);
-                pretTransOrder.setServiceRouteOriginName(pretServiceRouteOrigin.getName());
-
-                BeanUtilsExtended.copyProperties(pretTransOrder, bo);
-                pretTransOrder.setCustomerDetailAddress(pretAddressService.getDetailByAddressId(bo.getAddressId()) + bo.getCustomerAddress());
-                BeanUtilsExtended.copyProperties(pretTransOrder, pretMTransOrderBo);
-                Float kilo = 0.0f;
-                if (pretTransOrder.getUnit() == ConstantEnum.EUnit.公斤.getLabel()) {
-                    kilo += pretTransOrder.getGw();
-                } else {
-                    kilo += pretTransOrder.getGw() * 1000;
-                }
-                pretTransOrder.setKilo(kilo);
-                this.repository.save(pretTransOrder);
                 PretCustomer pretCustomer = pretCustomerRepository.findByCodeAndS(bo.getCustCd(), ConstantEnum.S.N.getLabel());
                 if (pretCustomer == null) {
                     pretCustomer = new PretCustomer();
@@ -253,6 +217,53 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
                     BeanUtilsExtended.copyProperties(pretSales, bo);
                     pretSalesRepository.save(pretSales);
                 }
+                pretTransOrder.setSalesId(pretSales.getId());
+                pretTransOrder.setDeptId(dept.getId());
+                pretTransOrder.setDeptName(dept.getDeptName());
+                if (pretMTransOrderBo.getUnit() == ConstantEnum.EUnit.吨.getLabel()) {
+                    pretTransOrder.setSignGw(pretTransOrder.getGw() * 1000);
+                } else {
+                    pretTransOrder.setSignGw(pretTransOrder.getGw());
+                }
+
+                BeanUtilsExtended.copyProperties(pretTransOrder, bo);
+                BeanUtilsExtended.copyProperties(pretTransOrder, pretMTransOrderBo);
+                pretTransOrder.setRemark(pretMTransOrderBo.getRemark());
+                if (StringUtils.isEmpty(bo.getCustomerName())) {
+                    pretTransOrder.setCustomerName(bo.getCustomerLinkName());
+                }
+                // 设置起运地详细地址
+                PretServiceRouteOrigin pretServiceRouteOrigin = pretServiceRouteOriginRepository.findById(bo.getServiceRouteOriginId()).get();
+                pretTransOrder.setServiceRouteOriginName(pretServiceRouteOrigin.getName());
+                String detailAddr = pretAddressService.getDetailByAddressId(pretServiceRouteOrigin.getAddressId()) + pretServiceRouteOrigin.getDetail();
+                pretTransOrder.setServiceRouteOriginAddress(detailAddr);
+                pretTransOrder.setServiceRouteOriginName(pretServiceRouteOrigin.getName());
+
+                BeanUtilsExtended.copyProperties(pretTransOrder, bo);
+                pretTransOrder.setCustomerDetailAddress(pretAddressService.getDetailByAddressId(bo.getAddressId()) + bo.getCustomerAddress());
+                BeanUtilsExtended.copyProperties(pretTransOrder, pretMTransOrderBo);
+                Float kilo = 0.0f;
+                if (pretTransOrder.getUnit() == ConstantEnum.EUnit.公斤.getLabel()) {
+                    kilo += pretTransOrder.getGw();
+                } else {
+                    kilo += pretTransOrder.getGw() * 1000;
+                }
+                pretTransOrder.setKilo(kilo);
+
+                PretTransOrderGroup pretTransOrderGroup = pretTransOrderGroupRepository.findByDeliveryBillNumberAndS(bo.getDeliveryBillNumber(), ConstantEnum.S.N.getLabel());
+                if (pretTransOrderGroup != null) {
+                    flag = true;
+                } else {
+                    pretTransOrderGroup = new PretTransOrderGroup();
+                    pretTransOrderGroup.setDeptId(dept.getId());
+                    pretTransOrderGroup.setDeptName(dept.getDeptName());
+                    pretTransOrderGroup.setCustomerId(pretCustomer.getId());
+                    pretTransOrderGroup.setSalesId(pretSales.getId());
+                    BeanUtilsExtended.copyProperties(pretTransOrderGroup, bo);
+                    this.pretTransOrderGroupRepository.save(pretTransOrderGroup);
+                }
+                pretTransOrder.setTransOrderGroupId(pretTransOrderGroup.getId());
+                this.repository.save(pretTransOrder);
 
                 // 是否存在同一客户，同一地址，同一送达日期的运输单
                 List<Integer> statusList = new ArrayList<>();

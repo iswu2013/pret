@@ -1,12 +1,10 @@
 package com.pret.open.service;
 
-import java.nio.file.Paths;
-import java.util.*;
-
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
+import com.pret.api.service.impl.BaseServiceImpl;
 import com.pret.api.vo.ResBody;
 import com.pret.common.constant.ConstantEnum;
 import com.pret.common.constant.Constants;
@@ -21,7 +19,6 @@ import com.pret.open.entity.*;
 import com.pret.open.entity.bo.PretPickUpPlanBo;
 import com.pret.open.entity.bo.PretPickUpPlanModifyDriverBo;
 import com.pret.open.entity.user.Dept;
-import com.pret.open.entity.user.User;
 import com.pret.open.entity.vo.PretPickUpPlanVo;
 import com.pret.open.repository.*;
 import com.pret.open.repository.user.DeptRepository;
@@ -29,7 +26,6 @@ import com.pret.open.repository.user.RoleRepository;
 import com.pret.open.repository.user.UserRepository;
 import com.pret.open.repository.user.UserRoleRepository;
 import com.pret.open.vo.req.*;
-import com.pret.api.service.impl.BaseServiceImpl;
 import com.pret.open.vo.res.*;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
@@ -37,6 +33,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.nio.file.Paths;
+import java.util.*;
 
 /**
  * Description: [pret服务]
@@ -54,12 +52,6 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
     @Autowired
     private PretDriverRepository driverRepository;
     @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private UserRoleRepository userRoleRepository;
-    @Autowired
-    private RoleRepository roleRepository;
-    @Autowired
     private PretVenderRepository pretVenderRepository;
     @Autowired
     private PretDriverRepository pretDriverRepository;
@@ -67,10 +59,6 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
     private PretTransOrderRepository pretTransOrderRepository;
     @Autowired
     private PretTransOrderGroupRepository pretTransOrderGroupRepository;
-    @Autowired
-    private PretServiceRouteOriginRepository pretServiceRouteOriginRepository;
-    @Autowired
-    private PretServiceRouteOriginUserRepository pretServiceRouteOriginUserRepository;
     @Autowired
     private PretPickUpPlanRepository pretPickUpPlanRepository;
     @Autowired
@@ -119,7 +107,6 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
             BeanUtilsExtended.copyProperties(pretDriver, bo);
             driverRepository.save(pretDriver);
         }
-
 
         String[] idArr = bo.getIds().split(",");
         PretPickUpPlan pretPickUpPlan = this.genDefaultPretPickUpPlan(null, null);
@@ -506,7 +493,7 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
                 throw new BusinessException(OpenBEEnum.E90000006.name(), OpenBEEnum.E90000006.getMsg());
             }
         }
-        
+
         pretPickUpPlan.setPickUpTimeStr(Constants.df2.format(pretPickUpPlan.getPickUpTime()));
         PretDriver pretDriver = pretDriverRepository.findById(pretPickUpPlan.getDriverId()).get();
         pretPickUpPlan.setPretDriver(pretDriver);

@@ -51,6 +51,12 @@ public class PretTransOrderGroup extends VersionedAuditableIdEntity implements S
     @ExcelField(value = "订单号")
     private String sourceCode;
 
+
+    /**
+     * 销售员 u9 code
+     */
+    private String salesId;
+
     /**
      * 销售员 u9 code
      */
@@ -201,6 +207,8 @@ public class PretTransOrderGroup extends VersionedAuditableIdEntity implements S
     private String destBigAreaCd;
 
     private String deptId;
+
+    private String deptName;
 
     private String ownFactoryCd;
 

@@ -31,4 +31,5 @@ public class PretTransOrderGroupVo extends PageFormVo implements Serializable {
     private String eq$deptId;
     private List<String> in$deptId;
     private String userId;
+    private String eq$transModeCd;
 }

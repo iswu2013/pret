@@ -18,5 +18,4 @@ public class PretRejectReasonVo extends PageFormVo implements Serializable {
     private String l$name;
     private long bw$createTimeLong;
     private long createTimeLongEnd;
-    private int eq$adds = 0;
 }

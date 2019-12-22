@@ -28,5 +28,7 @@ public class PretTransPlanVo extends PageFormVo implements Serializable {
     private List<String> in$deptId;
     private String userId;
     private String eq$custCd;
+    private long bw$transDatetimeLong;
+    private long transDatetimeLongEnd;
     private List<Integer> in$status;
 }

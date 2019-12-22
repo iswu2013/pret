@@ -9,6 +9,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  *
@@ -59,6 +60,14 @@ public class PretMemberAuth extends VersionedAuditableIdEntity implements Serial
 
     private Dept dept;
 
+    private String customerId;
+
+    private String salesId;
+
+    private List<PretCustomer> customerList;
+
+    private List<PretSales> salesList;
+
     @Transient()
     public Dept getDept() {
         return dept;
@@ -66,5 +75,23 @@ public class PretMemberAuth extends VersionedAuditableIdEntity implements Serial
 
     public void setDept(Dept dept) {
         this.dept = dept;
+    }
+
+    @Transient()
+    public List<PretCustomer> getCustomerList() {
+        return customerList;
+    }
+
+    public void setCustomerList(List<PretCustomer> customerList) {
+        this.customerList = customerList;
+    }
+
+    @Transient()
+    public List<PretSales> getSalesList() {
+        return salesList;
+    }
+
+    public void setSalesList(List<PretSales> salesList) {
+        this.salesList = salesList;
     }
 }

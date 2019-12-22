@@ -18,5 +18,4 @@ public class PretTransExceptionHandleRecordVo extends PageFormVo implements Seri
     private String l$name;
     private long bw$createTimeLong;
     private long createTimeLongEnd;
-    private int eq$adds = 0;
 }

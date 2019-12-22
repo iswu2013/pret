@@ -156,9 +156,9 @@ public class PretVenderController extends BaseManageController<PretVenderService
                     for (PretTransOrder pretTransOrder : pretTransOrderList) {
                         pretTransOrder.setTransOrderGroupId(item);
                         pretTransOrder.setVenderId(id);
-                        //pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.已分配.getLabel());
-                        //pretTransOrderRepository.save(pretTransOrder);
-                        //pretTransOrderService.pretTransOrderStatistics(ConstantEnum.ETransOrderStatisticsUserType.物流供应商.getLabel(), pretTransOrder.getVenderId());
+                        pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.已分配.getLabel());
+                        pretTransOrderRepository.save(pretTransOrder);
+                        pretTransOrderService.pretTransOrderStatistics(ConstantEnum.ETransOrderStatisticsUserType.物流供应商.getLabel(), pretTransOrder.getVenderId());
 
                         pretRouteService.genThirdMail(pretTransOrder);
                     }

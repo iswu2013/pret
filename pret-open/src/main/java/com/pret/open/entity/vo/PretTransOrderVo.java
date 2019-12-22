@@ -22,8 +22,13 @@ public class PretTransOrderVo extends PageFormVo implements Serializable {
     private String eq$pickupFactoryCd;
     private Date bw$takeDeliveryDate;
     private Date takeDeliveryDateEnd;
+    private long takeDeliveryDateLong;
+    private long takeDeliveryDateLongEnd;
     private Date bw$deliveryDate;
     private Date deliveryDateEnd;
     private String l$deliveryBillNumber;
     private int eq$status;
+    private String eq$salesId;
+    private String eq$customerId;
+    private String eq$deptId;
 }

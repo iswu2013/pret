@@ -5,20 +5,23 @@ import com.google.gson.Gson;
 import com.pret.api.service.impl.BaseServiceImpl;
 import com.pret.common.constant.Constants;
 import com.pret.common.util.*;
-import com.pret.open.entity.PretPickUpPlan;
 import com.pret.open.entity.PretRoute;
 import com.pret.open.entity.PretTransOrder;
+import com.pret.open.entity.PretVender;
+import com.pret.open.entity.bo.Data;
 import com.pret.open.entity.bo.JsonRootBean;
-import com.pret.open.entity.bo.U9ReturnBo;
+import com.pret.open.entity.bo.PretPickUpPlanBo;
 import com.pret.open.entity.vo.PretRouteVo;
+import com.pret.open.repository.PretPickUpPlanRepository;
 import com.pret.open.repository.PretRouteRepository;
 import com.pret.open.repository.PretTransOrderRepository;
+import com.pret.open.repository.PretVenderRepository;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -35,6 +38,12 @@ import java.util.List;
 public class PretRouteService extends BaseServiceImpl<PretRouteRepository, PretRoute, PretRouteVo> {
     @Autowired
     private PretTransOrderRepository pretTransOrderRepository;
+    @Autowired
+    private PretPickUpPlanRepository pretPickUpPlanRepository;
+    @Autowired
+    private PretPickUpPlanService pretPickUpPlanService;
+    @Autowired
+    private PretVenderRepository pretVenderRepository;
 
     @Value("${sf.url}")
     private String sfUrl;
@@ -107,7 +116,27 @@ public class PretRouteService extends BaseServiceImpl<PretRouteRepository, PretR
             String result = HttpUtil.post(sfUrl, gson.toJson(requestProperty));
             JsonRootBean u9ReturnBo = Constants.GSON.fromJson(result, JsonRootBean.class);
             if (u9ReturnBo.isSuccess()) {
-                PretTransOrder transOrder = pretTransOrderRepository.findTop1ByMailno(u9ReturnBo.getData().get(0).getMailno());
+                List<Data> dataList = u9ReturnBo.getData();
+                for (Data data : dataList) {
+                    pretTransOrder.setMailno(data.getMailno());
+                    PretTransOrder transOrder = pretTransOrderRepository.findTop1ByMailno(data.getMailno());
+                    if (transOrder != null && !StringUtils.isEmpty(transOrder.getPickUpPlanId())) {
+                        pretTransOrder.setPickUpPlanId(transOrder.getPickUpPlanId());
+                        pretTransOrderRepository.save(pretTransOrder);
+                    } else {
+                        // 生成提货计划
+                        PretPickUpPlanBo bo = new PretPickUpPlanBo();
+                        bo.setIds(pretTransOrder.getTransOrderGroupId());
+                        bo.setWeight(String.valueOf(pretTransOrder.getGw()));
+                        bo.setVenderId(pretTransOrder.getVenderId());
+                        PretVender pretVender = pretVenderRepository.findById(pretTransOrder.getVenderId()).get();
+                        bo.setName(pretVender.getName());
+                        bo.setPhone(pretVender.getLinkPhone());
+                        pretPickUpPlanService.genPickUpPlan(bo);
+                    }
+                    pretTransOrderRepository.save(pretTransOrder);
+                }
+
             } else {
             }
         } catch (Exception e) {
