@@ -231,6 +231,36 @@ public class PretTransOrderGroup extends VersionedAuditableIdEntity implements S
     private String pickupTel;
 
     /**
+     * 起运地省份code(U9 Code)
+     */
+    private String orgProvinceCd;
+
+    /**
+     * 起运地城市code(U9 Code)
+     */
+    private String orgCityCd;
+
+    /**
+     * 起运地县/区code(U9 Code)
+     */
+    private String orgAreaCd;
+
+    /**
+     * 客户地址省份code(U9 Code)
+     */
+    private String destProvinceCd;
+
+    /**
+     * 客户地址城市code(U9 Code)
+     */
+    private String destCityCd;
+
+    /**
+     * 客户地址县/区code（U9 code）
+     */
+    private String destAreaCd;
+
+    /**
      * 供应商
      */
     private PretVender pretVender;
@@ -245,6 +275,16 @@ public class PretTransOrderGroup extends VersionedAuditableIdEntity implements S
     private List<PretTransOrder> pretTransOrderList;
 
     private Float totalGw;
+
+    /* *
+     * 功能描述: 是否退回
+     * 〈〉
+     * @Param:
+     * @Return:
+     * @Author: wujingsong
+     * @Date: 2019/12/22  6:05 下午
+     */
+    private Integer returnFlag = ConstantEnum.YesOrNo.否.getLabel();
 
     // setter and getter
 

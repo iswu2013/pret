@@ -98,7 +98,7 @@ public class PretTransOrderController extends BaseManageController<PretTransOrde
     @PostMapping("/pretTransOrderAdd")
     public void pretTransOrderAdd(PretMTransOrderBo bo) throws FebsException {
         try {
-            this.service.pretTransOrderAdd(bo, null);
+            //this.service.pretTransOrderAdd(bo, null);
         } catch (Exception e) {
             message = "生成运输计划失败";
             throw new FebsException(message);

@@ -490,7 +490,7 @@ public class PretPickUpPlanService extends BaseServiceImpl<PretPickUpPlanReposit
         Dept dept = deptRepository.findById(pretMemberAuth.getDeptId()).get();
         if (!dept.getU9code().equals(ConstantEnum.EDeptCode.headquarters.getLabel())) {
             if (!pretMemberAuth.getDeptId().equals(pretPickUpPlan.getDeptId())) {
-                throw new BusinessException(OpenBEEnum.E90000006.name(), OpenBEEnum.E90000006.getMsg());
+                throw new BusinessException(OpenBEEnum.E90000009.name(), OpenBEEnum.E90000009.getMsg());
             }
         }
 

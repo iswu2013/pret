@@ -180,7 +180,7 @@ public class P1000000Vo extends ReqBody {
     /**
      * 空转单标志位 0:非空转单  1:空转单
      */
-    private String preOrderFlag;
+    private Integer preOrderFlag;
 
     /**
      * 起运地大区(U9 Code)
@@ -222,15 +222,4 @@ public class P1000000Vo extends ReqBody {
     private String pickupAttn;
 
     private String pickupTel;
-
-    /* *
-     * 功能描述: 计算得来
-     * 〈〉
-     * @Param:
-            * @Return:
-            * @Author: wujingsong
-            * @Date: 2019/12/22  5:51 下午
-     */
-    private String serviceRouteOriginId;
-
 }

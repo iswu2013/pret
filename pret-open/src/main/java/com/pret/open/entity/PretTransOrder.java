@@ -277,6 +277,46 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
      */
     private String storageNumber;
 
+    /**
+     * 起运地省份code(U9 Code)
+     */
+    private String orgProvinceCd;
+
+    /**
+     * 起运地城市code(U9 Code)
+     */
+    private String orgCityCd;
+
+    /**
+     * 起运地县/区code(U9 Code)
+     */
+    private String orgAreaCd;
+
+    /**
+     * 客户地址省份code(U9 Code)
+     */
+    private String destProvinceCd;
+
+    /**
+     * 客户地址城市code(U9 Code)
+     */
+    private String destCityCd;
+
+    /**
+     * 客户地址县/区code（U9 code）
+     */
+    private String destAreaCd;
+
+    /**
+     * 起运地大区(U9 Code)
+     */
+    private String orgBigAreaCd;
+
+    /**
+     * 客户地址所在大区(U9 Code)
+     */
+    private String destBigAreaCd;
+
     private Float signCount = 0.0f;
 
     private Float rejectCount = 0.0f;
@@ -320,6 +360,8 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
      * 顺丰运单
      */
     private String mailno;
+
+    private Integer returnFlag = ConstantEnum.YesOrNo.否.getLabel();
 
     /**
      * 供应商

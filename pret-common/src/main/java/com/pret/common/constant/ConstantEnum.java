@@ -1601,12 +1601,42 @@ public class ConstantEnum {
          */
         退货(2),
         /**
+         * 外库配送
+         */
+        外库配送(3),
+        /**
          * 测试数据
          */
         测试数据(9);
         private int label;
 
         ETransType(int label) {
+            this.setLabel(label);
+        }
+
+        //省略getter、setter方法
+
+        public int getLabel() {
+            return label;
+        }
+
+        public void setLabel(int label) {
+            this.label = label;
+        }
+    }
+
+    public enum EPretServiceRouteOriginType {
+        /**
+         * 自有库
+         */
+        自有库(1),
+        /**
+         * 外库
+         */
+        外库(2);
+        private int label;
+
+        EPretServiceRouteOriginType(int label) {
             this.setLabel(label);
         }
 

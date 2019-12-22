@@ -118,6 +118,9 @@ public interface PretTransOrderRepository extends BaseRepository<PretTransOrder>
 
     List<PretTransOrder> findByAddressIdAndTakeDeliveryDateBetweenAndDeliveryDateBetweenAndStatusInAndS(String addressId, Date startT, Date endT, Date start, Date end, List<Integer> statusList, Integer s);
 
+    List<PretTransOrder> findByAddressIdAndTakeDeliveryDateBetweenAndDeliveryDateBetweenAndStatusInAndReturnFlagAndS(String addressId, Date startT, Date endT, Date start, Date end, List<Integer> statusList, Integer returnFlag, Integer s);
+
+
     /* *
      * 功能描述: <br>
      * 〈〉
@@ -175,9 +178,9 @@ public interface PretTransOrderRepository extends BaseRepository<PretTransOrder>
      * 功能描述: <br>
      * 〈〉
      * @Param: [mailno, s]
-            * @Return: com.pret.open.entity.PretTransOrder
-            * @Author: wujingsong
-            * @Date: 2019/12/19  9:51 下午
+     * @Return: com.pret.open.entity.PretTransOrder
+     * @Author: wujingsong
+     * @Date: 2019/12/19  9:51 下午
      */
     PretTransOrder findTop1ByMailnoAndStatus(String mailno, Integer s);
 }

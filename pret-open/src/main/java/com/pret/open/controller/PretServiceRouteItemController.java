@@ -163,25 +163,27 @@ public class PretServiceRouteItemController extends BaseManageController<PretSer
         for (PretServiceRouteItem item : serviceRouteItemList) {
             if (!StringUtils.isEmpty(item.getVenderId())) {
                 PretVender pretVender = pretVenderRepository.findById(item.getVenderId()).get();
-                if (!idList.contains(pretVender.getId())) {
-                    List<PretQuotationItem> pretQuotationItemList = pretQuotationItemRepository.findByVenderIdAndS(item.getVenderId(), ConstantEnum.S.N.getLabel());
-                    PretQuotationItem quotationItem = null;
-                    for (PretQuotationItem pretQuotationItem : pretQuotationItemList) {
-                        PretBillingIntervalItem pretBillingIntervalItem = pretBillingIntervalItemRepository.findById(pretQuotationItem.getBillingIntervalItemId()).get();
-                        if (request.getGw() > pretBillingIntervalItem.getKstart() && request.getGw() < pretBillingIntervalItem.getKend()) {
-                            quotationItem = pretQuotationItem;
-                            break;
+                if (pretVender.getS() == ConstantEnum.S.N.getLabel()) {
+                    if (!idList.contains(pretVender.getId())) {
+                        List<PretQuotationItem> pretQuotationItemList = pretQuotationItemRepository.findByVenderIdAndS(item.getVenderId(), ConstantEnum.S.N.getLabel());
+                        PretQuotationItem quotationItem = null;
+                        for (PretQuotationItem pretQuotationItem : pretQuotationItemList) {
+                            PretBillingIntervalItem pretBillingIntervalItem = pretBillingIntervalItemRepository.findById(pretQuotationItem.getBillingIntervalItemId()).get();
+                            if (request.getGw() > pretBillingIntervalItem.getKstart() && request.getGw() < pretBillingIntervalItem.getKend()) {
+                                quotationItem = pretQuotationItem;
+                                break;
+                            }
                         }
-                    }
-                    if (quotationItem != null) {
-                        PretServiceRouteItem pretServiceRouteItem = pretServiceRouteItemRepository.findById(quotationItem.getServiceRouteItemId()).get();
-                        pretVender.setPrescription(pretServiceRouteItem.getPrescription());
-                        pretVender.setFeight(quotationItem.getQuotation().multiply(new BigDecimal(request.getGw())));
-                        pretVender.setUnitPrice(quotationItem.getQuotation());
-                    }
+                        if (quotationItem != null) {
+                            PretServiceRouteItem pretServiceRouteItem = pretServiceRouteItemRepository.findById(quotationItem.getServiceRouteItemId()).get();
+                            pretVender.setPrescription(pretServiceRouteItem.getPrescription());
+                            pretVender.setFeight(quotationItem.getQuotation().multiply(new BigDecimal(request.getGw())));
+                            pretVender.setUnitPrice(quotationItem.getQuotation());
+                        }
 
-                    pretVenderList.add(pretVender);
-                    idList.add(pretVender.getId());
+                        pretVenderList.add(pretVender);
+                        idList.add(pretVender.getId());
+                    }
                 }
             }
         }

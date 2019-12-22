@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.pret.common.constant.ConstantEnum;
 import com.pret.open.entity.user.User;
 import com.wuwenze.poi.annotation.Excel;
 import com.wuwenze.poi.annotation.ExcelField;
@@ -53,6 +54,11 @@ public class PretServiceRouteOrigin extends VersionedAuditableIdEntity implement
      */
     @ExcelField(value = "起运地名称")
     private String name;
+
+    /**
+     * 提货地类型
+     */
+    private Integer type = ConstantEnum.EPretServiceRouteOriginType.自有库.getLabel();
 
     /**
      * U9code

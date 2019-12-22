@@ -39,7 +39,7 @@ public abstract class BeanUtilsExtended extends org.springframework.beans.BeanUt
                             readMethod.setAccessible(true);
                         }
                         Object value = readMethod.invoke(source);
-
+                        System.out.println("target:" + target + "targetPd:" + targetPd.getName() + "value:" + value);
                         setValue(target, targetPd, value);
                     } catch (Throwable ex) {
                         throw new FatalBeanException(
