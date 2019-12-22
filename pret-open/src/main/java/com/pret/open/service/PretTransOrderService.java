@@ -186,37 +186,21 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
         if (bo2 != null) {
             list = bo2;
         }
-        boolean flag = false;
         Dept dept = deptRepository.findByU9codeAndS(bo.getOwnFactoryCd(), ConstantEnum.S.N.getLabel());
         if (dept == null) {
             throw new BusinessException(OpenBEEnum.E90000004.name(), OpenBEEnum.E90000004.getMsg());
         }
+        PretCustomer pretCustomer = this.getPretCustomer(bo);
+        PretSales pretSales = this.getPretSales(bo);
+
+        PretTransOrderGroup pretTransOrderGroup = new PretTransOrderGroup();
+        this.pretTransOrderGroupRepository.save(pretTransOrderGroup);
+        PretTransOrder transOrder = null;
+        Float totalGw = 0.0f;
         if (list != null && list.size() > 0) {
             for (PretMTransOrderItemBo pretMTransOrderBo : list) {
                 PretTransOrder pretTransOrder = new PretTransOrder();
-                PretCustomer pretCustomer = pretCustomerRepository.findByCodeAndS(bo.getCustCd(), ConstantEnum.S.N.getLabel());
-                if (pretCustomer == null) {
-                    pretCustomer = new PretCustomer();
-                    BeanUtilsExtended.copyProperties(pretCustomer, bo);
-                    pretCustomer.setName(bo.getCustomerName());
-                    pretCustomer.setLinkName(bo.getCustomerLinkName());
-                    pretCustomer.setLinkPhone(bo.getCustomerLinkPhone());
-                    pretCustomer.setCode(bo.getCustCd());
-                    pretCustomerRepository.save(pretCustomer);
-                } else {
-                    if (StringUtils.isEmpty(pretCustomer.getName())) {
-                        pretCustomer.setName(bo.getCustomerName());
-                    }
-                    pretCustomerRepository.save(pretCustomer);
-                }
                 pretTransOrder.setCustomerId(pretCustomer.getId());
-
-                PretSales pretSales = pretSalesRepository.findBySalesCdAndS(bo.getSalesCd(), ConstantEnum.S.N.getLabel());
-                if (pretSales == null) {
-                    pretSales = new PretSales();
-                    BeanUtilsExtended.copyProperties(pretSales, bo);
-                    pretSalesRepository.save(pretSales);
-                }
                 pretTransOrder.setSalesId(pretSales.getId());
                 pretTransOrder.setDeptId(dept.getId());
                 pretTransOrder.setDeptName(dept.getDeptName());
@@ -245,23 +229,12 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
                 Float kilo = 0.0f;
                 if (pretTransOrder.getUnit() == ConstantEnum.EUnit.公斤.getLabel()) {
                     kilo += pretTransOrder.getGw();
+                    totalGw += pretTransOrder.getGw();
                 } else {
                     kilo += pretTransOrder.getGw() * 1000;
+                    totalGw += pretTransOrder.getGw() * 1000;
                 }
                 pretTransOrder.setKilo(kilo);
-
-                PretTransOrderGroup pretTransOrderGroup = pretTransOrderGroupRepository.findByDeliveryBillNumberAndS(bo.getDeliveryBillNumber(), ConstantEnum.S.N.getLabel());
-                if (pretTransOrderGroup != null) {
-                    flag = true;
-                } else {
-                    pretTransOrderGroup = new PretTransOrderGroup();
-                    pretTransOrderGroup.setDeptId(dept.getId());
-                    pretTransOrderGroup.setDeptName(dept.getDeptName());
-                    pretTransOrderGroup.setCustomerId(pretCustomer.getId());
-                    pretTransOrderGroup.setSalesId(pretSales.getId());
-                    BeanUtilsExtended.copyProperties(pretTransOrderGroup, bo);
-                    this.pretTransOrderGroupRepository.save(pretTransOrderGroup);
-                }
                 pretTransOrder.setTransOrderGroupId(pretTransOrderGroup.getId());
                 this.repository.save(pretTransOrder);
 
@@ -280,12 +253,43 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
                 this.calBillingInterval(pretTransOrderList, pretTransOrder, true, pretServiceRouteItemList);
                 // 统计平台
                 this.pretTransOrderStatistics(ConstantEnum.ETransOrderStatisticsUserType.平台.getLabel(), null);
-                if (!flag) {
-                    BeanUtilsExtended.copyPropertiesIgnore(pretTransOrderGroup, pretTransOrder, "id");
-                    pretTransOrderGroupRepository.save(pretTransOrderGroup);
+                if (transOrder == null) {
+                    transOrder = pretTransOrder;
                 }
             }
         }
+        BeanUtilsExtended.copyProperties(pretTransOrderGroup, transOrder);
+        pretTransOrderGroup.setTotalGw(totalGw);
+        pretTransOrderGroupRepository.save(pretTransOrderGroup);
+    }
+
+    private PretSales getPretSales(PretMTransOrderBo bo) {
+        PretSales pretSales = pretSalesRepository.findBySalesCdAndS(bo.getSalesCd(), ConstantEnum.S.N.getLabel());
+        if (pretSales == null) {
+            pretSales = new PretSales();
+            BeanUtilsExtended.copyProperties(pretSales, bo);
+            pretSalesRepository.save(pretSales);
+        }
+        return pretSales;
+    }
+
+    private PretCustomer getPretCustomer(PretMTransOrderBo bo) {
+        PretCustomer pretCustomer = pretCustomerRepository.findByCodeAndS(bo.getCustCd(), ConstantEnum.S.N.getLabel());
+        if (pretCustomer == null) {
+            pretCustomer = new PretCustomer();
+            BeanUtilsExtended.copyProperties(pretCustomer, bo);
+            pretCustomer.setName(bo.getCustomerName());
+            pretCustomer.setLinkName(bo.getCustomerLinkName());
+            pretCustomer.setLinkPhone(bo.getCustomerLinkPhone());
+            pretCustomer.setCode(bo.getCustCd());
+            pretCustomerRepository.save(pretCustomer);
+        } else {
+            if (StringUtils.isEmpty(pretCustomer.getName())) {
+                pretCustomer.setName(bo.getCustomerName());
+            }
+            pretCustomerRepository.save(pretCustomer);
+        }
+        return pretCustomer;
     }
 
     /* *

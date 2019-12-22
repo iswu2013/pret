@@ -283,13 +283,4 @@ public class PretTransOrderGroup extends VersionedAuditableIdEntity implements S
     public void setPretTransOrderList(List<PretTransOrder> pretTransOrderList) {
         this.pretTransOrderList = pretTransOrderList;
     }
-
-    @Transient()
-    public Float getTotalGw() {
-        return totalGw;
-    }
-
-    public void setTotalGw(Float totalGw) {
-        this.totalGw = totalGw;
-    }
 }
