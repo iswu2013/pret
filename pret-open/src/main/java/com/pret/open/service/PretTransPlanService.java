@@ -144,14 +144,16 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
      * @Author: wujingsong
      * @Date: 2019/10/4  2:01 下午
      */
-    public void pretTransPlanAdd(PretTransPlanBo bo) {
-        List<String> idList = StringUtil.idsStr2ListString(bo.getIds());
+    public List<PretTransPlan> pretTransPlanAdd(PretTransPlanBo bo, boolean isExpress) {
+        List<String> pickUpIdList = StringUtil.idsStr2ListString(bo.getPickUpIds());
+        List<PretTransOrder>  pretTransOrderList = pretTransOrderRepository.findByPickUpPlanIdInAndS(pickUpIdList, ConstantEnum.S.N.getLabel());
         Date date = new Date();
+
+        List<PretTransPlan> pretTransPlanList = new ArrayList<>();
 
         // 将配送任务单分组
         Map<String, List<PretTransOrder>> map = new HashMap<>();
-        for (String id : idList) {
-            PretTransOrder pretTransOrder = pretTransOrderRepository.findById(id).get();
+        for (PretTransOrder pretTransOrder : pretTransOrderList) {
             String dateStr = Constants.dfyyyyMMdd.format(pretTransOrder.getDeliveryDate());
             String key = pretTransOrder.getServiceRouteOriginId() + pretTransOrder.getCustomerDetailAddress() + dateStr;
             if (map.containsKey(key)) {
@@ -201,6 +203,8 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
             transPlan.setGoodsNum(count);
             transPlan.setSalesCd(transOrder.getSalesCd());
             transPlan.setCustCd(transOrder.getCustCd());
+            transPlan.setDeptName(transOrder.getDeptName());
+            transPlan.setSalesNm(transOrder.getSalesNm());
             transPlan.setOrgBigAreaCd(pretTransOrderGroup.getOrgBigAreaCd());
             transPlan.setDestBigAreaCd(pretTransOrderGroup.getDestBigAreaCd());
             transPlan.setDeptId(transOrder.getDeptId());
@@ -227,15 +231,29 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
                     pickUpDate = pretPickUpPlan.getStartTime();
                 }
 
-                // 添加一条记录
-                PretPickUpRecord pretTransRecord = new PretPickUpRecord();
+                if (!isExpress) {
+                    // 添加一条记录
+                    PretPickUpRecord pretTransRecord = new PretPickUpRecord();
 
-                pretTransRecord.setDescription(ConstantEnum.EPretPickUpRecordDescription.提货完成.name());
-                pretTransRecord.setPickUpPlanId(pretPickUpPlan.getId());
-                pretTransRecord.setType(ConstantEnum.ETransOrderStatisticsUserType.物流供应商.getLabel());
-                pretTransRecord.setUsername(bo.getUsername());
+                    pretTransRecord.setDescription(ConstantEnum.EPretPickUpRecordDescription.提货完成.name());
+                    pretTransRecord.setPickUpPlanId(pretPickUpPlan.getId());
+                    pretTransRecord.setType(ConstantEnum.ETransOrderStatisticsUserType.物流供应商.getLabel());
+                    pretTransRecord.setUsername(bo.getUsername());
 
-                pretPickUpRecordRepository.save(pretTransRecord);
+                    pretPickUpRecordRepository.save(pretTransRecord);
+                } else {
+                    // 添加一条记录
+                    PretPickUpRecord pretTransRecord = new PretPickUpRecord();
+
+                    pretTransRecord.setDescription(ConstantEnum.EPretPickUpRecordDescription.提货完成.name());
+                    pretTransRecord.setPickUpPlanId(pretPickUpPlan.getId());
+                    pretTransRecord.setType(ConstantEnum.ETransOrderStatisticsUserType.顺丰.getLabel());
+
+                    PretVender pretVender = pretVenderRepository.findById(transPlan.getVenderId()).get();
+                    pretTransRecord.setUsername(pretVender.getName());
+
+                    pretPickUpRecordRepository.save(pretTransRecord);
+                }
             }
 
             PretVender pretVender = pretVenderRepository.findById(transOrder.getVenderId()).get();
@@ -246,19 +264,32 @@ public class PretTransPlanService extends BaseServiceImpl<PretTransPlanRepositor
             transPlan.setPickUpDate(pickUpDate);
             this.repository.save(transPlan);
 
+            if (!isExpress) {
+                // 添加一条记录
+                PretTransRecord pretTransRecord = new PretTransRecord();
 
-            // 添加一条记录
-            PretTransRecord pretTransRecord = new PretTransRecord();
+                pretTransRecord.setDescription(ConstantEnum.EPretTransRecordDescription.运输计划.name());
+                pretTransRecord.setTransPlanId(transPlan.getId());
+                pretTransRecord.setType(ConstantEnum.ETransOrderStatisticsUserType.物流供应商.getLabel());
+                pretTransRecord.setUsername(bo.getUsername());
 
-            pretTransRecord.setDescription(ConstantEnum.EPretTransRecordDescription.运输计划.name());
-            pretTransRecord.setTransPlanId(transPlan.getId());
-            pretTransRecord.setType(ConstantEnum.ETransOrderStatisticsUserType.物流供应商.getLabel());
-            pretTransRecord.setUsername(bo.getUsername());
+                pretTransRecordRepository.save(pretTransRecord);
+            } else {
+                // 添加一条记录
+                PretTransRecord pretTransRecord = new PretTransRecord();
 
-            pretTransRecordRepository.save(pretTransRecord);
+                pretTransRecord.setDescription(ConstantEnum.EPretTransRecordDescription.运输计划.name());
+                pretTransRecord.setTransPlanId(transPlan.getId());
+                pretTransRecord.setType(ConstantEnum.ETransOrderStatisticsUserType.顺丰.getLabel());
+                pretTransRecord.setUsername(pretVender.getName());
 
+                pretTransRecordRepository.save(pretTransRecord);
+            }
 
+            pretTransPlanList.add(transPlan);
         }
+
+        return pretTransPlanList;
     }
 
     /* *

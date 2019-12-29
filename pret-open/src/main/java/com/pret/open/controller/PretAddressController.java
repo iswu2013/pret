@@ -99,6 +99,7 @@ public class PretAddressController extends BaseManageController<PretAddressServi
             LabelValue labelValue = new LabelValue();
             labelValue.setLabel(area.getName());
             labelValue.setValue(area.getId());
+            labelValue.setCode(area.getValue());
             if (area.getLevels() == ConstantEnum.AreaLevelEnum.市.getLabel()) {
                 PretAddress pretAddress = pretAddressRepository.findById(area.getParentId()).get();
                 labelValue.setProvince(pretAddress.getName());
@@ -174,7 +175,7 @@ public class PretAddressController extends BaseManageController<PretAddressServi
 
             voList.add(item);
         }
-        
+
         return voList;
     }
 }

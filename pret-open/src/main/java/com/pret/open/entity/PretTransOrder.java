@@ -83,12 +83,12 @@ public class PretTransOrder extends VersionedAuditableIdEntity implements Serial
      * 运输方式
      */
     @ExcelField(value = "运输方式")
-    private String transModeCd;
+    private String transModeCd = ConstantEnum.ETransModeCd.LAND.name();
 
     /**
      * 运输方式名称
      */
-    private String transModeNm;
+    private String transModeNm = ConstantEnum.ETransModeCd.LAND.getLabel();
 
     /**
      * 提货日期

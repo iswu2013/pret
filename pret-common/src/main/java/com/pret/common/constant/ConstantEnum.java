@@ -799,7 +799,8 @@ public class ConstantEnum {
         平台(0),
         物流供应商(1),
         门卫(2),
-        系统(3);
+        系统(3),
+        顺丰(4);
         private int label;
 
         ETransOrderStatisticsUserType(int label) {
@@ -1647,6 +1648,32 @@ public class ConstantEnum {
         }
 
         public void setLabel(int label) {
+            this.label = label;
+        }
+    }
+
+    public enum ETransModeCd {
+        /**
+         * 快递
+         */
+        EX("快递"),
+        /**
+         * 陆运
+         */
+        LAND("陆运");
+        private String label;
+
+        ETransModeCd(String label) {
+            this.setLabel(label);
+        }
+
+        //省略getter、setter方法
+
+        public String getLabel() {
+            return label;
+        }
+
+        public void setLabel(String label) {
             this.label = label;
         }
     }

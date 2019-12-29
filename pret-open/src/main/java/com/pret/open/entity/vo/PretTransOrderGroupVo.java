@@ -21,8 +21,10 @@ public class PretTransOrderGroupVo extends PageFormVo implements Serializable {
     private long bw$createTimeLong;
     private long createTimeLongEnd;
     private String eq$pickupFactoryCd;
-    private Date bw$takeDeliveryDate;
-    private Date takeDeliveryDateEnd;
+    private String bw$takeDeliveryDate;
+    private String takeDeliveryDateEnd;
+    private long takeDeliveryDateLong;
+    private long takeDeliveryDateLongEnd;
     private Date bw$deliveryDate;
     private Date deliveryDateEnd;
     private String l$deliveryBillNumber;
@@ -32,4 +34,9 @@ public class PretTransOrderGroupVo extends PageFormVo implements Serializable {
     private List<String> in$deptId;
     private String userId;
     private String eq$transModeCd;
+    private String eq$salesId;
+    private String eq$customerId;
+    private String eq$destProvinceCd;
+    private String eq$destCityCd;
+    private String eq$destAreaCd;
 }

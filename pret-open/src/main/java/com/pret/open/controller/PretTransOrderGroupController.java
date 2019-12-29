@@ -3,6 +3,7 @@ package com.pret.open.controller;
 import com.pret.api.rest.BaseManageController;
 import com.pret.common.annotation.Log;
 import com.pret.common.constant.ConstantEnum;
+import com.pret.common.constant.Constants;
 import com.pret.common.exception.FebsException;
 import com.pret.common.util.BeanUtilsExtended;
 import com.pret.common.util.SortConditionUtil;
@@ -11,18 +12,17 @@ import com.pret.open.entity.*;
 import com.pret.open.entity.vo.PretTransOrderGroupVo;
 import com.pret.open.repository.*;
 import com.pret.open.service.PretTransOrderGroupService;
+import com.pret.open.service.PretTransOrderService;
 import com.pret.open.service.user.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Slf4j
 @Validated
@@ -41,6 +41,8 @@ public class PretTransOrderGroupController extends BaseManageController<PretTran
     private UserService userService;
     @Autowired
     private PretTransOrderGroupRepository pretTransOrderGroupRepository;
+    @Autowired
+    private PretTransOrderService pretTransOrderService;
 
     @GetMapping
     @Override()
@@ -49,7 +51,10 @@ public class PretTransOrderGroupController extends BaseManageController<PretTran
         if (!StringUtils.isEmpty(request.getUserId())) {
             request.setIn$deptId(userService.getDeptIdListByUserId(request.getUserId()));
         }
-
+        if (request.getTakeDeliveryDateLong() > 0) {
+            request.setBw$takeDeliveryDate(Constants.df2.format(new Date(request.getTakeDeliveryDateLong())));
+            request.setTakeDeliveryDateEnd(Constants.df2.format(new Date(request.getTakeDeliveryDateLongEnd())));
+        }
         Page<PretTransOrderGroup> page = this.service.page(request);
         for (PretTransOrderGroup route : page.getContent()) {
             if (!StringUtils.isEmpty(route.getVenderId())) {
@@ -106,6 +111,30 @@ public class PretTransOrderGroupController extends BaseManageController<PretTran
                     pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.待分配.getLabel());
                 }
                 pretTransOrderRepository.saveAll(pretTransOrderList);
+            }
+        } catch (Exception e) {
+            message = "审核失败";
+            throw new FebsException(message);
+        }
+    }
+
+    @PostMapping("/auto/{ids}")
+    public void auto(@PathVariable String ids) throws FebsException {
+        try {
+            List<String> idList = StringUtil.idsStr2ListString(ids);
+            List<PretTransOrder> pretTransOrderList = pretTransOrderRepository.findByTransOrderGroupIdIn(idList);
+            // 是否存在同一客户，同一地址，同一送达日期的运输单
+            List<Integer> statusList = new ArrayList<>();
+            statusList.add(ConstantEnum.ETransOrderStatus.待分配.getLabel());
+            statusList.add(ConstantEnum.ETransOrderStatus.已分配.getLabel());
+            for (PretTransOrder pretTransOrder : pretTransOrderList) {
+                Date date = DateUtils.truncate(pretTransOrder.getDeliveryDate(), Calendar.DATE);
+                Date endDate = DateUtils.addDays(date, 1);
+                Date dateT = DateUtils.truncate(pretTransOrder.getTakeDeliveryDate(), Calendar.DATE);
+                Date endDateT = DateUtils.addDays(dateT, 1);
+
+                List<PretTransOrder> transOrderList = this.pretTransOrderRepository.findByAddressIdAndTakeDeliveryDateBetweenAndDeliveryDateBetweenAndStatusInAndReturnFlagAndS(pretTransOrder.getAddressId(), dateT, endDateT, date, endDate, statusList, ConstantEnum.YesOrNo.否.getLabel(), ConstantEnum.S.N.getLabel());
+                pretTransOrderService.calBillingInterval(transOrderList);
             }
         } catch (Exception e) {
             message = "审核失败";

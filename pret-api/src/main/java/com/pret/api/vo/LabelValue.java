@@ -23,4 +23,6 @@ public class LabelValue {
     private Float lowerLimit;
 
     private Float mileage;
+
+    private String code;
 }

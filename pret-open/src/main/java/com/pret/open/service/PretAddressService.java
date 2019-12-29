@@ -65,7 +65,6 @@ public class PretAddressService extends BaseServiceImpl<PretAddressRepository, P
 
     public List<String> findAddressListByAddressIdAdd(String addressId) {
         List<String> addressIdList = new ArrayList<>();
-        addressIdList.add(addressId);
         PretAddress pretAddress = this.repository.findById(addressId).get();
         if (!StringUtils.isEmpty(pretAddress.getParentId())) {
             pretAddress = this.repository.findById(pretAddress.getParentId()).get();
@@ -86,6 +85,15 @@ public class PretAddressService extends BaseServiceImpl<PretAddressRepository, P
                         for (PretAddress addr : pretAddressList) {
                             if (!addressIdList.contains(addr.getId())) {
                                 addressIdList.add(addr.getId());
+
+                                pretAddressList = this.repository.findByParentIdAndS(addr.getId(), ConstantEnum.S.N.getLabel());
+                                if (pretAddressList != null && pretAddressList.size() > 0) {
+                                    for (PretAddress a : pretAddressList) {
+                                        if (!addressIdList.contains(a.getId())) {
+                                            addressIdList.add(a.getId());
+                                        }
+                                    }
+                                }
                             }
                         }
                     }

@@ -190,7 +190,27 @@ public interface PretTransOrderRepository extends BaseRepository<PretTransOrder>
      * @Param: [mailno]
             * @Return: java.util.List<com.pret.open.entity.PretTransOrder>
             * @Author: wujingsong
-            * @Date: 2019/12/22  9:46 下午
+            * @Date: 2019/12/22  11:36 下午
      */
     List<PretTransOrder> findByMailno(String mailno);
+    
+    /* *
+     * 功能描述: <br>
+     * 〈〉
+     * @Param: [idList]
+            * @Return: java.util.List<com.pret.open.entity.PretTransOrder>
+            * @Author: wujingsong
+            * @Date: 2019/12/22  11:38 下午
+     */
+    List<PretTransOrder> findByTransOrderGroupIdIn(List<String> idList);
+    
+    /* *
+     * 功能描述: <br>
+     * 〈〉
+     * @Param: [pickUpIdList, s]
+            * @Return: java.util.List<com.pret.open.entity.PretTransOrder>
+            * @Author: wujingsong
+            * @Date: 2019/12/29  6:02 上午
+     */
+    List<PretTransOrder> findByPickUpPlanIdInAndS(List<String> pickUpIdList,Integer s);
 }

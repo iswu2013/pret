@@ -17,6 +17,7 @@ import java.util.List;
 @Data
 public class PretTransPlanVo extends PageFormVo implements Serializable {
     private String eq$venderId;
+    private String l$no;
     private long bw$createTimeLong;
     private long createTimeLongEnd;
     private String eq$customerId;
@@ -28,7 +29,10 @@ public class PretTransPlanVo extends PageFormVo implements Serializable {
     private List<String> in$deptId;
     private String userId;
     private String eq$custCd;
-    private long bw$transDatetimeLong;
+    private String bw$transDatetime;
+    private String transDatetimeEnd;
+    private long transDatetimeLong;
     private long transDatetimeLongEnd;
+    private String eq$serviceRouteOriginId;
     private List<Integer> in$status;
 }

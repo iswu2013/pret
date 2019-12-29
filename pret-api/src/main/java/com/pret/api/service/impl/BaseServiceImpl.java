@@ -257,16 +257,16 @@ public abstract class BaseServiceImpl<M extends BaseRepository<T>, T extends Ver
              */
             private void genDate(D vo, Root<T> root, CriteriaBuilder cb, List<Predicate> list, Field field,
                                  String fileName) {
-                if (field.getGenericType().toString().equals(ConstantEnum.QueryGenericType.Date.getGenericType())) {
+                if (field.getGenericType().toString().equals(ConstantEnum.QueryGenericType.String.getGenericType())) {
                     try {
                         String pub = fileName.substring(0, fileName.indexOf(CommonConstants.QUERY_MARKER) + 1);
                         String fieldValueStr = BeanUtils.getProperty(vo, fileName);
                         if (!StringUtils.isEmpty(fieldValueStr) && pub.equals(ConstantEnum.QueryType.bw$.name())) {
-                            String subFieldName = fileName.substring(fileName.indexOf(ConstantEnum.QueryType.bw$.name()) + 1);
+                            String subFieldName = fileName.substring(fileName.indexOf(ConstantEnum.QueryType.bw$.name()) + 3);
                             Date start = DateUtils.parseDate(BeanUtils.getProperty(vo, fileName),
                                     "yyyy-MM-dd HH:mm:ss");
                             Date end = DateUtils.parseDate(
-                                    BeanUtils.getProperty(vo, fileName + "End"),
+                                    BeanUtils.getProperty(vo, subFieldName + "End"),
                                     "yyyy-MM-dd HH:mm:ss");
 
                             list.add(cb.between(root.<Date>get(subFieldName), start, end));

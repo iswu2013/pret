@@ -110,7 +110,7 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
      * @Author: wujingsong
      * @Date: 2019/11/7  10:34 上午
      */
-    public void pretTransOrderAdd(P1000000Vo bo) {
+    public synchronized void pretTransOrderAdd(P1000000Vo bo) {
         List<PretMTransOrderItemBo> list = CommonConstants.GSON.fromJson(bo.getItemListStr(),
                 new TypeToken<List<PretMTransOrderItemBo>>() {
                 }.getType());
@@ -126,10 +126,16 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
         PretAddress pretAddress = null;
         if (!StringUtils.isEmpty(bo.getDestAreaCd())) {
             pretAddress = pretAddressRepository.findByValueAndLevelsAndS(bo.getDestAreaCd(), ConstantEnum.AreaLevelEnum.区县.getLabel(), ConstantEnum.S.N.getLabel());
-        } else if (!StringUtils.isEmpty(bo.getDestCityCd())) {
-            pretAddress = pretAddressRepository.findByValueAndLevelsAndS(bo.getDestCityCd(), ConstantEnum.AreaLevelEnum.市.getLabel(), ConstantEnum.S.N.getLabel());
-        } else if (!StringUtils.isEmpty(bo.getDestProvinceCd())) {
-            pretAddress = pretAddressRepository.findByValueAndLevelsAndS(bo.getDestProvinceCd(), ConstantEnum.AreaLevelEnum.省.getLabel(), ConstantEnum.S.N.getLabel());
+        }
+        if (pretAddress == null) {
+            if (!StringUtils.isEmpty(bo.getDestCityCd())) {
+                pretAddress = pretAddressRepository.findByValueAndLevelsAndS(bo.getDestCityCd(), ConstantEnum.AreaLevelEnum.市.getLabel(), ConstantEnum.S.N.getLabel());
+            }
+        }
+        if (pretAddress == null) {
+            if (!StringUtils.isEmpty(bo.getDestProvinceCd())) {
+                pretAddress = pretAddressRepository.findByValueAndLevelsAndS(bo.getDestProvinceCd(), ConstantEnum.AreaLevelEnum.省.getLabel(), ConstantEnum.S.N.getLabel());
+            }
         }
         PretCustomer pretCustomer = this.getPretCustomer(bo);
         PretSales pretSales = this.getPretSales(bo);
@@ -143,18 +149,22 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
                 PretTransOrder pretTransOrder = new PretTransOrder();
                 BeanUtilsExtended.copyProperties(pretTransOrder, bo);
                 BeanUtilsExtended.copyProperties(pretTransOrder, pretMTransOrderBo);
-                pretTransOrder.setAddressId(pretAddress.getId());
+                if (pretAddress != null) {
+                    pretTransOrder.setAddressId(pretAddress.getId());
+                }
+
                 pretTransOrder.setCustomerAddress(bo.getCustAddr());
                 pretTransOrder.setCustomerName(bo.getCustName());
                 pretTransOrder.setCustomerLinkPhone(bo.getCustTel());
                 pretTransOrder.setCustomerLinkName(bo.getCustAttn());
                 pretTransOrder.setDeliveryBillNumber(bo.getDlvOrdNo());
-                if (pretServiceRouteOrigin.getType() == ConstantEnum.EPretServiceRouteOriginType.外库.getLabel()) {
-                    pretTransOrder.setTransType(ConstantEnum.ETransType.外库配送.getLabel());
-                }
                 try {
-                    pretTransOrder.setDeliveryDate(DateUtils.parseDate(bo.getReqDlvDatetime(), "yyyy-MM-dd HH:mm:ss"));
-                    pretTransOrder.setTakeDeliveryDate(DateUtils.parseDate(bo.getReqPickupDatetime(), "yyyy-MM-dd HH:mm:ss"));
+                    if (!StringUtils.isEmpty(bo.getReqPickupDatetime())) {
+                        pretTransOrder.setTakeDeliveryDate(DateUtils.parseDate(bo.getReqPickupDatetime(), "yyyy-MM-dd HH:mm:ss"));
+                    }
+                    if (!StringUtils.isEmpty(bo.getReqDlvDatetime())) {
+                        pretTransOrder.setDeliveryDate(DateUtils.parseDate(bo.getReqDlvDatetime(), "yyyy-MM-dd HH:mm:ss"));
+                    }
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -171,7 +181,7 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
                 pretTransOrder.setServiceRouteOriginName(pretServiceRouteOrigin.getName());
                 String detailAddr = pretAddressService.getDetailByAddressId(pretServiceRouteOrigin.getAddressId()) + pretServiceRouteOrigin.getDetail();
                 pretTransOrder.setServiceRouteOriginAddress(detailAddr);
-                pretTransOrder.setCustomerDetailAddress(pretAddressService.getDetailByAddressId(pretAddress.getId()) + bo.getCustAddr());
+                pretTransOrder.setCustomerDetailAddress(bo.getCustAddr());
                 Float kilo = 0.0f;
                 if (pretTransOrder.getUnit() == ConstantEnum.EUnit.公斤.getLabel()) {
                     kilo += pretTransOrder.getGw();
@@ -183,28 +193,36 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
                 pretTransOrder.setKilo(kilo);
                 pretTransOrder.setTransOrderGroupId(pretTransOrderGroup.getId());
                 pretTransOrder.setServiceRouteOriginId(pretServiceRouteOrigin.getId());
+                if (pretServiceRouteOrigin.getType() == ConstantEnum.EPretServiceRouteOriginType.外库.getLabel()) {
+                    pretTransOrder.setTransType(ConstantEnum.ETransType.外库配送.getLabel());
+                }
                 this.repository.save(pretTransOrder);
 
                 // 是否存在同一客户，同一地址，同一送达日期的运输单
                 List<Integer> statusList = new ArrayList<>();
                 statusList.add(ConstantEnum.ETransOrderStatus.待分配.getLabel());
                 statusList.add(ConstantEnum.ETransOrderStatus.已分配.getLabel());
-                Date date = DateUtils.truncate(pretTransOrder.getDeliveryDate(), Calendar.DATE);
-                Date endDate = DateUtils.addDays(date, 1);
 
-                Date dateT = DateUtils.truncate(pretTransOrder.getTakeDeliveryDate(), Calendar.DATE);
-                Date endDateT = DateUtils.addDays(dateT, 1);
-                List<PretTransOrder> pretTransOrderList = this.repository.findByAddressIdAndTakeDeliveryDateBetweenAndDeliveryDateBetweenAndStatusInAndReturnFlagAndS(pretTransOrder.getAddressId(), dateT, endDateT, date, endDate, statusList, ConstantEnum.YesOrNo.否.getLabel(), ConstantEnum.S.N.getLabel());
-                this.calBillingInterval(pretTransOrderList);
+                if (pretAddress != null && pretTransOrder.getDeliveryDate() != null && pretTransOrder.getTakeDeliveryDate() != null) {
+                    Date date = DateUtils.truncate(pretTransOrder.getDeliveryDate(), Calendar.DATE);
+                    Date endDate = DateUtils.addDays(date, 1);
+
+                    Date dateT = DateUtils.truncate(pretTransOrder.getTakeDeliveryDate(), Calendar.DATE);
+                    Date endDateT = DateUtils.addDays(dateT, 1);
+
+                    List<PretTransOrder> pretTransOrderList = this.repository.findByAddressIdAndTakeDeliveryDateBetweenAndDeliveryDateBetweenAndStatusInAndReturnFlagAndS(pretTransOrder.getAddressId(), dateT, endDateT, date, endDate, statusList, ConstantEnum.YesOrNo.否.getLabel(), ConstantEnum.S.N.getLabel());
+                    this.calBillingInterval(pretTransOrderList);
+                }
                 // 统计平台
-                this.pretTransOrderStatistics(ConstantEnum.ETransOrderStatisticsUserType.平台.getLabel(), null);
+                new Thread(() -> pretTransOrderStatistics(ConstantEnum.ETransOrderStatisticsUserType.平台.getLabel(), null));
                 if (transOrder == null) {
                     transOrder = pretTransOrder;
                 }
             }
         }
-        BeanUtilsExtended.copyPropertiesIgnore(pretTransOrderGroup, transOrder,"id");
+        BeanUtilsExtended.copyPropertiesIgnore(pretTransOrderGroup, transOrder, "id");
         pretTransOrderGroup.setTotalGw(totalGw);
+        pretTransOrderGroup.setRemark(bo.getRemark());
         pretTransOrderGroupRepository.save(pretTransOrderGroup);
     }
 
@@ -297,6 +315,7 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
     public void calBillingInterval(List<PretTransOrder> pretTransOrderList) {
         Float totalGw = 0.0f;
         String venderId = StringUtils.EMPTY;
+        String serviceRouteItemId = StringUtils.EMPTY;
         PretAddress address = null;
         String pickupFactoryCd = null;
         for (PretTransOrder pretTransOrder : pretTransOrderList) {
@@ -305,7 +324,12 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
             } else {
                 totalGw += pretTransOrder.getGw() * 1000;
             }
-            venderId = pretTransOrder.getVenderId();
+            if (StringUtils.isEmpty(venderId)) {
+                venderId = pretTransOrder.getVenderId();
+            }
+            if (StringUtils.isEmpty(serviceRouteItemId)) {
+                serviceRouteItemId = pretTransOrder.getServiceRouteItemId();
+            }
             if (address == null) {
                 address = pretAddressRepository.findById(pretTransOrder.getAddressId()).get();
             }
@@ -314,52 +338,81 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
             }
         }
 
-        if (!StringUtils.isEmpty(venderId)) {
+        if (StringUtils.isEmpty(venderId)) {
             List<String> pretAddressList = pretAddressService.findAddressListByAddressIdAdd(address.getId());
             List<PretServiceRouteItem> pretServiceRouteItemList = pretServiceRouteItemRepository.findByCodeAndVenderTypeAndAddressIdInAndS(pickupFactoryCd, ConstantEnum.EVenderType.三方.getLabel(), pretAddressList, ConstantEnum.S.N.getLabel());
-
-            String serviceRouteItemId = null;
             AddressMatch addressMatch = new AddressMatch();
+            PretAddress province = null;
+            PretAddress city = null;
+            if (address.getLevels() == ConstantEnum.AreaLevelEnum.区县.getLabel()) {
+                city = pretAddressRepository.findById(address.getParentId()).get();
+                province = pretAddressRepository.findById(city.getParentId()).get();
+            } else if (address.getLevels() == ConstantEnum.AreaLevelEnum.市.getLabel()) {
+                city = address;
+                province = pretAddressRepository.findById(address.getParentId()).get();
+            } else {
+                province = address;
+            }
             for (PretServiceRouteItem item : pretServiceRouteItemList) {
                 Float lowLimit = item.getLowerLimit() == null ? 0 : item.getLowerLimit();
                 if (totalGw >= lowLimit) {
+                    venderId = item.getVenderId();
                     PretAddress pretAddress = pretAddressRepository.findById(item.getAddressId()).get();
+                    if (pretAddress.getName().equals(ConstantEnum.AddressEnum.全市.name())) {
+                        if (pretAddress.getLevels() == ConstantEnum.AreaLevelEnum.区县.getLabel()) {
+                            if (city != null) {
+                                if (city.getId().equals(pretAddress.getParentId())) {
+                                    addressMatch.setServiceRouteItemIdByCityLike(item.getId());
+                                }
+                            }
+                        }
+                        if (pretAddress.getLevels() == ConstantEnum.AreaLevelEnum.市.getLabel()) {
+                            if (province.getId().equals(pretAddress.getParentId())) {
+                                addressMatch.setServiceRouteItemIdByProvinceLike(item.getId());
+                            }
+                        }
+                    }
+                    if (pretAddress.getName().equals(ConstantEnum.AddressEnum.全省.name())) {
+                        addressMatch.setServiceRouteItemIdByProvinceLike(item.getId());
+                    }
                     if (address.getLevels() == ConstantEnum.AreaLevelEnum.区县.getLabel()) {
                         if (pretAddress.getLevels() == ConstantEnum.AreaLevelEnum.区县.getLabel()) {
-                            addressMatch.setArea(pretAddress);
-                            addressMatch.setServiceRouteItemIdByArea(item.getServiceRouteId());
+                            if (pretAddress.getId().equals(address.getId())) {
+                                addressMatch.setArea(pretAddress);
+                                addressMatch.setServiceRouteItemIdByArea(item.getId());
+                            }
                         } else if (pretAddress.getLevels() == ConstantEnum.AreaLevelEnum.市.getLabel()) {
                             PretAddress parent = pretAddressRepository.findById(address.getParentId()).get();
                             if (parent.getId().equals(pretAddress.getId())) {
                                 addressMatch.setCity(pretAddress);
-                                addressMatch.setServiceRouteItemIdByCity(item.getServiceRouteId());
+                                addressMatch.setServiceRouteItemIdByCity(item.getId());
                             }
                         } else if (pretAddress.getLevels() == ConstantEnum.AreaLevelEnum.省.getLabel()) {
                             PretAddress parent = pretAddressRepository.findById(address.getParentId()).get();
                             parent = pretAddressRepository.findById(parent.getParentId()).get();
                             if (parent.getId().equals(pretAddress.getId())) {
                                 addressMatch.setCity(pretAddress);
-                                addressMatch.setServiceRouteItemIdByProvince(item.getServiceRouteId());
+                                addressMatch.setServiceRouteItemIdByProvince(item.getId());
                             }
                         }
                     } else if (address.getLevels() == ConstantEnum.AreaLevelEnum.市.getLabel()) {
                         if (pretAddress.getLevels() == ConstantEnum.AreaLevelEnum.市.getLabel()) {
                             if (address.getId().equals(pretAddress.getId())) {
                                 addressMatch.setCity(pretAddress);
-                                addressMatch.setServiceRouteItemIdByCity(item.getServiceRouteId());
+                                addressMatch.setServiceRouteItemIdByCity(item.getId());
                             }
                         } else if (pretAddress.getLevels() == ConstantEnum.AreaLevelEnum.省.getLabel()) {
                             PretAddress parent = pretAddressRepository.findById(address.getParentId()).get();
                             if (parent.getId().equals(pretAddress.getId())) {
                                 addressMatch.setCity(pretAddress);
-                                addressMatch.setServiceRouteItemIdByProvince(item.getServiceRouteId());
+                                addressMatch.setServiceRouteItemIdByProvince(item.getId());
                             }
                         }
                     } else if (address.getLevels() == ConstantEnum.AreaLevelEnum.省.getLabel()) {
                         if (pretAddress.getLevels() == ConstantEnum.AreaLevelEnum.省.getLabel()) {
                             if (address.getId().equals(pretAddress.getId())) {
                                 addressMatch.setCity(pretAddress);
-                                addressMatch.setServiceRouteItemIdByProvince(item.getServiceRouteId());
+                                addressMatch.setServiceRouteItemIdByProvince(item.getId());
                             }
                         }
                     }
@@ -370,15 +423,39 @@ public class PretTransOrderService extends BaseServiceImpl<PretTransOrderReposit
                 serviceRouteItemId = addressMatch.getServiceRouteItemIdByArea();
             } else if (!StringUtils.isEmpty(addressMatch.getServiceRouteItemIdByCity())) {
                 serviceRouteItemId = addressMatch.getServiceRouteItemIdByCity();
-            } else {
+            } else if (!StringUtils.isEmpty(addressMatch.getServiceRouteItemIdByCityLike())) {
+                serviceRouteItemId = addressMatch.getServiceRouteItemIdByCityLike();
+            } else if (!StringUtils.isEmpty(addressMatch.getServiceRouteItemIdByProvince())) {
                 serviceRouteItemId = addressMatch.getServiceRouteItemIdByProvince();
+            } else if (!StringUtils.isEmpty(addressMatch.getServiceRouteItemIdByProvinceLike())) {
+                serviceRouteItemId = addressMatch.getServiceRouteItemIdByProvinceLike();
             }
 
+            if (!StringUtils.isEmpty(venderId)) {
+                final String fVenderId = venderId;
+                for (PretTransOrder pretTransOrder : pretTransOrderList) {
+                    pretTransOrder.setVenderId(venderId);
+                    pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.已分配.getLabel());
+                    pretTransOrder.setServiceRouteItemId(serviceRouteItemId);
+                    new Thread(() -> pretTransOrderStatistics(ConstantEnum.ETransOrderStatisticsUserType.物流供应商.getLabel(), fVenderId));
+                }
+                this.repository.saveAll(pretTransOrderList);
+                PretTransOrderGroup pretTransOrderGroup = pretTransOrderGroupRepository.findById(pretTransOrderList.get(0).getTransOrderGroupId()).get();
+                pretTransOrderGroup.setVenderId(venderId);
+                pretTransOrderGroup.setStatus(ConstantEnum.ETransOrderStatus.已分配.getLabel());
+                pretTransOrderGroupRepository.save(pretTransOrderGroup);
+            }
+        } else {
+            final String fVenderId = venderId;
             for (PretTransOrder pretTransOrder : pretTransOrderList) {
-                pretTransOrder.setVenderId(venderId);
+                if (StringUtils.isEmpty(pretTransOrder.getVenderId())) {
+                    pretTransOrder.setVenderId(venderId);
+                }
+                if (StringUtils.isEmpty(pretTransOrder.getServiceRouteItemId())) {
+                    pretTransOrder.setServiceRouteItemId(serviceRouteItemId);
+                }
                 pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.已分配.getLabel());
-                pretTransOrder.setServiceRouteItemId(serviceRouteItemId);
-                this.pretTransOrderStatistics(ConstantEnum.ETransOrderStatisticsUserType.物流供应商.getLabel(), venderId);
+                new Thread(() -> pretTransOrderStatistics(ConstantEnum.ETransOrderStatisticsUserType.物流供应商.getLabel(), fVenderId));
             }
             this.repository.saveAll(pretTransOrderList);
             PretTransOrderGroup pretTransOrderGroup = pretTransOrderGroupRepository.findById(pretTransOrderList.get(0).getTransOrderGroupId()).get();

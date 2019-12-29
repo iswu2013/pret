@@ -16,7 +16,7 @@ import java.util.List;
  */
 @Data
 public class PretTransStatementVo extends PageFormVo implements Serializable {
-    private String eq$venderId;
+    private String eq$billToId;
     private long bw$createTimeLong;
     private long createTimeLongEnd;
     private int eq$status = -1;

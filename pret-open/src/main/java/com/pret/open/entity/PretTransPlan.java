@@ -254,6 +254,8 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
 
     private String salesId;
 
+    private String salesNm;
+
     /**
      * 销售员 u9 code
      */
@@ -290,6 +292,8 @@ public class PretTransPlan extends VersionedAuditableIdEntity implements Seriali
      * 客户地址所在大区(U9 Code)
      */
     private String destBigAreaCd;
+
+    private String deptName;
 
     /**
      * 实际提货日期

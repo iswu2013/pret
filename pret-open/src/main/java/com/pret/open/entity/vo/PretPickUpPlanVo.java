@@ -32,4 +32,20 @@ public class PretPickUpPlanVo extends PageFormVo implements Serializable {
     private String userId;
     private String l$tallyClerkIds;
     private String eq$ownFactoryCd;
+    private String l$no;
+    private String eq$serviceRouteOriginId;
+    private String noSorter;
+    private String noSorterType;
+    private String createTimeLongSorter;
+    private String createTimeLongSorterType;
+    private String pickUpTimeSorter;
+    private String pickUpTimeSorterType;
+    private String startTimeSorter;
+    private String startTimeSorterType;
+    private String endTimeSorter;
+    private String endTimeSorterType;
+    private String venderIdSorter;
+    private String venderIdSorterType;
+    private String serviceRouteOriginIdSorter;
+    private String serviceRouteOriginIdSorterType;
 }

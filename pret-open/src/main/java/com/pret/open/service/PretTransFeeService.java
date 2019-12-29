@@ -187,7 +187,7 @@ public class PretTransFeeService extends BaseServiceImpl<PretTransFeeRepository,
         MBToERPServiceSoap mbToERPServiceSoap = mbToERPService.getMBToERPServiceSoap();
         ArrayOfDTDoc arrayOfDTDoc = objectFactory.createArrayOfDTDoc();
         DTDoc dtDoc = new DTDoc();
-        dtDoc.setTransType(pretTransPlan.getTransModeCd());
+        dtDoc.setTransType(String.valueOf(pretTransPlan.getTransType()));
         PretVender pretVender = pretVenderRepository.findById(pretTransPlan.getVenderId()).get();
         dtDoc.setSupplier(pretVender.getCode());
         dtDoc.setMBDocNo(pretTransPlan.getNo());
@@ -214,36 +214,36 @@ public class PretTransFeeService extends BaseServiceImpl<PretTransFeeRepository,
         dtDoc.setDocType(String.valueOf(docType));
         dtDoc.setDTLines(arrayOfDTLines);
         arrayOfDTDoc.getDTDoc().add(dtDoc);
-        if (pretTransPlan.getTransType() == ConstantEnum.ETransType.测试数据.getLabel()) {
-            try {
-                RetMsg retMsg = mbToERPServiceSoap.createDeliveryTask(arrayOfDTDoc, null, null);
-                if (retMsg.getMessageType().equals("True")) {
-                    pretTransFee.setRevokeStatus(ConstantEnum.ERevokeStatus.成功.getLabel());
+//        if (pretTransPlan.getTransType() == ConstantEnum.ETransType.测试数据.getLabel()) {
+        try {
+            RetMsg retMsg = mbToERPServiceSoap.createDeliveryTask(arrayOfDTDoc, null, null);
+            if (retMsg.getMessageType().equals("True")) {
+                pretTransFee.setRevokeStatus(ConstantEnum.ERevokeStatus.成功.getLabel());
 
-                    // 添加一条记录
-                    PretTransRecord pretTransRecord = new PretTransRecord();
+                // 添加一条记录
+                PretTransRecord pretTransRecord = new PretTransRecord();
 
-                    pretTransRecord.setDescription(ConstantEnum.EPretTransRecordDescription.运单传ERP.name());
-                    pretTransRecord.setTransPlanId(bo.getId());
-                    pretTransRecord.setType(ConstantEnum.ETransOrderStatisticsUserType.系统.getLabel());
-                    pretTransRecord.setUsername(bo.getUsername());
-                    pretTransRecordRepository.save(pretTransRecord);
+                pretTransRecord.setDescription(ConstantEnum.EPretTransRecordDescription.运单传ERP.name());
+                pretTransRecord.setTransPlanId(bo.getId());
+                pretTransRecord.setType(ConstantEnum.ETransOrderStatisticsUserType.系统.getLabel());
+                pretTransRecord.setUsername(bo.getUsername());
+                pretTransRecordRepository.save(pretTransRecord);
 
-                    // 添加一条记录
-                    PretTransFeeRecord pretTransFeeRecord = new PretTransFeeRecord();
+                // 添加一条记录
+                PretTransFeeRecord pretTransFeeRecord = new PretTransFeeRecord();
 
-                    pretTransFeeRecord.setDescription(ConstantEnum.EPretTransFeeRecordDescription.费用转ERP.name());
-                    pretTransFeeRecord.setTransFeeId(pretTransFee.getId());
-                    pretTransFeeRecord.setType(ConstantEnum.ETransOrderStatisticsUserType.系统.getLabel());
-                    pretTransFeeRecord.setUsername(bo.getUsername());
-                    pretTransFeeRecordRepository.save(pretTransFeeRecord);
-                } else {
-                    pretTransFee.setRevokeStatus(ConstantEnum.ERevokeStatus.失败.getLabel());
-                }
-            } catch (Exception e) {
-
+                pretTransFeeRecord.setDescription(ConstantEnum.EPretTransFeeRecordDescription.费用转ERP.name());
+                pretTransFeeRecord.setTransFeeId(pretTransFee.getId());
+                pretTransFeeRecord.setType(ConstantEnum.ETransOrderStatisticsUserType.系统.getLabel());
+                pretTransFeeRecord.setUsername(bo.getUsername());
+                pretTransFeeRecordRepository.save(pretTransFeeRecord);
+            } else {
+                pretTransFee.setRevokeStatus(ConstantEnum.ERevokeStatus.失败.getLabel());
             }
+        } catch (Exception e) {
+
         }
+//        }
         this.repository.save(pretTransFee);
         pretTransPlan.setTransFeeId(pretTransFee.getId());
         pretTransPlanRepository.save(pretTransPlan);

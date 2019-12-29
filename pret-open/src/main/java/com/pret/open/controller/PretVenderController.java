@@ -10,8 +10,6 @@ import com.pret.common.util.BeanUtilsExtended;
 import com.pret.common.util.StringUtil;
 import com.pret.common.utils.MD5Util;
 import com.pret.open.entity.*;
-import com.pret.open.entity.bo.PretMTransOrderItemBo;
-import com.pret.open.entity.bo.PretServiceRouteBo;
 import com.pret.open.entity.user.Role;
 import com.pret.open.entity.user.User;
 import com.pret.open.entity.user.UserConfig;
@@ -33,7 +31,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.management.remote.rmi._RMIConnection_Stub;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -156,6 +153,8 @@ public class PretVenderController extends BaseManageController<PretVenderService
                     for (PretTransOrder pretTransOrder : pretTransOrderList) {
                         pretTransOrder.setTransOrderGroupId(item);
                         pretTransOrder.setVenderId(id);
+                        pretTransOrder.setTransModeCd(ConstantEnum.ETransModeCd.EX.name());
+                        pretTransOrder.setTransModeNm(ConstantEnum.ETransModeCd.EX.getLabel());
                         pretTransOrder.setStatus(ConstantEnum.ETransOrderStatus.已分配.getLabel());
                         pretTransOrderRepository.save(pretTransOrder);
                         pretTransOrderService.pretTransOrderStatistics(ConstantEnum.ETransOrderStatisticsUserType.物流供应商.getLabel(), pretTransOrder.getVenderId());

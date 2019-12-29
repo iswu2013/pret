@@ -68,4 +68,9 @@ public class PretMTransOrderItemBo {
      * 行号
      */
     private String lineNo;
+
+    /**
+     * 运输方式
+     */
+    private String transModeCd;
 }

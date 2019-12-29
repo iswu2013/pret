@@ -5,6 +5,8 @@ import com.pret.common.annotation.Log;
 import com.pret.common.constant.ConstantEnum;
 import com.pret.common.constant.Constants;
 import com.pret.common.exception.FebsException;
+import com.pret.common.util.SortConditionUtil;
+import com.pret.common.vo.SortCondition;
 import com.pret.open.entity.*;
 import com.pret.open.entity.bo.PretPickUpPlanBo;
 import com.pret.open.entity.bo.PretPickUpPlanModifyDriverBo;
@@ -27,6 +29,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,8 +55,54 @@ public class PretPickUpPlanController extends BaseManageController<PretPickUpPla
     @GetMapping
     @Override()
     public Map<String, Object> list(PretPickUpPlanVo request, PretPickUpPlan t) {
-        if(!StringUtils.isEmpty(request.getUserId())) {
+        if (!StringUtils.isEmpty(request.getUserId())) {
             request.setIn$deptId(userService.getDeptIdListByUserId(request.getUserId()));
+        }
+        List<SortCondition> sortConditionList = new ArrayList<>();
+        if (!StringUtils.isEmpty(request.getNoSorter())) {
+            SortCondition sortCondition = new SortCondition();
+            sortCondition.setProperty("no");
+            sortCondition.setDirection(request.getNoSorterType());
+            sortConditionList.add(sortCondition);
+        }
+        if (!StringUtils.isEmpty(request.getCreateTimeLongSorter())) {
+            SortCondition sortCondition = new SortCondition();
+            sortCondition.setProperty("createTimeLong");
+            sortCondition.setDirection(request.getCreateTimeLongSorterType());
+            sortConditionList.add(sortCondition);
+        }
+        if (!StringUtils.isEmpty(request.getPickUpTimeSorter())) {
+            SortCondition sortCondition = new SortCondition();
+            sortCondition.setProperty("pickUpTime");
+            sortCondition.setDirection(request.getPickUpTimeSorterType());
+            sortConditionList.add(sortCondition);
+        }
+        if (!StringUtils.isEmpty(request.getStartTimeSorter())) {
+            SortCondition sortCondition = new SortCondition();
+            sortCondition.setProperty("startTime");
+            sortCondition.setDirection(request.getStartTimeSorter());
+            sortConditionList.add(sortCondition);
+        }
+        if (!StringUtils.isEmpty(request.getEndTimeSorter())) {
+            SortCondition sortCondition = new SortCondition();
+            sortCondition.setProperty("endTime");
+            sortCondition.setDirection(request.getStartTimeSorter());
+            sortConditionList.add(sortCondition);
+        }
+        if (!StringUtils.isEmpty(request.getVenderIdSorter())) {
+            SortCondition sortCondition = new SortCondition();
+            sortCondition.setProperty("venderId");
+            sortCondition.setDirection(request.getVenderIdSorterType());
+            sortConditionList.add(sortCondition);
+        }
+        if (!StringUtils.isEmpty(request.getServiceRouteOriginIdSorter())) {
+            SortCondition sortCondition = new SortCondition();
+            sortCondition.setProperty("serviceRouteOriginId");
+            sortCondition.setDirection(request.getServiceRouteOriginIdSorterType());
+            sortConditionList.add(sortCondition);
+        }
+        if (sortConditionList.size() > 0) {
+            request.setSortConditions(sortConditionList);
         }
         Page<PretPickUpPlan> page = this.service.page(request);
         for (PretPickUpPlan pickUpPlan : page.getContent()) {

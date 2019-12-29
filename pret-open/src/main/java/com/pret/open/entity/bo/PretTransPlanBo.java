@@ -22,11 +22,6 @@ import java.util.Date;
 @Data
 public class PretTransPlanBo {
     /**
-     * 订单id
-     */
-    private String ids;
-
-    /**
      * 提货计划ids
      */
     private String pickUpIds;

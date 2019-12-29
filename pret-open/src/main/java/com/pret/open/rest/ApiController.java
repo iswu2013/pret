@@ -3,14 +3,13 @@ package com.pret.open.rest;
 import com.google.common.base.Joiner;
 import com.pret.api.rest.BaseController;
 import com.pret.api.vo.ResBody;
+import com.pret.common.constant.ConstantEnum;
 import com.pret.common.exception.FebsException;
 import com.pret.common.utils.FileStringUtil;
-import com.pret.open.entity.PretTransOrder;
-import com.pret.open.entity.PretTransPlan;
+import com.pret.open.entity.*;
 import com.pret.open.entity.bo.PretTransPlanBo;
 import com.pret.open.entity.bo.PretTransPlanSignBo;
-import com.pret.open.repository.PretTransOrderRepository;
-import com.pret.open.repository.PretTransPlanRepository;
+import com.pret.open.repository.*;
 import com.pret.open.service.PretTransPlanService;
 import com.pret.open.service.handler.InterfaceConfig;
 import org.apache.commons.lang3.StringUtils;
@@ -47,6 +46,12 @@ public class ApiController extends BaseController {
     private PretTransOrderRepository pretTransOrderRepository;
     @Autowired
     private PretTransPlanRepository pretTransPlanRepository;
+    @Autowired
+    private PretRouteRepository pretRouteRepository;
+    @Autowired
+    private PretVenderRepository pretVenderRepository;
+    @Autowired
+    private PretTransRecordRepository pretTransRecordRepository;
 
     static {
         /**
@@ -98,11 +103,9 @@ public class ApiController extends BaseController {
                         pickUpList.add(pretTransOrder.getPickUpPlanId());
                     }
                 }
-                bo.setIds(ids);
                 bo.setPickUpIds(Joiner.on(",").join(pickUpList));
-                pretTransPlanService.pretTransPlanAdd(bo);
-            }
-            if (remark.equals("80")) {
+                pretTransPlanService.pretTransPlanAdd(bo, true);
+            } else if (remark.equals("80")) {
                 PretTransPlan pretTransPlan = pretTransPlanRepository.findByMailno(result.getBody().getWaybillRoute().getMailno());
                 PretTransPlanSignBo bo = new PretTransPlanSignBo();
                 try {
@@ -113,6 +116,19 @@ public class ApiController extends BaseController {
                 } catch (FebsException e) {
                     e.printStackTrace();
                 }
+            } else {
+                PretTransPlan pretTransPlan = pretTransPlanRepository.findByMailno(result.getBody().getWaybillRoute().getMailno());
+
+                PretVender pretVender = pretVenderRepository.findById(pretTransPlan.getVenderId()).get();
+
+                PretTransRecord pretTransRecord = new PretTransRecord();
+
+                pretTransRecord.setDescription(result.getBody().getWaybillRoute().getAcceptTime() + result.getBody().getWaybillRoute().getAcceptAddress() + result.getBody().getWaybillRoute().getRemark());
+                pretTransRecord.setTransPlanId(pretTransPlan.getId());
+                pretTransRecord.setType(ConstantEnum.ETransOrderStatisticsUserType.顺丰.getLabel());
+                pretTransRecord.setUsername(pretVender.getName());
+
+                pretTransRecordRepository.save(pretTransRecord);
             }
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();

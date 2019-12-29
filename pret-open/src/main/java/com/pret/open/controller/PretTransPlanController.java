@@ -3,6 +3,7 @@ package com.pret.open.controller;
 import com.pret.api.rest.BaseManageController;
 import com.pret.common.annotation.Log;
 import com.pret.common.constant.ConstantEnum;
+import com.pret.common.constant.Constants;
 import com.pret.common.exception.FebsException;
 import com.pret.common.util.StringUtil;
 import com.pret.open.entity.*;
@@ -20,6 +21,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,6 +57,10 @@ public class PretTransPlanController extends BaseManageController<PretTransPlanS
     public Map<String, Object> list(PretTransPlanVo request, PretTransPlan t) {
         if (!StringUtils.isEmpty(request.getUserId())) {
             request.setIn$deptId(userService.getDeptIdListByUserId(request.getUserId()));
+        }
+        if (request.getTransDatetimeLongEnd() > 0) {
+            request.setBw$transDatetime(Constants.df2.format(new Date(request.getTransDatetimeLong())));
+            request.setTransDatetimeEnd(Constants.df2.format(new Date(request.getTransDatetimeLongEnd())));
         }
         Page<PretTransPlan> page = this.service.page(request);
         for (PretTransPlan transPlan : page.getContent()) {
@@ -114,7 +120,7 @@ public class PretTransPlanController extends BaseManageController<PretTransPlanS
     @PostMapping("/pretTransPlanAdd")
     public void pretTransPlanAdd(PretTransPlanBo bo) throws FebsException {
         try {
-            this.service.pretTransPlanAdd(bo);
+            this.service.pretTransPlanAdd(bo, false);
         } catch (Exception e) {
             message = "生成运输计划失败";
             throw new FebsException(message);

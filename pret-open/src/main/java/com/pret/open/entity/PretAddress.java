@@ -71,9 +71,27 @@ public class PretAddress extends VersionedAuditableIdEntity implements Serializa
     /**
      * 是否是add的(0不是1是)，针对全省，全市的情况
      */
-    private Integer adds;
+    private Integer adds=0;
 
     private List<PretAddress> children;
+
+    @Transient()
+    public String getIds() {
+        return ids;
+    }
+
+    public void setIds(String ids) {
+        this.ids = ids;
+    }
+
+    @Transient()
+    public Integer getPrescription() {
+        return prescription;
+    }
+
+    public void setPrescription(Integer prescription) {
+        this.prescription = prescription;
+    }
 
     // setter and getter
 

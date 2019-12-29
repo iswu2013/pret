@@ -4,12 +4,20 @@ import com.pret.common.constant.ConstantEnum;
 import com.pret.common.constant.Constants;
 import com.pret.open.entity.*;
 import com.pret.open.repository.*;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
-import java.util.List;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.util.*;
 
 /**
  * @author wujingsong
@@ -114,7 +122,7 @@ public class ScheduleService {
                     PretAddress pretAddress = new PretAddress();
                     pretAddress.setValue(pretBaseProvince.getCode());
                     pretAddress.setId(pretBaseProvince.getId());
-                    pretAddress.setIds(pretBaseProvince.getId());
+                    //pretAddress.setIds(pretBaseProvince.getId());
                     pretAddress.setName(pretBaseProvinceTrl.getName());
                     pretAddress.setLevels(ConstantEnum.AreaLevelEnum.省.getLabel());
                     pretAddress.setAdds(0);
@@ -126,7 +134,7 @@ public class ScheduleService {
                         pretAddress = new PretAddress();
                         pretAddress.setValue(pretBaseCity.getCode());
                         pretAddress.setId(pretBaseCity.getId());
-                        pretAddress.setIds(pretBaseCity.getId());
+                        //pretAddress.setIds(pretBaseCity.getId());
                         pretAddress.setName(pretBaseCityTrl.getName());
                         pretAddress.setLevels(ConstantEnum.AreaLevelEnum.市.getLabel());
                         pretAddress.setParentName(pretBaseProvinceTrl.getName());
@@ -140,7 +148,7 @@ public class ScheduleService {
                             pretAddress = new PretAddress();
                             pretAddress.setValue(pretBaseCounty.getCode());
                             pretAddress.setId(pretBaseCounty.getId());
-                            pretAddress.setIds(pretBaseCounty.getId());
+                           // pretAddress.setIds(pretBaseCounty.getId());
                             pretAddress.setName(pretBaseCountyTrl.getName());
                             pretAddress.setLevels(ConstantEnum.AreaLevelEnum.区县.getLabel());
                             pretAddress.setParentName(pretBaseCityTrl.getName());
@@ -153,6 +161,134 @@ public class ScheduleService {
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+    //@Scheduled(cron = "0 */1 * * * ?")
+    public void inportData() {
+        if (!hasExecute) {
+            this.hasExecute = true;
+            Map<String, List<String>> map = new HashMap<>();
+            try {
+                String filePath = "/Users/wujingsong/IdeaProjects/pret/pret-open/src/main/resources/p.xlsx";
+                List<PretAddress> provinceList = new ArrayList<>();
+                List<PretAddress> cityList = new ArrayList<>();
+                List<PretAddress> areaList = new ArrayList<>();
+
+                InputStream is = new FileInputStream(filePath);
+
+                int index = filePath.lastIndexOf(".");
+                String postfix = filePath.substring(index + 1);
+
+                Workbook workbook = null;
+                if ("xls".equals(postfix)) {
+                    workbook = new HSSFWorkbook(is);
+                } else if ("xlsx".equals(postfix)) {
+                    workbook = new XSSFWorkbook(is);
+                }
+                //获取第1张表
+                Sheet sheet = workbook.getSheetAt(1);
+                //总的行数
+                int rows = sheet.getLastRowNum();
+                //总的列数--->最后一列为null则有问题，读取不完整，将表头的数目作为总的列数，没有的则补为null
+                //先列后行
+                for (int i = 1; i <= rows; i++) {
+                    Row row = sheet.getRow(i);
+                    if (null != row && row.getFirstCellNum() == -1) {//这一行是空行，不读取
+                        continue;
+                    }
+
+                    String type = row.getCell(3).getStringCellValue();
+                    if (type.equals("zh-CN")) {
+                        PretAddress pretAddress = new PretAddress();
+                        pretAddress.setLevels(ConstantEnum.AreaLevelEnum.省.getLabel());
+                        if (row.getCell(0) != null) {
+                            pretAddress.setId(row.getCell(0).getStringCellValue());
+                        }
+                        if (row.getCell(1) != null) {
+                            pretAddress.setValue(row.getCell(1).getStringCellValue());
+                        }
+                        if (row.getCell(4) != null) {
+                            pretAddress.setName(row.getCell(4).getStringCellValue());
+                        }
+                        provinceList.add(pretAddress);
+                    }
+                }
+                pretAddressRepository.saveAll(provinceList);
+
+                //获取第2张表
+                Sheet sheet2 = workbook.getSheetAt(2);
+                //总的行数
+                rows = sheet2.getLastRowNum();
+                //总的列数--->最后一列为null则有问题，读取不完整，将表头的数目作为总的列数，没有的则补为null
+                //先列后行
+                for (int i = 1; i <= rows; i++) {
+                    Row row = sheet2.getRow(i);
+                    if (null != row && row.getFirstCellNum() == -1) {//这一行是空行，不读取
+                        continue;
+                    }
+
+                    String type = row.getCell(2).getStringCellValue();
+                    if (type.equals("zh-CN")) {
+                        PretAddress pretAddress = new PretAddress();
+                        pretAddress.setLevels(ConstantEnum.AreaLevelEnum.市.getLabel());
+                        if (row.getCell(0) != null) {
+                            pretAddress.setId(row.getCell(0).getStringCellValue());
+                        }
+                        if (row.getCell(1) != null) {
+                            pretAddress.setValue(row.getCell(1).getStringCellValue());
+                        }
+                        if (row.getCell(3) != null) {
+                            pretAddress.setName(row.getCell(3).getStringCellValue());
+                        }
+                        if (row.getCell(4) != null) {
+                            pretAddress.setParentId(row.getCell(4).getStringCellValue());
+                        }
+                        cityList.add(pretAddress);
+                    }
+
+                }
+                System.out.println("城市");
+                pretAddressRepository.saveAll(cityList);
+
+                Sheet sheet3 = workbook.getSheetAt(3);
+                //总的行数
+                rows = sheet3.getLastRowNum();
+                //总的列数--->最后一列为null则有问题，读取不完整，将表头的数目作为总的列数，没有的则补为null
+                //先列后行
+                for (int i = 1; i <= rows; i++) {
+                    Row row = sheet3.getRow(i);
+                    if (null != row && row.getFirstCellNum() == -1) {//这一行是空行，不读取
+                        continue;
+                    }
+                    String type = row.getCell(2).getStringCellValue();
+                    if (type.equals("zh-CN")) {
+                        PretAddress pretAddress = new PretAddress();
+                        pretAddress.setLevels(ConstantEnum.AreaLevelEnum.区县.getLabel());
+                        if (row.getCell(0) != null) {
+                            pretAddress.setId(row.getCell(0).getStringCellValue());
+                        }
+                        if (row.getCell(1) != null) {
+                            pretAddress.setValue(row.getCell(1).getStringCellValue());
+                        }
+                        if (row.getCell(3) != null) {
+                            pretAddress.setName(row.getCell(3).getStringCellValue());
+                        }
+                        if (row.getCell(4) != null) {
+                            pretAddress.setParentId(row.getCell(4).getStringCellValue());
+                        }
+
+                        areaList.add(pretAddress);
+                    }
+                }
+                System.out.println("区县");
+                pretAddressRepository.saveAll(areaList);
+
+                //遍历map集合，封装成bean
+                is.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 }
